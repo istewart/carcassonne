@@ -15,21 +15,13 @@
   </head>
   
   <body>
-    <h1>Carcassonne</h1>
+    <h1>Host</h1>
 
-    <form action="/host">
-      <input type="submit" value="Host" class="menubutton">
+    <form action="/launch">
+      <textarea id="name" class="hostfield" rows="1" placeholder="Game Name"></textarea></br>
+      <textarea id="ip" class="hostfield" rows="1" placeholder="I.P. Address"></textarea></br>
+      <input type="submit" value="Start" class="hoststart">
     </form>
-    <form action="/join">
-      <input type="submit" value="Join" class="menubutton">
-    </form>
-    <form action="/settings">
-      <input type="submit" value="Settings" class="menubutton">
-    </form>
-    <form action="/help">
-      <input type="submit" value="Help" class="menubutton">
-    </form>
-
 
   </body>
 </html>
