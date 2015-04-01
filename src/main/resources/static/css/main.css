@@ -167,7 +167,7 @@ input.hoststart {
     overflow: hidden;
 }
 
-#menudiv, #hostdiv, #joindiv {
+#main_wrap, #hostdiv, #joindiv {
   display: none;
 }
 
