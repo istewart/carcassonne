@@ -9,34 +9,34 @@
     <!-- <link rel="stylesheet" href="../../../static/css/menu.css"> -->
     <link href="http://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" type="text/css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <!-- // <script src="js/main.js"></script> -->
+    <script src="../../../static/js/carcassonne.js"></script>
     
     <title>${title}</title>
   </head>
   
   <body>
     
-    <div id="main_wrap">
+    <div id="mainDiv">
 
       <div id="sidebar">
         <canvas id="tileCanvas"></canvas>
         <div>
           <form action="/left" class="placeform">
-            <input type="submit" value="Left" class="placebutton">
+            <input type="submit" value="Left" class="placeButton">
           </form>
           <form action="/place" class="placeform">
-            <input type="submit" value="Place" class="placebutton">
+            <input type="submit" value="Place" class="placeButton">
           </form>
           <form action="/right" class="placeform">
-            <input type="submit" value="Right" class="placebutton">
+            <input type="submit" value="Right" class="placeButton">
           </form>
         </div>
 
         <form class="players">
-          <textarea id="playerOne" class="playerbox" readonly></textarea></br>
-          <textarea id="playerTwo" class="playerbox" readonly></textarea></br>
-          <textarea id="playerThree" class="playerbox" readonly></textarea></br>
-          <textarea id="playerFour" class="playerbox" readonly></textarea></br>
+          <textarea id="playerOne" class="playerBox" readonly></textarea></br>
+          <textarea id="playerTwo" class="playerBox" readonly></textarea></br>
+          <textarea id="playerThree" class="playerBox" readonly></textarea></br>
+          <textarea id="playerFour" class="playerBox" readonly></textarea></br>
         </form>
 
       </div>
@@ -46,44 +46,32 @@
       </div>
     </div>
 
-    <div id="menudiv">
+    <div id="menuDiv">
       <h1>Carcassonne</h1>
 
-      <form action="/host">
-        <input type="submit" value="Host" class="menubutton">
-      </form>
-      <form action="/join">
-        <input type="submit" value="Join" class="menubutton">
-      </form>
-      <form action="/settings">
-        <input type="submit" value="Settings" class="menubutton">
-      </form>
-      <form action="/help">
-        <input type="submit" value="Help" class="menubutton">
-      </form>
+      <button class="menubutton" id="hostButton"> Host </button></br>
+      <button class="menubutton" id="joinButton"> Join </button></br>
+      <button class="menubutton" id="settingsButton"> Settings </button></br>
+      <button class="menubutton" id="helpButton"> Help </button></br>
 
     </div>
 
-    <div id="joindiv">
-      <h1>Join</h1>
-
-      <form action="/connect">
-        <textarea id="name" class="hostfield" rows="1" placeholder="Your Name"></textarea></br>
-        <textarea id="ip" class="hostfield" rows="1" placeholder="Host I.P. Address"></textarea></br>
-        <input type="submit" value="Join" class="hoststart">
-      </form>
-
-    </div>
-
-    <div id="hostdiv">
+    <div id="hostDiv">
       <h1>Host</h1>
 
-      <form action="/launch">
-        <textarea id="name" class="hostfield" rows="1" placeholder="Game Name"></textarea></br>
-        <textarea id="ip" class="hostfield" rows="1" placeholder="Your I.P. Address"></textarea></br>
-        <input type="submit" value="Start" class="hoststart">
-      </form>
+      <textarea id="hostName" class="hostField" rows="1" placeholder="Game Name"></textarea></br>
+      <textarea id="hostIP" class="hostField" rows="1" placeholder="Your I.P. Address"></textarea></br>
+      <button class="submitButton" id="hostStart"> Start </button>
     
+    </div>
+
+    <div id="joinDiv">
+      <h1>Join</h1>
+
+      <textarea id="joinName" class="hostField" rows="1" placeholder="Your Name"></textarea></br>
+      <textarea id="joinIP" class="hostField" rows="1" placeholder="Host I.P. Address"></textarea></br>
+      <button class="submitButton" id="joinJoin"> Start </button>
+
     </div>
 
   </body>
