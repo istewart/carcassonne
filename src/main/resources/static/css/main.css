@@ -7,6 +7,8 @@ body {
     text-align: center;
 }
 
+/* Probably all of the stuff should be on just one page in different divs with JS show hide used as needed */
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -163,6 +165,10 @@ input.hoststart {
     border-radius: 15px;
     resize: none;
     overflow: hidden;
+}
+
+#menudiv, #hostdiv, #joindiv {
+  display: none;
 }
 
 /*form.players {

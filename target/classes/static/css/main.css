@@ -1,10 +1,16 @@
 body {
     color: #222;
     background-color: white;
-    padding: 60pt;
+    padding: 35pt;
     font: 12pt 'Merienda One';
     line-height: 120%;
     text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 
 h1 {
@@ -30,32 +36,174 @@ h3 {
   padding: 10px;
 }
 
-textarea.searchbar {
-	margin-bottom: 5px;
-	margin-top: 5px;
-	padding: 8px;
-	-webkit-border-radius: 15px;
+textarea:focus {
+	outline: none;
+}
+
+input.menubutton {
+    width: 18em;  
+    height: 4em;
+    padding: -5px;
+    margin: 10px;
+    border: 1px solid #444;
+    font: 18pt 'Merienda One';
+    color: #e8e8e8;
+    background-color: #222222;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    resize: none;
+    overflow: hidden;
+}
+
+#sidebar {
+    background:#222222;
+    float: right;
+    /*display: table-cell;*/
+    width: 30%;
+    height: 100%;
+    position: relative;
+    border:2px solid #000000;
+    border-left: none;
+}
+
+#content {
+    background:#e8e8e8;
+    /*display: table-cell;*/
+    width: 70%;
+    height: 100%;
+    position: relative;
+    border:2px solid #000000;
+    /*min-width: 800px;*/
+}
+
+#mainCanvas {
+    /*position:absolute;*/
+    width: 100%;
+    height: auto;
+}
+
+#tileCanvas {
+    /*position:absolute;*/
+    width: 100%;
+    height: 200px;
+}
+
+form.placeform {
+  display: inline;
+}
+
+input.placebutton {
+  width: 4em;  
+  height: 2em;
+  padding: 5px;
+  margin: 5px;
+  margin-top: .5em;
+  margin-bottom: .5em;
+  border:1px solid #222;
+  font: 12pt 'Merienda One';
+  background-color: #e8e8e8
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  border:1px solid #888;
+}
+
+textarea.playerbox {
+  padding: 2px;
+  /*-webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;*/
+  resize: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 100%;
+  border:1px solid #444;
+  background-color: #e8e8e8;
+  /*display: none;*/
+}
+
+#main_wrap { 
+  height: 50em; 
+}
+
+textarea.hostfield {
+  padding: .5em;
+  margin: 1em;
+  width: 30%;
+  color: #222222;
+  background-color: #e8e8e8;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  resize: none;
+  overflow: hidden;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid #222222;
+  font: 12pt 'Merienda One';
+}
+
+input.hoststart {
+    width: 30%;  
+    height: 3em;
+    margin: .5em;
+    border: 1px solid #444;
+    font: 18pt 'Merienda One';
+    color: #e8e8e8;
+    background-color: #222222;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    resize: none;
+    overflow: hidden;
+}
+
+/*form.players {
+  margin-top: .5em;
+}*/
+
+/*input {
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    resize: none;
+    border:1px solid #888;
+    overflow: hidden;
+}*/
+
+/*textarea.searchbar {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 8px;
+  -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
     resize: none;
     border:1.5px solid #333;
-	color:#444;
-	overflow: hidden;
-	display: inline;
+  color:#444;
+  overflow: hidden;
+  display: inline;
 }
 
 textarea.sbox {
-	padding: 8px;
-	-webkit-border-radius: 5px;
+  padding: 8px;
+  -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     resize: none;
     -moz-user-select: none;
-  	-khtml-user-select: none;
-  	-webkit-user-select: none;
-  	-ms-user-select: none;
-  	user-select: none;
-  	display: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: none;
 }
 
 textarea.ebox {
@@ -70,17 +218,4 @@ textarea.ebox {
     -ms-user-select: none;
     user-select: none;
     display: none;
-}
-
-textarea:focus {
-	outline: none;
-}
-
-input {
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    resize: none;
-    border:1px solid #888;
-	  overflow: hidden;
-}
+}*/
