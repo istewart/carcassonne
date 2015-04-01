@@ -44,9 +44,47 @@
       <div id="content">
         <canvas id="mainCanvas"></canvas>
       </div>
+    </div>
+
+    <div id="menudiv">
+      <h1>Carcassonne</h1>
+
+      <form action="/host">
+        <input type="submit" value="Host" class="menubutton">
+      </form>
+      <form action="/join">
+        <input type="submit" value="Join" class="menubutton">
+      </form>
+      <form action="/settings">
+        <input type="submit" value="Settings" class="menubutton">
+      </form>
+      <form action="/help">
+        <input type="submit" value="Help" class="menubutton">
+      </form>
 
     </div>
 
+    <div id="joindiv">
+      <h1>Join</h1>
+
+      <form action="/connect">
+        <textarea id="name" class="hostfield" rows="1" placeholder="Your Name"></textarea></br>
+        <textarea id="ip" class="hostfield" rows="1" placeholder="Host I.P. Address"></textarea></br>
+        <input type="submit" value="Join" class="hoststart">
+      </form>
+
+    </div>
+
+    <div id="hostdiv">
+      <h1>Host</h1>
+
+      <form action="/launch">
+        <textarea id="name" class="hostfield" rows="1" placeholder="Game Name"></textarea></br>
+        <textarea id="ip" class="hostfield" rows="1" placeholder="Your I.P. Address"></textarea></br>
+        <input type="submit" value="Start" class="hoststart">
+      </form>
+    
+    </div>
 
   </body>
 </html>
