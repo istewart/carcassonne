@@ -1,31 +1,16 @@
 package edu.brown.cs.scij.tile;
 
-import edu.brown.cs.scij.game.Meeple;
+/**
+ * Center is an object that keeps track of the center element of a tile. It
+ * contains an Enum describing what type of center is part of the tile, and the
+ * meeple that is on it, if there is one.
+ * 
+ * @author scij
+ *
+ */
+public class Center extends TileFeature {
 
-public class Center {
-  private final CenterFeature feature;
-  private final boolean isMeepleable;
-  private Meeple meeple;
-
-  public Center(CenterFeature feature, boolean isMeepleable) {
-    this.feature = feature;
-    this.isMeepleable = isMeepleable;
-    this.meeple = null;
-  }
-
-  public Meeple getMeeple() {
-    return meeple;
-  }
-
-  public boolean getIsMeeplable() {
-    return isMeepleable;
-  }
-
-  public CenterFeature getFeature() {
-    return feature;
-  }
-
-  public void setMeeple(Meeple m) {
-    this.meeple = m;
+  public Center(Feature feature, boolean isMeepleable) {
+    super(feature, isMeepleable);
   }
 }

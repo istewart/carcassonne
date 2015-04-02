@@ -1,5 +1,6 @@
 package edu.brown.cs.scij.tile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.brown.cs.scij.game.Board;
@@ -83,18 +84,41 @@ public class Tile {
   }
 
   public Tile rotateLeft() {
-    // TODO rotate left
-    return null;
+    Edge tmptop = top;
+    top = right;
+    right = bottom;
+    bottom = left;
+    left = tmptop;
+    return this;
   }
 
   public Tile rotateRight() {
-    // TODO rotate right
-    return null;
+    Edge tmptop = top;
+    top = left;
+    left = bottom;
+    bottom = right;
+    right = tmptop;
+    return this;
   }
 
-  public List<Feature> validMeeple(Board board) {
-    // TODO
-    return null;
+  public List<TileFeature> validMeeples(Board board) {
+    List<TileFeature> meepleableLocations = new ArrayList<>();
+    if (top.isMeepleable) {
+      meepleableLocations.add(top);
+    }
+    if (left.isMeepleable) {
+      meepleableLocations.add(left);
+    }
+    if (right.isMeepleable) {
+      meepleableLocations.add(right);
+    }
+    if (bottom.isMeepleable) {
+      meepleableLocations.add(bottom);
+    }
+    if (center.isMeepleable) {
+      meepleableLocations.add(center);
+    }
+    return meepleableLocations;
   }
 
   /*
