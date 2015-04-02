@@ -19,17 +19,12 @@
     <div id="mainDiv">
 
       <div id="sidebar">
-        <canvas id="tileCanvas"></canvas>
+        <!-- <canvas id="tileCanvas"></canvas> -->
+        <img src="" id="tileImage">
         <div>
-          <form action="/left" class="placeform">
-            <input type="submit" value="Left" class="placeButton">
-          </form>
-          <form action="/place" class="placeform">
-            <input type="submit" value="Place" class="placeButton">
-          </form>
-          <form action="/right" class="placeform">
-            <input type="submit" value="Right" class="placeButton">
-          </form>
+            <button id="mainLeft" class="placeButton"> Left </button>
+            <button id="mainPlace" class="placeButton"> Place </button>
+            <button id="mainRight" class="placeButton"> Right </button>
         </div>
 
         <form class="players">
@@ -72,6 +67,10 @@
       <textarea id="joinIP" class="hostField" rows="1" placeholder="Host I.P. Address"></textarea></br>
       <button class="submitButton" id="joinJoin"> Start </button>
 
+    </div>
+
+    <div id = "tileDiv">
+      <img src="../../../static/images/tiles/test.png" id="test">
     </div>
 
   </body>
