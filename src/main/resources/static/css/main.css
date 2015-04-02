@@ -53,7 +53,7 @@ button.menubutton {
     border-left: none;
 }
 
-#content {
+#contentDiv {
     background:#e8e8e8;
     /*display: table-cell;*/
     width: 70%;

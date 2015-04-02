@@ -1,3 +1,5 @@
+ TILE_SIZE = 50;
+
  $(document).ready(function() {
 
     console.log("Script started!");
@@ -38,7 +40,7 @@
       });
     };
 
-    Renderer.prototype.renderTile = function() {
+    Renderer.prototype.renderTile = function(scale, xt, yt) {
       var currImage = document.getElementById(this.currTile.id);
       var tileImage = document.getElementById("tileImage");
 
@@ -51,8 +53,37 @@
       // ctx.drawImage(tileImage, 0, 0);
     };
 
-    Renderer.prototype.renderBoard = function() {
-      // body...
+    Renderer.prototype.renderBoard = function() { // still very much a work in progress
+      var mainCanvas = document.getElementById("mainCanvas");
+      var ctx = mainCanvas.getContext("2d");
+
+      var tileMap = board.board;
+
+      var canvasHeight = $("#mainCanvas").height();
+      var canvasWidth = $("#mainCanvas").width();
+      var centerY = (canvasHeight / 2) + yt * TILE_SIZE * scale;
+      var centerX = (canvasWidth / 2) + xt * TILE_SIZE * scale;
+
+      for (var i = 0; i < tileMap.length; i++) {
+        var currPair = tileMap[i];
+
+        var xCord = currPair.x;
+        var yCord = currPair.y;
+
+        var targetY = centerY + yCord * TILE_SIZE * scale;
+        var targetX = centerY + yCord * TILE_SIZE * scale;
+
+        var targetSize = TILE_SIZE * scale;
+
+        var tileObj = currPair.tile;
+        var targetImg = document.getElementById(tileObj.id);
+
+        var targetRadians = tileObj.rotation * Math.PI / 180;
+
+        ctx.rotate(targetRadians);
+        ctx.drawImage(targetImg, targetX, targetY, targetSize, targetSize);
+        ctx.rotate(-targetRadians);
+      }
     };
 
     Renderer.prototype.renderMoves = function() {
