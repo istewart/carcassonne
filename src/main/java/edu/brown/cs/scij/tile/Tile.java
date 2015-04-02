@@ -6,17 +6,45 @@ import java.util.List;
 import edu.brown.cs.scij.game.Board;
 
 public class Tile {
-  private Center center;
+  static int numTiles = 0;
+  private final Center center;
   private Edge top;
   private Edge bottom;
   private Edge left;
   private Edge right;
   private int id;
-  private int rotation;
-  private boolean shield;
+  private final int shield;
+  private int rotation = 0;
+  private int numRoads;
 
-  public Tile() {
+  public Tile(Center center, Edge top, Edge right, Edge bottom, Edge left,
+      int shield) {
+    this.center = center;
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+    this.left = left;
+    this.shield = shield;
+    this.id = numTiles;
+    numTiles++;
+    setNumRoads();
+  }
 
+  private void setNumRoads() {
+    int roads = 0;
+    if (top.getFeature() == Feature.ROAD) {
+      roads++;
+    }
+    if (right.getFeature() == Feature.ROAD) {
+      roads++;
+    }
+    if (bottom.getFeature() == Feature.ROAD) {
+      roads++;
+    }
+    if (left.getFeature() == Feature.ROAD) {
+      roads++;
+    }
+    numRoads = roads;
   }
 
   public Edge getTop() {
@@ -27,40 +55,20 @@ public class Tile {
     return center;
   }
 
-  public void setCenter(Center center) {
-    this.center = center;
-  }
-
   public Edge getBottom() {
     return bottom;
-  }
-
-  public void setBottom(Edge bottom) {
-    this.bottom = bottom;
   }
 
   public Edge getLeft() {
     return left;
   }
 
-  public void setLeft(Edge left) {
-    this.left = left;
-  }
-
   public Edge getRight() {
     return right;
   }
 
-  public void setRight(Edge right) {
-    this.right = right;
-  }
-
   public int getId() {
     return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
   }
 
   public int getRotation() {
@@ -71,16 +79,22 @@ public class Tile {
     this.rotation = rotation;
   }
 
-  public boolean isShield() {
+  public int getShield() {
     return shield;
   }
 
-  public void setShield(boolean shield) {
-    this.shield = shield;
-  }
-
-  public void setTop(Edge top) {
-    this.top = top;
+  public boolean roadEnds() {
+    /*
+    if (center.getFeature() == Feature.ENDPOINT
+        || center.getFeature() == Feature.MONASTERY ) {
+      return true;
+    }
+    return false;
+    */
+    if (numRoads == 2) {
+      return false;
+    }
+    return true;
   }
 
   public Tile rotateLeft() {
@@ -103,24 +117,48 @@ public class Tile {
 
   public List<TileFeature> validMeeples(Board board) {
     List<TileFeature> meepleableLocations = new ArrayList<>();
-    if (top.isMeepleable) {
+    if (top.isMeeplable) {
       meepleableLocations.add(top);
     }
-    if (left.isMeepleable) {
+    if (left.isMeeplable) {
       meepleableLocations.add(left);
     }
-    if (right.isMeepleable) {
+    if (right.isMeeplable) {
       meepleableLocations.add(right);
     }
-    if (bottom.isMeepleable) {
+    if (bottom.isMeeplable) {
       meepleableLocations.add(bottom);
     }
-    if (center.isMeepleable) {
+    if (center.isMeeplable) {
       meepleableLocations.add(center);
     }
     return meepleableLocations;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null) {
+      return false;
+    }
+    if (!(o instanceof Tile)) {
+      return false;
+    }
+
+    Tile t = (Tile) o;
+
+    if (center.equals(t.getCenter()) && top.equals(t.getTop())
+        && right.equals(t.getRight()) && bottom.equals(t.getBottom())
+        && left.equals(t.getLeft()) && shield == t.getShield()
+        && id == t.getId()) {
+      return true;
+    }
+    return false;
+    // TODO SHOULD WE ONLY HAVE TO CHECK EQUALITY BASED ON ID? OR SHOULD WE NOT
+    // CHECK EQUALITY BASED ON ID AT ALL BECAUSE OF DUPLICATES?
+  }
   /*
    * SHOULD FEATURE BE AN INTERFACE AND
    * CENTER AND EDGE BE ABSTRACT CLASSES/INTERFACES

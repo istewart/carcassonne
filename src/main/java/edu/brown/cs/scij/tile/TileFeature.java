@@ -2,14 +2,14 @@ package edu.brown.cs.scij.tile;
 
 import edu.brown.cs.scij.game.Meeple;
 
-abstract class TileFeature{
+abstract class TileFeature {
   protected final Feature feature;
-  protected final boolean isMeepleable;
+  protected boolean isMeeplable;
   protected Meeple meeple;
 
-  public TileFeature(Feature feature, boolean isMeepleable) {
+  public TileFeature(Feature feature) {
     this.feature = feature;
-    this.isMeepleable = isMeepleable;
+    setIsMeeplable(feature);
     this.meeple = null;
   }
 
@@ -18,7 +18,7 @@ abstract class TileFeature{
   }
 
   public boolean getIsMeeplable() {
-    return isMeepleable;
+    return isMeeplable;
   }
 
   public Feature getFeature() {
@@ -27,5 +27,13 @@ abstract class TileFeature{
 
   public void setMeeple(Meeple m) {
     this.meeple = m;
+  }
+
+  private void setIsMeeplable(Feature feature) {
+    if (feature == Feature.ENDPOINT || feature == Feature.RIVER) {
+      isMeeplable = false;
+    } else {
+      isMeeplable = true;
+    }
   }
 }

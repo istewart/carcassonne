@@ -10,7 +10,51 @@ package edu.brown.cs.scij.tile;
  */
 public class Center extends TileFeature {
 
-  public Center(Feature feature, boolean isMeepleable) {
-    super(feature, isMeepleable);
+  public Center(Feature feature) {
+    super(feature);
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    int fromFeature = 0;
+    int fromMeeple = 0;
+    if (feature != null) {
+      fromFeature = feature.hashCode();
+    }
+    if (meeple != null) {
+      fromMeeple = meeple.hashCode();
+    }
+
+    result = prime * result + fromFeature;
+    result = prime * result + fromMeeple;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (!(obj instanceof Center)) {
+      return false;
+    }
+    Center other = (Center) obj;
+    if (feature != other.feature) {
+      return false;
+    }
+    if (meeple == null) {
+      if (other.meeple != null) {
+        return false;
+      }
+    } else if (!meeple.equals(other.meeple)) {
+      return false;
+    }
+    return true;
+  }
+
 }

@@ -1,6 +1,5 @@
 package edu.brown.cs.scij.game;
 
-import java.util.Collections;
 import java.util.List;
 
 import edu.brown.cs.scij.tile.Tile;
@@ -25,10 +24,11 @@ public class Deck {
     return tiles.isEmpty();
   }
 
-  public Deck shuffle() {
+  // Shouldn't need this, done in Referee
+  /*public Deck shuffle() {
     Collections.shuffle(tiles);
     return this;
-  }
+  }*/
 
   /*public static void main(String[] args) {
     List<String> list = new ArrayList<>();

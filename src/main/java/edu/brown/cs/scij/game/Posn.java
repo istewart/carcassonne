@@ -16,4 +16,25 @@ public class Posn {
   public int getY() {
     return y;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null) {
+      return false;
+    }
+    if (!(o instanceof Posn)) {
+      return false;
+    }
+
+    Posn p = (Posn) o;
+    return x == p.getX() && y == p.getY();
+  }
+
+  @Override
+  public int hashCode() {
+    return x ^ y;
+  }
 }
