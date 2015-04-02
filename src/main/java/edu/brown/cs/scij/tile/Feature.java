@@ -2,12 +2,12 @@ package edu.brown.cs.scij.tile;
 
 import edu.brown.cs.scij.game.Meeple;
 
-public class Feature<T extends Feature> {
-  private final T feature;
+abstract class Feature {
+  private final Feature feature;
   private final boolean isMeepleable;
   private Meeple meeple;
 
-  public Center(Fe feature, boolean isMeepleable) {
+  public Feature(Feature feature, boolean isMeepleable) {
     this.feature = feature;
     this.isMeepleable = isMeepleable;
     this.meeple = null;
@@ -21,7 +21,7 @@ public class Feature<T extends Feature> {
     return isMeepleable;
   }
 
-  public CENTERFEATURE getFeature() {
+  public Feature getFeature() {
     return feature;
   }
 

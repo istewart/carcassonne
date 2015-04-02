@@ -3,11 +3,11 @@ package edu.brown.cs.scij.tile;
 import edu.brown.cs.scij.game.Meeple;
 
 public class Center {
-  private final CENTERFEATURE feature;
+  private final CenterFeature feature;
   private final boolean isMeepleable;
   private Meeple meeple;
 
-  public Center(CENTERFEATURE feature, boolean isMeepleable) {
+  public Center(CenterFeature feature, boolean isMeepleable) {
     this.feature = feature;
     this.isMeepleable = isMeepleable;
     this.meeple = null;
@@ -21,7 +21,7 @@ public class Center {
     return isMeepleable;
   }
 
-  public CENTERFEATURE getFeature() {
+  public CenterFeature getFeature() {
     return feature;
   }
 

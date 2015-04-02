@@ -1,5 +1,7 @@
 package edu.brown.cs.scij.tile;
 
+import java.util.List;
+
 import edu.brown.cs.scij.game.Board;
 
 public class Tile {
@@ -90,7 +92,7 @@ public class Tile {
     return null;
   }
 
-  public List<Features> validMeeple(Board board) {
+  public List<Feature> validMeeple(Board board) {
     // TODO
     return null;
   }

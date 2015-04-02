@@ -3,11 +3,11 @@ package edu.brown.cs.scij.tile;
 import edu.brown.cs.scij.game.Meeple;
 
 public class Edge {
-  private final EDGEFEATURE feature;
+  private final EdgeFeature feature;
   private final boolean isMeepleable;
   private Meeple meeple;
 
-  public Edge(EDGEFEATURE feature, boolean isMeepleable) {
+  public Edge(EdgeFeature feature, boolean isMeepleable) {
     this.feature = feature;
     this.isMeepleable = isMeepleable;
     this.meeple = null;
@@ -21,7 +21,7 @@ public class Edge {
     return isMeepleable;
   }
 
-  public EDGEFEATURE getFeature() {
+  public EdgeFeature getFeature() {
     return feature;
   }
 
