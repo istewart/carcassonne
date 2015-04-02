@@ -15,10 +15,10 @@ public class Deck {
   public Tile drawTile() {
     if (isEmpty()) {
       return null;
-      // TODO should this throw a null pointer excpetion?
+      // TODO should this throw a null pointer exception?
       // should it be the caller's job to check null?
     }
-    return tiles.get(0);
+    return tiles.remove(0);
   }
 
   public boolean isEmpty() {
@@ -29,4 +29,11 @@ public class Deck {
     Collections.shuffle(tiles);
     return this;
   }
+
+  /*public static void main(String[] args) {
+    List<String> list = new ArrayList<>();
+    list.add("hey");
+    System.out.println(list.remove(0));
+    System.out.println(list.remove(0));
+  }*/
 }

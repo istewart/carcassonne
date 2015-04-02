@@ -1,7 +1,7 @@
 package edu.brown.cs.scij.game;
 
 public class Player {
-  private COLOR color;
+  private Color playerColor;
   private final int id;
   private final String name;
   private int score;
@@ -12,5 +12,43 @@ public class Player {
     this.name = name;
   }
 
-  // TODO GETTERS AND SETTERS IMPLIED
+  public Color getPlayerColor() {
+    return playerColor;
+  }
+
+  public void setPlayerColor(Color playerColor) {
+    this.playerColor = playerColor;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public int getScore() {
+    return score;
+  }
+
+  public void setScore(int score) {
+    this.score = score;
+  }
+
+  public int getNumMeeples() {
+    return numMeeples;
+  }
+
+  public void setNumMeeples(int numMeeples) {
+    this.numMeeples = numMeeples;
+  }
+
+  public void useMeeple() {
+    numMeeples--;
+  }
+
+  public void returnMeeple() {
+    numMeeples++;
+  }
 }

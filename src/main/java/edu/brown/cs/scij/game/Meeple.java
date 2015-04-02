@@ -7,4 +7,8 @@ public class Meeple {
     this.player = player;
   }
 
+  public Player getPlayer() {
+    return player;
+  }
+
 }
