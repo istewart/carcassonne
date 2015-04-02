@@ -28,10 +28,10 @@
         </div>
 
         <form class="players">
-          <textarea id="playerOne" class="playerBox" readonly></textarea></br>
-          <textarea id="playerTwo" class="playerBox" readonly></textarea></br>
-          <textarea id="playerThree" class="playerBox" readonly></textarea></br>
-          <textarea id="playerFour" class="playerBox" readonly></textarea></br>
+          <textarea id="playerOne" class="playerBox" rows="1" readonly></textarea></br>
+          <textarea id="playerTwo" class="playerBox" rows="1" readonly></textarea></br>
+          <textarea id="playerThree" class="playerBox" rows="1" readonly></textarea></br>
+          <textarea id="playerFour" class="playerBox" rows="1" readonly></textarea></br>
         </form>
 
       </div>

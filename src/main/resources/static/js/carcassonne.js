@@ -16,7 +16,7 @@
       console.log(this);
     }
 
-    Renderer.prototype.renderPlayers = function(players) {
+    Renderer.prototype.renderPlayers = function() {
       if (players == null || players.length == 0) {
         $('.playerBox').each(function(i, obj) {
           obj.innerHTML = "";
@@ -28,21 +28,22 @@
       $('.playerBox').each(function(i, obj) {
         if (i >= players.length) {
           obj.innerHTML = "";
-          return true; // continues in loop
+          return true; // equivalent to continue;
         }
 
+        console.log(i);
         var currPlayer = players[i];
         obj.value = "" + currPlayer.name + ": " + currPlayer.score + " Meeples: " + currPlayer.numMeeples;
         obj.style.color = currPlayer.color;
       });
     };
 
-    Renderer.prototype.renderTile = function(currTile) {
-      var currImage = document.getElementById(currTile.id);
+    Renderer.prototype.renderTile = function() {
+      var currImage = document.getElementById(this.currTile.id);
       var tileImage = document.getElementById("tileImage");
 
       tileImage.src = currImage.src;
-      tileImage.show();
+      $("tileImage").show();
 
       // var c = document.getElementById("myCanvas");
       // var ctx = c.getContext("2d");
@@ -50,19 +51,18 @@
       // ctx.drawImage(tileImage, 0, 0);
     };
 
-    Renderer.prototype.renderBoard = function(board) {
+    Renderer.prototype.renderBoard = function() {
       // body...
     };
 
-    Renderer.prototype.renderMoves = function(validMoves) {
+    Renderer.prototype.renderMoves = function() {
       // body...
     };
 
     Renderer.prototype.render = function() {
-      renderBoard(this.board);
-      renderTile(this.currTile);
-      renderMoves(this.validMoves);
-      console.log(this);
+      renderBoard();
+      renderTile();
+      renderMoves();
     };
 
     var hostButton = document.getElementById("hostButton");
@@ -158,7 +158,8 @@
 
     // Simple Tests
 
-    var players = [{color: "red", id: "1", name: "Ian", score: "314", numMeeples: 8}];
+    var players = [{color: "red", id: "1", name: "Ian", score: "314", numMeeples: 8}, 
+                   {color: "blue", id: "2", name: "Scott", score: "32", numMeeples: 4}];
     var currTile = {center: null, top: null, bottom: null, left: null, right: null, id: "test", rotation: 0, shield: false};
 
     var r = new Renderer(null, currTile, players, null);
