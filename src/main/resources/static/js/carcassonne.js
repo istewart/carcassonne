@@ -40,12 +40,13 @@
       });
     };
 
-    Renderer.prototype.renderTile = function(scale, xt, yt) {
+    Renderer.prototype.renderTile = function() {
       var currImage = document.getElementById(this.currTile.id);
       var tileImage = document.getElementById("tileImage");
 
       tileImage.src = currImage.src;
-      $("tileImage").show();
+      $("#tileImage").rotate(this.currTile.rotation);
+      $("#tileImage").show();
 
       // var c = document.getElementById("myCanvas");
       // var ctx = c.getContext("2d");
@@ -53,7 +54,7 @@
       // ctx.drawImage(tileImage, 0, 0);
     };
 
-    Renderer.prototype.renderBoard = function() { // still very much a work in progress
+    Renderer.prototype.renderBoard = function(scale, xt, yt) { // still very much a work in progress
       var mainCanvas = document.getElementById("mainCanvas");
       var ctx = mainCanvas.getContext("2d");
 
@@ -191,7 +192,7 @@
 
     var players = [{color: "red", id: "1", name: "Ian", score: "314", numMeeples: 8}, 
                    {color: "blue", id: "2", name: "Scott", score: "32", numMeeples: 4}];
-    var currTile = {center: null, top: null, bottom: null, left: null, right: null, id: "test", rotation: 0, shield: false};
+    var currTile = {center: null, top: null, bottom: null, left: null, right: null, id: "test", rotation: 90, shield: false};
 
     var r = new Renderer(null, currTile, players, null);
     r.renderTile();

@@ -7,7 +7,7 @@ body {
     text-align: center;
 }
 
-/* Probably all of the stuff should be on just one page in different divs with JS show hide used as needed */
+/* should divide css and js into a bunch of files */
 
 * {
   box-sizing: border-box;
@@ -18,22 +18,7 @@ body {
 h1 {
 	color: #222;
 	text-align: center;
-	font: 200 100px 'Merienda One';
-  margin: 10px;
-  padding: 10px;
-}
-
-h2 {
-  color: #222;
-  text-align: center;
-  font: 20 40px 'Merienda One';
-}
-
-h3 {
-  color: #222;
-  text-align: center;
-  font: 100 50px 'Merienda One';
-  font-size: 2em;
+	font: 200 120px 'Merienda One';
   margin: 10px;
   padding: 10px;
 }
@@ -42,13 +27,12 @@ textarea:focus {
 	outline: none;
 }
 
-input.menubutton {
-    width: 18em;  
-    height: 4em;
-    padding: -5px;
-    margin: 10px;
+button.menubutton {
+    width: 14em;
+    height: 3em;
+    margin: .5em;
     border: 1px solid #444;
-    font: 18pt 'Merienda One';
+    font: 24pt 'Merienda One';
     color: #e8e8e8;
     background-color: #222222;
     -webkit-border-radius: 15px;
@@ -69,7 +53,7 @@ input.menubutton {
     border-left: none;
 }
 
-#content {
+#contentDiv {
     background:#e8e8e8;
     /*display: table-cell;*/
     width: 70%;
@@ -87,15 +71,18 @@ input.menubutton {
 
 #tileCanvas {
     /*position:absolute;*/
-    width: 100%;
+    width: 200px;
     height: 200px;
 }
 
-form.placeform {
-  display: inline;
+#tileImage {
+    /*position:absolute;*/
+    width: 100%;
+    height: auto;
+    display: hidden;
 }
 
-input.placebutton {
+button.placeButton {
   width: 4em;  
   height: 2em;
   padding: 5px;
@@ -111,7 +98,7 @@ input.placebutton {
   border:1px solid #888;
 }
 
-textarea.playerbox {
+textarea.playerBox {
   padding: 2px;
   /*-webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -126,13 +113,16 @@ textarea.playerbox {
   border:1px solid #444;
   background-color: #e8e8e8;
   /*display: none;*/
+  font: 12pt 'Merienda One';
+  overflow: hidden;
 }
 
-#main_wrap { 
+#mainDiv { 
   height: 50em; 
+  width: 100%;
 }
 
-textarea.hostfield {
+textarea.hostField {
   padding: .5em;
   margin: 1em;
   width: 30%;
@@ -152,7 +142,7 @@ textarea.hostfield {
   font: 12pt 'Merienda One';
 }
 
-input.hoststart {
+button.submitButton {
     width: 30%;  
     height: 3em;
     margin: .5em;
@@ -167,9 +157,24 @@ input.hoststart {
     overflow: hidden;
 }
 
-#main_wrap, #hostdiv, #joindiv {
+#mainDiv, #hostDiv, #joinDiv, #tileDiv {
   display: none;
 }
+
+/*h2 {
+  color: #222;
+  text-align: center;
+  font: 20 40px 'Merienda One';
+}
+
+h3 {
+  color: #222;
+  text-align: center;
+  font: 100 50px 'Merienda One';
+  font-size: 2em;
+  margin: 10px;
+  padding: 10px;
+}*/
 
 /*form.players {
   margin-top: .5em;

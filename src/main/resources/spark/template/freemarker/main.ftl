@@ -9,6 +9,7 @@
     <!-- <link rel="stylesheet" href="../../../static/css/menu.css"> -->
     <link href="http://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" type="text/css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://jqueryrotate.googlecode.com/files/jQueryRotate.js"></script>
     <script src="../../../static/js/carcassonne.js"></script>
     
     <title>${title}</title>
