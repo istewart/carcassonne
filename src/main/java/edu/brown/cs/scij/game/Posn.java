@@ -17,6 +17,14 @@ public class Posn {
     return y;
   }
 
+  public Posn withX(int newX) {
+    return new Posn(newX, y);
+  }
+
+  public Posn withY(int newY) {
+    return new Posn(x, newY);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

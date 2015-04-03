@@ -1,0 +1,34 @@
+SURVEY 1 HELPFUL RESPONSES:
+Naming of buttons: perhaps "Host/Join" to "Host/Join Game", "Help" to "Instructions/How to play"
+IP Address issues
+Scoring
+pretty even split between click and drag and scroll
+Hosting: also have to click join?
+show who's turn
+return to main menu
+quit button to leave game
+font a/o similarity
+hints/no hints
+
+additional notable quotes:
+Do you have any questions regarding what the buttons above mean?
+	Lazers
+How would you start playing an existing game?
+	I would look for a game and ask "Can I play?"
+Do you know how to find your IP Address without further instructions?
+	Something with network settings and pressing buttons and things - fancy magical things.
+Do you know how to find your IP...?
+	No, help me please
+How would yous start playing a game if you would like to host?
+	Enter a game name, like "penis", your IP, and click start
+
+What we should do/change:
+Help->Instructions(maybe even FAQs)
+auto IP address? facilitate host address input?
+Probably just scroll
+Add scoring/finalize board design/who's turn
+explicitly state whether we should click to host and then join or if simply clicking host is sufficient
+return buttons
+quit button not necessary, x already there
+font change not necessary
+hint option - very important. Should be in settings I think.

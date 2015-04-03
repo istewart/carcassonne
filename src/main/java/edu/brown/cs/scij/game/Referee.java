@@ -15,32 +15,56 @@ public class Referee {
   private boolean isGameOver;
   private Deck deck;
   private int turnNumber;
+  private Board board;
 
   public Referee() {
     // TODO
-    this.turnNumber = 0;
-    this.isGameOver = false;
+    setupGame();
   }
 
   public void setupGame() {
+    this.turnNumber = 0;
+    this.isGameOver = false;
     List<Tile> tiles = buildDeck();
-    Deck deck = new Deck(tiles);
-    System.out.println(tiles.size());
+    deck = new Deck(tiles);
+    board = new Board();
+    // System.out.println(deck);
     // TODO board setup/deck setup
   }
 
+  // main handles this
   public void run() {
     // TODO run everything
   }
 
+  // Probably don't need this, handled by the handlers/main
   public void takeTurn() {
     // TODO take turn
   }
 
-  public void score() {
+  /**
+   * Scores the board after the last tile and meeple have been placed has been
+   * placed.
+   *
+   * @param prevTile the tile that was last placed on the board
+   */
+  public void score(Tile prevTile) {
     // TODO score
   }
 
+  /**
+   * Adds a player to the current game.
+   *
+   * @param player the player to add to the game
+   */
+  public void newPlayer(Player player) {
+    players.add(player);
+  }
+
+  /**
+   * Shuffles the order of the players (used usually only at the start of the
+   * game)
+   */
   public void shuffleOrder() {
     Collections.shuffle(players);
   }
@@ -205,9 +229,9 @@ public class Referee {
     return tiles;
   }
 
-  /*public static void main(String[] args) {
+  public static void main(String[] args) {
     Referee r = new Referee();
     r.setupGame();
-  }*/
+  }
 
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.brown.cs.scij.game.Board;
+import edu.brown.cs.scij.game.Meeple;
+import edu.brown.cs.scij.game.Player;
 
 public class Tile {
   static int numTiles = 0;
@@ -115,6 +117,17 @@ public class Tile {
     return this;
   }
 
+  public void placeMeeple(Player player, TileFeature feature)
+      throws OutOfMeeplesException {
+    if (player.getNumMeeples() == 0) {
+      throw new OutOfMeeplesException("You have no meeples left!");
+    } else {
+      player.useMeeple();
+      Meeple m = new Meeple(player);
+      feature.setMeeple(m);
+    }
+  }
+
   public List<TileFeature> validMeeples(Board board) {
     List<TileFeature> meepleableLocations = new ArrayList<>();
     if (top.isMeeplable) {
@@ -149,15 +162,19 @@ public class Tile {
 
     Tile t = (Tile) o;
 
-    if (center.equals(t.getCenter()) && top.equals(t.getTop())
+    return center.equals(t.getCenter()) && top.equals(t.getTop())
         && right.equals(t.getRight()) && bottom.equals(t.getBottom())
         && left.equals(t.getLeft()) && shield == t.getShield()
-        && id == t.getId()) {
-      return true;
-    }
-    return false;
+        && id == t.getId();
     // TODO SHOULD WE ONLY HAVE TO CHECK EQUALITY BASED ON ID? OR SHOULD WE NOT
     // CHECK EQUALITY BASED ON ID AT ALL BECAUSE OF DUPLICATES?
+  }
+
+  @Override
+  public String toString() {
+    return "Tile: id:" + id + ", c:" + center.toString() + ", t:"
+        + top.toString() + ", r:" + right.toString() + ", b:"
+        + bottom.toString() + ", l:" + left.toString() + ", shields" + shield;
   }
   /*
    * SHOULD FEATURE BE AN INTERFACE AND
