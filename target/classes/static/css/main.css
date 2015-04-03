@@ -53,7 +53,7 @@ button.menubutton {
     border-left: none;
 }
 
-#content {
+#contentDiv {
     background:#e8e8e8;
     /*display: table-cell;*/
     width: 70%;
@@ -78,7 +78,7 @@ button.menubutton {
 #tileImage {
     /*position:absolute;*/
     width: 100%;
-    height: 200px;
+    height: auto;
     display: hidden;
 }
 
@@ -113,6 +113,8 @@ textarea.playerBox {
   border:1px solid #444;
   background-color: #e8e8e8;
   /*display: none;*/
+  font: 12pt 'Merienda One';
+  overflow: hidden;
 }
 
 #mainDiv { 
