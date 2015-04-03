@@ -149,15 +149,19 @@ public class Tile {
 
     Tile t = (Tile) o;
 
-    if (center.equals(t.getCenter()) && top.equals(t.getTop())
+    return center.equals(t.getCenter()) && top.equals(t.getTop())
         && right.equals(t.getRight()) && bottom.equals(t.getBottom())
         && left.equals(t.getLeft()) && shield == t.getShield()
-        && id == t.getId()) {
-      return true;
-    }
-    return false;
+        && id == t.getId();
     // TODO SHOULD WE ONLY HAVE TO CHECK EQUALITY BASED ON ID? OR SHOULD WE NOT
     // CHECK EQUALITY BASED ON ID AT ALL BECAUSE OF DUPLICATES?
+  }
+
+  @Override
+  public String toString() {
+    return "Tile: id:" + id + ", c:" + center.toString() + ", t:"
+        + top.toString() + ", r:" + right.toString() + ", b:"
+        + bottom.toString() + ", l:" + left.toString() + ", shields" + shield;
   }
   /*
    * SHOULD FEATURE BE AN INTERFACE AND

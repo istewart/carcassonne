@@ -15,17 +15,20 @@ public class Referee {
   private boolean isGameOver;
   private Deck deck;
   private int turnNumber;
+  private Board board;
 
   public Referee() {
     // TODO
-    this.turnNumber = 0;
-    this.isGameOver = false;
+    setupGame();
   }
 
   public void setupGame() {
+    this.turnNumber = 0;
+    this.isGameOver = false;
     List<Tile> tiles = buildDeck();
-    Deck deck = new Deck(tiles);
-    System.out.println(tiles.size());
+    deck = new Deck(tiles);
+    board = new Board();
+    // System.out.println(deck);
     // TODO board setup/deck setup
   }
 
@@ -205,9 +208,9 @@ public class Referee {
     return tiles;
   }
 
-  /*public static void main(String[] args) {
+  public static void main(String[] args) {
     Referee r = new Referee();
     r.setupGame();
-  }*/
+  }
 
 }

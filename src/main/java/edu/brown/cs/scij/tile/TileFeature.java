@@ -36,4 +36,36 @@ abstract class TileFeature {
       isMeeplable = true;
     }
   }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    // sb.append("Feature: ");
+    switch (feature) {
+      case CITY:
+        sb.append("CITY");
+        break;
+      case ENDPOINT:
+        sb.append("ENDPOINT");
+        break;
+      case FIELD:
+        sb.append("FIELD");
+        break;
+      case MONASTERY:
+        sb.append("MONASTERY");
+        break;
+      case RIVER:
+        sb.append("RIVER");
+        break;
+      case ROAD:
+        sb.append("ROAD");
+        break;
+      default:
+        sb.append("SHOULDNT GET HERE NOOOO");
+        break;
+    }
+    sb.append(" meeplable? " + isMeeplable);
+    sb.append(" meeple: " + String.valueOf(meeple));
+    return sb.toString();
+  }
 }

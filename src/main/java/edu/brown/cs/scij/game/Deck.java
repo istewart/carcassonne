@@ -24,6 +24,15 @@ public class Deck {
     return tiles.isEmpty();
   }
 
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Deck:\n");
+    for (Tile tile : tiles) {
+      sb.append(tile.toString() + "\n");
+    }
+    return sb.toString();
+  }
   // Shouldn't need this, done in Referee
   /*public Deck shuffle() {
     Collections.shuffle(tiles);
