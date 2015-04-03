@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.brown.cs.scij.game.Board;
+import edu.brown.cs.scij.game.Meeple;
+import edu.brown.cs.scij.game.Player;
 
 public class Tile {
   static int numTiles = 0;
@@ -113,6 +115,17 @@ public class Tile {
     bottom = right;
     right = tmptop;
     return this;
+  }
+
+  public void placeMeeple(Player player, TileFeature feature)
+      throws OutOfMeeplesException {
+    if (player.getNumMeeples() == 0) {
+      throw new OutOfMeeplesException("You have no meeples left!");
+    } else {
+      player.useMeeple();
+      Meeple m = new Meeple(player);
+      feature.setMeeple(m);
+    }
   }
 
   public List<TileFeature> validMeeples(Board board) {

@@ -10,6 +10,8 @@ public class Player {
   public Player(int id, String name) {
     this.id = id;
     this.name = name;
+    this.score = 0;
+    this.numMeeples = 7;
   }
 
   public Color getPlayerColor() {
@@ -34,6 +36,10 @@ public class Player {
 
   public void setScore(int score) {
     this.score = score;
+  }
+
+  public void addScore(int score) {
+    this.score = this.score + score;
   }
 
   public int getNumMeeples() {
