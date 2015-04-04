@@ -15,7 +15,7 @@ public class Tile {
   private Edge left;
   private Edge right;
   private int id;
-  private final int shield;
+  private final int shield; //I think shield should be a boolean in Center or Edge, not an int here -Colby
   private int rotation = 0;
   private int numRoads;
 
@@ -128,6 +128,7 @@ public class Tile {
     }
   }
 
+  //Why does this take in a board
   public List<TileFeature> validMeeples(Board board) {
     List<TileFeature> meepleableLocations = new ArrayList<>();
     if (top.isMeeplable) {

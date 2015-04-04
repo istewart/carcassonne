@@ -16,6 +16,8 @@ public class Deck {
       return null;
       // TODO should this throw a null pointer exception?
       // should it be the caller's job to check null?
+      
+      // Whichever is fine as long as were consistent -Colby
     }
     return tiles.remove(0);
   }

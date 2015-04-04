@@ -17,7 +17,7 @@ abstract class TileFeature {
     return meeple;
   }
 
-  public boolean getIsMeeplable() {
+  public boolean isMeeplable() {
     return isMeeplable;
   }
 
