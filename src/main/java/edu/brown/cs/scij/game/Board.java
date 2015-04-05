@@ -14,10 +14,16 @@ import edu.brown.cs.scij.tile.Tile;
 public class Board {
   private Map<Posn, Tile> board;
   private Set<Posn> adjacentPosns;
+  private Set<Posn> meeplePosns;
 
   public Board() {
     this.board = new HashMap<>();
     this.adjacentPosns = new HashSet<>();
+    this.meeplePosns = new HashSet<>();
+  }
+
+  public Set<Posn> getMeeplePosns() {
+    return meeplePosns;
   }
 
   public Map<Posn, Tile> getBoard() {
@@ -34,6 +40,10 @@ public class Board {
    * @throws PosnTakenException if the Posn is already on the board.
    */
   public Board place(Posn p, Tile t) throws PosnTakenException {
+    // TODO I don't think this should return board, we only ever have to redraw
+    // one tile every call, we shouldn't have to redraw the whole board. Plus,
+    // the referee has the reference to the changing board, so if we want to get
+    // the board we can
     Tile there = board.get(p);
     if (there == null) {
       board.put(p, t);

@@ -2,7 +2,7 @@ package edu.brown.cs.scij.tile;
 
 import edu.brown.cs.scij.game.Meeple;
 
-abstract class TileFeature {
+public abstract class TileFeature {
   protected final Feature feature;
   protected boolean isMeeplable;
   protected Meeple meeple;

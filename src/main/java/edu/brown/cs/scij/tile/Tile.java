@@ -3,7 +3,6 @@ package edu.brown.cs.scij.tile;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.brown.cs.scij.game.Board;
 import edu.brown.cs.scij.game.Meeple;
 import edu.brown.cs.scij.game.Player;
 
@@ -15,9 +14,11 @@ public class Tile {
   private Edge left;
   private Edge right;
   private int id;
-  private final int shield; //I think shield should be a boolean in Center or Edge, not an int here -Colby
+  private final int shield; // I think shield should be a boolean in Center or
+                            // Edge, not an int here -Colby
   private int rotation = 0;
   private int numRoads;
+  private Feature meepledFeature;
 
   public Tile(Center center, Edge top, Edge right, Edge bottom, Edge left,
       int shield) {
@@ -30,6 +31,7 @@ public class Tile {
     this.id = numTiles;
     numTiles++;
     setNumRoads();
+    this.meepledFeature = null;
   }
 
   private void setNumRoads() {
@@ -47,6 +49,14 @@ public class Tile {
       roads++;
     }
     numRoads = roads;
+  }
+
+  public Feature getMeepledFeature() {
+    return meepledFeature;
+  }
+
+  public void setMeepledFeature(Feature f) {
+    meepledFeature = f;
   }
 
   public Edge getTop() {
@@ -86,13 +96,6 @@ public class Tile {
   }
 
   public boolean roadEnds() {
-    /*
-    if (center.getFeature() == Feature.ENDPOINT
-        || center.getFeature() == Feature.MONASTERY ) {
-      return true;
-    }
-    return false;
-    */
     if (numRoads == 2) {
       return false;
     }
@@ -125,11 +128,13 @@ public class Tile {
       player.useMeeple();
       Meeple m = new Meeple(player);
       feature.setMeeple(m);
+      meepledFeature = feature.getFeature();
     }
   }
 
-  //Why does this take in a board
-  public List<TileFeature> validMeeples(Board board) {
+  // Why does this take in a board
+  // shouldn't now - scott
+  public List<TileFeature> validMeeples() {
     List<TileFeature> meepleableLocations = new ArrayList<>();
     if (top.isMeeplable) {
       meepleableLocations.add(top);
