@@ -22,8 +22,13 @@ public class Referee {
   private Board board;
 
   public Referee() {
-    // TODO
+    // TODO should be done but there might be something else but I can't think
+    // of more setup (and it should go in setupGame()
     setupGame();
+  }
+
+  public Board getBoard() {
+    return board;
   }
 
   /**
@@ -56,8 +61,6 @@ public class Referee {
     List<Tile> tiles = buildDeck();
     deck = new Deck(tiles);
     board = new Board();
-    // System.out.println(deck);
-    // TODO board setup/deck setup
   }
 
   // main handles this
@@ -117,18 +120,6 @@ public class Referee {
     Queue<Posn> q = new LinkedList<>();
     if (t.getCenter().getMeeple() != null) {
       checkEdgesForCity(p, t, q);
-      /*if (t.getTop().getFeature() == Feature.CITY) {
-        q.add(p.withY(p.getY() + 1));
-      }
-      if (t.getRight().getFeature() == Feature.CITY) {
-        q.add(p.withX(p.getX() + 1));
-      }
-      if (t.getBottom().getFeature() == Feature.CITY) {
-        q.add(p.withY(p.getY() - 1));
-      }
-      if (t.getLeft().getFeature() == Feature.CITY) {
-        q.add(p.withX(p.getX() - 1));
-      }*/
     } else if (t.getTop().getMeeple() != null) {
       if (t.getCenter().getFeature() == Feature.CITY) {
         checkEdgesForCity(p, t, q);

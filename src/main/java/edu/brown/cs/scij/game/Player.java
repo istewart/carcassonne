@@ -35,10 +35,14 @@ public class Player {
   }
 
   public void setScore(int score) {
+    if (score < 0) {
+      throw new IllegalArgumentException("score cannot go below 0");
+    }
     this.score = score;
   }
 
   public void addScore(int score) {
+    /*TODO if (this.score + score)*/
     this.score = this.score + score;
   }
 

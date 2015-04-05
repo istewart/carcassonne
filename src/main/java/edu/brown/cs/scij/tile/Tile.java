@@ -16,7 +16,7 @@ public class Tile {
   private int id;
   private final int shield; // I think shield should be a boolean in Center or
                             // Edge, not an int here -Colby
-  private int rotation = 0;
+  private int rotation = 0; // TODO change in rotateLeft
   private int numRoads;
   private Feature meepledFeature;
 
@@ -182,10 +182,10 @@ public class Tile {
         + top.toString() + ", r:" + right.toString() + ", b:"
         + bottom.toString() + ", l:" + left.toString() + ", shields" + shield;
   }
-  /*
-   * SHOULD FEATURE BE AN INTERFACE AND
-   * CENTER AND EDGE BE ABSTRACT CLASSES/INTERFACES
-   * AND THEN MONASTERY/ROAD/ETC FEATURES BE CLASSES?
-   */
+
+  @Override
+  public int hashCode() {
+    return id;
+  }
 
 }

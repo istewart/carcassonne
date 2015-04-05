@@ -41,6 +41,7 @@ public class Posn {
     return x == p.getX() && y == p.getY();
   }
 
+  // TODO better hashcode builtin eclipse
   @Override
   public int hashCode() {
     return x ^ y;
