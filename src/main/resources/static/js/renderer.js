@@ -54,7 +54,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
   var mainCanvas = document.getElementById("mainCanvas");
   var ctx = mainCanvas.getContext("2d");
 
-  var tileMap = board.board;
+  var tileMap = this.board;
 
   for (var i = 0; i < tileMap.length; i++) {
     var currTile = tileMap[i];
@@ -64,10 +64,18 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
 
     var targetImg = document.getElementById(tileObj.id);
     var targetRadians = tileObj.rotation * Math.PI / 180;
+    console.log(targetRadians);
 
-    ctx.rotate(targetRadians);
-    ctx.drawImage(targetImg, targetX, targetY, targetSize, targetSize);
-    ctx.rotate(-targetRadians);
+    if (targetRadians) {
+      ctx.translate(targetPlacement.x + (TILE_SIZE / 2), targetPlacement.y + (TILE_SIZE / 2));
+      ctx.rotate(targetRadians);
+      ctx.drawImage(targetImg, -(TILE_SIZE / 2), -(TILE_SIZE / 2), targetPlacement.s, targetPlacement.s);
+      ctx.rotate(-targetRadians);
+      ctx.translate(-targetPlacement.x - (TILE_SIZE / 2), -targetPlacement.y - (TILE_SIZE / 2));
+    } else {
+      ctx.drawImage(targetImg, targetPlacement.x, targetPlacement.y, targetPlacement.s, targetPlacement.s);
+    }
+    
   }
 
   return;
