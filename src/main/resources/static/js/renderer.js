@@ -1,4 +1,4 @@
-TILE_SIZE = 50;
+TILE_SIZE = 60;
 CANVAS_SIZE = 1000;
 
 function Renderer(board, currTile, players, validMoves, scale, xt, yt) {
@@ -66,7 +66,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     var targetRadians = tileObj.rotation * Math.PI / 180;
     console.log(targetRadians);
 
-    if (targetRadians) {
+    if (targetRadians) { // fancy way of drawing an image rotated about it's center
       ctx.translate(targetPlacement.x + (TILE_SIZE / 2), targetPlacement.y + (TILE_SIZE / 2));
       ctx.rotate(targetRadians);
       ctx.drawImage(targetImg, -(TILE_SIZE / 2), -(TILE_SIZE / 2), targetPlacement.s, targetPlacement.s);
@@ -104,6 +104,7 @@ Renderer.prototype.render = function() {
   renderBoard();
   renderTile();
   renderMoves();
+  renderPlayers();
 };
 
 // takes a pos {x: x, y: y}
@@ -112,8 +113,8 @@ Renderer.prototype.posToCanvas = function(pos) {
   var canvasHeight = document.getElementById("mainCanvas").height;
   var canvasWidth = document.getElementById("mainCanvas").width;
 
-  var centerX = (canvasWidth / 2) ; //+ (this.xt * TILE_SIZE * this.scale);
-  var centerY = (canvasHeight / 2)  ; //+ (this.yt * TILE_SIZE * this.scale);
+  var centerX = (canvasWidth / 2) - (TILE_SIZE / 2); //+ (this.xt * TILE_SIZE * this.scale);
+  var centerY = (canvasHeight / 2) - (TILE_SIZE / 2); //+ (this.yt * TILE_SIZE * this.scale);
 
   var targetX = centerX + (pos.x * TILE_SIZE * this.scale);
   var targetY = centerY + (-pos.y * TILE_SIZE * this.scale);

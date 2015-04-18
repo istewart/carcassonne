@@ -11,6 +11,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://jqueryrotate.googlecode.com/files/jQueryRotate.js"></script>
     <script src="../../../static/js/renderer.js"></script>
+    <script src="../../../static/js/menu.js"></script>
+    <script src="../../../static/js/placement.js"></script>
     <script src="../../../static/js/carcassonne.js"></script>
     
     <title>${title}</title>
