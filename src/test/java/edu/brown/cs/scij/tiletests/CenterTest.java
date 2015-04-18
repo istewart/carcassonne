@@ -44,17 +44,12 @@ public class CenterTest {
 	
 	@Test
 	public void allowedTest(){
-		try{
 			new Center(Feature.CITY);
 			new Center(Feature.MONASTERY);
 			new Center(Feature.ROAD);
 			new Center(Feature.RIVER);
 			new Center(Feature.FIELD);
-			assertTrue(true);
 			new Center(Feature.ENDPOINT);
-			assertTrue(false);
-		}catch (InvalidTileException ite) {
 			assertTrue(true);
-		}
 	}
 }
