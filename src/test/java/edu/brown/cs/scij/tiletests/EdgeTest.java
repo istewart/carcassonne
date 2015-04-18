@@ -8,18 +8,19 @@ import edu.brown.cs.scij.game.Meeple;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
+import edu.brown.cs.scij.tile.InvalidTileException;
 
 public class EdgeTest {
 	
 	@Test
-	public void constructorTest(){
+	public void constructorTest() throws InvalidTileException{
 		Edge e = new Edge(Feature.CITY);
 		assertTrue(e.isMeeplable());
 		assertTrue(e.getMeeple() == null);
 	}
 	
 	@Test
-	public void meepleTest(){
+	public void meepleTest() throws InvalidTileException{
 		Edge e = new Edge(Feature.FIELD);
 		assertTrue(e.isMeeplable());
 		assertTrue(e.getMeeple() == null);
@@ -31,7 +32,7 @@ public class EdgeTest {
 	}
 	
 	@Test
-	public void equalsTest(){
+	public void equalsTest() throws InvalidTileException{
 		Edge ee = new Edge(Feature.ENDPOINT);
 		Edge ero = new Edge(Feature.ROAD);
 		Edge eri = new Edge(Feature.RIVER);
@@ -42,5 +43,19 @@ public class EdgeTest {
 		assertTrue(ee.equals(ee2));
 	}
 	
-	//TODO Should test for what is allowed to be what
+	@Test
+	public void allowedTest(){
+		try{
+			new Edge(Feature.CITY);
+			new Edge(Feature.ENDPOINT);
+			new Edge(Feature.ROAD);
+			new Edge(Feature.RIVER);
+			new Edge(Feature.FIELD);
+			assertTrue(true);
+			new Edge(Feature.MONASTERY);
+			assertTrue(false);
+		}catch (InvalidTileException ite) {
+			assertTrue(true);
+		}
+	}
 }

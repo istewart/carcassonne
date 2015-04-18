@@ -7,18 +7,19 @@ import edu.brown.cs.scij.game.Meeple;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Feature;
+import edu.brown.cs.scij.tile.InvalidTileException;
 
 public class CenterTest {
 	
 	@Test
-	public void constructorTest(){
+	public void constructorTest() throws InvalidTileException{
 		Center c = new Center(Feature.CITY);
 		assertTrue(c.isMeeplable());
 		assertTrue(c.getMeeple() == null);
 	}
 	
 	@Test
-	public void meepleTest(){
+	public void meepleTest() throws InvalidTileException{
 		Center c = new Center(Feature.MONASTERY);
 		assertTrue(c.isMeeplable());
 		assertTrue(c.getMeeple() == null);
@@ -30,7 +31,7 @@ public class CenterTest {
 	}
 	
 	@Test
-	public void equalsTest(){
+	public void equalsTest() throws InvalidTileException{
 		Center cc = new Center(Feature.CITY);
 		Center cro = new Center(Feature.ROAD);
 		Center cri = new Center(Feature.RIVER);
@@ -41,5 +42,19 @@ public class CenterTest {
 		assertTrue(cc.equals(cc2));
 	}
 	
-	//TODO Should test for what is allowed to be what
+	@Test
+	public void allowedTest(){
+		try{
+			new Center(Feature.CITY);
+			new Center(Feature.MONASTERY);
+			new Center(Feature.ROAD);
+			new Center(Feature.RIVER);
+			new Center(Feature.FIELD);
+			assertTrue(true);
+			new Center(Feature.ENDPOINT);
+			assertTrue(false);
+		}catch (InvalidTileException ite) {
+			assertTrue(true);
+		}
+	}
 }

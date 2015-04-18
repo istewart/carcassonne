@@ -10,12 +10,13 @@ import edu.brown.cs.scij.game.Deck;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
+import edu.brown.cs.scij.tile.InvalidTileException;
 import edu.brown.cs.scij.tile.Tile;
 
 public class DeckTest {
 
 	@Test
-	public void drawTest(){
+	public void drawTest() throws InvalidTileException{
 		Center c = new Center(Feature.MONASTERY);
 		Edge top = new Edge(Feature.FIELD);
 		Edge bottom = new Edge(Feature.FIELD);

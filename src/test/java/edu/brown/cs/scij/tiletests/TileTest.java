@@ -8,13 +8,14 @@ import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
+import edu.brown.cs.scij.tile.InvalidTileException;
 import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
 
 public class TileTest {
 
   @Test
-  public void constructorTest() {
+  public void constructorTest() throws InvalidTileException {
     Center c = new Center(Feature.MONASTERY);
     Edge top = new Edge(Feature.FIELD);
     Edge bottom = new Edge(Feature.FIELD);
@@ -32,7 +33,7 @@ public class TileTest {
   }
 
   @Test
-  public void rotateTest() {
+  public void rotateTest() throws InvalidTileException {
     Center c = new Center(Feature.MONASTERY);
     Edge top = new Edge(Feature.FIELD);
     Edge bottom = new Edge(Feature.FIELD);
@@ -54,7 +55,7 @@ public class TileTest {
   }
 
   @Test
-  public void roadtest() {
+  public void roadtest() throws InvalidTileException {
     Center c = new Center(Feature.MONASTERY);
     Edge top = new Edge(Feature.FIELD);
     Edge bottom = new Edge(Feature.FIELD);
@@ -65,7 +66,7 @@ public class TileTest {
   }
 
   @Test
-  public void placeMeepleTest() {
+  public void placeMeepleTest() throws InvalidTileException {
     Center c = new Center(Feature.MONASTERY);
     Edge top = new Edge(Feature.FIELD);
     Edge bottom = new Edge(Feature.FIELD);

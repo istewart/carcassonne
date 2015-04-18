@@ -2,8 +2,11 @@ package edu.brown.cs.scij.tile;
 
 public class Edge extends TileFeature {
 
-  public Edge(Feature feature) {
-    super(feature);
+  public Edge(Feature feature) throws InvalidTileException {
+	    super(feature);
+	  if  (feature == Feature.MONASTERY || feature == Feature.ENDPOINT) {
+		  throw new InvalidTileException("monestary cant be on edge.");
+	  }
   }
 
   @Override

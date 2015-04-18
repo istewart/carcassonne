@@ -10,6 +10,7 @@ import java.util.Set;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
+import edu.brown.cs.scij.tile.InvalidTileException;
 import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.TileFeature;
 
@@ -31,7 +32,35 @@ public class Referee {
     return board;
   }
 
-  /**
+  public List<Player> getPlayers() {
+	return players;
+}
+
+public void setPlayers(List<Player> players) {
+	this.players = players;
+}
+
+public Deck getDeck() {
+	return deck;
+}
+
+public void setDeck(Deck deck) {
+	this.deck = deck;
+}
+
+public int getTurnNumber() {
+	return turnNumber;
+}
+
+public void setTurnNumber(int turnNumber) {
+	this.turnNumber = turnNumber;
+}
+
+public void setBoard(Board board) {
+	this.board = board;
+}
+
+/**
    * Places a tile on the board. Returns a boolean letting the user know if the
    * game is over. (Game is over when there are no tiles left).
    *
@@ -58,7 +87,12 @@ public class Referee {
   public void setupGame() {
     this.turnNumber = 0;
     // this.isGameOver = false;
-    List<Tile> tiles = buildDeck();
+    List<Tile> tiles = null;
+    try{
+    	tiles = buildDeck();
+    } catch (InvalidTileException ite) {
+    	System.out.println("wont be reached, tiles currentlyhardcoded");
+    }
     deck = new Deck(tiles);
     board = new Board();
   }
@@ -287,7 +321,7 @@ public class Referee {
     return players.get(turnNumber % 4);
   }
 
-  private List<Tile> buildDeck() {
+  private List<Tile> buildDeck() throws InvalidTileException {
     Feature road = Feature.ROAD;
     Feature endpoint = Feature.ENDPOINT;
     Feature city = Feature.CITY;

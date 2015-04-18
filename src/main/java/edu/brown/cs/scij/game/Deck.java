@@ -41,6 +41,14 @@ public class Deck {
     return this;
   }*/
 
+public List<Tile> getTiles() {
+	return tiles;
+}
+
+public void setTiles(List<Tile> tiles) {
+	this.tiles = tiles;
+}
+
   /*public static void main(String[] args) {
     List<String> list = new ArrayList<>();
     list.add("hey");

@@ -2,6 +2,8 @@ package edu.brown.cs.scij.gametests;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import edu.brown.cs.scij.game.Board;
@@ -10,6 +12,7 @@ import edu.brown.cs.scij.game.PosnTakenException;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
+import edu.brown.cs.scij.tile.InvalidTileException;
 import edu.brown.cs.scij.tile.Tile;
 
 public class BoardTest {
@@ -21,7 +24,7 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void placeTest(){
+	public void placeTest() throws InvalidTileException{
 		Board b = new Board();
 		assertTrue(b.getBoard().isEmpty());
 		Center c = new Center(Feature.MONASTERY);
@@ -44,8 +47,64 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void validMovesTest(){
-		//TODO this test should be broken up but could be enormous.
-		// should test all possible combinations of edges in some way
+	public void validMovesTest() throws InvalidTileException, PosnTakenException{
+		//these tiles do not actually exist but are used for testing
+		Center c = new Center(Feature.MONASTERY);
+		Edge top = new Edge(Feature.ROAD);
+		Edge right = new Edge(Feature.CITY);
+		Edge bottom = new Edge(Feature.RIVER);
+		Edge left = new Edge(Feature.FIELD);
+		Tile centerT = new Tile(c, top, right, bottom, left, 0);
+		Board b = new Board();
+		Posn p = new Posn(0,0);
+		b.place(p, centerT);
+		c = new Center(Feature.ENDPOINT);
+		top = new Edge(Feature.ROAD);
+		right = new Edge(Feature.ROAD);
+		bottom = new Edge(Feature.ROAD);
+		left = new Edge(Feature.ROAD);
+		Tile otherT = new Tile(c, top, right, bottom, left, 0);
+		List<Posn> validMoves = b.validMoves(otherT);
+		assertTrue(validMoves.size() == 1);
+		assertTrue(validMoves.get(0).equals(new Posn(0,1)));
+		c = new Center(Feature.ENDPOINT);
+		top = new Edge(Feature.CITY);
+		right = new Edge(Feature.CITY);
+		bottom = new Edge(Feature.CITY);
+		left = new Edge(Feature.CITY);
+		otherT = new Tile(c, top, right, bottom, left, 0);
+		validMoves = b.validMoves(otherT);
+		assertTrue(validMoves.size() == 1);
+		assertTrue(validMoves.get(0).equals(new Posn(1,0)));
+		c = new Center(Feature.ENDPOINT);
+		top = new Edge(Feature.RIVER);
+		right = new Edge(Feature.RIVER);
+		bottom = new Edge(Feature.RIVER);
+		left = new Edge(Feature.RIVER);
+		otherT = new Tile(c, top, right, bottom, left, 0);
+		validMoves = b.validMoves(otherT);
+		assertTrue(validMoves.size() == 1);
+		assertTrue(validMoves.get(0).equals(new Posn(0,-1)));
+		c = new Center(Feature.ENDPOINT);
+		top = new Edge(Feature.FIELD);
+		right = new Edge(Feature.FIELD);
+		bottom = new Edge(Feature.FIELD);
+		left = new Edge(Feature.FIELD);
+		otherT = new Tile(c, top, right, bottom, left, 0);
+		validMoves = b.validMoves(otherT);
+		assertTrue(validMoves.size() == 1);
+		assertTrue(validMoves.get(0).equals(new Posn(-1,0)));
+		c = new Center(Feature.ENDPOINT);
+		top = new Edge(Feature.ROAD);
+		right = new Edge(Feature.CITY);
+		bottom = new Edge(Feature.RIVER);
+		left = new Edge(Feature.FIELD);
+		otherT = new Tile(c, top, right, bottom, left, 0);
+		validMoves = b.validMoves(otherT);
+		assertTrue(validMoves.size() == 4);
+		assertTrue(validMoves.contains(new Posn(1,0)));
+		assertTrue(validMoves.contains(new Posn(-1,0)));
+		assertTrue(validMoves.contains(new Posn(0,1)));
+		assertTrue(validMoves.contains(new Posn(0,-1)));
 	}
 }

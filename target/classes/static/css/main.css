@@ -66,7 +66,7 @@ button.menubutton {
 #mainCanvas {
     /*position:absolute;*/
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 #tileCanvas {
