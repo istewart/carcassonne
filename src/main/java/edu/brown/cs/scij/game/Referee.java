@@ -33,34 +33,34 @@ public class Referee {
   }
 
   public List<Player> getPlayers() {
-	return players;
-}
+    return players;
+  }
 
-public void setPlayers(List<Player> players) {
-	this.players = players;
-}
+  public void setPlayers(List<Player> players) {
+    this.players = players;
+  }
 
-public Deck getDeck() {
-	return deck;
-}
+  public Deck getDeck() {
+    return deck;
+  }
 
-public void setDeck(Deck deck) {
-	this.deck = deck;
-}
+  public void setDeck(Deck deck) {
+    this.deck = deck;
+  }
 
-public int getTurnNumber() {
-	return turnNumber;
-}
+  public int getTurnNumber() {
+    return turnNumber;
+  }
 
-public void setTurnNumber(int turnNumber) {
-	this.turnNumber = turnNumber;
-}
+  public void setTurnNumber(int turnNumber) {
+    this.turnNumber = turnNumber;
+  }
 
-public void setBoard(Board board) {
-	this.board = board;
-}
+  public void setBoard(Board board) {
+    this.board = board;
+  }
 
-/**
+  /**
    * Places a tile on the board. Returns a boolean letting the user know if the
    * game is over. (Game is over when there are no tiles left).
    *
@@ -76,7 +76,7 @@ public void setBoard(Board board) {
   }
 
   // Should the referee handle all interaction with the deck? Yes, right?
-  public Tile drawTile() {
+  public Tile drawTile() throws EmptyDeckException {
     return deck.drawTile();
   }
 
@@ -88,10 +88,10 @@ public void setBoard(Board board) {
     this.turnNumber = 0;
     // this.isGameOver = false;
     List<Tile> tiles = null;
-    try{
-    	tiles = buildDeck();
+    try {
+      tiles = buildDeck();
     } catch (InvalidTileException ite) {
-    	System.out.println("wont be reached, tiles currentlyhardcoded");
+      System.out.println("wont be reached, tiles currentlyhardcoded");
     }
     deck = new Deck(tiles);
     board = new Board();
@@ -113,12 +113,12 @@ public void setBoard(Board board) {
    *
    * @param prevTile the tile that was last placed on the board
    */
-  public void score(Posn p/*Tile prevTile*/) {
+  public void score(Posn p/* Tile prevTile */) {
     // TODO score
     if (isGameOver()) {
       gameOverScoring();
     } else {
-      normalScoring(p/*prevTile*/);
+      normalScoring(p/* prevTile */);
     }
   }
 
@@ -248,30 +248,32 @@ public void setBoard(Board board) {
     // TODO need to rethink this logic
   }
 
-  private void normalScoring(Posn p/*Tile prevTile*/) {
+  private void normalScoring(Posn p/* Tile prevTile */) {
     // TODO rethink logic. There can be meeples or no meeples on this tile.
     // Need to check every directrion for everything. Major thing left.
     Tile prevTile = board.getBoard().get(p);
-    /*switch (prevTile.getMeepledFeature()) {
-      case CITY:
-        scoreCity(p, prevTile);
-        break;
-      case ENDPOINT: // not possible
-        break;
-      case FIELD: // Not possible
-        break;
-      case MONASTERY:
-        scoreMonastery(p, prevTile);
-        break;
-      case RIVER:
-        break;
-      case ROAD:
-        scoreRoad(p, prevTile);
-        break;
-      default:
-        break;
-
-    }*/
+    /*
+     * switch (prevTile.getMeepledFeature()) {
+     * case CITY:
+     * scoreCity(p, prevTile);
+     * break;
+     * case ENDPOINT: // not possible
+     * break;
+     * case FIELD: // Not possible
+     * break;
+     * case MONASTERY:
+     * scoreMonastery(p, prevTile);
+     * break;
+     * case RIVER:
+     * break;
+     * case ROAD:
+     * scoreRoad(p, prevTile);
+     * break;
+     * default:
+     * break;
+     * 
+     * }
+     */
   }
 
   private void scoreCity(Posn p, Tile t) {
@@ -283,10 +285,12 @@ public void setBoard(Board board) {
     // A placed tile can only finish monasteries surrounding it
     // Check all nine spaces around this tile to find a monastery, then check
     // those surrrounding 8
-    /*if (!(t.getCenter().getFeature() == Feature.MONASTERY && t.getCenter()
-        .getMeeple() != null)) {
-      throw new IllegalStateException();
-    }*/
+    /*
+     * if (!(t.getCenter().getFeature() == Feature.MONASTERY && t.getCenter()
+     * .getMeeple() != null)) {
+     * throw new IllegalStateException();
+     * }
+     */
 
   }
 
@@ -468,7 +472,7 @@ public void setBoard(Board board) {
 
     Collections.shuffle(tiles);
 
-    /* 
+    /*
      * TODO add river pieces:
      * add the ten that aren't the end pieces, shuffle them.
      * prepend the starting piece and append the end piece.
