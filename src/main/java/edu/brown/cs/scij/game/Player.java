@@ -42,7 +42,9 @@ public class Player {
   }
 
   public void addScore(int score) {
-    /*TODO if (this.score + score)*/
+    if (score < 0) {
+      throw new IllegalArgumentException("can't get negative points");
+    }
     this.score = this.score + score;
   }
 

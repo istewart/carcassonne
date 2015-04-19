@@ -132,8 +132,6 @@ public class Tile {
     }
   }
 
-  // Why does this take in a board
-  // shouldn't now - scott
   public List<TileFeature> validMeeples() {
     List<TileFeature> meepleableLocations = new ArrayList<>();
     if (top.isMeeplable) {
@@ -155,28 +153,6 @@ public class Tile {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null) {
-      return false;
-    }
-    if (!(o instanceof Tile)) {
-      return false;
-    }
-
-    Tile t = (Tile) o;
-
-    return center.equals(t.getCenter()) && top.equals(t.getTop())
-        && right.equals(t.getRight()) && bottom.equals(t.getBottom())
-        && left.equals(t.getLeft()) && shield == t.getShield()
-        && id == t.getId();
-    // TODO SHOULD WE ONLY HAVE TO CHECK EQUALITY BASED ON ID? OR SHOULD WE NOT
-    // CHECK EQUALITY BASED ON ID AT ALL BECAUSE OF DUPLICATES?
-  }
-
-  @Override
   public String toString() {
     return "Tile: id:" + id + ", c:" + center.toString() + ", t:"
         + top.toString() + ", r:" + right.toString() + ", b:"
@@ -184,8 +160,29 @@ public class Tile {
   }
 
   @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (!(obj instanceof Tile)) {
+      return false;
+    }
+    Tile other = (Tile) obj;
+    if (id != other.id) {
+      return false;
+    }
+    return true;
+  }
+
+  @Override
   public int hashCode() {
-    return id;
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + id;
+    return result;
   }
 
 }
