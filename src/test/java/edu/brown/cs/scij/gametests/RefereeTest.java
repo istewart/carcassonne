@@ -9,7 +9,7 @@ import edu.brown.cs.scij.tile.Tile;
 
 public class RefereeTest {
 
-	@Test
+	//@Test
 	public void constructorTest(){
 		Referee r = new Referee();
 		assertTrue(r.getTurnNumber() == 0);

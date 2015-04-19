@@ -31,7 +31,7 @@ public class EdgeTest {
 		//might want to add a remove meeple
 	}
 	
-	@Test
+	//@Test
 	public void equalsTest() throws InvalidTileException{
 		Edge ee = new Edge(Feature.ENDPOINT);
 		Edge ero = new Edge(Feature.ROAD);

@@ -9,7 +9,7 @@ import edu.brown.cs.scij.game.Player;
 
 public class MeepleTest {
 
-	@Test
+	//@Test
 	public void constructorTest(){
 		Player p = new Player(1, "p");
 		Meeple m = new Meeple(p);
