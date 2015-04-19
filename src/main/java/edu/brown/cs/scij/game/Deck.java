@@ -28,9 +28,9 @@ public class Deck {
    *         EmptyDeckException
    * @throws EmptyDeckException if called on an empty deck
    */
-  public Tile drawTile() throws EmptyDeckException {
+  public Tile drawTile() /* throws EmptyDeckException */{
     if (isEmpty()) {
-      throw new EmptyDeckException();
+      return null/* throw new EmptyDeckException() */;
     }
     return tiles.remove(0);
   }

@@ -76,7 +76,7 @@ public class Referee {
   }
 
   // Should the referee handle all interaction with the deck? Yes, right?
-  public Tile drawTile() throws EmptyDeckException {
+  public Tile drawTile() /* throws EmptyDeckException */{
     return deck.drawTile();
   }
 
