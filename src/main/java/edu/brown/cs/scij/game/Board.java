@@ -11,21 +11,37 @@ import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.scij.tile.Tile;
 
+/**
+ * A Board is a map of Posns to Tiles.
+ * @author szellers
+ *
+ */
 public class Board {
   private Map<Posn, Tile> board;
   private Set<Posn> adjacentPosns;
   private Set<Posn> meeplePosns;
 
+  /**
+   * Creates a new Board.
+   */
   public Board() {
     this.board = new HashMap<>();
     this.adjacentPosns = new HashSet<>();
     this.meeplePosns = new HashSet<>();
   }
 
+  /**
+   * Gets the positions of the Meeples on the Board.
+   * @return the Set of Posns where Meeples are located on the Board
+   */
   public Set<Posn> getMeeplePosns() {
     return meeplePosns;
   }
 
+  /**
+   * Gets the map of posns to tiles that is the representation of the board.
+   * @return the map of posns to tiles
+   */
   public Map<Posn, Tile> getBoard() {
     return ImmutableMap.copyOf(board);
   }
