@@ -19,7 +19,8 @@ import edu.brown.cs.scij.tile.Tile;
 public class Board {
   private Map<Posn, Tile> board;
   private Set<Posn> adjacentPosns;
-  private Set<Posn> meeplePosns;
+
+  // private Set<Posn> meeplePosns;
 
   /**
    * Creates a new Board.
@@ -27,16 +28,18 @@ public class Board {
   public Board() {
     this.board = new HashMap<>();
     this.adjacentPosns = new HashSet<>();
-    this.meeplePosns = new HashSet<>();
+    // this.meeplePosns = new HashSet<>();
   }
 
   /**
    * Gets the positions of the Meeples on the Board.
    * @return the Set of Posns where Meeples are located on the Board
    */
-  public Set<Posn> getMeeplePosns() {
-    return meeplePosns;
-  }
+  /*
+   * public Set<Posn> getMeeplePosns() {
+   * return meeplePosns;
+   * }
+   */
 
   /**
    * Gets the map of posns to tiles that is the representation of the board.
@@ -64,11 +67,9 @@ public class Board {
     if (there == null) {
       board.put(p, t);
       adjacentPosns.remove(p);
-      Posn up = p.withY(p.getY() + 1); // TODO should this be - 1 to help Ian
-                                       // out on front-end??
+      Posn up = p.withY(p.getY() + 1);
       Posn right = p.withX(p.getX() + 1);
-      Posn down = p.withY(p.getY() - 1);// TODO should this be + 1 to help Ian
-                                        // out on front-end??
+      Posn down = p.withY(p.getY() - 1);
       Posn left = p.withX(p.getX() - 1);
 
       if (!adjacentPosns.contains(up)) {
