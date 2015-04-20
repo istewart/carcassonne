@@ -67,8 +67,6 @@ public class Board {
     if (there == null) {
       board.put(p, t);
       adjacentPosns.remove(p);
-      System.out.println("adjacent posns:::");
-      System.out.println(adjacentPosns);
       Posn up = p.withY(p.getY() + 1);
       Posn right = p.withX(p.getX() + 1);
       Posn down = p.withY(p.getY() - 1);
@@ -86,8 +84,6 @@ public class Board {
       if (!adjacentPosns.contains(left)) {
         adjacentPosns.add(left);
       }
-      System.out.println("adjacent posns:::");
-      System.out.println(adjacentPosns);
     } else {
       throw new PosnTakenException("There is already a tile here");
     }
