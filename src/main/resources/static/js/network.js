@@ -10,7 +10,9 @@ jQuery(window).bind(
  * Handles the connections to the network. The following functions are usable:
  *
  *                send(field, val)
- *                ask(field, val, handler)
+ *                ask(field, val)
+ *                sendBlock(field, val)
+ *                askBlock(field, val)
  *                get(field)
  *                isConnected()
  * 
@@ -75,6 +77,30 @@ var network = {
       }
     });
   },
+
+  /**
+   * This function is identical to send except that it blocks until the server
+   * confirms that it has read the message.
+   *//*
+  sendBlock: function(field, val) {
+    var response = undefined;
+    response = network.send(field, val);
+    while (response == undefined)
+      ;
+    return response;
+  },*/
+
+  /**
+   * This functio nis identical to ask except that it blocks until the server
+   * sends a return message.
+   *//*
+  askBlock: function(field, val) {
+    var response = undefined;
+    response = network.ask(field, val);
+    while (response == undefined)
+      ;
+    return response;
+  },*/
 
   /**
    * Gets the value of a field.

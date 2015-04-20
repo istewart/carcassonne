@@ -29,6 +29,15 @@ var handler = {
   disconnect: function() {
     $("#status").html("Status: disconnected.");
   },
+
+  chat: function(chatLog) {
+    var html = "";
+    for (var key in chatLog) {
+      html += chatLog[key].player + ":"
+       + chatLog[key].message;
+    }
+    $("#chat").html(html);
+  }
 }
 
 function simpleHandler(val) {
