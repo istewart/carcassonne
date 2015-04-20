@@ -3,6 +3,7 @@ package edu.brown.cs.scij.game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import edu.brown.cs.scij.tile.Center;
@@ -206,9 +207,20 @@ public class Referee {
   public void scoreCity(Posn p) {
     // TODO
   }
-
+  
   public void scoreMonasteryEndgame() {
-    // TODO
+	  Tile currTile;
+	  Posn currPosn;
+	  Center c;
+	  for (Entry<Posn, Tile> e : board.getBoard().entrySet()) {
+		  currTile = e.getValue();
+		  currPosn = e.getKey();
+		  c = currTile.getCenter();
+  	
+		  if (c.getFeature() == Feature.MONASTERY && c.hasMeeple()){
+			c.getMeeple().getPlayer().addScore(numSurroundingTiles(currPosn));  
+		  }
+  	}
   }
 
   public void scoreRoadEndgame() {
