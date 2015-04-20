@@ -2,8 +2,10 @@ package edu.brown.cs.scij.game;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -17,12 +19,13 @@ import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.TileFeature;
 
 public class Referee {
-  // private PlayerFactory pf;
   private List<Player> players;
-  // private boolean isGameOver; pretty sure we don't need this
   private Deck deck;
   private int turnNumber;
   private Board board;
+
+  private static final int FINISHED_ROAD = 2;
+  private static final int UNFINISHED_ROAD = 1;
 
   public Referee() {
     // TODO should be done but there might be something else but I can't think
@@ -245,60 +248,18 @@ public class Referee {
   }
 
   public void scoreRoad(Posn p) {
-    // TODO
-    Tile curTile = board.getBoard().get(p);
-    Edge top = curTile.getTop();
-    Edge bottom = curTile.getBottom();
-    Edge left = curTile.getLeft();
-    Edge right = curTile.getRight();
-    Set<Posn> visited = new HashSet<>();
-    visited.add(p);
-    Set<TileFeature> meepledRoads = new HashSet<>();
-    if (curTile.roadEnds()) {
-      // Check all sides for a road ending
-      if (right.getFeature() == Feature.ROAD) {
-        // check to the right
-        if (right.hasMeeple()) {
-          meepledRoads.add(right);
-        }
-        int score =
-            scoreRoadHelper(p.withX(p.getX() + 1), null, visited, meepledRoads,
-                Direction.LEFT, 0);
-      } else if (left.getFeature() == Feature.ROAD) {
-        // check to the left
-        if (left.hasMeeple()) {
-          meepledRoads.add(left);
-        }
-        int score =
-            scoreRoadHelper(p.withX(p.getX() - 1), null, visited, meepledRoads,
-                Direction.RIGHT, 0);
-      } else if (top.getFeature() == Feature.ROAD) {
-        // check to the top
-        if (top.hasMeeple()) {
-          meepledRoads.add(top);
-        }
-        int score =
-            scoreRoadHelper(p.withY(p.getY() + 1), null, visited, meepledRoads,
-                Direction.DOWN, 0);
-      } else if (bottom.getFeature() == Feature.ROAD) {
-        // check to the bottom
-        if (bottom.hasMeeple()) {
-          meepledRoads.add(bottom);
-        }
-        int score =
-            scoreRoadHelper(p.withY(p.getY() - 1), null, visited, meepledRoads,
-                Direction.UP, 0);
-      }
-    } else {
-      // TODO check only the sides that have roads on them, in both directions
-    }
-
+    scoreRoadAt(p);
   }
 
   public int scoreRoadHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
-      Set<TileFeature> meepledRoads, Direction d, int count) {
-    // TODO
+      Set<TileFeature> meepledRoads, Direction d, int count/*
+                                                            * , boolean
+                                                            * isGameOver
+                                                            */) {
     if (curPosn.equals(prevPosn)) {
+      if (isGameOver()) {
+        return count;
+      }
       return 0;
     }
     if (visited.contains(curPosn)) {
@@ -306,11 +267,14 @@ public class Referee {
     }
     Tile curTile = board.getBoard().get(curPosn);
     if (curTile == null) {
+      if (isGameOver()) {
+        return count;
+      }
       return 0;
     } else {
       grabMeepleAtOppositeFeature(curTile, d, meepledRoads);
       if (curTile.roadEnds()) {
-        return count + 1;
+        return count + 2;
       } else {
         // if the road doesn't end at this tile, there is always a chance that
         // the meeple was placed in the center.
@@ -324,29 +288,195 @@ public class Referee {
           grabMeepleAtOppositeFeature(curTile, Direction.DOWN, meepledRoads);
           downScore =
               scoreRoadHelper(curPosn.withY(curPosn.getY() - 1), curPosn,
-                  visited, meepledRoads, Direction.UP, count + 1);
+                  visited, meepledRoads, Direction.UP, count + 2);
         } else if (curTile.getRight().getFeature() == Feature.ROAD) {
           // check meeple on right and continue in this direction
           grabMeepleAtOppositeFeature(curTile, Direction.RIGHT, meepledRoads);
           rightScore =
               scoreRoadHelper(curPosn.withX(curPosn.getX() + 1), curPosn,
-                  visited, meepledRoads, Direction.LEFT, count + 1);
+                  visited, meepledRoads, Direction.LEFT, count + 2);
         } else if (curTile.getTop().getFeature() == Feature.ROAD) {
           // check meeple on top and continue in this direction
           grabMeepleAtOppositeFeature(curTile, Direction.UP, meepledRoads);
           upScore =
               scoreRoadHelper(curPosn.withY(curPosn.getY() + 1), curPosn,
-                  visited, meepledRoads, Direction.DOWN, count + 1);
+                  visited, meepledRoads, Direction.DOWN, count + 2);
         } else if (curTile.getLeft().getFeature() == Feature.ROAD) {
           // check meeple on top and continue in this direction
           grabMeepleAtOppositeFeature(curTile, Direction.LEFT, meepledRoads);
           upScore =
               scoreRoadHelper(curPosn.withX(curPosn.getX() - 1), curPosn,
-                  visited, meepledRoads, Direction.RIGHT, count + 1);
+                  visited, meepledRoads, Direction.RIGHT, count + 2);
         }
 
         return downScore + upScore + leftScore + rightScore;
       }
+    }
+  }
+
+  public void scoreCity(Posn p) {
+    scoreCityAt(p);
+  }
+
+  public void scoreMonasteryEndgame() {
+    Tile currTile;
+    Posn currPosn;
+    Center c;
+    for (Entry<Posn, Tile> e : board.getBoard().entrySet()) {
+      currTile = e.getValue();
+      currPosn = e.getKey();
+      c = currTile.getCenter();
+
+      if (c.getFeature() == Feature.MONASTERY && c.hasMeeple()) {
+        c.getMeeple().getPlayer().addScore(numSurroundingTiles(currPosn));
+      }
+    }
+  }
+
+  public void scoreRoadEndgame() {
+    for (Posn p : board.getBoard().keySet()) {
+      scoreRoadAt(p);
+    }
+  }
+
+  public void scoreCityEndgame() {
+    for (Posn p : board.getBoard().keySet()) {
+      scoreCityAt(p);
+    }
+  }
+
+  public void scoreCityAt(Posn p) {
+    Tile curTile = board.getBoard().get(p);
+    Edge top = curTile.getTop();
+    Edge bottom = curTile.getBottom();
+    Edge left = curTile.getLeft();
+    Edge right = curTile.getRight();
+    // TODO COPY ROAD PRETTY MUCH, but the center has to be a city to continue
+    // going in any other direction, and scoring included shields, so can't use
+    // the same check as roads when they check if the score is > 2, have to find
+    // something else.
+  }
+
+  public void scoreRoadAt(Posn p) {
+    Tile curTile = board.getBoard().get(p);
+    Edge top = curTile.getTop();
+    Edge bottom = curTile.getBottom();
+    Edge left = curTile.getLeft();
+    Edge right = curTile.getRight();
+    int upScore = 0;
+    int downScore = 0;
+    int leftScore = 0;
+    int rightScore = 0;
+    if (curTile.roadEnds()) {
+      // Check all sides for a road ending
+      if (right.getFeature() == Feature.ROAD) {
+        // check to the right
+        Set<TileFeature> rightRoadMeeples = new HashSet<>();
+        Set<Posn> visitedRight = new HashSet<>();
+        visitedRight.add(p);
+        if (right.hasMeeple()) {
+          rightRoadMeeples.add(right);
+        }
+        rightScore =
+            scoreRoadHelper(p.withX(p.getX() + 1), null, visitedRight,
+                rightRoadMeeples, Direction.LEFT, 1);
+        if (rightScore > 2) {
+          scoreMeeples(rightRoadMeeples, rightScore);
+        }
+      }
+      if (left.getFeature() == Feature.ROAD) {
+        // check to the left
+        Set<TileFeature> leftRoadMeeples = new HashSet<>();
+        Set<Posn> visitedLeft = new HashSet<>();
+        visitedLeft.add(p);
+        if (left.hasMeeple()) {
+          leftRoadMeeples.add(left);
+        }
+        leftScore =
+            scoreRoadHelper(p.withX(p.getX() - 1), null, visitedLeft,
+                leftRoadMeeples, Direction.RIGHT, 1);
+        if (leftScore > 2) {
+          scoreMeeples(leftRoadMeeples, leftScore);
+        }
+      }
+      if (top.getFeature() == Feature.ROAD) {
+        // check to the top
+        Set<TileFeature> topRoadMeeples = new HashSet<>();
+        Set<Posn> visitedTop = new HashSet<>();
+        visitedTop.add(p);
+        if (top.hasMeeple()) {
+          topRoadMeeples.add(top);
+        }
+        upScore =
+            scoreRoadHelper(p.withY(p.getY() + 1), null, visitedTop,
+                topRoadMeeples, Direction.DOWN, 1);
+        if (upScore > 2) {
+          scoreMeeples(topRoadMeeples, upScore);
+        }
+      }
+      if (bottom.getFeature() == Feature.ROAD) {
+        // check to the bottom
+        Set<TileFeature> bottomRoadMeeples = new HashSet<>();
+        Set<Posn> visitedBottom = new HashSet<>();
+        visitedBottom.add(p);
+        if (bottom.hasMeeple()) {
+          bottomRoadMeeples.add(bottom);
+        }
+        downScore =
+            scoreRoadHelper(p.withY(p.getY() - 1), null, visitedBottom,
+                bottomRoadMeeples, Direction.UP, 1);
+        if (downScore > 2) {
+          scoreMeeples(bottomRoadMeeples, downScore);
+        }
+      }
+    } else {
+      Set<Posn> visited = new HashSet<>();
+      Set<TileFeature> meepledRoads = new HashSet<>();
+      grabMeepleAtCenter(curTile, meepledRoads);
+
+      upScore = 0;
+      downScore = 0;
+      leftScore = 0;
+      rightScore = 0;
+      if (right.getFeature() == Feature.ROAD) {
+        // check to the right
+        if (right.hasMeeple()) {
+          meepledRoads.add(right);
+        }
+        rightScore =
+            scoreRoadHelper(p.withX(p.getX() + 1), null, visited, meepledRoads,
+                Direction.LEFT, 1);
+      }
+      if (left.getFeature() == Feature.ROAD) {
+        // check to the left
+        if (left.hasMeeple()) {
+          meepledRoads.add(left);
+        }
+        leftScore =
+            scoreRoadHelper(p.withX(p.getX() - 1), null, visited, meepledRoads,
+                Direction.RIGHT, 1);
+      }
+      if (top.getFeature() == Feature.ROAD) {
+        // check to the top
+        if (top.hasMeeple()) {
+          meepledRoads.add(top);
+        }
+        upScore =
+            scoreRoadHelper(p.withY(p.getY() + 1), null, visited, meepledRoads,
+                Direction.DOWN, 1);
+      }
+      if (bottom.getFeature() == Feature.ROAD) {
+        // check to the bottom
+        if (bottom.hasMeeple()) {
+          meepledRoads.add(bottom);
+        }
+        downScore =
+            scoreRoadHelper(p.withY(p.getY() - 1), null, visited, meepledRoads,
+                Direction.UP, 1);
+      }
+
+      int score = upScore + downScore + leftScore + rightScore;
+      scoreMeeples(meepledRoads, score);
     }
   }
 
@@ -369,38 +499,44 @@ public class Referee {
     }
   }
 
-  public void scoreCity(Posn p) {
-    // TODO
-  }
-
-  public void scoreMonasteryEndgame() {
-    Tile currTile;
-    Posn currPosn;
-    Center c;
-    for (Entry<Posn, Tile> e : board.getBoard().entrySet()) {
-      currTile = e.getValue();
-      currPosn = e.getKey();
-      c = currTile.getCenter();
-
-      if (c.getFeature() == Feature.MONASTERY && c.hasMeeple()) {
-        c.getMeeple().getPlayer().addScore(numSurroundingTiles(currPosn));
+  public void scoreMeeples(Set<TileFeature> meepledFeatures, int baseScore) {
+    Map<Player, Integer> meeples = new HashMap<>();
+    for (Player p : players) {
+      meeples.put(p, 0);
+    }
+    for (TileFeature tf : meepledFeatures) {
+      Player p = tf.getMeeple().getPlayer();
+      int numMeeples = meeples.get(p);
+      meeples.put(p, numMeeples + 1);
+      try {
+        tf.removeMeeple();
+      } catch (NullMeepleException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+        System.out
+            .println("shouldn't get here, if we do, reach scott at 2**-*4*-**2*");
+        System.out.println(e.getMessage());
       }
     }
-  }
 
-  public void scoreRoadEndgame() {
-    // TODO
-  }
+    int maxMeeples = 0;
+    for (Integer meepleCounts : meeples.values()) {
+      if (meepleCounts > maxMeeples) {
+        maxMeeples = meepleCounts;
+      }
+    }
 
-  public void scoreCityEndgame() {
-    // TODO
+    for (Map.Entry<Player, Integer> meepleCount : meeples.entrySet()) {
+      if (meepleCount.getValue() == maxMeeples) {
+        meepleCount.getKey().addScore(baseScore);
+      }
+    }
   }
 
   public void placeMeeple(Posn posn, Tile tile, Player player,
       TileFeature feature) {
     // TODO need to make sure its a valid place to meeple
     Set<Posn> meepled = board.getMeeplePosns();
-    // this wont work scott
     meepled.add(posn);
   }
 
