@@ -2,9 +2,7 @@ package edu.brown.cs.scij.game;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 import edu.brown.cs.scij.tile.Center;
@@ -114,189 +112,71 @@ public class Referee {
    *
    * @param prevTile the tile that was last placed on the board
    */
-  public void score(Posn p/* Tile prevTile */) {
+  public void score(Posn p) {
     // TODO score
     if (isGameOver()) {
       gameOverScoring();
     } else {
-      normalScoring(p/* prevTile */);
+      normalScoring(p);
     }
   }
 
-  private void gameOverScoring() {
-    for (Posn p : board.getMeeplePosns()) {
-      // gameOverScoreTile(p);
-      Tile t = board.getBoard().get(p);
-      switch (t.getMeepledFeature()) {
-        case CITY:
-          scoreCityEnd(p, t);
-          break;
-        case ENDPOINT: // not possible
-          break;
-        case FIELD: // not possible
-          break;
-        case MONASTERY:
-          scoreMonasteryEnd(p, t);
-          break;
-        case RIVER: // not possible
-          break;
-        case ROAD:
-          scoreRoadEnd(p, t);
-          break;
-        default:
-          break;
+  public void gameOverScoring() {
+    // TODO
+    scoreMonasteryEndgame();
+    scoreRoadEndgame();
+    scoreCityEndgame();
+  }
 
+  public void normalScoring(Posn p) {
+    scoreMonastery(p);
+    scoreRoad(p);
+    scoreCity(p);
+  }
+
+  public void scoreMonastery(Posn p) {
+    Tile t = board.getBoard().get(p);
+    if (t == null) {
+      return;
+    }
+    // if the tile is a monastery:
+    Center c = t.getCenter();
+    if (c.getFeature() == Feature.MONASTERY) {
+      Meeple m = c.getMeeple();
+      if (m != null) {
+        // check surrounding tiles for tiles
+        checkSurroundingTiles(p);
+        board.getBoard().containsKey(p.withY(p.getY() + 1));
       }
     }
-  }
 
-  private void scoreCityEnd(Posn p, Tile t) {
-    // CAN BE CENTER OR EDGE
-    Queue<Posn> q = new LinkedList<>();
-    if (t.getCenter().getMeeple() != null) {
-      checkEdgesForCity(p, t, q);
-    } else if (t.getTop().getMeeple() != null) {
-      if (t.getCenter().getFeature() == Feature.CITY) {
-        checkEdgesForCity(p, t, q);
-      } else {
-        q.add(p.withY(p.getY() + 1));
-      }
-    } else if (t.getRight().getMeeple() != null) {
-      if (t.getCenter().getFeature() == Feature.CITY) {
-        checkEdgesForCity(p, t, q);
-      } else {
-        q.add(p.withX(p.getX() + 1));
-      }
-    } else if (t.getBottom().getMeeple() != null) {
-      if (t.getCenter().getFeature() == Feature.CITY) {
-        checkEdgesForCity(p, t, q);
-      } else {
-        q.add(p.withY(p.getY() - 1));
-      }
-    } else if (t.getLeft().getMeeple() != null) {
-      if (t.getCenter().getFeature() == Feature.CITY) {
-        checkEdgesForCity(p, t, q);
-      } else {
-        q.add(p.withX(p.getX() - 1));
-      }
-    }
-    scoreCityEndHelp(q);
-  }
-
-  private void scoreCityEndHelp(Queue<Posn> q) {
-    // TODO need to rethink this logic...
-    // Need some kind of visited or set of visited posns, but
-    // one can have multiple city portions on the same tile, so be careful
-    // ALSO THERE CAN BE OTHER PEOPLES MEEPLES ON THE NEW TILES
-    while (!q.isEmpty()) {
-      Posn p = q.remove();
-    }
-  }
-
-  private void checkEdgesForCity(Posn p, Tile t, Queue<Posn> q) {
-    if (t.getTop().getFeature() == Feature.CITY) {
-      q.add(p.withY(p.getY() + 1));
-    }
-    if (t.getRight().getFeature() == Feature.CITY) {
-      q.add(p.withX(p.getX() + 1));
-    }
-    if (t.getBottom().getFeature() == Feature.CITY) {
-      q.add(p.withY(p.getY() - 1));
-    }
-    if (t.getLeft().getFeature() == Feature.CITY) {
-      q.add(p.withX(p.getX() - 1));
-    }
-  }
-
-  private void scoreMonasteryEnd(Posn p, Tile t) {
-    // MUST BE CENTER PIECE
-    if (!(t.getCenter().getFeature() == Feature.MONASTERY && t.getCenter()
-        .getMeeple() != null)) {
-      throw new IllegalStateException();
-    }
-    Player player = t.getCenter().getMeeple().getPlayer();
-    int score = 1;
-    if (board.getBoard().get(new Posn(p.getX() - 1, p.getY() - 1)) != null) {
-      score++;
-    }
-    if (board.getBoard().get(new Posn(p.getX() - 1, p.getY())) != null) {
-      score++;
-    }
-    if (board.getBoard().get(new Posn(p.getX() - 1, p.getY() + 1)) != null) {
-      score++;
-    }
-    if (board.getBoard().get(new Posn(p.getX(), p.getY() - 1)) != null) {
-      score++;
-    }
-    if (board.getBoard().get(new Posn(p.getX(), p.getY() + 1)) != null) {
-      score++;
-    }
-    if (board.getBoard().get(new Posn(p.getX() + 1, p.getY() - 1)) != null) {
-      score++;
-    }
-    if (board.getBoard().get(new Posn(p.getX() + 1, p.getY())) != null) {
-      score++;
-    }
-    if (board.getBoard().get(new Posn(p.getX() + 1, p.getY() + 1)) != null) {
-      score++;
-    }
-
-    player.addScore(score);
-  }
-
-  private void scoreRoadEnd(Posn p, Tile t) {
-    // CAN BE CENTER OR EDGE
-    // TODO need to rethink this logic
-  }
-
-  public void normalScoring(Posn p/* Tile prevTile */) {
-    // TODO rethink logic. There can be meeples or no meeples on this tile.
-    // Need to check every directrion for everything. Major thing left.
-    Tile prevTile = board.getBoard().get(p);
-    /*
-     * switch (prevTile.getMeepledFeature()) {
-     * case CITY:
-     * scoreCity(p, prevTile);
-     * break;
-     * case ENDPOINT: // not possible
-     * break;
-     * case FIELD: // Not possible
-     * break;
-     * case MONASTERY:
-     * scoreMonastery(p, prevTile);
-     * break;
-     * case RIVER:
-     * break;
-     * case ROAD:
-     * scoreRoad(p, prevTile);
-     * break;
-     * default:
-     * break;
-     * 
-     * }
-     */
-  }
-
-  public void scoreCity(Posn p, Tile t) {
-    // TODO rethink logic... See scoreCtyEnd/scoreCityEndHelp
-  }
-
-  public void scoreMonastery(Tile t) {
-    // TODO rethink logic.
-    // A placed tile can only finish monasteries surrounding it
-    // Check all nine spaces around this tile to find a monastery, then check
-    // those surrrounding 8
-    /*
-     * if (!(t.getCenter().getFeature() == Feature.MONASTERY && t.getCenter()
-     * .getMeeple() != null)) {
-     * throw new IllegalStateException();
-     * }
-     */
+    // if the tile is not a monastery, check the surrounding tiles for finished
+    // monasteries:
 
   }
 
-  public void scoreRoad(Posn p, Tile t) {
-    // TODO rethink logic
+  public void checkSurroundingTiles(Posn p) {
+
+  }
+
+  public void scoreRoad(Posn p) {
+    // TODO
+  }
+
+  public void scoreCity(Posn p) {
+    // TODO
+  }
+
+  public void scoreMonasteryEndgame() {
+    // TODO
+  }
+
+  public void scoreRoadEndgame() {
+    // TODO
+  }
+
+  public void scoreCityEndgame() {
+    // TODO
   }
 
   public void placeMeeple(Posn posn, Tile tile, Player player,
