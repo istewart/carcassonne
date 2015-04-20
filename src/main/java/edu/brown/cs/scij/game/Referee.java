@@ -142,10 +142,21 @@ public class Referee {
       while (!validMoves.contains(chosenPosn)) {
         System.out
             .println("Where would you like to place the tile? Format: x y");
+        System.out
+            .println("to rotate left, input left, to rotate right input right");
         String input = r.readLine();
         String[] coord = input.split(" ");
-        chosenPosn =
-            new Posn(Integer.parseInt(coord[0]), Integer.parseInt(coord[1]));
+        if (coord.length == 1) {
+          if (coord[0].equals("right")) {
+            t.rotateRight();
+          } else {
+            t.rotateLeft();
+          }
+        } else {
+          chosenPosn =
+              new Posn(Integer.parseInt(coord[0]), Integer.parseInt(coord[1]));
+        }
+
       }
       try {
         board.place(chosenPosn, t);
