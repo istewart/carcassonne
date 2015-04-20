@@ -136,11 +136,24 @@ public class Referee {
   }
 
   public void scoreMonastery(Posn p) {
+
+    // if the tile is a monastery:
+    scoreMonasteryHelper(p);
+
+    // if the tile is not a monastery, check the surrounding tiles for finished
+    // monasteries:
+    List<Posn> surrounding = getSurroundingTiles(p);
+    for (Posn posn : surrounding) {
+      scoreMonasteryHelper(posn);
+    }
+
+  }
+
+  public void scoreMonasteryHelper(Posn p) {
     Tile t = board.getBoard().get(p);
     if (t == null) {
       return;
     }
-    // if the tile is a monastery:
     Center c = t.getCenter();
     if (c.getFeature() == Feature.MONASTERY) {
       Meeple m = c.getMeeple();
@@ -158,10 +171,41 @@ public class Referee {
         }
       }
     }
+  }
 
-    // if the tile is not a monastery, check the surrounding tiles for finished
-    // monasteries:
+  public List<Posn> getSurroundingTiles(Posn p) {
+    List<Posn> surrounding = new ArrayList<>();
+    int x = p.getX();
+    int y = p.getY();
+    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
+      surrounding.add(new Posn(x + 1, y));
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
+      surrounding.add(new Posn(x + 1, y + 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
+      surrounding.add(new Posn(x + 1, y - 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x, y))) {
+      surrounding.add(new Posn(x, y));
+    }
+    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
+      surrounding.add(new Posn(x, y + 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
+      surrounding.add(new Posn(x, y - 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
+      surrounding.add(new Posn(x - 1, y));
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
+      surrounding.add(new Posn(x - 1, y + 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
+      surrounding.add(new Posn(x - 1, y - 1));
+    }
 
+    return surrounding;
   }
 
   public int numSurroundingTiles(Posn p) {
