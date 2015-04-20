@@ -52,7 +52,7 @@
       <button class="menubutton" id="hostButton"> Host </button></br>
       <button class="menubutton" id="joinButton"> Join </button></br>
       <button class="menubutton" id="settingsButton"> Settings </button></br>
-      <button class="menubutton" id="helpButton"> Instructions </button></br>
+      <button class="menubutton" id="instructionsButton"> Instructions </button></br>
     </div>
 
     <div id="hostDiv">
@@ -60,7 +60,8 @@
 
       <textarea id="hostName" class="hostField" rows="1" placeholder="Game Name"></textarea></br>
       <textarea id="hostIP" class="hostField" rows="1" placeholder="Your I.P. Address"></textarea></br>
-      <button class="submitButton" id="hostStart"> Start </button>
+      <button class="submitButton" id="hostStart"> Start </button><br>
+      <button class="backButton" id="hostBack"> Back </button>
     </div>
 
     <div id="joinDiv">
@@ -68,12 +69,31 @@
 
       <textarea id="joinName" class="hostField" rows="1" placeholder="Your Name"></textarea></br>
       <textarea id="joinIP" class="hostField" rows="1" placeholder="Host I.P. Address"></textarea></br>
-      <button class="submitButton" id="joinJoin"> Start </button>
+      <button class="submitButton" id="joinJoin"> Start </button><br>
+      <button class="backButton" id="joinBack"> Back </button>
+    </div>
+      
+    <div id="settingsDiv">
+      <h1>Settings</h1>
+
+      <input type="checkbox" name="hints" value="True" checked> Show Hints<br>
+      <button class="submitButton" id="settingsSave"> Save </button><br>
+      <button class="backButton" id="settingsBack"> Back </button>
     </div>
 
-    <div id = "tileDiv">
+    <div id="instructionsDiv">
+      <h1>Instructions</h1>
+
+      <p> Something explaining rules here. </p>
+
+      <button class="backButton" id="instructionsBack"> Back </button>
+    </div>
+
+    <div id="tileDiv">
       <img src="../../../static/images/tiles/test.png" id="test">
     </div>
+
+
 
   </body>
 </html>

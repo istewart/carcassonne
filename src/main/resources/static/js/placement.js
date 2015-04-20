@@ -9,8 +9,8 @@ var PlacementButtons = function() {
         var validMoves = responseObject.validMoves;
         var players = currTile.players;
 
-        var r = new Renderer(board, currTile, players, validMoves);
-        r.render();
+        renderer = new Renderer(board, currTile, players, validMoves, this.renderer.xt, this.renderer.yt, this.renderer.scale);
+        renderer.render();
       });
     });
 
@@ -24,8 +24,8 @@ var PlacementButtons = function() {
         var validMoves = responseObject.validMoves;
         var players = currTile.players;
 
-        var r = new Renderer(board, currTile, players, validMoves);
-        r.render();
+        renderer = new Renderer(board, currTile, players, validMoves, this.renderer.xt, this.renderer.yt, this.renderer.scale);
+        renderer.render();
       });
     });
 
@@ -39,8 +39,8 @@ var PlacementButtons = function() {
         var validMoves = responseObject.validMoves;
         var players = currTile.players;
 
-        var r = new Renderer(board, currTile, players, validMoves);
-        r.render();
+        renderer = new Renderer(board, currTile, players, validMoves, this.renderer.xt, this.renderer.yt, this.renderer.scale);
+        renderer.render();
       });
     });
 }
