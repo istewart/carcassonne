@@ -3,6 +3,8 @@ CANVAS_SIZE = 1000;
 
 // can clean things up with global context and canvas
 // take a look at clearing and tile spacing
+// do click and drag better
+// add a better background to the board
 
 function Renderer(board, currTile, players, validMoves, scale, xt, yt) {
   this.board = board;
