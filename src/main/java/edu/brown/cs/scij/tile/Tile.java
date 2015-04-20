@@ -3,9 +3,6 @@ package edu.brown.cs.scij.tile;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.brown.cs.scij.game.Meeple;
-import edu.brown.cs.scij.game.Player;
-
 public class Tile {
   static int numTiles = 0;
   private final Center center;
@@ -125,19 +122,21 @@ public class Tile {
     return this;
   }
 
-  public void placeMeeple(Player player, TileFeature feature)
-      throws OutOfMeeplesException, InvalidMeeplePlacementException {
-    if (player.getNumMeeples() == 0) {
-      throw new OutOfMeeplesException("You have no meeples left!");
-    } else if (!feature.isMeeplable()) {
-      throw new InvalidMeeplePlacementException("no. cant meeple there");
-    } else {
-      player.useMeeple();
-      Meeple m = new Meeple(player);
-      feature.setMeeple(m);
-      meepledFeature = feature.getFeature();
-    }
-  }
+  /*
+   * public void placeMeeple(Player player, TileFeature feature)
+   * throws OutOfMeeplesException, InvalidMeeplePlacementException {
+   * if (player.getNumMeeples() == 0) {
+   * throw new OutOfMeeplesException("You have no meeples left!");
+   * } else if (!feature.isMeeplable()) {
+   * throw new InvalidMeeplePlacementException("no. cant meeple there");
+   * } else {
+   * player.useMeeple();
+   * Meeple m = new Meeple(player);
+   * feature.setMeeple(m);
+   * meepledFeature = feature.getFeature();
+   * }
+   * }
+   */
 
   public List<TileFeature> validMeeples() {
     List<TileFeature> meepleableLocations = new ArrayList<>();
