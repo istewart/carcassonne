@@ -67,15 +67,14 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
 
     var targetImg = document.getElementById(tileObj.id);
     var targetRadians = tileObj.rotation * Math.PI / 180;
-    console.log(targetRadians);
 
     if (targetRadians) { // fancy way of drawing an image rotated about it's center
-      ctx.translate(targetPlacement.x + (TILE_SIZE / 2), targetPlacement.y + (TILE_SIZE / 2));
+      ctx.translate(targetPlacement.x + (targetPlacement.s / 2), targetPlacement.y + (targetPlacement.s / 2));
       ctx.rotate(targetRadians);
-      ctx.drawImage(targetImg, -(TILE_SIZE / 2), -(TILE_SIZE / 2), targetPlacement.s, targetPlacement.s);
+      ctx.drawImage(targetImg, -(targetPlacement.s / 2), -(targetPlacement.s / 2), targetPlacement.s, targetPlacement.s);
       ctx.rotate(-targetRadians);
-      ctx.translate(-targetPlacement.x - (TILE_SIZE / 2), -targetPlacement.y - (TILE_SIZE / 2));
-    } else {
+      ctx.translate(-targetPlacement.x - (targetPlacement.s / 2), -targetPlacement.y - (targetPlacement.s / 2));
+    } else { // tile not rotated
       ctx.drawImage(targetImg, targetPlacement.x, targetPlacement.y, targetPlacement.s, targetPlacement.s);
     }
     
@@ -112,12 +111,12 @@ Renderer.prototype.render = function() {
 
   // Use the identity matrix while clearing the canvas
   ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.beginPath();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.stroke();
 
   // Restore the transform
   ctx.restore();
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   this.renderBoard();
   this.renderTile();
@@ -131,12 +130,38 @@ Renderer.prototype.posToCanvas = function(pos) {
   var canvasHeight = document.getElementById("mainCanvas").height;
   var canvasWidth = document.getElementById("mainCanvas").width;
 
-  var centerX = (canvasWidth / 2) - (TILE_SIZE / 2); //+ (this.xt * TILE_SIZE * this.scale);
-  var centerY = (canvasHeight / 2) - (TILE_SIZE / 2); //+ (this.yt * TILE_SIZE * this.scale);
-
-  var targetX = centerX + (pos.x * TILE_SIZE * this.scale);
-  var targetY = centerY + (-pos.y * TILE_SIZE * this.scale);
   var targetSize = TILE_SIZE * this.scale;
+
+  var centerX = (canvasWidth / 2) - (targetSize / 2) + (this.xt * targetSize);
+  var centerY = (canvasHeight / 2) - (targetSize / 2) + (this.yt * targetSize);
+
+  var targetX = centerX + (pos.x * targetSize);
+  var targetY = centerY + (-pos.y * targetSize);
 
   return {x: targetX, y: targetY, s: targetSize};
 };
+
+Renderer.prototype.pixelsToCanvas = function(pixPos) {
+  var canvasUnitHeight = document.getElementById("mainCanvas").height; // canvas units
+  var canvasPixHeight = $("#mainCanvas").height(); // canvas pix
+
+  var canvasUnitWidth = document.getElementById("mainCanvas").width; // canvas units
+  var canvasPixWidth = $("#mainCanvas").width(); // canvas pix
+
+  var canvasX = pixPos.x * (canvasUnitWidth / canvasPixWidth);
+  var canvasY = pixPos.y * (canvasUnitHeight / canvasPixHeight);
+
+  return {x: canvasX, y: canvasY};
+}
+
+Renderer.prototype.canvasToPos = function(canvasPos) {
+  var canvasHeight = document.getElementById("mainCanvas").height;
+  var canvasWidth = document.getElementById("mainCanvas").width;
+
+  var targetSize = TILE_SIZE * this.scale;
+
+  var posX = (canvasPos.x) / targetSize;
+  var posY = (canvasPos.y) / targetSize;
+
+  return {x: posX, y: posY};
+}
