@@ -31,13 +31,8 @@ public class EdgeTest {
 		//might want to add a remove meeple
 	}
 	
-<<<<<<< HEAD
 	@Test
 	public void equalsTest() throws InvalidEdgeException{
-=======
-	//@Test
-	public void equalsTest() throws InvalidTileException{
->>>>>>> 3351d07314f068e11b8c6b9b3a4ddcda4e136b62
 		Edge ee = new Edge(Feature.ENDPOINT);
 		Edge ero = new Edge(Feature.ROAD);
 		Edge eri = new Edge(Feature.RIVER);

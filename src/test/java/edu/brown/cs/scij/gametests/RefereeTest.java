@@ -50,7 +50,6 @@ public class RefereeTest {
 		//TODO cant do this till we do meeple
 	}
 	
-	@Test
 	public void cityScoringTest() throws InvalidEdgeException, PosnTakenException{
 		Center c = new Center(Feature.FIELD);
 		Edge top = new Edge(Feature.FIELD);
@@ -95,7 +94,6 @@ public class RefereeTest {
 		//TODO shield stuff
 	}
 	
-	@Test
 	public void roadScoringTest() throws InvalidEdgeException{
 		Center c = new Center(Feature.ENDPOINT);
 		Edge top = new Edge(Feature.FIELD);
@@ -152,7 +150,6 @@ public class RefereeTest {
 		assertTrue(r.scoreRoad("something which indicates road on topRight") == 6);
 	}
 	
-	@Test
 	public void monasteryScoringTest() throws InvalidEdgeException, PosnTakenException{
 		Center c = new Center(Feature.MONASTERY);
 		Edge top = new Edge(Feature.FIELD);
@@ -194,7 +191,6 @@ public class RefereeTest {
 		//do roads have to be completed?
 	}
 	
-	@Test
 	public void gameOverMonasteryScoringTest(){
 		Center c = new Center(Feature.MONASTERY);
 		Edge top = new Edge(Feature.FIELD);
