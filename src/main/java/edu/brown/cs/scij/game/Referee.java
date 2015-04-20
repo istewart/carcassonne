@@ -533,9 +533,10 @@ public class Referee {
     }
   }
 
-  public void placeMeeple(Posn posn, Tile tile, Player player,
-      TileFeature feature) {
+  public void placeMeeple(Posn posn, Player player,
+      Direction d) {
     // TODO need to make sure its a valid place to meeple
+	  // you dont need both posn and tile, and feature still ambiguous
     Set<Posn> meepled = board.getMeeplePosns();
     meepled.add(posn);
   }
