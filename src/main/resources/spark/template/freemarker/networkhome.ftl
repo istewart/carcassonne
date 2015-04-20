@@ -18,6 +18,10 @@
       <!-- players statuses -->
     </div>
 
+    <div id="chat">
+      <!-- chat log -->
+    </div>
+
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/network.js"></script>
     <script src="js/example.js"></script>
