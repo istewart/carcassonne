@@ -12,7 +12,7 @@ import edu.brown.cs.scij.game.PosnTakenException;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
-import edu.brown.cs.scij.tile.InvalidTileException;
+import edu.brown.cs.scij.tile.InvalidEdgeException;
 import edu.brown.cs.scij.tile.Tile;
 
 public class BoardTest {
@@ -24,7 +24,7 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void placeTest() throws InvalidTileException{
+	public void placeTest() throws InvalidEdgeException{
 		Board b = new Board();
 		assertTrue(b.getBoard().isEmpty());
 		Center c = new Center(Feature.MONASTERY);
@@ -47,7 +47,7 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void validMovesTest() throws InvalidTileException, PosnTakenException{
+	public void validMovesTest() throws InvalidEdgeException, PosnTakenException{
 		//these tiles do not actually exist but are used for testing
 		Center c = new Center(Feature.MONASTERY);
 		Edge top = new Edge(Feature.ROAD);

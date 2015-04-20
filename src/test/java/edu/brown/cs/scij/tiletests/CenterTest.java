@@ -7,19 +7,19 @@ import edu.brown.cs.scij.game.Meeple;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Feature;
-import edu.brown.cs.scij.tile.InvalidTileException;
+import edu.brown.cs.scij.tile.InvalidEdgeException;
 
 public class CenterTest {
 	
 	@Test
-	public void constructorTest() throws InvalidTileException{
+	public void constructorTest() throws InvalidEdgeException{
 		Center c = new Center(Feature.CITY);
 		assertTrue(c.isMeeplable());
 		assertTrue(c.getMeeple() == null);
 	}
 	
 	@Test
-	public void meepleTest() throws InvalidTileException{
+	public void meepleTest() throws InvalidEdgeException{
 		Center c = new Center(Feature.MONASTERY);
 		assertTrue(c.isMeeplable());
 		assertTrue(c.getMeeple() == null);
@@ -31,7 +31,7 @@ public class CenterTest {
 	}
 	
 	@Test
-	public void equalsTest() throws InvalidTileException{
+	public void equalsTest() throws InvalidEdgeException{
 		Center cc = new Center(Feature.CITY);
 		Center cro = new Center(Feature.ROAD);
 		Center cri = new Center(Feature.RIVER);

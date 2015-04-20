@@ -3,10 +3,10 @@ package edu.brown.cs.scij.tile;
 public class Edge extends TileFeature {
 
   public Edge(Feature feature)
-    throws InvalidTileException {
+    throws InvalidEdgeException {
     super(feature);
     if (feature == Feature.MONASTERY || feature == Feature.ENDPOINT) {
-      throw new InvalidTileException(
+      throw new InvalidEdgeException(
           "monestaries and endpoints cant be on edge.");
     }
   }
