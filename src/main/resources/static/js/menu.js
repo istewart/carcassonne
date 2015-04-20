@@ -1,8 +1,8 @@
-var Menu = function () {
-	var hostButton = document.getElementById("hostButton");
+var Menu = function() {
+	  var hostButton = document.getElementById("hostButton");
     var joinButton = document.getElementById("joinButton");
     var settingsButton = document.getElementById("settingsButton");
-    var helpButton = document.getElementById("helpButton");
+    var instructionsButton = document.getElementById("instructionsButton");
 
     var joinJoin = document.getElementById("joinJoin");
 
@@ -10,25 +10,28 @@ var Menu = function () {
     var mainPlace = document.getElementById("mainPlace");
     var mainRight = document.getElementById("mainRight");
 
-    hostButton.addEventListener("click", function(event) {
+    var hideAll = function() {
       $("#menuDiv").hide();
       $("#joinDiv").hide();
       $("#mainDiv").hide();
+      $("#hostDiv").hide();
+      $("#settingsDiv").hide();
+      $("#instructionsDiv").hide();
+    }
+
+    hostButton.addEventListener("click", function(event) {
+      hideAll();
       $("#hostDiv").show();
     });
 
     joinButton.addEventListener("click", function(event) {
-      $("#menuDiv").hide();
+      hideAll();
       $("#joinDiv").show();
-      $("#mainDiv").hide();
-      $("#hostDiv").hide();
     });
 
     joinJoin.addEventListener("click", function(event) {
-      $("#menuDiv").hide();
-      $("#joinDiv").hide();
+      hideAll();
       $("#mainDiv").show();
-      $("#hostDiv").hide();
 
       // Simple Tests
 
@@ -39,24 +42,31 @@ var Menu = function () {
       var board = [{tile: {id: "test", rotation: -90}, pos: {x: -1, y: 0}}, {tile: {id: "test"}, pos: {x: -1, y: 1}}, {tile: {id: "test"}, pos: {x: 0, y: -1}}];
 
       renderer = new Renderer(board, currTile, players, validMoves, 1, 0, 0);
-      renderer.renderTile();
-      renderer.renderPlayers();
-      renderer.renderMoves();
-      renderer.renderBoard();
-
+      renderer.render();
     });
 
     hostStart.addEventListener("click", function(event) {
+      hideAll();
       $("#menuDiv").show();
-      $("#joinDiv").hide();
-      $("#mainDiv").hide();
-      $("#hostDiv").hide();
     });
 
-    hostStart.addEventListener("click", function(event) {
-      $("#menuDiv").show();
-      $("#joinDiv").hide();
-      $("#mainDiv").hide();
-      $("#hostDiv").hide();
+    settingsButton.addEventListener("click", function(event) {
+      hideAll();
+      $("#settingsDiv").show();
     });
+
+    instructionsButton.addEventListener("click", function(event) {
+      hideAll();
+      $("#instructionsDiv").show();
+    });
+
+    var goBack = function() {
+      hideAll();
+      $("#menuDiv").show();
+    }
+
+    var backButtons = document.getElementsByClassName("backButton");
+    for (var i = 0; i < backButtons.length; i++) {
+      backButtons[i].addEventListener('click', goBack, false);
+    };
 }

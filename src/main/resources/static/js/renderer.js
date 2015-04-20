@@ -154,7 +154,7 @@ Renderer.prototype.pixelsToCanvas = function(pixPos) {
   return {x: canvasX, y: canvasY};
 }
 
-Renderer.prototype.canvasToPos = function(canvasPos) {
+Renderer.prototype.canvasDiffToPosDiff = function(canvasPos) {
   var canvasHeight = document.getElementById("mainCanvas").height;
   var canvasWidth = document.getElementById("mainCanvas").width;
 
@@ -165,3 +165,31 @@ Renderer.prototype.canvasToPos = function(canvasPos) {
 
   return {x: posX, y: posY};
 }
+
+Renderer.prototype.canvasToPos = function(canvasPos) {
+  var canvasHeight = document.getElementById("mainCanvas").height;
+  var canvasWidth = document.getElementById("mainCanvas").width;
+
+  var targetSize = TILE_SIZE * this.scale;
+
+  var centerX = (canvasWidth / 2) + (this.xt * targetSize);
+  var centerY = (canvasHeight / 2) + (this.yt * targetSize);
+
+  var posX = (canvasPos.x - centerX) / targetSize;
+  var posY = -((canvasPos.y - centerY) / targetSize);
+
+  return {x: posX, y: posY};
+}
+
+Renderer.prototype.shadeMove = function(pos) {
+  var mainCanvas = document.getElementById("mainCanvas");
+  var ctx = mainCanvas.getContext("2d");
+
+  var targetPlacement = this.posToCanvas(pos);
+
+  ctx.fillStyle = "red";
+  ctx.fillRect(targetPlacement.x, targetPlacement.y, 
+           targetPlacement.s, targetPlacement.s);
+
+  return;
+};
