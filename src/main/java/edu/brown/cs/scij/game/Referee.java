@@ -310,7 +310,40 @@ public class Referee {
           rightCityMeeples.add(right);
         }
         rightScore = scoreCityHelper(p.withX(p.getX() + 1), null, visitedRight,
-            rightCityMeeples, Direction.LEFT, 1);
+            rightCityMeeples, Direction.LEFT, 1 + curTile.getShield());
+      }
+      if (left.getFeature() == Feature.CITY) {
+        // check to the left
+        Set<TileFeature> leftCityMeeples = new HashSet<>();
+        Set<Posn> visitedLeft = new HashSet<>();
+        visitedLeft.add(p);
+        if (left.hasMeeple()) {
+          leftCityMeeples.add(left);
+        }
+        leftScore = scoreCityHelper(p.withX(p.getX() - 1), null, visitedLeft,
+            leftCityMeeples, Direction.RIGHT, 1 + curTile.getShield());
+      }
+      if (bottom.getFeature() == Feature.CITY) {
+        // check the bottom direction
+        Set<TileFeature> downCityMeeples = new HashSet<>();
+        Set<Posn> visitedDown = new HashSet<>();
+        visitedDown.add(p);
+        if (bottom.hasMeeple()) {
+          downCityMeeples.add(bottom);
+        }
+        downScore = scoreCityHelper(p.withY(p.getY() - 1), null, visitedDown,
+            downCityMeeples, Direction.UP, 1 + curTile.getShield());
+      }
+      if (top.getFeature() == Feature.CITY) {
+        // check the up direction
+        Set<TileFeature> upCityMeeples = new HashSet<>();
+        Set<Posn> visitedUp = new HashSet<>();
+        visitedUp.add(p);
+        if (top.hasMeeple()) {
+          upCityMeeples.add(top);
+        }
+        upScore = scoreCityHelper(p.withY(p.getY() - 1), null, visitedUp,
+            upCityMeeples, Direction.DOWN, 1 + curTile.getShield());
       }
     }
   }
