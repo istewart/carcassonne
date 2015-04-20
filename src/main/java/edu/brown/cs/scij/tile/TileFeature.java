@@ -13,6 +13,13 @@ public abstract class TileFeature {
     this.meeple = null;
   }
 
+  public boolean hasMeeple() {
+    if (meeple == null) {
+      return false;
+    }
+    return true;
+  }
+
   public Meeple getMeeple() {
     return meeple;
   }
@@ -27,6 +34,14 @@ public abstract class TileFeature {
 
   public void setMeeple(Meeple m) {
     this.meeple = m;
+  }
+
+  public void removeMeeple() throws NullMeepleException {
+    if (meeple == null) {
+      throw new NullMeepleException("there is no meeple here to return");
+    }
+    meeple.getPlayer().returnMeeple();
+    meeple = null;
   }
 
   private void setIsMeeplable(Feature feature) {

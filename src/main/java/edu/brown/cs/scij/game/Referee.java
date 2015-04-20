@@ -9,6 +9,7 @@ import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
 import edu.brown.cs.scij.tile.InvalidEdgeException;
+import edu.brown.cs.scij.tile.NullMeepleException;
 import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.TileFeature;
 
@@ -145,8 +146,16 @@ public class Referee {
       Meeple m = c.getMeeple();
       if (m != null) {
         // check surrounding tiles for tiles
-        checkSurroundingTiles(p);
-        board.getBoard().containsKey(p.withY(p.getY() + 1));
+        int count = numSurroundingTiles(p);
+        if (count == 9) {
+          m.getPlayer().addScore(count);
+          try {
+            c.removeMeeple();
+          } catch (NullMeepleException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+        }
       }
     }
 
@@ -155,8 +164,39 @@ public class Referee {
 
   }
 
-  public void checkSurroundingTiles(Posn p) {
+  public int numSurroundingTiles(Posn p) {
+    int count = 0;
+    int x = p.getX();
+    int y = p.getY();
+    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x, y))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
+      count++;
+    }
 
+    return count;
   }
 
   public void scoreRoad(Posn p) {
