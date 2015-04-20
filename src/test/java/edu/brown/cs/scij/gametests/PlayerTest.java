@@ -25,7 +25,7 @@ public class PlayerTest {
     assertTrue(p.getPlayerColor() == Color.BLACK);
   }
 
-  //@Test
+  @Test
   public void scoreTest() {
     Player p = new Player(1, "p");
     p.setScore(1000000);
@@ -36,7 +36,7 @@ public class PlayerTest {
     assertTrue(p.getScore() != 0);
   }
 
-  //@Test
+  @Test
   public void meepleTest() {
     Player p = new Player(1, "p");
     p.setNumMeeples(5);
@@ -52,21 +52,4 @@ public class PlayerTest {
     p.returnMeeple();
     assertTrue(p.getNumMeeples() == 7);
   }
-
-  /*
-   * @Test
-   * public void factoryTest(){
-   * PlayerFactory pf = new PlayerFactory();
-   * Player p1 = pf.newPlayer(1, "p1");
-   * Player p2 = pf.newPlayer(2, "p2");
-   * assertTrue(!p1.equals(p2));
-   * Player p12 = pf.newPlayer(1, "p1");
-   * assertTrue(!p1.equals(p12));
-   * assertTrue(p1.getId() == p12.getId());
-   * assertTrue(p1.getName().equals(p12.getName()));
-   * assertTrue(p1.getNumMeeples() == p12.getNumMeeples());
-   * assertTrue(p1.getPlayerColor() == p12.getPlayerColor());
-   * assertTrue(p1.getScore() == p12.getScore());
-   * }
-   */
 }
