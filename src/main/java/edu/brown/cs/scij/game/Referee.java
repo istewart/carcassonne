@@ -178,76 +178,6 @@ public class Referee {
     }
   }
 
-  public List<Posn> getSurroundingTiles(Posn p) {
-    List<Posn> surrounding = new ArrayList<>();
-    int x = p.getX();
-    int y = p.getY();
-    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
-      surrounding.add(new Posn(x + 1, y));
-    }
-    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
-      surrounding.add(new Posn(x + 1, y + 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
-      surrounding.add(new Posn(x + 1, y - 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x, y))) {
-      surrounding.add(new Posn(x, y));
-    }
-    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
-      surrounding.add(new Posn(x, y + 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
-      surrounding.add(new Posn(x, y - 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
-      surrounding.add(new Posn(x - 1, y));
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
-      surrounding.add(new Posn(x - 1, y + 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
-      surrounding.add(new Posn(x - 1, y - 1));
-    }
-
-    return surrounding;
-  }
-
-  public int numSurroundingTiles(Posn p) {
-    int count = 0;
-    int x = p.getX();
-    int y = p.getY();
-    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x, y))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
-      count++;
-    }
-
-    return count;
-  }
-
   public void scoreRoad(Posn p) {
     scoreRoadAt(p);
   }
@@ -283,7 +213,7 @@ public class Referee {
     }
   }
 
-  public void scoreCityAt(Posn p) {
+  private void scoreCityAt(Posn p) {
     Tile curTile = board.getBoard().get(p);
     Edge top = curTile.getTop();
     Edge bottom = curTile.getBottom();
@@ -416,7 +346,7 @@ public class Referee {
     }
   }
 
-  public int scoreCityHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
+  private int scoreCityHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
       Set<TileFeature> meepledCities, Direction d, int count, Finished f) {
     // recursively check each direction until there is no more center that
     // is a city. If the prev posn maps to a null tile, then return 0. If a tile
@@ -480,7 +410,7 @@ public class Referee {
     }
   }
 
-  public int scoreRoadHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
+  private int scoreRoadHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
       Set<TileFeature> meepledRoads, Direction d, int count, Finished f) {
     if (curPosn.equals(prevPosn)) {
       return 0;
@@ -536,7 +466,7 @@ public class Referee {
     }
   }
 
-  public void scoreRoadAt(Posn p) {
+  private void scoreRoadAt(Posn p) {
     Tile curTile = board.getBoard().get(p);
     Edge top = curTile.getTop();
     Edge bottom = curTile.getBottom();
@@ -668,7 +598,77 @@ public class Referee {
     }
   }
 
-  public void grabMeepleAtEdge(Tile t, Direction d,
+  private List<Posn> getSurroundingTiles(Posn p) {
+    List<Posn> surrounding = new ArrayList<>();
+    int x = p.getX();
+    int y = p.getY();
+    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
+      surrounding.add(new Posn(x + 1, y));
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
+      surrounding.add(new Posn(x + 1, y + 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
+      surrounding.add(new Posn(x + 1, y - 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x, y))) {
+      surrounding.add(new Posn(x, y));
+    }
+    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
+      surrounding.add(new Posn(x, y + 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
+      surrounding.add(new Posn(x, y - 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
+      surrounding.add(new Posn(x - 1, y));
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
+      surrounding.add(new Posn(x - 1, y + 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
+      surrounding.add(new Posn(x - 1, y - 1));
+    }
+
+    return surrounding;
+  }
+
+  private int numSurroundingTiles(Posn p) {
+    int count = 0;
+    int x = p.getX();
+    int y = p.getY();
+    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x, y))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
+      count++;
+    }
+
+    return count;
+  }
+
+  private void grabMeepleAtEdge(Tile t, Direction d,
       Set<TileFeature> meepled) {
     if (d == Direction.RIGHT && t.getRight().hasMeeple()) {
       meepled.add(t.getRight());
@@ -681,13 +681,13 @@ public class Referee {
     }
   }
 
-  public void grabMeepleAtCenter(Tile t, Set<TileFeature> meepled) {
+  private void grabMeepleAtCenter(Tile t, Set<TileFeature> meepled) {
     if (t.getCenter().hasMeeple()) {
       meepled.add(t.getCenter());
     }
   }
 
-  public void scoreMeeples(Set<TileFeature> meepledFeatures, int baseScore) {
+  private void scoreMeeples(Set<TileFeature> meepledFeatures, int baseScore) {
     Map<Player, Integer> meeples = new HashMap<>();
     for (Player p : players) {
       meeples.put(p, 0);
@@ -739,8 +739,10 @@ public class Referee {
         player.useMeeple();
       }
     } else {
-      throw new NullTileException(
-          "There is no tile at the given posn, how can I put a meeple on it??");
+      /*
+       * throw new NullTileException(
+       * "There is no tile at the given posn, how can I put a meeple on it??");
+       */
     }
 
     /*
