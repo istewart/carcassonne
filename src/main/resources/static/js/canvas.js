@@ -1,13 +1,14 @@
-var canvas = function() {
+var Canvas = function() {
 	// TODO: Set up scrolling, click, and drag
 	
 	$("#mainCanvas").bind('mousewheel', function(e) {
 		if (e.originalEvent.wheelDelta > 0) {
-			Renderer.scale = .9*Renderer.scale;
+			renderer.scale = .9 * renderer.scale;
 		} else {
-			Renderer.scale = 10.0*Renderer.scale/9.0;
+			renderer.scale = 10.0 * renderer.scale / 9.0;
 		}
-		Renderer.render();
+
+		renderer.render();
 	});
 	
 	$("#map").bind('mousedown', function(e) {
@@ -19,7 +20,7 @@ var canvas = function() {
 		
 		if (d > 5) {
 			//set rendere.xt and yt based on posToCanvas. need to write CanvasToPos
-		}else{
+		} else {
 			//click
 		}
 	});

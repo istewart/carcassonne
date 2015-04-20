@@ -13,6 +13,7 @@
     <script src="../../../static/js/renderer.js"></script>
     <script src="../../../static/js/menu.js"></script>
     <script src="../../../static/js/placement.js"></script>
+    <script src="../../../static/js/canvas.js"></script>
     <script src="../../../static/js/carcassonne.js"></script>
     
     <title>${title}</title>

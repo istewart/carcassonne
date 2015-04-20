@@ -38,11 +38,11 @@ var Menu = function () {
       var validMoves = [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: -2}, {x: 5, y: 5}];
       var board = [{tile: {id: "test", rotation: -90}, pos: {x: -1, y: 0}}, {tile: {id: "test"}, pos: {x: -1, y: 1}}, {tile: {id: "test"}, pos: {x: 0, y: -1}}];
 
-      var r = new Renderer(board, currTile, players, validMoves, 1, 0, 0);
-      r.renderTile();
-      r.renderPlayers();
-      r.renderMoves();
-      r.renderBoard();
+      renderer = new Renderer(board, currTile, players, validMoves, 1, 0, 0);
+      renderer.renderTile();
+      renderer.renderPlayers();
+      renderer.renderMoves();
+      renderer.renderBoard();
 
     });
 
