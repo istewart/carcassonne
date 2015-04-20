@@ -45,7 +45,7 @@ public class RefereeTest {
     }
   }
 
-  
+  @Test
   public void cityScoringTest() throws InvalidEdgeException,
     PosnTakenException{
 	    Center c = new Center(Feature.FIELD);
@@ -118,9 +118,30 @@ public class RefereeTest {
 	    score = p.getScore();
 	    r.scoreCity(center);
 	    assertTrue(score + 10 == p.getScore());
-	    //TODO shield stuff
     }
-    
+  
+  @Test
+  public void oneShieldCityTest() throws InvalidEdgeException, PosnTakenException{
+	  Center c = new Center(Feature.FIELD);
+	  Edge top = new Edge(Feature.CITY);
+	  Edge right = new Edge(Feature.FIELD);
+	  Edge bottom = new Edge(Feature.FIELD);
+	  Edge left = new Edge(Feature.FIELD);
+	  Tile topCity = new Tile(c, top, right, bottom, left, 1);
+	  Tile bottomCity = new Tile(c, bottom, right, top, left, 0);
+	  Referee r = new Referee();
+	  Posn topPosn = new Posn(-4, -4);
+	  Posn bottomPosn = new Posn(-4, -5);
+	  r.place(topPosn, bottomCity);
+	  r.place(bottomPosn, topCity);
+	  Player p = new Player(1, "Colby");
+	  r.placeMeeple(topPosn, p, Direction.DOWN);
+	  int score = p.getScore();
+	  r.scoreCity(topPosn);
+	  assertTrue(score + 6 == p.getScore());
+  }
+  
+  @Test
     public void roadScoringTest() throws InvalidEdgeException, PosnTakenException{
 	    Center c = new Center(Feature.ENDPOINT);
 	    Edge top = new Edge(Feature.FIELD);
@@ -242,7 +263,8 @@ public class RefereeTest {
 	    assertTrue(score + 6 == p.getScore());
 	    
     }
-    
+  
+  @Test
     public void monasteryScoringTest() throws InvalidEdgeException,
     PosnTakenException{
 	    Center c = new Center(Feature.MONASTERY);
@@ -277,16 +299,188 @@ public class RefereeTest {
 	    assertTrue(score + 9 == p.getScore());
     }
     
-    @Test
-    public void gameOverCityScoringTest() {
-    // do cities have to be completed?
+  @Test
+    public void gameOverCityScoringTest() throws InvalidEdgeException, PosnTakenException {
+    	Center c = new Center(Feature.FIELD);
+    	Edge top = new Edge(Feature.FIELD);
+    	Edge right = new Edge(Feature.CITY);
+    	Edge bottom = new Edge(Feature.FIELD);
+    	Edge left = new Edge(Feature.FIELD);
+    	Tile rightCity = new Tile(c, top, right, bottom, left, 0);
+    	c = new Center(Feature.CITY);
+    	Tile horizCity1 = new Tile(c, top, right, bottom, right, 0);
+    	Tile horizCity2 = new Tile(c, top, right, bottom, right, 0);
+    	Tile horizCity3 = new Tile(c, top, right, bottom, right, 0);
+    	Tile horizCity4 = new Tile(c, top, right, bottom, right, 0);
+    	Referee r = new Referee();
+    	Posn center = new Posn(0,0);
+    	r.place(center, rightCity);
+    	r.place(new Posn(1,0), horizCity1);
+    	r.place(new Posn(2,0), horizCity2);
+    	r.place(new Posn(3,0), horizCity3);
+    	r.place(new Posn(4,0), horizCity4);
+    	Player p = new Player(1, "c");
+    	r.placeMeeple(center, p, Direction.RIGHT);
+    	int score = p.getScore();
+    	r.scoreCityEndgame();
+    	assertTrue(score + 5 == p.getScore());
     }
-    
-    @Test
-    public void gameOverRoadScoringTest() {
-    // do roads have to be completed?
+  
+  @Test
+    public void gameOverCityShieldScoringTest() throws PosnTakenException, InvalidEdgeException {
+    	Center c = new Center(Feature.FIELD);
+    	Edge top = new Edge(Feature.FIELD);
+    	Edge right = new Edge(Feature.CITY);
+    	Edge bottom = new Edge(Feature.FIELD);
+    	Edge left = new Edge(Feature.FIELD);
+    	Tile rightCity = new Tile(c, top, right, bottom, left, 0);
+    	c = new Center(Feature.CITY);
+    	Tile horizCity1 = new Tile(c, top, right, bottom, right, 1);
+    	Tile horizCity2 = new Tile(c, top, right, bottom, right, 0);
+    	Tile horizCity3 = new Tile(c, top, right, bottom, right, 1);
+    	Tile horizCity4 = new Tile(c, top, right, bottom, right, 0);
+    	Referee r = new Referee();
+    	Posn center = new Posn(0,0);
+    	r.place(center, rightCity);
+    	r.place(new Posn(1,0), horizCity1);
+    	r.place(new Posn(2,0), horizCity2);
+    	r.place(new Posn(3,0), horizCity3);
+    	r.place(new Posn(4,0), horizCity4);
+    	Player p = new Player(1, "c");
+    	r.placeMeeple(center, p, Direction.RIGHT);
+    	int score = p.getScore();
+    	r.scoreCityEndgame();
+    	assertTrue(score + 7 == p.getScore());
     }
-    
+  
+  @Test
+    public void gameOverRoadScoringTest() throws InvalidEdgeException, PosnTakenException {
+    	Center c = new Center(Feature.ENDPOINT);
+    	Edge road = new Edge(Feature.ROAD);
+    	Edge field = new Edge(Feature.FIELD);
+    	Tile botRoad = new Tile(c, field, field, road, field, 0);
+    	c = new Center(Feature.ROAD);
+    	Tile topRight = new Tile(c, road, road, field, field, 0);
+    	Tile botLeft = new Tile(c, field, field, road, road, 0);
+    	Tile vert = new Tile(c, road, field, road, field, 0);
+    	Tile topRoad = new Tile(c, road, field, field, field, 0);
+    	Referee r = new Referee();
+    	Posn center = new Posn(0,0);
+    	r.place(center,  botRoad);
+    	r.place(new Posn(0, -1), topRight);
+    	r.place(new Posn(1, -1), botLeft);
+    	r.place(new Posn(1, -2), vert);
+    	r.place(new Posn(1, -3), topRoad);
+    	Player p = new Player(1, "c");
+    	r.placeMeeple(center, p, Direction.DOWN);
+    	int score = p.getScore();
+    	r.scoreRoadEndgame();
+    	assertTrue(score + 5 == p.getScore());	
+    }
+  
+  @Test
+    public void twoPlayerRoadCase() throws InvalidEdgeException, PosnTakenException {
+    	Center c = new Center(Feature.ENDPOINT);
+    	Edge road = new Edge(Feature.ROAD);
+    	Edge field = new Edge(Feature.FIELD);
+    	Tile rightRoad = new Tile(c, field, road, field, field, 0);
+    	Tile leftRoad = new Tile(c, field, field, field, road, 0);
+    	Player p1 =  new Player(1, "p1");
+    	Player p2 = new Player(2, "p2");
+    	Referee r = new Referee();
+    	Posn left = new Posn(-1, 0);
+    	Posn right = new Posn(1, 0);
+    	Posn center = new Posn(0, 0);
+    	r.place(left, rightRoad);
+    	r.place(right, leftRoad);
+    	r.placeMeeple(left, p1, Direction.RIGHT);
+    	r.placeMeeple(right, p2, Direction.LEFT);
+    	int score1 = p1.getScore();
+    	int score2 = p2.getScore();
+    	c = new Center(Feature.ROAD);
+    	Tile centerR = new Tile(c, field, road, field, road, 0);
+    	r.place(center, centerR);
+    	r.scoreRoad(center);
+    	assertTrue(score1 + 3 == p1.getScore());
+    	assertTrue(score2 + 3 == p2.getScore());
+    }
+  
+  @Test
+    public void twoPlayerCityCase() throws InvalidEdgeException, PosnTakenException {
+    	Center c = new Center(Feature.FIELD);
+    	Edge city = new Edge(Feature.CITY);
+    	Edge field = new Edge(Feature.FIELD);
+    	Tile bottomCity = new Tile(c, field, field, city, field, 0);
+    	Tile leftCity = new Tile(c, field, field, field, city, 0);
+    	c = new Center(Feature.CITY);
+    	Tile topRightCity = new Tile(c, city, city, field, field, 0);
+    	Posn up = new Posn(0, 1);
+    	Posn mid = new Posn(0,0);
+    	Posn right = new Posn(1, 0);
+    	Referee r = new Referee();
+    	Player p1 = new Player(1, "p1");
+    	Player p2 = new Player(2, "p2");
+    	int score1 = p1.getScore();
+    	int score2 = p2.getScore();
+    	r.place(up, bottomCity);
+    	r.place(right, leftCity);
+    	r.placeMeeple(up, p1, Direction.DOWN);
+    	r.placeMeeple(right, p2, Direction.LEFT);
+    	r.place(mid, topRightCity);
+    	r.scoreCity(mid);
+    	assertTrue(score1 + 6 == p1.getScore());
+    	assertTrue(score2 + 6 == p2.getScore());
+    }
+  
+  @Test
+    public void twoPlayerSameRoadCase() throws InvalidEdgeException, PosnTakenException {
+    	Center c = new Center(Feature.ENDPOINT);
+    	Edge road = new Edge(Feature.ROAD);
+    	Edge field = new Edge(Feature.FIELD);
+    	Tile rightRoad = new Tile(c, field, road, field, field, 0);
+    	Tile leftRoad = new Tile(c, field, field, field, road, 0);
+    	Player p =  new Player(1, "p");
+    	Referee r = new Referee();
+    	Posn left = new Posn(-1, 0);
+    	Posn right = new Posn(1, 0);
+    	Posn center = new Posn(0, 0);
+    	r.place(left, rightRoad);
+    	r.place(right, leftRoad);
+    	r.placeMeeple(left, p, Direction.RIGHT);
+    	r.placeMeeple(right, p, Direction.LEFT);
+    	int score = p.getScore();
+    	c = new Center(Feature.ROAD);
+    	Tile centerR = new Tile(c, field, road, field, road, 0);
+    	r.place(center, centerR);
+    	r.scoreRoad(center);
+    	assertTrue(score + 3 == p.getScore());
+    }
+  
+  @Test
+    public void twoPlayerSameCityCase() throws PosnTakenException, InvalidEdgeException {
+    	Center c = new Center(Feature.FIELD);
+    	Edge city = new Edge(Feature.CITY);
+    	Edge field = new Edge(Feature.FIELD);
+    	Tile bottomCity = new Tile(c, field, field, city, field, 0);
+    	Tile leftCity = new Tile(c, field, field, field, city, 0);
+    	c = new Center(Feature.CITY);
+    	Tile topRightCity = new Tile(c, city, city, field, field, 0);
+    	Posn up = new Posn(0, 1);
+    	Posn mid = new Posn(0,0);
+    	Posn right = new Posn(1, 0);
+    	Referee r = new Referee();
+    	Player p = new Player(1, "p");
+    	int score = p.getScore();
+    	r.place(up, bottomCity);
+    	r.place(right, leftCity);
+    	r.placeMeeple(up, p, Direction.DOWN);
+    	r.placeMeeple(right, p, Direction.LEFT);
+    	r.place(mid, topRightCity);
+    	r.scoreCity(mid);
+    	assertTrue(score + 6 == p.getScore());
+    }
+  
+  @Test
     public void gameOverMonasteryScoringTest() throws PosnTakenException, InvalidEdgeException{
 	    Center c = new Center(Feature.MONASTERY);
 	    Edge top = new Edge(Feature.FIELD);

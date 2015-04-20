@@ -52,7 +52,7 @@
       <button class="menubutton" id="hostButton"> Host </button></br>
       <button class="menubutton" id="joinButton"> Join </button></br>
       <button class="menubutton" id="settingsButton"> Settings </button></br>
-      <button class="menubutton" id="helpButton"> Help </button></br>
+      <button class="menubutton" id="helpButton"> Instructions </button></br>
     </div>
 
     <div id="hostDiv">

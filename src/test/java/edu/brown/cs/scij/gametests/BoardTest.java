@@ -48,7 +48,6 @@ public class BoardTest {
 
   @Test
   public void validMovesTest() throws InvalidEdgeException, PosnTakenException {
-    // these tiles do not actually exist but are used for testing
     Center c = new Center(Feature.MONASTERY);
     Edge top = new Edge(Feature.ROAD);
     Edge right = new Edge(Feature.CITY);
