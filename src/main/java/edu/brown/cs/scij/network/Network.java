@@ -163,10 +163,7 @@ public final class Network {
     @Override
     public Object handle(final Request req, final Response res) {
       QueryParamsMap qm = req.queryMap();
-      Key key = parseKey(qm);
-      if (key == null) {
-        return null;
-      }
+      Key key = Key.fromJSONString(qm.get("key").value());
 
       boolean result;
       try {
@@ -250,21 +247,11 @@ public final class Network {
     @Override
     public Object handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
-      Key key = parseKey(qm);
-      if (key == null) {
-        return null;
-      }
+      Key key = Key.fromJSONString(qm.get("key").value());
       String field = qm.get("field").value();
       String val = qm.get("val").value();
+      System.out.println(server.ask(key, field, val));
       return GSON.toJson(server.ask(key, field, val));
     }
-  }
-
-  private static Key parseKey(QueryParamsMap qm) {
-    String keyString = qm.get("key").value();
-    if (keyString == null) {
-      return null;
-    }
-    return Key.fromJSONString(keyString);
   }
 }
