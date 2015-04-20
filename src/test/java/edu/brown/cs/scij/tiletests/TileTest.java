@@ -14,8 +14,13 @@ import edu.brown.cs.scij.tile.Tile;
 
 public class TileTest {
 
+<<<<<<< HEAD
   @Test
   public void constructorTest() throws InvalidEdgeException {
+=======
+  //@Test
+  public void constructorTest() throws InvalidTileException {
+>>>>>>> 3351d07314f068e11b8c6b9b3a4ddcda4e136b62
     Center c = new Center(Feature.MONASTERY);
     Edge top = new Edge(Feature.FIELD);
     Edge bottom = new Edge(Feature.FIELD);
@@ -54,8 +59,13 @@ public class TileTest {
     assertTrue(t.getRight().equals(right));
   }
 
+<<<<<<< HEAD
   @Test
   public void roadtest() throws InvalidEdgeException {
+=======
+  //@Test
+  public void roadtest() throws InvalidTileException {
+>>>>>>> 3351d07314f068e11b8c6b9b3a4ddcda4e136b62
     Center c = new Center(Feature.MONASTERY);
     Edge top = new Edge(Feature.FIELD);
     Edge bottom = new Edge(Feature.FIELD);
@@ -65,8 +75,13 @@ public class TileTest {
     assertTrue(!t.roadEnds());
   }
 
+<<<<<<< HEAD
   @Test
   public void placeMeepleTest() throws InvalidEdgeException {
+=======
+  //@Test
+  public void placeMeepleTest() throws InvalidTileException {
+>>>>>>> 3351d07314f068e11b8c6b9b3a4ddcda4e136b62
     Center c = new Center(Feature.MONASTERY);
     Edge top = new Edge(Feature.FIELD);
     Edge bottom = new Edge(Feature.FIELD);
