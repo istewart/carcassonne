@@ -1,5 +1,7 @@
 package edu.brown.cs.scij.game;
 
+import edu.brown.cs.scij.tile.OutOfMeeplesException;
+
 public class Player {
   private Color playerColor;
   private final int id;
@@ -56,11 +58,16 @@ public class Player {
     this.numMeeples = numMeeples;
   }
 
-  public void useMeeple() {
+  public void useMeeple() throws OutOfMeeplesException {
+    if (numMeeples == 0) {
+      throw new OutOfMeeplesException("No meeples left!");
+    }
     numMeeples--;
   }
 
   public void returnMeeple() {
-    numMeeples++;
+    if (numMeeples != 7) {
+      numMeeples++;
+    }
   }
 }

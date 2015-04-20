@@ -37,7 +37,7 @@ public class BoardTest {
     try {
       b = b.place(p, t);
       assertTrue(b.getBoard().get(p).equals(t));
-      Tile t2 = new Tile(null, null, null, null, null, 0);
+      Tile t2 = new Tile(c, top, bottom, left, right, 0);
       b = b.place(p, t2);
       assertTrue(false);
     } catch (PosnTakenException e) {
@@ -64,6 +64,7 @@ public class BoardTest {
     bottom = new Edge(Feature.ROAD);
     left = new Edge(Feature.ROAD);
     Tile otherT = new Tile(c, top, right, bottom, left, 0);
+    System.out.println("here");
     List<Posn> validMoves = b.validMoves(otherT);
     assertTrue(validMoves.size() == 1);
     assertTrue(validMoves.get(0).equals(new Posn(0, 1)));
@@ -95,10 +96,10 @@ public class BoardTest {
     assertTrue(validMoves.size() == 1);
     assertTrue(validMoves.get(0).equals(new Posn(-1, 0)));
     c = new Center(Feature.ENDPOINT);
-    top = new Edge(Feature.ROAD);
-    right = new Edge(Feature.CITY);
-    bottom = new Edge(Feature.RIVER);
-    left = new Edge(Feature.FIELD);
+    bottom = new Edge(Feature.ROAD);
+    left = new Edge(Feature.CITY);
+    top = new Edge(Feature.RIVER);
+    right = new Edge(Feature.FIELD);
     otherT = new Tile(c, top, right, bottom, left, 0);
     validMoves = b.validMoves(otherT);
     assertTrue(validMoves.size() == 4);

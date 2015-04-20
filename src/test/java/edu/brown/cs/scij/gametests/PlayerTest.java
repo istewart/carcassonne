@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import edu.brown.cs.scij.game.Color;
 import edu.brown.cs.scij.game.Player;
+import edu.brown.cs.scij.tile.OutOfMeeplesException;
 
 public class PlayerTest {
 
@@ -32,12 +33,16 @@ public class PlayerTest {
     assertTrue(p.getScore() == 1000000);
     p.addScore(1000000);
     assertTrue(p.getScore() == 2000000);
-    p.addScore(-2000000);
-    assertTrue(p.getScore() != 0);
+    try {
+      p.addScore(-2000000);
+      assertTrue(false);
+    } catch (IllegalArgumentException iae) {
+      assertTrue(p.getScore() != 0);
+    }
   }
 
   @Test
-  public void meepleTest() {
+  public void meepleTest() throws OutOfMeeplesException {
     Player p = new Player(1, "p");
     p.setNumMeeples(5);
     assertTrue(p.getNumMeeples() == 5);
@@ -46,8 +51,11 @@ public class PlayerTest {
     p.returnMeeple();
     assertTrue(p.getNumMeeples() == 5);
     p.setNumMeeples(0);
-    p.useMeeple();
-    assertTrue(p.getNumMeeples() == 0);
+    try {
+      p.useMeeple();
+    } catch (OutOfMeeplesException oome) {
+      assertTrue(p.getNumMeeples() == 0);
+    }
     p.setNumMeeples(7);
     p.returnMeeple();
     assertTrue(p.getNumMeeples() == 7);

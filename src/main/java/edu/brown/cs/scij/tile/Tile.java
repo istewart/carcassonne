@@ -22,6 +22,11 @@ public class Tile {
 
   public Tile(Center center, Edge top, Edge right, Edge bottom, Edge left,
       int shield) {
+    if (center == null || top == null || right == null || bottom == null
+        || left == null) {
+      throw new UnsupportedOperationException(
+          "All centers and edges of a tile must be non-null");
+    }
     this.center = center;
     this.top = top;
     this.right = right;
@@ -121,9 +126,11 @@ public class Tile {
   }
 
   public void placeMeeple(Player player, TileFeature feature)
-      throws OutOfMeeplesException {
+      throws OutOfMeeplesException, InvalidMeeplePlacementException {
     if (player.getNumMeeples() == 0) {
       throw new OutOfMeeplesException("You have no meeples left!");
+    } else if (!feature.isMeeplable()) {
+      throw new InvalidMeeplePlacementException("no. cant meeple there");
     } else {
       player.useMeeple();
       Meeple m = new Meeple(player);

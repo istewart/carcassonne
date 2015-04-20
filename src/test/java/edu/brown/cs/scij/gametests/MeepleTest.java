@@ -14,11 +14,6 @@ public class MeepleTest {
     Player p = new Player(1, "p");
     Meeple m = new Meeple(p);
 
-    assertTrue(!m.getPlayer().equals(p));
-    assertTrue(m.getPlayer().getId() == p.getId());
-    assertTrue(m.getPlayer().getName().equals(p.getName()));
-    assertTrue(m.getPlayer().getNumMeeples() == p.getNumMeeples());
-    assertTrue(m.getPlayer().getPlayerColor() == p.getPlayerColor());
-    assertTrue(m.getPlayer().getScore() == p.getScore());
+    assertTrue(m.getPlayer().equals(p));
   }
 }

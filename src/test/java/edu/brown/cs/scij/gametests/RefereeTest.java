@@ -14,7 +14,7 @@ public class RefereeTest {
     Referee r = new Referee();
     assertTrue(r.getTurnNumber() == 0);
     assertTrue(r.getBoard().getBoard().isEmpty());
-    assertTrue(r.getPlayers().size() == 4);
+    assertTrue(r.getPlayers().size() == 0);
     assertTrue(r.getDeck().isEmpty() == false);
   }
 

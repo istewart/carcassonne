@@ -86,6 +86,7 @@ public class Referee {
 
   public void setupGame() {
     this.turnNumber = 0;
+    players = new ArrayList<Player>();
     // this.isGameOver = false;
     List<Tile> tiles = null;
     try {
@@ -301,7 +302,7 @@ public class Referee {
   public void placeMeeple(Posn posn, Tile tile, Player player,
       TileFeature feature) {
     Set<Posn> meepled = board.getMeeplePosns();
-    //this wont work scott
+    // this wont work scott
     meepled.add(posn);
   }
 

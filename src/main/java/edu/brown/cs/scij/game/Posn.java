@@ -26,24 +26,38 @@ public class Posn {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + x;
+    result = prime * result + y;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
       return true;
     }
-    if (o == null) {
+    if (obj == null) {
       return false;
     }
-    if (!(o instanceof Posn)) {
+    if (!(obj instanceof Posn)) {
       return false;
     }
-
-    Posn p = (Posn) o;
-    return x == p.getX() && y == p.getY();
+    Posn other = (Posn) obj;
+    if (x != other.x) {
+      return false;
+    }
+    if (y != other.y) {
+      return false;
+    }
+    return true;
   }
 
-  // TODO better hashcode builtin eclipse
   @Override
-  public int hashCode() {
-    return x ^ y;
+  public String toString() {
+    return String.format("(%d, %d)", x, y);
   }
+
 }

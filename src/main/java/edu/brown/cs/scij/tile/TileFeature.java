@@ -30,7 +30,8 @@ public abstract class TileFeature {
   }
 
   private void setIsMeeplable(Feature feature) {
-    if (feature == Feature.ENDPOINT || feature == Feature.RIVER) {
+    if (feature == Feature.ENDPOINT || feature == Feature.RIVER
+        || feature == Feature.FIELD) {
       isMeeplable = false;
     } else {
       isMeeplable = true;

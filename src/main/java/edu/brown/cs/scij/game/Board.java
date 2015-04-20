@@ -101,10 +101,8 @@ public class Board {
   public List<Posn> validMoves(Tile tile) {
     List<Posn> validPosns = new ArrayList<>();
     for (Posn p : adjacentPosns) {
-      Tile above = board.get(p.withY(p.getY() + 1)); // TODO Should this be - 1
-                                                     // for Ian?
-      Tile below = board.get(p.withY(p.getY() - 1)); // TODO Should this be + 1
-                                                     // for Ian?
+      Tile above = board.get(p.withY(p.getY() + 1));
+      Tile below = board.get(p.withY(p.getY() - 1));
       Tile right = board.get(p.withX(p.getX() + 1));
       Tile left = board.get(p.withX(p.getX() - 1));
       boolean aboveValid = true;
@@ -112,16 +110,16 @@ public class Board {
       boolean rightValid = true;
       boolean leftValid = true;
 
-      if (above != null && tile.getTop() != above.getBottom()) {
+      if (above != null && !tile.getTop().equals(above.getBottom())) {
         aboveValid = false;
       }
-      if (below != null && tile.getBottom() != below.getTop()) {
+      if (below != null && !tile.getBottom().equals(below.getTop())) {
         belowValid = false;
       }
-      if (right != null && tile.getRight() != right.getLeft()) {
+      if (right != null && !tile.getRight().equals(right.getLeft())) {
         rightValid = false;
       }
-      if (left != null && tile.getLeft() != above.getRight()) {
+      if (left != null && !tile.getLeft().equals(left.getRight())) {
         leftValid = false;
       }
 
@@ -129,6 +127,6 @@ public class Board {
         validPosns.add(p);
       }
     }
-    return null;
+    return validPosns;
   }
 }

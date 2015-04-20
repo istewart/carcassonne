@@ -22,7 +22,7 @@ public class EdgeTest {
   @Test
   public void meepleTest() throws InvalidEdgeException {
     Edge e = new Edge(Feature.FIELD);
-    assertTrue(e.isMeeplable());
+    assertTrue(!e.isMeeplable());
     assertTrue(e.getMeeple() == null);
     Player p = new Player(1, "p");
     Meeple m = new Meeple(p);
@@ -33,10 +33,10 @@ public class EdgeTest {
 
   @Test
   public void equalsTest() throws InvalidEdgeException {
-    Edge ee = new Edge(Feature.ENDPOINT);
+    Edge ee = new Edge(Feature.FIELD);
     Edge ero = new Edge(Feature.ROAD);
     Edge eri = new Edge(Feature.RIVER);
-    Edge ee2 = new Edge(Feature.ENDPOINT);
+    Edge ee2 = new Edge(Feature.FIELD);
     assertTrue(!ee.equals(ero));
     assertTrue(!ee.equals(eri));
     assertTrue(!ero.equals(eri));

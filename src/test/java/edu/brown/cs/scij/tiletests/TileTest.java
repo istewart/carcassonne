@@ -9,6 +9,7 @@ import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
 import edu.brown.cs.scij.tile.InvalidEdgeException;
+import edu.brown.cs.scij.tile.InvalidMeeplePlacementException;
 import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
 
@@ -28,7 +29,6 @@ public class TileTest {
     assertTrue(t.getLeft().equals(left));
     assertTrue(t.getRight().equals(right));
     assertTrue(t.getShield() == 0);
-    assertTrue(t.getId() == 0);
     assertTrue(t.getRotation() == 0);
   }
 
@@ -62,11 +62,12 @@ public class TileTest {
     Edge left = new Edge(Feature.FIELD);
     Edge right = new Edge(Feature.FIELD);
     Tile t = new Tile(c, top, right, bottom, left, 0);
-    assertTrue(!t.roadEnds());
+    assertTrue(t.roadEnds());
   }
 
   @Test
-  public void placeMeepleTest() throws InvalidEdgeException {
+  public void placeMeepleTest() throws InvalidEdgeException,
+      OutOfMeeplesException {
     Center c = new Center(Feature.MONASTERY);
     Edge top = new Edge(Feature.FIELD);
     Edge bottom = new Edge(Feature.FIELD);
@@ -79,7 +80,7 @@ public class TileTest {
       assertTrue(p.getNumMeeples() == 6);
       t.placeMeeple(p, top);
       assertTrue(false);
-    } catch (OutOfMeeplesException e) {
+    } catch (InvalidMeeplePlacementException e) {
       assertTrue(true);
     }
   }
