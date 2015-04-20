@@ -33,8 +33,10 @@ var handler = {
   chat: function(chatLog) {
     var html = "";
     for (var key in chatLog) {
-      html += chatLog[key].player
+      html += chatLog[key].player + ":"
+       + chatLog[key].message;
     }
+    $("#chat").html(html);
   }
 }
 

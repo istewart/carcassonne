@@ -250,7 +250,6 @@ public final class Network {
       Key key = Key.fromJSONString(qm.get("key").value());
       String field = qm.get("field").value();
       String val = qm.get("val").value();
-      System.out.println(server.ask(key, field, val));
       return GSON.toJson(server.ask(key, field, val));
     }
   }
