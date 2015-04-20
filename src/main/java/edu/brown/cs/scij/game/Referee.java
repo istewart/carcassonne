@@ -10,7 +10,7 @@ import java.util.Set;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
-import edu.brown.cs.scij.tile.InvalidTileException;
+import edu.brown.cs.scij.tile.InvalidEdgeException;
 import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.TileFeature;
 
@@ -90,7 +90,7 @@ public class Referee {
     List<Tile> tiles = null;
     try {
       tiles = buildDeck();
-    } catch (InvalidTileException ite) {
+    } catch (InvalidEdgeException ite) {
       System.out.println("wont be reached, tiles currentlyhardcoded");
     }
     deck = new Deck(tiles);
@@ -248,7 +248,7 @@ public class Referee {
     // TODO need to rethink this logic
   }
 
-  private void normalScoring(Posn p/* Tile prevTile */) {
+  public void normalScoring(Posn p/* Tile prevTile */) {
     // TODO rethink logic. There can be meeples or no meeples on this tile.
     // Need to check every directrion for everything. Major thing left.
     Tile prevTile = board.getBoard().get(p);
@@ -276,11 +276,11 @@ public class Referee {
      */
   }
 
-  private void scoreCity(Posn p, Tile t) {
+  public void scoreCity(Posn p, Tile t) {
     // TODO rethink logic... See scoreCtyEnd/scoreCityEndHelp
   }
 
-  private void scoreMonastery(Posn p, Tile t) {
+  public void scoreMonastery(Tile t) {
     // TODO rethink logic.
     // A placed tile can only finish monasteries surrounding it
     // Check all nine spaces around this tile to find a monastery, then check
@@ -294,13 +294,14 @@ public class Referee {
 
   }
 
-  private void scoreRoad(Posn p, Tile t) {
+  public void scoreRoad(Posn p, Tile t) {
     // TODO rethink logic
   }
 
   public void placeMeeple(Posn posn, Tile tile, Player player,
       TileFeature feature) {
     Set<Posn> meepled = board.getMeeplePosns();
+    //this wont work scott
     meepled.add(posn);
   }
 
@@ -325,7 +326,7 @@ public class Referee {
     return players.get(turnNumber % 4);
   }
 
-  private List<Tile> buildDeck() throws InvalidTileException {
+  private List<Tile> buildDeck() throws InvalidEdgeException {
     Feature road = Feature.ROAD;
     Feature endpoint = Feature.ENDPOINT;
     Feature city = Feature.CITY;

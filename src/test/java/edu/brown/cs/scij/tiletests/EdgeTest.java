@@ -8,19 +8,19 @@ import edu.brown.cs.scij.game.Meeple;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
-import edu.brown.cs.scij.tile.InvalidTileException;
+import edu.brown.cs.scij.tile.InvalidEdgeException;
 
 public class EdgeTest {
 
   @Test
-  public void constructorTest() throws InvalidTileException {
+  public void constructorTest() throws InvalidEdgeException {
     Edge e = new Edge(Feature.CITY);
     assertTrue(e.isMeeplable());
     assertTrue(e.getMeeple() == null);
   }
 
   @Test
-  public void meepleTest() throws InvalidTileException {
+  public void meepleTest() throws InvalidEdgeException {
     Edge e = new Edge(Feature.FIELD);
     assertTrue(e.isMeeplable());
     assertTrue(e.getMeeple() == null);
@@ -32,11 +32,11 @@ public class EdgeTest {
   }
 
   @Test
-  public void equalsTest() throws InvalidTileException {
-    Edge ee = new Edge(Feature.FIELD);
+  public void equalsTest() throws InvalidEdgeException {
+    Edge ee = new Edge(Feature.ENDPOINT);
     Edge ero = new Edge(Feature.ROAD);
     Edge eri = new Edge(Feature.RIVER);
-    Edge ee2 = new Edge(Feature.FIELD);
+    Edge ee2 = new Edge(Feature.ENDPOINT);
     assertTrue(!ee.equals(ero));
     assertTrue(!ee.equals(eri));
     assertTrue(!ero.equals(eri));
@@ -54,7 +54,7 @@ public class EdgeTest {
       assertTrue(true);
       new Edge(Feature.MONASTERY);
       assertTrue(false);
-    } catch (InvalidTileException ite) {
+    } catch (InvalidEdgeException ite) {
       assertTrue(true);
     }
   }
