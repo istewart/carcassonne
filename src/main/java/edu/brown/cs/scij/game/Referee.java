@@ -30,6 +30,7 @@ public class Referee {
   private int turnNumber;
   private Board board;
 
+  //is this used?
   private static final int FINISHED_ROAD = 2;
   private static final int UNFINISHED_ROAD = 1;
 
@@ -801,14 +802,14 @@ public class Referee {
   }
 
   private void scoreMeeples(Set<TileFeature> meepledFeatures, int baseScore) {
-    Map<Player, Integer> meeples = new HashMap<>();
+    Map<Integer, Integer> meeples = new HashMap<>();
     for (Player p : players) {
-      meeples.put(p, 0);
+      meeples.put(p.getId(), 0);
     }
     for (TileFeature tf : meepledFeatures) {
       Player p = tf.getMeeple().getPlayer();
-      int numMeeples = meeples.get(p);
-      meeples.put(p, numMeeples + 1);
+      int numMeeples = meeples.get(p.getId());
+      meeples.put(p.getId(), numMeeples + 1);
       try {
         tf.removeMeeple();
       } catch (NullMeepleException e) {
@@ -826,14 +827,23 @@ public class Referee {
       }
     }
 
-    for (Map.Entry<Player, Integer> meepleCount : meeples.entrySet()) {
+    for (Map.Entry<Integer, Integer> meepleCount : meeples.entrySet()) {
       if (meepleCount.getValue() == maxMeeples) {
-        meepleCount.getKey().addScore(baseScore);
+        getPlayer(meepleCount.getKey()).addScore(baseScore);
       }
     }
   }
 
-  public void placeMeeple(Posn posn, Player player,
+  private Player getPlayer(int id) {
+	for (Player p : players) {
+		if (p.getId() == id) {
+			return p;
+		}
+	}
+	return null;		
+  }
+
+public void placeMeeple(Posn posn, Player player,
       Direction d) throws NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Tile t = board.getBoard().get(posn);

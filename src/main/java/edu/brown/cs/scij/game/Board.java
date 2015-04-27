@@ -72,16 +72,16 @@ public class Board {
       Posn down = p.withY(p.getY() - 1);
       Posn left = p.withX(p.getX() - 1);
 
-      if (!adjacentPosns.contains(up)) {
+      if (!adjacentPosns.contains(up) && !board.containsKey(up)) {
         adjacentPosns.add(up);
       }
-      if (!adjacentPosns.contains(right)) {
+      if (!adjacentPosns.contains(right) && !board.containsKey(right)) {
         adjacentPosns.add(right);
       }
-      if (!adjacentPosns.contains(down)) {
+      if (!adjacentPosns.contains(down) && !board.containsKey(down)) {
         adjacentPosns.add(down);
       }
-      if (!adjacentPosns.contains(left)) {
+      if (!adjacentPosns.contains(left) && !board.containsKey(left)) {
         adjacentPosns.add(left);
       }
     } else {

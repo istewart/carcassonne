@@ -46,7 +46,6 @@ public class BoardTest {
 
   }
 
-  //theres a bug here, test more
   @Test
   public void validMovesTest() throws InvalidEdgeException, PosnTakenException {
     Center c = new Center(Feature.MONASTERY);
@@ -64,7 +63,6 @@ public class BoardTest {
     bottom = new Edge(Feature.ROAD);
     left = new Edge(Feature.ROAD);
     Tile otherT = new Tile(c, top, right, bottom, left, 0);
-    System.out.println("here");
     List<Posn> validMoves = b.validMoves(otherT);
     assertTrue(validMoves.size() == 1);
     assertTrue(validMoves.get(0).equals(new Posn(0, 1)));
@@ -167,6 +165,7 @@ public class BoardTest {
 	  assertTrue(validMoves.size() == 2);
 	  assertTrue(validMoves.contains(p12));
 	  assertTrue(validMoves.contains(p25));
+	  b.place(p12, t12);
 	  Tile t24 = new Tile(roadC, roadE, fieldE, fieldE, roadE, 0);
 	  validMoves = b.validMoves(t24);
 	  assertTrue(validMoves.size() == 3);
@@ -193,13 +192,13 @@ public class BoardTest {
 	  b.place(p8, t8);
 	  Center fieldC = new Center(Feature.FIELD);
 	  Tile t7 = new Tile(fieldC, fieldE, fieldE, fieldE, cityE, 0);
-	  validMoves = b.validMoves(t8);
+	  validMoves = b.validMoves(t7);
 	  assertTrue(validMoves.size() == 6);
 	  assertTrue(validMoves.contains(p7));
 	  assertTrue(validMoves.contains(p10));
 	  assertTrue(validMoves.contains(p28));
 	  assertTrue(validMoves.contains(p26));
-	  assertTrue(validMoves.contains(p25));
+	  assertTrue(validMoves.contains(p17));
 	  assertTrue(validMoves.contains(p27));
 	  b.place(p7, t7);
 	  Tile t6 = new Tile(fieldC, fieldE, cityE, fieldE, fieldE, 0);
@@ -227,13 +226,15 @@ public class BoardTest {
 	  b.place(p17, t17);
 	  Tile t18 = new Tile(roadC, roadE, fieldE, roadE, fieldE, 0);
 	  validMoves = b.validMoves(t18);
-	  assertTrue(validMoves.size() == 3);
+	  assertTrue(validMoves.size() == 5);
 	  assertTrue(validMoves.contains(p3));
 	  assertTrue(validMoves.contains(p9));
+	  assertTrue(validMoves.contains(p16));
+	  assertTrue(validMoves.contains(p29));
 	  assertTrue(validMoves.contains(p18));
 	  b.place(p18, t18);
 	  Tile t1 = new Tile(cityC, cityE, fieldE, fieldE, cityE, 0);
-	  validMoves = b.validMoves(t18);
+	  validMoves = b.validMoves(t1);
 	  assertTrue(validMoves.size() == 7);
 	  assertTrue(validMoves.contains(p29));
 	  assertTrue(validMoves.contains(p1));
