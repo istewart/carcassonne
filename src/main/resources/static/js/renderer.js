@@ -6,11 +6,12 @@ CANVAS_SIZE = 1000;
 // do click and drag better
 // add a better background to the board
 
-function Renderer(board, currTile, players, validMoves, scale, xt, yt) {
+function Renderer(board, currTile, players, validMoves, validMeeples, scale, xt, yt) {
   this.board = board;
   this.currTile = currTile;
   this.players = players;
   this.validMoves = validMoves;
+  this.validMeeples = validMeeples;
 
   this.scale = scale;
   this.xt = xt;
@@ -44,16 +45,53 @@ Renderer.prototype.renderPlayers = function() {
 
 Renderer.prototype.renderTile = function() {
   var currImage = document.getElementById(this.currTile.id);
-  var tileImage = document.getElementById("tileImage");
-  tileImage.src = currImage.src;
+  var tileCanvas = document.getElementById("tileCanvas");
+  var ctx = tileCanvas.getContext("2d");
 
-  $("#tileImage").rotate(this.currTile.rotation);
-  $("#tileImage").show();
+  var w = tileCanvas.width;
+  var h = tileCanvas.height;
+  var r = this.currTile.rotation * Math.PI / 180;
+
+  if (r) { // fancy way of drawing an image rotated about it's center
+    ctx.translate((w / 2), (h / 2));
+    ctx.rotate(r);
+    ctx.drawImage(currImage, -(w / 2), -(h / 2), w, h);
+    ctx.rotate(-r);
+    ctx.translate(-(w / 2), -(h / 2));
+  } else { // tile not rotated
+    ctx.drawImage(currImage, 0, 0, w, h);
+  }
+
+  var spots = this.validMeeples;
+  var radius = w / 8;
+
+  for (var i = 0; i < spots.length; i++) {
+    var x;
+    var y;
+
+    switch(spots[i]) {
+      case "UP": x = w / 2; y = h / 4; break;
+      case "DOWN": x = w / 2; y = 3 * h / 4; break;
+      case "RIGHT": x = 3 * w / 4; y = h / 2; break;
+      case "LEFT": x = w / 4; y = h / 2; break;
+      case "CENTER": x = w / 2; y = h / 2; break;
+      default: alert("Meeple switch failed!")
+    }
+
+    if (this.selectedMeeple && spots[i] === this.selectedMeeple) {
+      ctx.fill = "red";
+    } else {
+      ctx.fill = null;
+    }
+
+    ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "red";
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+  }
 };
-
-// var c = document.getElementById("myCanvas");
-// var ctx = c.getContext("2d");
-// ctx.drawImage(tileImage, 0, 0);
 
 Renderer.prototype.renderBoard = function() { // still very much a work in progress
   var mainCanvas = document.getElementById("mainCanvas");
@@ -116,6 +154,7 @@ Renderer.prototype.render = function() {
   ctx.beginPath();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.stroke();
+  ctx.closePath();
 
   // Restore the transform
   ctx.restore();
@@ -124,6 +163,7 @@ Renderer.prototype.render = function() {
   this.renderTile();
   this.renderMoves();
   this.renderPlayers();
+  this.shadeMove();
 };
 
 // takes a pos {x: x, y: y}
@@ -183,11 +223,15 @@ Renderer.prototype.canvasToPos = function(canvasPos) {
   return {x: posX, y: posY};
 }
 
-Renderer.prototype.shadeMove = function(pos) {
+Renderer.prototype.shadeMove = function() {
+  if (!this.selectedTile) {
+    return;
+  }
+
   var mainCanvas = document.getElementById("mainCanvas");
   var ctx = mainCanvas.getContext("2d");
 
-  var targetPlacement = this.posToCanvas(pos);
+  var targetPlacement = this.posToCanvas(this.selectedTile);
 
   ctx.fillStyle = "red";
   ctx.fillRect(targetPlacement.x, targetPlacement.y, 

@@ -1,5 +1,8 @@
 package edu.brown.cs.scij.game;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,6 +21,7 @@ import edu.brown.cs.scij.tile.NullMeepleException;
 import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.TileFeature;
+import edu.brown.cs.scij.tile.UnMeeplableException;
 
 public class Referee {
   private List<Player> players;
@@ -106,12 +110,121 @@ public class Referee {
 
   // main/handlers handles this
   public void run() {
-    // TODO run everything
+    Player curPlayer;
+    try (BufferedReader r =
+        new BufferedReader(new InputStreamReader(System.in));) {
+      while (!isGameOver()) {
+        curPlayer = nextPlayer();
+        System.out.println(String
+            .format("It is %s's turn", curPlayer.getName()));
+        takeTurn(curPlayer, r);
+        turnNumber++;
+        System.out.println(players.toString());
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
   }
 
   // Probably don't need this, handled by the handlers/main
-  public void takeTurn() {
-    // TODO take turn
+  public void takeTurn(Player p, BufferedReader r) throws IOException {
+    Tile t = drawTile();
+    System.out.println(t);
+
+    List<Posn> validMoves = board.validMoves(t);
+    System.out.println("The possible valid moves are:");
+    System.out.println(validMoves);
+    boolean noGood = true;
+
+    Posn chosenPosn = null;
+    while (noGood) {
+      while (!validMoves.contains(chosenPosn)) {
+        System.out
+            .println("Where would you like to place the tile? Format: x y");
+        System.out
+            .println("to rotate left, input left, to rotate right input right");
+        String input = r.readLine();
+        String[] coord = input.split(" ");
+        if (coord.length == 1) {
+          if (coord[0].equals("right")) {
+            t.rotateRight();
+          } else {
+            t.rotateLeft();
+          }
+        } else {
+          chosenPosn =
+              new Posn(Integer.parseInt(coord[0]), Integer.parseInt(coord[1]));
+        }
+
+      }
+      try {
+        board.place(chosenPosn, t);
+        noGood = false;
+
+      } catch (PosnTakenException e) {
+        System.out.println(e.getMessage());
+      }
+    }
+
+    noGood = true;
+    while (noGood) {
+      System.out.println("Would you like to meeple anywhere on the tile?");
+      System.out
+          .println("Options: n (no), t (top), b (bottom), l (left), r (right), c (center)");
+      // System.out.println(t.validMeeples().toString());
+      String input = r.readLine();
+      try {
+        switch (input) {
+          case "n":
+            System.out.println("You didn't place a meeple");
+            noGood = false;
+            break;
+          case "b":
+            System.out.println("You placed a meeple on the bottom feature");
+            placeMeeple(chosenPosn, p, Direction.DOWN);
+            System.out.println(p);
+            noGood = false;
+            break;
+          case "l":
+            System.out.println("You placed a meeple on the left feature");
+            placeMeeple(chosenPosn, p, Direction.LEFT);
+            System.out.println(p);
+            noGood = false;
+            break;
+          case "r":
+            System.out.println("You placed a meeple on the right feature");
+            placeMeeple(chosenPosn, p, Direction.RIGHT);
+            System.out.println(p);
+            noGood = false;
+            break;
+          case "t":
+            System.out.println("You placed a meeple on the top feature");
+            placeMeeple(chosenPosn, p, Direction.UP);
+            System.out.println(p);
+            noGood = false;
+            break;
+          case "c":
+            System.out.println("You placed a meeple on the center feature");
+            placeMeeple(chosenPosn, p, Direction.CENTER);
+            System.out.println(p);
+            noGood = false;
+            break;
+        }
+      } catch (OutOfMeeplesException e) {
+        System.out.println("You have no more meeples left!");
+        noGood = false;
+      } catch (NullTileException e) {
+        System.out.println("You shouldn't have gotten here!");
+        e.printStackTrace();
+      } catch (UnMeeplableException e) {
+        System.out
+            .println("That feature is unmeeplable, please try again or input n to move on");
+      }
+
+    }
+
+    score(chosenPosn);
   }
 
   /**
@@ -121,7 +234,6 @@ public class Referee {
    * @param prevTile the tile that was last placed on the board
    */
   public void score(Posn p) {
-    // TODO score
     if (isGameOver()) {
       gameOverScoring();
     } else {
@@ -178,76 +290,6 @@ public class Referee {
     }
   }
 
-  public List<Posn> getSurroundingTiles(Posn p) {
-    List<Posn> surrounding = new ArrayList<>();
-    int x = p.getX();
-    int y = p.getY();
-    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
-      surrounding.add(new Posn(x + 1, y));
-    }
-    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
-      surrounding.add(new Posn(x + 1, y + 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
-      surrounding.add(new Posn(x + 1, y - 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x, y))) {
-      surrounding.add(new Posn(x, y));
-    }
-    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
-      surrounding.add(new Posn(x, y + 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
-      surrounding.add(new Posn(x, y - 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
-      surrounding.add(new Posn(x - 1, y));
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
-      surrounding.add(new Posn(x - 1, y + 1));
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
-      surrounding.add(new Posn(x - 1, y - 1));
-    }
-
-    return surrounding;
-  }
-
-  public int numSurroundingTiles(Posn p) {
-    int count = 0;
-    int x = p.getX();
-    int y = p.getY();
-    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x, y))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
-      count++;
-    }
-    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
-      count++;
-    }
-
-    return count;
-  }
-
   public void scoreRoad(Posn p) {
     scoreRoadAt(p);
   }
@@ -283,7 +325,7 @@ public class Referee {
     }
   }
 
-  public void scoreCityAt(Posn p) {
+  private void scoreCityAt(Posn p) {
     Tile curTile = board.getBoard().get(p);
     Edge top = curTile.getTop();
     Edge bottom = curTile.getBottom();
@@ -416,7 +458,7 @@ public class Referee {
     }
   }
 
-  public int scoreCityHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
+  private int scoreCityHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
       Set<TileFeature> meepledCities, Direction d, int count, Finished f) {
     // recursively check each direction until there is no more center that
     // is a city. If the prev posn maps to a null tile, then return 0. If a tile
@@ -480,7 +522,7 @@ public class Referee {
     }
   }
 
-  public int scoreRoadHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
+  private int scoreRoadHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
       Set<TileFeature> meepledRoads, Direction d, int count, Finished f) {
     if (curPosn.equals(prevPosn)) {
       return 0;
@@ -536,7 +578,7 @@ public class Referee {
     }
   }
 
-  public void scoreRoadAt(Posn p) {
+  private void scoreRoadAt(Posn p) {
     Tile curTile = board.getBoard().get(p);
     Edge top = curTile.getTop();
     Edge bottom = curTile.getBottom();
@@ -668,7 +710,77 @@ public class Referee {
     }
   }
 
-  public void grabMeepleAtEdge(Tile t, Direction d,
+  private List<Posn> getSurroundingTiles(Posn p) {
+    List<Posn> surrounding = new ArrayList<>();
+    int x = p.getX();
+    int y = p.getY();
+    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
+      surrounding.add(new Posn(x + 1, y));
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
+      surrounding.add(new Posn(x + 1, y + 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
+      surrounding.add(new Posn(x + 1, y - 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x, y))) {
+      surrounding.add(new Posn(x, y));
+    }
+    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
+      surrounding.add(new Posn(x, y + 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
+      surrounding.add(new Posn(x, y - 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
+      surrounding.add(new Posn(x - 1, y));
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
+      surrounding.add(new Posn(x - 1, y + 1));
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
+      surrounding.add(new Posn(x - 1, y - 1));
+    }
+
+    return surrounding;
+  }
+
+  private int numSurroundingTiles(Posn p) {
+    int count = 0;
+    int x = p.getX();
+    int y = p.getY();
+    if (board.getBoard().containsKey(new Posn(x + 1, y))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y + 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x + 1, y - 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x, y))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x, y + 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x, y - 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y + 1))) {
+      count++;
+    }
+    if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
+      count++;
+    }
+
+    return count;
+  }
+
+  private void grabMeepleAtEdge(Tile t, Direction d,
       Set<TileFeature> meepled) {
     if (d == Direction.RIGHT && t.getRight().hasMeeple()) {
       meepled.add(t.getRight());
@@ -681,13 +793,13 @@ public class Referee {
     }
   }
 
-  public void grabMeepleAtCenter(Tile t, Set<TileFeature> meepled) {
+  private void grabMeepleAtCenter(Tile t, Set<TileFeature> meepled) {
     if (t.getCenter().hasMeeple()) {
       meepled.add(t.getCenter());
     }
   }
 
-  public void scoreMeeples(Set<TileFeature> meepledFeatures, int baseScore) {
+  private void scoreMeeples(Set<TileFeature> meepledFeatures, int baseScore) {
     Map<Player, Integer> meeples = new HashMap<>();
     for (Player p : players) {
       meeples.put(p, 0);
@@ -699,7 +811,6 @@ public class Referee {
       try {
         tf.removeMeeple();
       } catch (NullMeepleException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
         System.out
             .println("shouldn't get here, if we do, reach scott at 2**-*4*-**2*");
@@ -722,8 +833,10 @@ public class Referee {
   }
 
   public void placeMeeple(Posn posn, Player player,
-      Direction d) throws NullTileException, OutOfMeeplesException {
+      Direction d) throws NullTileException, OutOfMeeplesException,
+      UnMeeplableException {
     Tile t = board.getBoard().get(posn);
+    System.out.println(String.valueOf(t));
     if (t != null) {
       if (d == Direction.RIGHT) {
         t.getRight().setMeeple(new Meeple(player));
@@ -737,16 +850,16 @@ public class Referee {
       } else if (d == Direction.DOWN) {
         t.getBottom().setMeeple(new Meeple(player));
         player.useMeeple();
+      } else if (d == Direction.CENTER) {
+        t.getCenter().setMeeple(new Meeple(player));
+        player.useMeeple();
       }
     } else {
-      throw new NullTileException(
-          "There is no tile at the given posn, how can I put a meeple on it??");
+      /*
+       * throw new NullTileException(
+       * "There is no tile at the given posn, how can I put a meeple on it??");
+       */
     }
-
-    /*
-     * Set<Posn> meepled = board.getMeeplePosns();
-     * meepled.add(posn);
-     */
   }
 
   /**
@@ -767,7 +880,7 @@ public class Referee {
   }
 
   public Player nextPlayer() {
-    return players.get(turnNumber % 4);
+    return players.get(turnNumber % players.size());
   }
 
   private List<Tile> buildDeck() throws InvalidEdgeException {
@@ -927,8 +1040,48 @@ public class Referee {
   }
 
   public static void main(String[] args) {
+    /*
+     * Player p = new Player(0, "Scott");
+     * try {
+     * System.out.println(p);
+     * p.useMeeple();
+     * System.out.println(p);
+     * } catch (OutOfMeeplesException e) {
+     * // TODO Auto-generated catch block
+     * e.printStackTrace();
+     * }
+     * Referee r = new Referee();
+     * try {
+     * r.getBoard()
+     * .place(
+     * new Posn(0, 0),
+     * new Tile(new Center(Feature.CITY), new Edge(Feature.CITY),
+     * new Edge(Feature.CITY), new Edge(Feature.CITY), new Edge(
+     * Feature.CITY), 0));
+     * r.placeMeeple(new Posn(0, 0), p, Direction.CENTER);
+     * System.out.println(p);
+     * } catch (PosnTakenException | InvalidEdgeException e) {
+     * // TODO Auto-generated catch block
+     * e.printStackTrace();
+     * } catch (NullTileException e) {
+     * // TODO Auto-generated catch block
+     * e.printStackTrace();
+     * } catch (OutOfMeeplesException e) {
+     * // TODO Auto-generated catch block
+     * e.printStackTrace();
+     * } catch (UnMeeplableException e) {
+     * // TODO Auto-generated catch block
+     * e.printStackTrace();
+     * }
+     */
+
     Referee r = new Referee();
     r.setupGame();
+    r.newPlayer(new Player(0, "Scott"));
+    r.newPlayer(new Player(1, "Ian"));
+    r.shuffleOrder();
+    r.run();
+
   }
 
 }

@@ -32,8 +32,12 @@ public abstract class TileFeature {
     return feature;
   }
 
-  public void setMeeple(Meeple m) {
-    this.meeple = m;
+  public void setMeeple(Meeple m) throws UnMeeplableException {
+    if (isMeeplable) {
+      this.meeple = m;
+    } else {
+      throw new UnMeeplableException("This feature cannot be meepled");
+    }
   }
 
   public void removeMeeple() throws NullMeepleException {

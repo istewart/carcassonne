@@ -70,4 +70,9 @@ public class Player {
       numMeeples++;
     }
   }
+
+  @Override
+  public String toString() {
+    return name + " :: Score: " + score + " Meeples Left: " + numMeeples;
+  }
 }

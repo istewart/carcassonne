@@ -5,11 +5,11 @@ var PlacementButtons = function() {
       $.post("/left", postParameters, function(responseJSON) {
         responseObject = JSON.parse(responseJSON);
         var currTile = responseObject.currTile;
-        var board = responseObject.board;
         var validMoves = responseObject.validMoves;
-        var players = currTile.players;
 
-        renderer = new Renderer(board, currTile, players, validMoves, this.renderer.xt, this.renderer.yt, this.renderer.scale);
+        renderer.currTile = currTile;
+        renderer.validMoves = validMoves;
+
         renderer.render();
       });
     });
@@ -20,11 +20,11 @@ var PlacementButtons = function() {
       $.post("/right", postParameters, function(responseJSON) {
         responseObject = JSON.parse(responseJSON);
         var currTile = responseObject.currTile;
-        var board = responseObject.board;
         var validMoves = responseObject.validMoves;
-        var players = currTile.players;
 
-        renderer = new Renderer(board, currTile, players, validMoves, this.renderer.xt, this.renderer.yt, this.renderer.scale);
+        renderer.currTile = currTile;
+        renderer.validMoves = validMoves;
+
         renderer.render();
       });
     });
@@ -39,7 +39,11 @@ var PlacementButtons = function() {
         var validMoves = responseObject.validMoves;
         var players = currTile.players;
 
-        renderer = new Renderer(board, currTile, players, validMoves, this.renderer.xt, this.renderer.yt, this.renderer.scale);
+        renderer.currTile = currTile;
+        renderer.validMoves = validMoves;
+        renderer.board = board;
+        renderer.players = players;
+
         renderer.render();
       });
     });
