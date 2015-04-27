@@ -80,9 +80,11 @@ Renderer.prototype.renderTile = function() {
 
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.closePath();
 
     if (this.selectedMeeple && spots[i] === this.selectedMeeple) {
       ctx.fillStyle = "red";
+      ctx.strokeStyle = null;
       ctx.fill();
     } else {
       ctx.fillStyle = null;
@@ -90,8 +92,6 @@ Renderer.prototype.renderTile = function() {
       ctx.lineWidth = 4;
       ctx.stroke();
     }
-
-    ctx.closePath();
   }
 };
 
@@ -119,7 +119,34 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     } else { // tile not rotated
       ctx.drawImage(targetImg, targetPlacement.x, targetPlacement.y, targetPlacement.s, targetPlacement.s);
     }
-    
+
+    var meeple = currTile.meeple;
+
+    if (meeple) {
+      var w = targetPlacement.s;
+      var h = targetPlacement.s;
+      var radius = targetPlacement.s / 8;
+
+      var x = targetPlacement.x;
+      var y = targetPlacement.y;
+
+      var meeplePlacement = meeple.meeplePlacement;
+
+      switch(meeplePlacement) {
+        case "UP": x += w / 2; y += h / 4; break;
+        case "DOWN": x += w / 2; y += 3 * h / 4; break;
+        case "RIGHT": x += 3 * w / 4; y += h / 2; break;
+        case "LEFT": x += w / 4; y += h / 2; break;
+        case "CENTER": x += w / 2; y += h / 2; break;
+        default: alert("Meeple switch failed!")
+      }
+
+      ctx.beginPath();
+      ctx.fillStyle = meeple.player.color;
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.closePath();
+    }
   }
 
   return;
@@ -128,6 +155,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
 Renderer.prototype.renderMoves = function() {
   var mainCanvas = document.getElementById("mainCanvas");
   var ctx = mainCanvas.getContext("2d");
+  ctx.beginPath();
 
   var moves = this.validMoves;
 
@@ -141,6 +169,7 @@ Renderer.prototype.renderMoves = function() {
     ctx.stroke();
   }
 
+  ctx.closePath();
   return;
 };
 
