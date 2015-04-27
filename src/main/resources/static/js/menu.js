@@ -40,8 +40,9 @@ var Menu = function() {
       var currTile = {center: null, top: null, bottom: null, left: null, right: null, id: "test", rotation: 90, shield: false};
       var validMoves = [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: -2}, {x: 5, y: 5}];
       var board = [{tile: {id: "test", rotation: -90}, pos: {x: -1, y: 0}}, {tile: {id: "test"}, pos: {x: -1, y: 1}}, {tile: {id: "test"}, pos: {x: 0, y: -1}}];
+      var validMeeples = ["UP", "CENTER", "RIGHT"];
 
-      renderer = new Renderer(board, currTile, players, validMoves, 1, 0, 0);
+      renderer = new Renderer(board, currTile, players, validMoves, validMeeples, 1, 0, 0);
       renderer.render();
     });
 
