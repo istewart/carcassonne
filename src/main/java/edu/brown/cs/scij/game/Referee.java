@@ -23,6 +23,7 @@ import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.TileFeature;
 import edu.brown.cs.scij.tile.UnMeeplableException;
 
+//SCOTT LOOK AT JOSEPHS CODE AND HOW PRETTY IT IS COMMENT YOURS THE SAME WAY
 public class Referee {
   private List<Player> players;
   private Deck deck;

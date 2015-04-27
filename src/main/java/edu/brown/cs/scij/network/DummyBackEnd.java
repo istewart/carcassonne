@@ -11,10 +11,10 @@ class DummyBackEnd implements BackEnd {
   Server server;
   
   @Override
-  public Object answer(int player, String field, String val) {
+  public Object answer(int player, String field, Object val) {
     switch (field) {
-      case "server": return handleServer(val);
-      case "chat": return handleChat(player, val);
+      case "server": return handleServer((String) val);
+      case "chat": return handleChat(player, (String) val);
       default: return "This is my reponse to " + val;
     }
   }

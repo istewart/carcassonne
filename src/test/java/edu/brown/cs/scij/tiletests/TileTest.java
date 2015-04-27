@@ -4,13 +4,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
 import edu.brown.cs.scij.tile.InvalidEdgeException;
-import edu.brown.cs.scij.tile.InvalidMeeplePlacementException;
-import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
 
 public class TileTest {
@@ -63,25 +60,5 @@ public class TileTest {
     Edge right = new Edge(Feature.FIELD);
     Tile t = new Tile(c, top, right, bottom, left, 0);
     assertTrue(t.roadEnds());
-  }
-
-  @Test
-  public void placeMeepleTest() throws InvalidEdgeException,
-      OutOfMeeplesException {
-    Center c = new Center(Feature.MONASTERY);
-    Edge top = new Edge(Feature.FIELD);
-    Edge bottom = new Edge(Feature.FIELD);
-    Edge left = new Edge(Feature.FIELD);
-    Edge right = new Edge(Feature.FIELD);
-    Tile t = new Tile(c, top, right, bottom, left, 0);
-    Player p = new Player(1, "p");
-    try {
-      t.placeMeeple(p, c);
-      assertTrue(p.getNumMeeples() == 6);
-      t.placeMeeple(p, top);
-      assertTrue(false);
-    } catch (InvalidMeeplePlacementException e) {
-      assertTrue(true);
-    }
   }
 }

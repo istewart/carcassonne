@@ -1,8 +1,7 @@
 var PlacementButtons = function() {
 	mainLeft.addEventListener("click", function(event) {
-      var postParameters = "TODO";
 
-      $.post("/left", postParameters, function(responseJSON) {
+      network.ask("rotate", "left", function(responseJSON) {
         responseObject = JSON.parse(responseJSON);
         var currTile = responseObject.currTile;
         var validMoves = responseObject.validMoves;
@@ -15,9 +14,8 @@ var PlacementButtons = function() {
     });
 
     mainRight.addEventListener("click", function(event) {
-      var postParameters = "TODO";
-
-      $.post("/right", postParameters, function(responseJSON) {
+      
+      network.ask("rotate", "right", function(responseJSON) {
         responseObject = JSON.parse(responseJSON);
         var currTile = responseObject.currTile;
         var validMoves = responseObject.validMoves;
@@ -32,7 +30,7 @@ var PlacementButtons = function() {
     mainLeft.addEventListener("click", function(event) {
       var postParameters = "TODO";
 
-      $.post("/place", postParameters, function(responseJSON) {
+      network.ask("place", postParameters, function(responseJSON) {
         responseObject = JSON.parse(responseJSON);
         var currTile = responseObject.currTile;
         var board = responseObject.board;
