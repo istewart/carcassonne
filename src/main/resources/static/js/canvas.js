@@ -72,7 +72,8 @@ var Canvas = function() {
 		var divOffsetY = $("#contentDiv")[0].getBoundingClientRect().top;
 		canvasOffsetY = divOffsetY - bodyOffsetY;
 
-		var canvasClick = {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
+		var pixelClick = {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
+		var canvasClick = renderer.pixelsToTile(pixelClick);
 
 		console.log(canvasClick);
 

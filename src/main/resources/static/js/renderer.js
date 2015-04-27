@@ -78,17 +78,19 @@ Renderer.prototype.renderTile = function() {
       default: alert("Meeple switch failed!")
     }
 
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+
     if (this.selectedMeeple && spots[i] === this.selectedMeeple) {
-      ctx.fill = "red";
+      ctx.fillStyle = "red";
+      ctx.fill();
     } else {
-      ctx.fill = null;
+      ctx.fillStyle = null;
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 4;
+      ctx.stroke();
     }
 
-    ctx.beginPath();
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = "red";
-    ctx.arc(x, y, radius, 0, 2 * Math.PI);
-    ctx.stroke();
     ctx.closePath();
   }
 };
@@ -239,3 +241,16 @@ Renderer.prototype.shadeMove = function() {
 
   return;
 };
+
+Renderer.prototype.pixelsToTile = function(pixPos) {
+  var canvasUnitHeight = document.getElementById("tileCanvas").height; // canvas units
+  var canvasPixHeight = $("#tileCanvas").height(); // canvas pix
+
+  var canvasUnitWidth = document.getElementById("tileCanvas").width; // canvas units
+  var canvasPixWidth = $("#tileCanvas").width(); // canvas pix
+
+  var canvasX = pixPos.x * (canvasUnitWidth / canvasPixWidth);
+  var canvasY = pixPos.y * (canvasUnitHeight / canvasPixHeight);
+
+  return {x: canvasX, y: canvasY};
+}
