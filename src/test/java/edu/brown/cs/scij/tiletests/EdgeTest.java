@@ -27,6 +27,7 @@ public class EdgeTest {
     assertTrue(e.getMeeple() == null);
     Player p = new Player(1, "p");
     Meeple m = new Meeple(p);
+    e = new Edge(Feature.CITY);
     e.setMeeple(m);
     assertTrue(e.getMeeple().equals(m));
   }
