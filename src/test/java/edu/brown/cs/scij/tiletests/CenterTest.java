@@ -8,6 +8,7 @@ import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.tile.Center;
 import edu.brown.cs.scij.tile.Feature;
 import edu.brown.cs.scij.tile.InvalidEdgeException;
+import edu.brown.cs.scij.tile.UnMeeplableException;
 
 public class CenterTest {
 	
@@ -19,7 +20,7 @@ public class CenterTest {
 	}
 	
 	@Test
-	public void meepleTest() throws InvalidEdgeException{
+	public void meepleTest() throws InvalidEdgeException, UnMeeplableException{
 		Center c = new Center(Feature.MONASTERY);
 		assertTrue(c.isMeeplable());
 		assertTrue(c.getMeeple() == null);
@@ -27,7 +28,6 @@ public class CenterTest {
 		Meeple m = new Meeple(p);
 		c.setMeeple(m);
 		assertTrue(c.getMeeple().equals(m));
-		//might want to add a remove meeple
 	}
 	
 	@Test
