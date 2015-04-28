@@ -39,7 +39,7 @@ public final class Network {
   private BackEnd back = new DummyBackEnd();
 
   /**
-   * The only constructor for this class.
+   * The basic constructor for this class. The default port 4567 will be used.
    */
   private Network() { }
 
@@ -50,7 +50,23 @@ public final class Network {
    * @return The Network.
    */
   public static Network getNetwork(String[] args) {
-    return new Network();
+    return new Network(args);
+  }
+
+  /**
+   * Creates a new Network with the given arguments.
+   * @param args  The command-line arguments
+   */
+  private Network(String[] args) {
+    if (args.length == 1) {
+      try {
+        port = Integer.parseInt(args[0]);
+      } catch (NumberFormatException ex) {
+        // If it cannot be parsed, it is simply ignored and the default
+        // port is used.
+        ;
+      }
+    }
   }
 
   /**

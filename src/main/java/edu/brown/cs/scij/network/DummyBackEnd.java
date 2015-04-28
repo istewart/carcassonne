@@ -9,6 +9,15 @@ import java.util.ArrayList;
 class DummyBackEnd implements BackEnd {
   BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
   Server server;
+
+  /**
+   * Constructs a DummyBackEnd and starts its talk thread;
+   */
+  public DummyBackEnd() {
+    Thread talk = new Thread(new TalkThread());
+    talk.setDaemon(true);
+    talk.start();
+  }
   
   @Override
   public Object answer(int player, String field, Object val) {
@@ -54,6 +63,28 @@ class DummyBackEnd implements BackEnd {
     @Override
     public String toString() {
       return player + ": " + message;
+    }
+  }
+
+  /**
+   * Sends random messages to the players.
+   */
+  private class TalkThread implements Runnable {
+
+    @Override
+    public void run() {
+      while (true) {
+        try {
+          Thread.sleep(1000);
+          speak();
+        } catch (InterruptedException ex) {
+          continue;
+        }
+      }
+    }
+
+    private void speak() {
+      server.putField("chat", handleChat(0, "where is scott?"));
     }
   }
 }
