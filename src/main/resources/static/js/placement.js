@@ -1,31 +1,33 @@
 var PlacementButtons = function() {
 	mainLeft.addEventListener("click", function(event) {
-
       network.ask("rotate", "left", function(responseObject) {
         var currTile = responseObject.currTile;
         var validMoves = responseObject.validMoves;
+        var validMeeples = responseObject.validMeeples;
 
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;
+        renderer.validMeeples = validMeeples;
 
         renderer.render();
       });
     });
 
-    mainRight.addEventListener("click", function(event) {
-      
+  mainRight.addEventListener("click", function(event) {
       network.ask("rotate", "right", function(responseObject) {
         var currTile = responseObject.currTile;
         var validMoves = responseObject.validMoves;
+        var validMeeples = responseObject.validMeeples;
 
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;
+        renderer.validMeeples = validMeeples;
 
         renderer.render();
       });
     });
 
-    mainLeft.addEventListener("click", function(event) {
+  mainLeft.addEventListener("click", function(event) {
       if (!renderer.selectedMove) {
         return;
       }
