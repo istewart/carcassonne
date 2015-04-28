@@ -3,7 +3,6 @@ MIN_DRAG_DISTANCE = 5;
 // var dragging;
 
 var Canvas = function() {
-	// TODO: Set up scrolling, click, and drag
 	var canvasOffsetX;
 	var canvasOffsetY;
 	

@@ -1,10 +1,14 @@
 TILE_SIZE = 60;
 CANVAS_SIZE = 1000;
 
+// TODO
+
 // can clean things up with global context and canvas
-// take a look at clearing and tile spacing
+// take a look at clearing meeples and tiles and tile spacing
 // do click and drag better
 // add a better background to the board
+// get better tiles
+// integrate with back end
 
 function Renderer(board, currTile, players, validMoves, validMeeples, scale, xt, yt) {
   this.board = board;
