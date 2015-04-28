@@ -49,6 +49,11 @@ var Canvas = function() {
 		dragging = true;
 	}).on('mousemove', function(e) {
 		var start = mouseStart;
+		if (!start) { // hasn't been a click
+			return;
+		}
+
+
 		end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY},
 		d = Math.sqrt(Math.pow((start.x - end.x), 2) + Math.pow((start.y - end.y), 2)); // distance in pixels
 		
@@ -122,8 +127,6 @@ var Canvas = function() {
 
 		var pixelClick = {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
 		var canvasClick = renderer.pixelsToTile(pixelClick);
-
-		console.log(canvasClick);
 
 		if (canvasClick.y > .125 * h && canvasClick.y < .375 * h && canvasClick.x > .375 * w && canvasClick.x < .625 * w) {
 			renderer.selectedMeeple = "UP";
