@@ -1,5 +1,9 @@
 package edu.brown.cs.scij.network;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.game.Referee;
 
 public class CarcBackEnd implements BackEnd {
@@ -23,7 +27,13 @@ public class CarcBackEnd implements BackEnd {
         } else {
           // bad
         }
+        break;
       case "add player":
+        Map<String, String> newPlayer = (HashMap<String, String>) val;
+        String id = newPlayer.get("id");
+        String name = newPlayer.get("name");
+        r.newPlayer(new Player(id, name));
+        break;
       case "game start":
         // putField() current board, current tile, list of players,
         // current player, valid moves, valid meeples
@@ -31,11 +41,14 @@ public class CarcBackEnd implements BackEnd {
         s.putField("board", r.getBoard());
         s.putField("curTile", r.drawTile());
         // TODO add more
-
+        break;
       case "place tile":
         // receiving: posn, meeple placement (UP RIGHT DOWN LEFT CENTER)
         // putField: board, next player, list of all players, next tile, valid
         // moves, valid meeples
+        break;
+      default:
+        // something
     }
     // return only what the person requesting should know
     return null;

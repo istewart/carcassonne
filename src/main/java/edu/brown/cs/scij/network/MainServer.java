@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableMap;
 public class MainServer implements Server {
   private BackEnd back;
   private Map<String, Key> playerIps = new HashMap<>();
-  private Map<Key, Player> players = new HashMap<>();
+  private Map<Key, NetworkPlayer> players = new HashMap<>();
   private int playerCount = 0;
   private Map<String, Object> fields = new HashMap<>();
   private boolean talkative = false;
@@ -84,7 +84,7 @@ public class MainServer implements Server {
 
   @Override
   public boolean ping(Key key) throws NoSuchPlayerException {
-    Player p = players.get(key);
+    NetworkPlayer p = players.get(key);
     if (p == null) {
       if (talkative) {
         System.out.println(
@@ -106,7 +106,7 @@ public class MainServer implements Server {
 
   @Override
   public int pingCount(Key key) {
-    Player p = players.get(key);
+    NetworkPlayer p = players.get(key);
     if (p == null) {
       return -1;
     }
@@ -119,7 +119,7 @@ public class MainServer implements Server {
   @Override
   public Map<String, Object> connect(String ip) {
     if (playerIps.containsKey(ip)) {
-      Player p = players.get(playerIps.get(ip));
+      NetworkPlayer p = players.get(playerIps.get(ip));
       synchronized (p) {
         if (p.isOpenWindow()) {
           if (talkative) {
@@ -148,7 +148,7 @@ public class MainServer implements Server {
       }
       Key key = Key.generate();
       playerCount += 1;
-      Player player = new Player(key, playerCount, ip).setOpenWindow(true);
+      NetworkPlayer player = new NetworkPlayer(key, playerCount, ip).setOpenWindow(true);
       playerIps.put(ip, key);
       players.put(key, player);
       try {
@@ -170,7 +170,7 @@ public class MainServer implements Server {
    * @param field The field that has changed
    */
   private void notify(String field) {
-    for (Player p : players.values()) {
+    for (NetworkPlayer p : players.values()) {
       synchronized (p) {
         p.notify(field);
       }
@@ -190,7 +190,7 @@ public class MainServer implements Server {
 
   @Override
   public Map<String, Object> updateAll(Key key) {
-    Player p = players.get(key);
+    NetworkPlayer p = players.get(key);
     if (p == null) {
       return null;
     }
@@ -207,7 +207,7 @@ public class MainServer implements Server {
 
   @Override
   public Map<String, Object> update(Key key) {
-    Player p = players.get(key);
+    NetworkPlayer p = players.get(key);
     if (p == null) {
       return null;
     }
@@ -245,7 +245,7 @@ public class MainServer implements Server {
    * know.
    * @param p The player to mark as connected.
    */
-  private void connect(Player p) {
+  private void connect(NetworkPlayer p) {
     synchronized (p) {
       p.connect();
       Map<Integer, Boolean> connected =
@@ -269,7 +269,7 @@ public class MainServer implements Server {
 
   @Override
   public void disconnect(Key k) {
-    Player p = players.get(k);
+    NetworkPlayer p = players.get(k);
     if (p == null) {
       return;
     }
@@ -280,7 +280,7 @@ public class MainServer implements Server {
 
   @Override
   public Object ask(Key key, String field, String val) {
-    Player p = players.get(key);
+    NetworkPlayer p = players.get(key);
     if (p == null) {
       return null;
     }
@@ -306,7 +306,7 @@ public class MainServer implements Server {
    * know.
    * @param p The player to mark as disconnected.
    */
-  private void disconnect(Player p) {
+  private void disconnect(NetworkPlayer p) {
     synchronized (p) {
       p.disconnect();
       p.setOpenWindow(false);
@@ -350,8 +350,8 @@ public class MainServer implements Server {
     }
 
     public void checkConnections() {
-      Collection<Player> playerSet = players.values();
-      for (Player p : playerSet) {
+      Collection<NetworkPlayer> playerSet = players.values();
+      for (NetworkPlayer p : playerSet) {
         synchronized (p) {
           if (p.getLastPing() + TIMEOUT_TIME <= serverTime) {
             disconnect(p);

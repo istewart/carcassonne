@@ -9,7 +9,7 @@ import java.util.Set;
  * most recent ping, connected state, and what information they have that is
  * out of date. Used by the {@link MainServer} class.
  */
-class Player {
+class NetworkPlayer {
   private String ip;
   private final int id;
   private final Key key;
@@ -19,7 +19,7 @@ class Player {
   private Set<String> outOfDate;
   private boolean openWindow;
 
-  public Player(Key key, int id, String ip) {
+  public NetworkPlayer(Key key, int id, String ip) {
     this.key = key;
     this.ip = ip;
     this.id = id;
@@ -45,12 +45,12 @@ class Player {
     return pingCount;
   }
 
-  public Player setPingCount(int setPingCount) {
+  public NetworkPlayer setPingCount(int setPingCount) {
     pingCount = setPingCount;
     return this;
   }
 
-  public Player incrementPingCount() {
+  public NetworkPlayer incrementPingCount() {
     pingCount++;
     return this;
   }
@@ -59,7 +59,7 @@ class Player {
     return lastPing;
   }
 
-  public Player setLastPing(int setLastPing) {
+  public NetworkPlayer setLastPing(int setLastPing) {
     lastPing = setLastPing;
     return this;
   }
@@ -68,22 +68,22 @@ class Player {
     return connected;
   }
 
-  public Player setConnected(boolean setConnected) {
+  public NetworkPlayer setConnected(boolean setConnected) {
     connected = setConnected;
     return this;
   }
 
-  public Player connect() {
+  public NetworkPlayer connect() {
     connected = true;
     return this;
   }
 
-  public Player disconnect() {
+  public NetworkPlayer disconnect() {
     connected = false;
     return this;
   }
 
-  public Player setOpenWindow(boolean setOpenWindow) {
+  public NetworkPlayer setOpenWindow(boolean setOpenWindow) {
     openWindow = setOpenWindow;
     return this;
   }
