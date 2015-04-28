@@ -78,7 +78,7 @@ var network = {
 
   /**
    * 
-   */
+   *//*
   askBlock: function(field, val) {
     network.val = undefined;
     network.returned = false;
@@ -89,7 +89,7 @@ var network = {
     while (!network.retuned)
       ;
     ask(field, val, handler);
-  }
+  },*/
 
   /**
    * Gets the value of a field.
