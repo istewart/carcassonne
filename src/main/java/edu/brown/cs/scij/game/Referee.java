@@ -847,7 +847,6 @@ public void placeMeeple(Posn posn, Player player,
       Direction d) throws NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Tile t = board.getBoard().get(posn);
-    System.out.println(String.valueOf(t));
     if (t != null) {
       if (d == Direction.RIGHT) {
         t.getRight().setMeeple(new Meeple(player));
