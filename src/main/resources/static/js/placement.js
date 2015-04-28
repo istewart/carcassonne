@@ -38,7 +38,7 @@ var PlacementButtons = function() {
         var currTile = responseObject.currTile;
         var board = responseObject.board;
         var validMoves = responseObject.validMoves;
-        var players = currTile.players;
+        var players = responseObject.players;
 
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;

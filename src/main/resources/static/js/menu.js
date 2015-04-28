@@ -41,6 +41,17 @@ var Menu = function() {
       renderer.render();
 
       network.say("newPlayer", $("#joinName").val());
+      network.ask("gameStart", "gameStart", function(responseObject) {
+        var currTile = responseObject.currTile;
+        var board = responseObject.board;
+        var validMoves = responseObject.validMoves;
+        var validMeeples = responseObject.validMoves;
+        var players = currTile.players;
+
+        renderer = new Renderer(board, currTile, players, validMoves, validMeeples, 1, 0, 0);
+
+        renderer.render();
+      });
     });
 
     settingsButton.addEventListener("click", function(event) {

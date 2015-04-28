@@ -8,7 +8,6 @@ LINE_WIDTH = 6;
 // TODO
 
 // can clean things up with global context and canvas
-// add a better background to the board
 // get better tiles and graphics
 // integrate with back end
 // fix settings and instructions
