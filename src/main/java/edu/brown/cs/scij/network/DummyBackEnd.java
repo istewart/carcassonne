@@ -14,9 +14,7 @@ class DummyBackEnd implements BackEnd {
    * Constructs a DummyBackEnd and starts its talk thread;
    */
   public DummyBackEnd() {
-    Thread talk = new Thread(new TalkThread());
-    talk.setDaemon(true);
-    talk.start();
+    
   }
   
   @Override
@@ -63,28 +61,6 @@ class DummyBackEnd implements BackEnd {
     @Override
     public String toString() {
       return player + ": " + message;
-    }
-  }
-
-  /**
-   * Sends random messages to the players.
-   */
-  private class TalkThread implements Runnable {
-
-    @Override
-    public void run() {
-      while (true) {
-        try {
-          Thread.sleep(1000);
-          speak();
-        } catch (InterruptedException ex) {
-          continue;
-        }
-      }
-    }
-
-    private void speak() {
-      server.putField("chat", handleChat(0, "where is scott?"));
     }
   }
 }

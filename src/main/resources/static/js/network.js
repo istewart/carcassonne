@@ -122,7 +122,7 @@ var network = {
 
   onLoad: function() {
     network.getIp();
-  },
+  }
 
   /**
    * Contains all data the server is sharing with the client. Automatically

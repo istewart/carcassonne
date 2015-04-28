@@ -128,22 +128,22 @@ public class Tile {
    * }
    */
 
-  public List<TileFeature> validMeeples() {
-    List<TileFeature> meepleableLocations = new ArrayList<>();
+  public List</* TileFeature */Direction> validMeeples() {
+    List</* TileFeature */Direction> meepleableLocations = new ArrayList<>();
     if (top.isMeeplable) {
-      meepleableLocations.add(top);
+      meepleableLocations.add(Direction.UP);
     }
     if (left.isMeeplable) {
-      meepleableLocations.add(left);
+      meepleableLocations.add(Direction.LEFT);
     }
     if (right.isMeeplable) {
-      meepleableLocations.add(right);
+      meepleableLocations.add(Direction.RIGHT);
     }
     if (bottom.isMeeplable) {
-      meepleableLocations.add(bottom);
+      meepleableLocations.add(Direction.DOWN);
     }
     if (center.isMeeplable) {
-      meepleableLocations.add(center);
+      meepleableLocations.add(Direction.CENTER);
     }
     return meepleableLocations;
   }
