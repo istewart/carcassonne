@@ -9,6 +9,7 @@ CANVAS_SIZE = 1000;
 // add a better background to the board
 // get better tiles
 // integrate with back end
+// fix settings and instructions
 
 function Renderer(board, currTile, players, validMoves, validMeeples, scale, xt, yt) {
   this.board = board;
@@ -129,7 +130,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     if (meeple) {
       var w = targetPlacement.s;
       var h = targetPlacement.s;
-      var radius = targetPlacement.s / 8;
+      var radius = targetPlacement.s / 10;
 
       var x = targetPlacement.x;
       var y = targetPlacement.y;
@@ -286,4 +287,16 @@ Renderer.prototype.pixelsToTile = function(pixPos) {
   var canvasY = pixPos.y * (canvasUnitHeight / canvasPixHeight);
 
   return {x: canvasX, y: canvasY};
+}
+
+Renderer.prototype.containsMove = function(pos) {
+  for (var i = 0; i < this.validMoves.length; i++) {
+    var curr = this.validMoves[i];
+
+    if (pos.x == curr.x && pos.y == curr.y) {
+      return true;
+    }
+  }
+
+  return false;
 }

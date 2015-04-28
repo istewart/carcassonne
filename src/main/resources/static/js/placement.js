@@ -1,8 +1,7 @@
 var PlacementButtons = function() {
 	mainLeft.addEventListener("click", function(event) {
 
-      network.ask("rotate", "left", function(responseJSON) {
-        responseObject = JSON.parse(responseJSON);
+      network.ask("rotate", "left", function(responseObject) {
         var currTile = responseObject.currTile;
         var validMoves = responseObject.validMoves;
 
@@ -15,8 +14,7 @@ var PlacementButtons = function() {
 
     mainRight.addEventListener("click", function(event) {
       
-      network.ask("rotate", "right", function(responseJSON) {
-        responseObject = JSON.parse(responseJSON);
+      network.ask("rotate", "right", function(responseObject) {
         var currTile = responseObject.currTile;
         var validMoves = responseObject.validMoves;
 
@@ -28,10 +26,13 @@ var PlacementButtons = function() {
     });
 
     mainLeft.addEventListener("click", function(event) {
-      var postParameters = "TODO";
+      if (!renderer.selectedMove) {
+        return;
+      }
 
-      network.ask("place", postParameters, function(responseJSON) {
-        responseObject = JSON.parse(responseJSON);
+      var postParameters = {move: renderer.selectedMove, meeple: renderer.selectedMeeple};
+
+      network.ask("place", postParameters, function(responseObject) {
         var currTile = responseObject.currTile;
         var board = responseObject.board;
         var validMoves = responseObject.validMoves;

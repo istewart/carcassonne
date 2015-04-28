@@ -1,6 +1,6 @@
 MIN_DRAG_DISTANCE = 5;
-MIN_SCALE = .3;
-MAX_SCALE = 10;
+MIN_SCALE = .6;
+MAX_SCALE = 3;
 // var mouseStart;
 // var dragging;
 
@@ -36,11 +36,9 @@ var Canvas = function() {
 		canvasOffsetY = divOffsetY - bodyOffsetY;
 
 		$(this).data('p0', {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY});
-
-		// mouseStart = {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
 	}).on('mouseup', function(e) {
 		var start = $(this).data('p0'),
-		end = {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY},
+		end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY},
 		d = Math.sqrt(Math.pow((start.x - end.x), 2) + Math.pow((start.y - end.y), 2)); // distance in pixels
 		
 		if (d > MIN_DRAG_DISTANCE) { // treat like a click and drag
@@ -57,12 +55,16 @@ var Canvas = function() {
 			var canvasPos = renderer.pixelsToCanvas(pixPos);
 			var cordPos = renderer.canvasToPos(canvasPos);
 
-			renderer.selectedTile = {x: Math.round(cordPos.x), y: Math.round(cordPos.y)}
+			var roundedPos = {x: Math.round(cordPos.x), y: Math.round(cordPos.y)};
 
+			if (!renderer.containsMove(roundedPos)) { // not a valid move
+				return;
+			}
+
+			renderer.selectedTile = roundedPos;
 			renderer.render();
 
 			// TODO send to front end
-			// TODO check if click is in a valid move
 		}
 	});
 
