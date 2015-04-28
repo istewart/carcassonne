@@ -62,10 +62,11 @@ public class RefereeTest {
 	  assertTrue(numMeeples - 1 == p1.getNumMeeples());
 	  assertTrue(t.getRight().getMeeple() != null);
 	  assertTrue(t.getRight().getMeeple().getPlayer().getId() == p1.getId());
-	  
+	  //try to meeple when you cant meeple
+	  //road w/ meeple touching, city w/ meeple touching
   }
 
-  //@Test
+  @Test
   public void cityScoringTest() throws InvalidEdgeException,
     PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException{
 	    Center c = new Center(Feature.FIELD);
@@ -170,7 +171,7 @@ public class RefereeTest {
 	  assertTrue(score + 6 == p.getScore());
   }
   
-    //@Test
+    @Test
     public void roadScoringTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException{
 	    Center c = new Center(Feature.ENDPOINT);
 	    Edge top = new Edge(Feature.FIELD);
@@ -337,7 +338,7 @@ public class RefereeTest {
 	    assertTrue(score + 9 == p.getScore());
     }
     
-    //@Test
+    @Test
     public void gameOverCityScoringTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
     	Center c = new Center(Feature.FIELD);
     	Edge top = new Edge(Feature.FIELD);
@@ -367,7 +368,7 @@ public class RefereeTest {
     	assertTrue(score + 5 == p.getScore());
     }
   
-    //@Test
+    @Test
     public void gameOverCityShieldScoringTest() throws PosnTakenException, InvalidEdgeException, NullTileException, OutOfMeeplesException, UnMeeplableException {
     	Center c = new Center(Feature.FIELD);
     	Edge top = new Edge(Feature.FIELD);
@@ -397,7 +398,7 @@ public class RefereeTest {
     	assertTrue(score + 7 == p.getScore());
     }
   
-    //@Test
+    @Test
     public void gameOverRoadScoringTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
     	Center c = new Center(Feature.ENDPOINT);
     	Edge road = new Edge(Feature.ROAD);
@@ -425,7 +426,7 @@ public class RefereeTest {
     	assertTrue(score + 5 == p.getScore());	
     }
   
-    //@Test
+    @Test
     public void twoPlayerRoadCase() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
     	Center c = new Center(Feature.ENDPOINT);
     	Edge road = new Edge(Feature.ROAD);
@@ -457,7 +458,7 @@ public class RefereeTest {
     	assertTrue(score2 + 3 == p2.getScore());
     }
   
-  //@Test
+  @Test
   public void twoToOneCityTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
 	  Center c = new Center(Feature.FIELD);
 	  Edge city = new Edge(Feature.CITY);
@@ -534,7 +535,7 @@ public class RefereeTest {
 	  assertTrue(score2 == p2.getScore());
   }
   
-  //@Test
+  @Test
   public void twoToTwoCityTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
 	  Center c = new Center(Feature.ENDPOINT);
 	  Edge city = new Edge(Feature.CITY);
@@ -573,7 +574,7 @@ public class RefereeTest {
 	  assertTrue(score2 + 10 == p2.getScore());
   }
   
-  //@Test
+  @Test
   public void twoToOneRoadTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
 	  Center c = new Center(Feature.ENDPOINT);
 	  Edge road = new Edge(Feature.ROAD);
@@ -612,7 +613,7 @@ public class RefereeTest {
 	  assertTrue(score2 == p2.getScore());
   }
   
-  //@Test
+  @Test
   public void threeToOneRoadTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
 	  Center c = new Center(Feature.ENDPOINT);
 	  Edge road = new Edge(Feature.ROAD);
@@ -658,7 +659,7 @@ public class RefereeTest {
 	  assertTrue(score2 == p2.getScore());
   }
   
-  //@Test
+  @Test
   public void twoToTwoRoadTest() throws InvalidEdgeException, NullTileException, OutOfMeeplesException, UnMeeplableException, PosnTakenException {
 	  Center c = new Center(Feature.ENDPOINT);
 	  Edge road = new Edge(Feature.ROAD);
@@ -704,7 +705,7 @@ public class RefereeTest {
 	  assertTrue(score2 + 5 == p2.getScore());
   }
   
-  //@Test
+  @Test
   public void circularRoadTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
 	  Center c = new Center(Feature.ROAD);
 	  Edge road = new Edge(Feature.ROAD);
@@ -732,7 +733,7 @@ public class RefereeTest {
 	  assertTrue(score + 4 == p.getScore());
   }
 
-    //@Test
+    @Test
     public void twoPlayerCityCase() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
     	Center c = new Center(Feature.FIELD);
     	Edge city = new Edge(Feature.CITY);
@@ -763,7 +764,7 @@ public class RefereeTest {
     	assertTrue(score2 + 6 == p2.getScore());
     }
   
-    //@Test
+    @Test
     public void twoPlayerSameRoadCase() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException {
     	Center c = new Center(Feature.ENDPOINT);
     	Edge road = new Edge(Feature.ROAD);
@@ -817,7 +818,7 @@ public class RefereeTest {
     	assertTrue(score + 6 == p.getScore());
     }
   
-    //@Test
+    @Test
     public void gameOverMonasteryScoringTest() throws PosnTakenException, InvalidEdgeException, NullTileException, OutOfMeeplesException, UnMeeplableException{
 	    Center c = new Center(Feature.MONASTERY);
 	    Edge top = new Edge(Feature.FIELD);
