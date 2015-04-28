@@ -19,6 +19,7 @@ public class Main {
    */
   public static void main(String[] args) {
     r = new Referee();
+    r.setupGame();
     BackEnd cbe = new CarcBackEnd(r);
     Network.getNetwork(args).setBackEnd(cbe).setServer(new MainServer()).go();
     // runSparkServer();
