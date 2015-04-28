@@ -41,6 +41,10 @@ public class Referee {
     setupGame();
   }
 
+  public Tile getCurTile() {
+    return curTile;
+  }
+
   public Board getBoard() {
     return board;
   }
@@ -877,7 +881,7 @@ public class Referee {
   }
 
   private void scoreMeeples(Set<TileFeature> meepledFeatures, int baseScore) {
-    Map<Integer, Integer> meeples = new HashMap<>();
+    Map<String, Integer> meeples = new HashMap<>();
     for (Player p : players) {
       meeples.put(p.getId(), 0);
     }
@@ -902,16 +906,16 @@ public class Referee {
       }
     }
 
-    for (Map.Entry<Integer, Integer> meepleCount : meeples.entrySet()) {
+    for (Map.Entry<String, Integer> meepleCount : meeples.entrySet()) {
       if (meepleCount.getValue() == maxMeeples) {
         getPlayer(meepleCount.getKey()).addScore(baseScore);
       }
     }
   }
 
-  private Player getPlayer(int id) {
+  private Player getPlayer(String id) {
     for (Player p : players) {
-      if (p.getId() == id) {
+      if (p.getId().equals(id)) {
         return p;
       }
     }
@@ -1128,8 +1132,8 @@ public class Referee {
 
     Referee r = new Referee();
     r.setupGame();
-    r.newPlayer(new Player(0, "Scott"));
-    r.newPlayer(new Player(1, "Ian"));
+    r.newPlayer(new Player("0", "Scott"));
+    r.newPlayer(new Player("1", "Ian"));
     r.shuffleOrder();
     r.run();
 

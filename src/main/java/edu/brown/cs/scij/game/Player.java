@@ -4,12 +4,12 @@ import edu.brown.cs.scij.tile.OutOfMeeplesException;
 
 public class Player {
   private Color playerColor;
-  private final int id;
+  private final String id;
   private final String name;
   private int score;
   private int numMeeples;
 
-  public Player(int id, String name) {
+  public Player(String id, String name) {
     this.id = id;
     this.name = name;
     this.score = 0;
@@ -24,7 +24,7 @@ public class Player {
     this.playerColor = playerColor;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
