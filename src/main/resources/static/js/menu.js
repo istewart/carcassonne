@@ -1,5 +1,4 @@
 var Menu = function() {
-	  var hostButton = document.getElementById("hostButton");
     var joinButton = document.getElementById("joinButton");
     var settingsButton = document.getElementById("settingsButton");
     var instructionsButton = document.getElementById("instructionsButton");
@@ -14,15 +13,9 @@ var Menu = function() {
       $("#menuDiv").hide();
       $("#joinDiv").hide();
       $("#mainDiv").hide();
-      $("#hostDiv").hide();
       $("#settingsDiv").hide();
       $("#instructionsDiv").hide();
     }
-
-    hostButton.addEventListener("click", function(event) {
-      hideAll();
-      $("#hostDiv").show();
-    });
 
     joinButton.addEventListener("click", function(event) {
       hideAll();

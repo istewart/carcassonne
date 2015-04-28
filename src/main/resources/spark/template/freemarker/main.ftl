@@ -49,7 +49,6 @@
     <div id="menuDiv">
       <h1>Carcassonne</h1>
 
-      <button class="menubutton" id="hostButton"> Host </button></br>
       <button class="menubutton" id="joinButton"> Join </button></br>
       <button class="menubutton" id="settingsButton"> Settings </button></br>
       <button class="menubutton" id="instructionsButton"> Instructions </button></br>
