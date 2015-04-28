@@ -75,18 +75,18 @@ Renderer.prototype.renderTile = function() {
   }
 
   var spots = this.validMeeples;
-  var radius = w / 8;
+  var radius = w / 10;
 
   for (var i = 0; i < spots.length; i++) {
     var x;
     var y;
 
     switch(spots[i]) {
-      case "UP": x = w / 2; y = h / 4; break;
-      case "DOWN": x = w / 2; y = 3 * h / 4; break;
-      case "RIGHT": x = 3 * w / 4; y = h / 2; break;
-      case "LEFT": x = w / 4; y = h / 2; break;
-      case "CENTER": x = w / 2; y = h / 2; break;
+      case "UP": x = .5 * w; y = .2 * w; break;
+      case "DOWN": x = .5 * w; y = .8 * w; break;
+      case "RIGHT": x = .8 * w; y = .5 * w; break;
+      case "LEFT": x =.8 * w; y = .5 * w; break;
+      case "CENTER": x = .5 * w; y = .5 * w; break;
       default: alert("Meeple switch failed!")
     }
 

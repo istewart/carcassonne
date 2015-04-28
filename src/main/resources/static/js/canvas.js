@@ -81,14 +81,19 @@ var Canvas = function() {
 			var roundedPos = {x: Math.round(cordPos.x), y: Math.round(cordPos.y)};
 
 			if (!renderer.containsMove(roundedPos)) { // not a valid move
-				return;
+				renderer.selectedTile = null;
+			} else {
+				renderer.selectedTile = roundedPos;
 			}
 
-			renderer.selectedTile = roundedPos;
 			renderer.render();
 		}
 	}).on('mouseleave', function(e) {
 		var start = mouseStart;
+		if (!start || !dragging) { // hasn't been a click
+			return;
+		}
+
 		dragging = false;
 		end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY},
 		d = Math.sqrt(Math.pow((start.x - end.x), 2) + Math.pow((start.y - end.y), 2)); // distance in pixels
@@ -128,18 +133,26 @@ var Canvas = function() {
 		var pixelClick = {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
 		var canvasClick = renderer.pixelsToTile(pixelClick);
 
-		if (canvasClick.y > .125 * h && canvasClick.y < .375 * h && canvasClick.x > .375 * w && canvasClick.x < .625 * w) {
+		if (canvasClick.y > .1 * h && canvasClick.y < .3 * h && canvasClick.x > .4 * w && canvasClick.x < .6 * w) {
 			renderer.selectedMeeple = "UP";
-		} else if (canvasClick.y > .375 * h && canvasClick.y < .625 * h) {
-			if (canvasClick.x > .125 * h && canvasClick.x < .375 * h) {
+		} else if (canvasClick.y > .4 * h && canvasClick.y < .6 * h) {
+			if (canvasClick.x > .1 * h && canvasClick.x < .3 * h) {
 				renderer.selectedMeeple = "LEFT";
-			} else if (canvasClick.x > .375 * h && canvasClick.x < .625 * h) {
+			} else if (canvasClick.x > .4 * h && canvasClick.x < .6 * h) {
 				renderer.selectedMeeple = "CENTER";
-			} else if (canvasClick.x > .625 * h && canvasClick.x < .875 * h) {
+			} else if (canvasClick.x > .7 * h && canvasClick.x < .9 * h) {
 				renderer.selectedMeeple = "RIGHT";
 			}
-		} else if (canvasClick.y > .625 * h && canvasClick.y < .875 * h && canvasClick.x > .375 * w && canvasClick.x < .625 * w) {
+		} else if (canvasClick.y > .7 * h && canvasClick.y < .9 * h && canvasClick.x > .4 * w && canvasClick.x < .6 * w) {
 			renderer.selectedMeeple = "DOWN";
+		} else {
+			renderer.selectedMeeple = null;
+		}
+
+		if (renderer.selectedMeeple != null && 
+			$.inArray(renderer.selectedMeeple, renderer.validMeeples) == -1) { // selected meeple is invalid
+
+			renderer.selectedMeeple = null;
 		}
 
 		renderer.render();
