@@ -41,7 +41,7 @@ public class RefereeTest {
     assertTrue(s1 == s2);
   }
 
-  @Test
+  //@Test
   public void placeMeepleCityTest() throws InvalidEdgeException, NullTileException,
       OutOfMeeplesException, UnMeeplableException, PosnTakenException {
     Player p1 = new Player(1, "p1");
@@ -76,7 +76,7 @@ public class RefereeTest {
     }
   }
   
-  @Test
+  //@Test
   public void placeMeepleRoadTest() throws InvalidEdgeException, NullTileException,
       OutOfMeeplesException, UnMeeplableException, PosnTakenException {
     Player p1 = new Player(1, "p1");
@@ -781,7 +781,7 @@ public class RefereeTest {
     assertTrue(score2 + 5 == p2.getScore());
   }
 
-  @Test
+  // @Test
   public void circularRoadTest() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
