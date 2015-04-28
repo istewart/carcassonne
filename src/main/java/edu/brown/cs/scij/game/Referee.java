@@ -29,6 +29,7 @@ public class Referee {
   private Deck deck;
   private int turnNumber;
   private Board board;
+  private Tile curTile = null;
 
   // is this used?
   // private static final int FINISHED_ROAD = 2;
@@ -89,7 +90,9 @@ public class Referee {
 
   // Should the referee handle all interaction with the deck? Yes, right?
   public Tile drawTile() /* throws EmptyDeckException */{
-    return deck.drawTile();
+    Tile t = deck.drawTile();
+    curTile = t;
+    return t;
   }
 
   public boolean isGameOver() {
