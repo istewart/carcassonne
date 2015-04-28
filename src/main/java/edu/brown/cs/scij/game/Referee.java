@@ -31,8 +31,8 @@ public class Referee {
   private Board board;
 
   //is this used?
-  private static final int FINISHED_ROAD = 2;
-  private static final int UNFINISHED_ROAD = 1;
+  //private static final int FINISHED_ROAD = 2;
+  //private static final int UNFINISHED_ROAD = 1;
 
   public Referee() {
     // TODO should be done but there might be something else but I can't think
