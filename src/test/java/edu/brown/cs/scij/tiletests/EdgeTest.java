@@ -9,6 +9,7 @@ import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
 import edu.brown.cs.scij.tile.InvalidEdgeException;
+import edu.brown.cs.scij.tile.UnMeeplableException;
 
 public class EdgeTest {
 
@@ -20,15 +21,15 @@ public class EdgeTest {
   }
 
   @Test
-  public void meepleTest() throws InvalidEdgeException {
+  public void meepleTest() throws InvalidEdgeException, UnMeeplableException {
     Edge e = new Edge(Feature.FIELD);
     assertTrue(!e.isMeeplable());
     assertTrue(e.getMeeple() == null);
     Player p = new Player(1, "p");
     Meeple m = new Meeple(p);
+    e = new Edge(Feature.CITY);
     e.setMeeple(m);
     assertTrue(e.getMeeple().equals(m));
-    // might want to add a remove meeple
   }
 
   @Test

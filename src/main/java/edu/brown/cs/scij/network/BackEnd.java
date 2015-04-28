@@ -25,7 +25,7 @@ public interface BackEnd {
    * not be processed. A Map of field to value is a good example of a response
    * object.
    */
-  Object answer(int player, String field, String val);
+  Object answer(int player, String field, Object val);
 
   /**
    * Optional operation that tells the Back end what server it is

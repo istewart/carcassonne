@@ -1,45 +1,48 @@
 var PlacementButtons = function() {
 	mainLeft.addEventListener("click", function(event) {
-      var postParameters = "TODO";
 
-      $.post("/left", postParameters, function(responseJSON) {
-        responseObject = JSON.parse(responseJSON);
+      network.ask("rotate", "left", function(responseObject) {
         var currTile = responseObject.currTile;
-        var board = responseObject.board;
         var validMoves = responseObject.validMoves;
-        var players = currTile.players;
 
-        renderer = new Renderer(board, currTile, players, validMoves, this.renderer.xt, this.renderer.yt, this.renderer.scale);
+        renderer.currTile = currTile;
+        renderer.validMoves = validMoves;
+
         renderer.render();
       });
     });
 
     mainRight.addEventListener("click", function(event) {
-      var postParameters = "TODO";
-
-      $.post("/right", postParameters, function(responseJSON) {
-        responseObject = JSON.parse(responseJSON);
+      
+      network.ask("rotate", "right", function(responseObject) {
         var currTile = responseObject.currTile;
-        var board = responseObject.board;
         var validMoves = responseObject.validMoves;
-        var players = currTile.players;
 
-        renderer = new Renderer(board, currTile, players, validMoves, this.renderer.xt, this.renderer.yt, this.renderer.scale);
+        renderer.currTile = currTile;
+        renderer.validMoves = validMoves;
+
         renderer.render();
       });
     });
 
     mainLeft.addEventListener("click", function(event) {
-      var postParameters = "TODO";
+      if (!renderer.selectedMove) {
+        return;
+      }
 
-      $.post("/place", postParameters, function(responseJSON) {
-        responseObject = JSON.parse(responseJSON);
+      var postParameters = {move: renderer.selectedMove, meeple: renderer.selectedMeeple};
+
+      network.ask("place", postParameters, function(responseObject) {
         var currTile = responseObject.currTile;
         var board = responseObject.board;
         var validMoves = responseObject.validMoves;
         var players = currTile.players;
 
-        renderer = new Renderer(board, currTile, players, validMoves, this.renderer.xt, this.renderer.yt, this.renderer.scale);
+        renderer.currTile = currTile;
+        renderer.validMoves = validMoves;
+        renderer.board = board;
+        renderer.players = players;
+
         renderer.render();
       });
     });

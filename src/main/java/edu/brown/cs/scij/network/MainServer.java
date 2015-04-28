@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableMap;
  * basic requests a <code>Server</code> needs to handle, while simultaneously
  * testing for connectivity of clients.
  */
-public class DummyServer implements Server {
+public class MainServer implements Server {
   private BackEnd back;
   private Map<String, Key> playerIps = new HashMap<>();
   private Map<Key, Player> players = new HashMap<>();
@@ -28,9 +28,9 @@ public class DummyServer implements Server {
   private Thread pingerThread;
 
   /**
-   * The basic constructor for the DummyServer.
+   * The basic constructor for the MainServer.
    */
-  public DummyServer() {
+  public MainServer() {
     Key.setActiveGeneration((int) System.currentTimeMillis());
 
     if (talkative) {
@@ -44,16 +44,16 @@ public class DummyServer implements Server {
   }
 
   /**
-   * Constructs a DummyServer with the given {@link BackEnd}.
+   * Constructs a MainServer with the given {@link BackEnd}.
    * @param back  The BackEnd to use
    */
-  public DummyServer(BackEnd back) {
+  public MainServer(BackEnd back) {
     this();
     this.back = back;
   }
 
   @Override
-  public DummyServer setBackEnd(BackEnd back) {
+  public MainServer setBackEnd(BackEnd back) {
     this.back = back;
     return this;
   }
@@ -63,7 +63,7 @@ public class DummyServer implements Server {
    * System.out.
    * @return <code>this</code>
    */
-  public DummyServer talk() {
+  public MainServer talk() {
     talkative = true;
     return this;
   }

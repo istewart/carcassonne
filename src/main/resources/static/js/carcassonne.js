@@ -1,13 +1,7 @@
-// put main game board in a different file
-// hard code in tiles and rendering
-// change help to instructions
+var renderer; // global rendering object
 
-var renderer;
-
+// main function to configure the web page
  $(document).ready(function() {
-
-    console.log("Script started!");
-
     Menu();
     PlacementButtons();
     Canvas();

@@ -11,8 +11,6 @@ jQuery(window).bind(
  *
  *                send(field, val)
  *                ask(field, val)
- *                sendBlock(field, val)
- *                askBlock(field, val)
  *                get(field)
  *                isConnected()
  * 
@@ -79,27 +77,18 @@ var network = {
   },
 
   /**
-   * This function is identical to send except that it blocks until the server
-   * confirms that it has read the message.
-   *//*
-  sendBlock: function(field, val) {
-    var response = undefined;
-    response = network.send(field, val);
-    while (response == undefined)
-      ;
-    return response;
-  },*/
-
-  /**
-   * This functio nis identical to ask except that it blocks until the server
-   * sends a return message.
+   * 
    *//*
   askBlock: function(field, val) {
-    var response = undefined;
-    response = network.ask(field, val);
-    while (response == undefined)
+    network.val = undefined;
+    network.returned = false;
+    var handler = function(response) {
+      network.temp = response;
+      network.returned = true;
+    }
+    while (!network.retuned)
       ;
-    return response;
+    ask(field, val, handler);
   },*/
 
   /**

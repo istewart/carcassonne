@@ -14,7 +14,7 @@ public final class Main {
   public static void main(String [] args) {
     Network.getNetwork(args)
       .setBackEnd(new DummyBackEnd())
-      .setServer(new DummyServer().talk())
+      .setServer(new MainServer().talk())
       .go();
   }
 }
