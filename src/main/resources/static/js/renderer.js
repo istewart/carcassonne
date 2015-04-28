@@ -1,15 +1,18 @@
 TILE_SIZE = 60;
 CANVAS_SIZE = 1000;
 
+MOVES_COLOR = "red";
+MEEPLES_COLOR = "red";
+
 // TODO
 
 // can clean things up with global context and canvas
 // take a look at clearing meeples and tiles and tile spacing
-// do click and drag better
 // add a better background to the board
 // get better tiles
 // integrate with back end
 // fix settings and instructions
+// make meeples on curr tile prettier
 
 // Core rendering object which takes a variety of components of the game, an offset, and a scale
 // and renders the game board onto the canvas.
@@ -92,12 +95,12 @@ Renderer.prototype.renderTile = function() {
     ctx.closePath();
 
     if (this.selectedMeeple && spots[i] === this.selectedMeeple) {
-      ctx.fillStyle = "red";
+      ctx.fillStyle = MEEPLES_COLOR;
       ctx.strokeStyle = null;
       ctx.fill();
     } else {
       ctx.fillStyle = null;
-      ctx.strokeStyle = "red";
+      ctx.strokeStyle = MEEPLES_COLOR;
       ctx.lineWidth = 4;
       ctx.stroke();
     }
@@ -174,7 +177,7 @@ Renderer.prototype.renderMoves = function() {
     var pos = moves[i];
     var targetPlacement = this.posToCanvas(pos);
 
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = MOVES_COLOR;
     ctx.rect(targetPlacement.x, targetPlacement.y, 
              targetPlacement.s, targetPlacement.s);
     ctx.stroke();
@@ -284,9 +287,45 @@ Renderer.prototype.shadeMove = function() {
 
   var targetPlacement = this.posToCanvas(this.selectedTile);
 
-  ctx.fillStyle = "red";
-  ctx.fillRect(targetPlacement.x, targetPlacement.y, 
-           targetPlacement.s, targetPlacement.s);
+  var tileObj = this.currTile;
+  var targetImg = document.getElementById(tileObj.id);
+  var targetRadians = tileObj.rotation * Math.PI / 180;
+
+  if (targetRadians) { // fancy way of drawing an image rotated about it's center
+    ctx.translate(targetPlacement.x + (targetPlacement.s / 2), targetPlacement.y + (targetPlacement.s / 2));
+    ctx.rotate(targetRadians);
+    ctx.drawImage(targetImg, -(targetPlacement.s / 2), -(targetPlacement.s / 2), targetPlacement.s, targetPlacement.s);
+    ctx.rotate(-targetRadians);
+    ctx.translate(-targetPlacement.x - (targetPlacement.s / 2), -targetPlacement.y - (targetPlacement.s / 2));
+  } else { // tile not rotated
+    ctx.drawImage(targetImg, targetPlacement.x, targetPlacement.y, targetPlacement.s, targetPlacement.s);
+  }
+
+  var meeple = this.selectedMeeple;
+
+  if (meeple) {
+    var w = targetPlacement.s;
+    var h = targetPlacement.s;
+    var radius = targetPlacement.s / 10;
+
+    var x = targetPlacement.x;
+    var y = targetPlacement.y;
+
+    switch(meeple) {
+      case "UP": x += w / 2; y += h / 4; break;
+      case "DOWN": x += w / 2; y += 3 * h / 4; break;
+      case "RIGHT": x += 3 * w / 4; y += h / 2; break;
+      case "LEFT": x += w / 4; y += h / 2; break;
+      case "CENTER": x += w / 2; y += h / 2; break;
+      default: alert("Meeple switch failed!")
+    }
+
+    ctx.beginPath();
+    ctx.fillStyle = MEEPLES_COLOR; // meeple.player.color;
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.closePath();
+  }
 
   return;
 };
