@@ -42,7 +42,7 @@ public class RefereeTest {
   }
 
   @Test
-  public void placeMeepleTest() throws InvalidEdgeException, NullTileException,
+  public void placeMeepleCityTest() throws InvalidEdgeException, NullTileException,
       OutOfMeeplesException, UnMeeplableException, PosnTakenException {
     Player p1 = new Player(1, "p1");
     Posn center = new Posn(0, 0);
@@ -50,10 +50,10 @@ public class RefereeTest {
     List<Player> pList = new ArrayList<>();
     pList.add(p1);
     r.setPlayers(pList);
-    Center c = new Center(Feature.FIELD);
+    Center c = new Center(Feature.CITY);
     Edge top = new Edge(Feature.FIELD);
     Edge right = new Edge(Feature.CITY);
-    Edge bottom = new Edge(Feature.FIELD);
+    Edge bottom = new Edge(Feature.CITY);
     Edge left = new Edge(Feature.FIELD);
     Tile t = new Tile(c, top, right, bottom, left, 0);
     r.place(center, t);
@@ -63,8 +63,52 @@ public class RefereeTest {
     assertTrue(numMeeples - 1 == p1.getNumMeeples());
     assertTrue(t.getRight().getMeeple() != null);
     assertTrue(t.getRight().getMeeple().getPlayer().getId() == p1.getId());
-    // try to meeple when you cant meeple
-    // road w/ meeple touching, city w/ meeple touching
+    try{
+    	r.placeMeeple(center, p1, Direction.LEFT);
+    	assertTrue(false);
+    }catch (UnMeeplableException ume) {
+    	try{
+    		r.placeMeeple(center, p1, Direction.DOWN);
+    		assertTrue(false);
+    	}catch (UnMeeplableException ume2) {
+    		assertTrue(true);
+    	}
+    }
+  }
+  
+  @Test
+  public void placeMeepleRoadTest() throws InvalidEdgeException, NullTileException,
+      OutOfMeeplesException, UnMeeplableException, PosnTakenException {
+    Player p1 = new Player(1, "p1");
+    Posn center = new Posn(0, 0);
+    Referee r = new Referee();
+    List<Player> pList = new ArrayList<>();
+    pList.add(p1);
+    r.setPlayers(pList);
+    Center c = new Center(Feature.ROAD);
+    Edge top = new Edge(Feature.FIELD);
+    Edge right = new Edge(Feature.ROAD);
+    Edge bottom = new Edge(Feature.FIELD);
+    Edge left = new Edge(Feature.ROAD);
+    Tile t = new Tile(c, top, right, bottom, left, 0);
+    r.place(center, t);
+    int numMeeples = p1.getNumMeeples();
+    assertTrue(t.getRight().getMeeple() == null);
+    r.placeMeeple(center, p1, Direction.RIGHT);
+    assertTrue(numMeeples - 1 == p1.getNumMeeples());
+    assertTrue(t.getRight().getMeeple() != null);
+    assertTrue(t.getRight().getMeeple().getPlayer().getId() == p1.getId());
+    try{
+    	r.placeMeeple(center, p1, Direction.DOWN);
+    	assertTrue(false);
+    }catch (UnMeeplableException ume) {
+    	try{
+    		r.placeMeeple(center, p1, Direction.LEFT);
+    		assertTrue(false);
+    	}catch (UnMeeplableException ume2) {
+    		assertTrue(true);
+    	}
+    }
   }
 
   // @Test
