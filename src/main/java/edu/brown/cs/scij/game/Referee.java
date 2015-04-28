@@ -1040,40 +1040,6 @@ public class Referee {
   }
 
   public static void main(String[] args) {
-    /*
-     * Player p = new Player(0, "Scott");
-     * try {
-     * System.out.println(p);
-     * p.useMeeple();
-     * System.out.println(p);
-     * } catch (OutOfMeeplesException e) {
-     * // TODO Auto-generated catch block
-     * e.printStackTrace();
-     * }
-     * Referee r = new Referee();
-     * try {
-     * r.getBoard()
-     * .place(
-     * new Posn(0, 0),
-     * new Tile(new Center(Feature.CITY), new Edge(Feature.CITY),
-     * new Edge(Feature.CITY), new Edge(Feature.CITY), new Edge(
-     * Feature.CITY), 0));
-     * r.placeMeeple(new Posn(0, 0), p, Direction.CENTER);
-     * System.out.println(p);
-     * } catch (PosnTakenException | InvalidEdgeException e) {
-     * // TODO Auto-generated catch block
-     * e.printStackTrace();
-     * } catch (NullTileException e) {
-     * // TODO Auto-generated catch block
-     * e.printStackTrace();
-     * } catch (OutOfMeeplesException e) {
-     * // TODO Auto-generated catch block
-     * e.printStackTrace();
-     * } catch (UnMeeplableException e) {
-     * // TODO Auto-generated catch block
-     * e.printStackTrace();
-     * }
-     */
 
     Referee r = new Referee();
     r.setupGame();
