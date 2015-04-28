@@ -4,10 +4,12 @@ MAX_SCALE = 3;
 // var mouseStart;
 // var dragging;
 
+// Generates handlers for user interaction with the main canvas and the tile canvas.
 var Canvas = function() {
 	var canvasOffsetX;
 	var canvasOffsetY;
 	
+	// Scrolls in or out (with caps on the available level of zoom) based on the mouse wheel.
 	$("#mainCanvas").bind('mousewheel', function(e) {
 		if (e.originalEvent.wheelDelta > 0) { // scroll out
 			if (renderer.scale < MIN_SCALE) {
@@ -26,6 +28,7 @@ var Canvas = function() {
 		renderer.render();
 	});
 	
+	// Selects a valid move on click, or allows board movement on click and drag.
 	$("#mainCanvas").bind('mousedown', function(e) {
 		var bodyOffsetX = document.body.getBoundingClientRect().left;
 		var divOffsetX = $("#contentDiv")[0].getBoundingClientRect().left;
@@ -63,11 +66,10 @@ var Canvas = function() {
 
 			renderer.selectedTile = roundedPos;
 			renderer.render();
-
-			// TODO send to front end
 		}
 	});
 
+	// Handles meeple selection on the tile canvas by displaying valid and selected meeples.
 	$("#tileCanvas").bind('click', function(e) {
 		var tileCanvas = document.getElementById("tileCanvas");
   		var ctx = tileCanvas.getContext("2d");
