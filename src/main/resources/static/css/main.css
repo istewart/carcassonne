@@ -45,48 +45,53 @@ button.menubutton {
 #sidebar {
     background:#222222;
     float: right;
-    /*display: table-cell;*/
     width: 30%;
     height: 100%;
     position: relative;
     border:2px solid #000000;
     border-left: none;
+
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    background: url(../images/castle.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #contentDiv {
     background:#e8e8e8;
-    /*display: table-cell;*/
     width: 70%;
     height: 100%;
     position: relative;
     border:2px solid #000000;
-    /*min-width: 800px;*/
+
+    background: url(../images/wood.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #mainCanvas {
-    /*position:absolute;*/
     width: 100%;
     height: 100%;
 }
 
 #tileCanvas {
-    /*position:absolute;*/
-/*    width: 200px;
-    height: 200px;*/
-    width: 100%;
+    width: 80%;
     height: auto;
-}
+    margin: 10%;
+    border: .2em solid #000000;
 
-#tileImage {
-    /*position:absolute;*/
-    width: 100%;
-    height: auto;
-    display: hidden;
+    -moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+    -webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+    box-shadow: 1px 2px 3px rgba(0,0,0,.5);
 }
 
 button.placeButton {
@@ -111,9 +116,6 @@ button.placeButton:focus {
 
 textarea.playerBox {
   padding: 2px;
-  /*-webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;*/
   resize: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -123,7 +125,6 @@ textarea.playerBox {
   width: 100%;
   border:1px solid #444;
   background-color: #e8e8e8;
-  /*display: none;*/
   font: 12pt 'Merienda One';
   overflow: hidden;
 }
@@ -171,73 +172,3 @@ button.submitButton, button.backButton {
 #mainDiv, #hostDiv, #joinDiv, #settingsDiv, #instructionsDiv, #tileDiv {
   display: none;
 }
-
-/*h2 {
-  color: #222;
-  text-align: center;
-  font: 20 40px 'Merienda One';
-}
-
-h3 {
-  color: #222;
-  text-align: center;
-  font: 100 50px 'Merienda One';
-  font-size: 2em;
-  margin: 10px;
-  padding: 10px;
-}*/
-
-/*form.players {
-  margin-top: .5em;
-}*/
-
-/*input {
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    resize: none;
-    border:1px solid #888;
-    overflow: hidden;
-}*/
-
-/*textarea.searchbar {
-  margin-bottom: 5px;
-  margin-top: 5px;
-  padding: 8px;
-  -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    resize: none;
-    border:1.5px solid #333;
-  color:#444;
-  overflow: hidden;
-  display: inline;
-}
-
-textarea.sbox {
-  padding: 8px;
-  -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    resize: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    display: none;
-}
-
-textarea.ebox {
-  padding: 8px;
-  -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    resize: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    display: none;
-}*/

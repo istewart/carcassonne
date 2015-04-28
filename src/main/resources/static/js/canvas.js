@@ -122,16 +122,12 @@ var Canvas = function() {
   		var w = tileCanvas.width;
   		var h = tileCanvas.height;
 
-		var bodyOffsetX = document.body.getBoundingClientRect().left;
-		var divOffsetX = $("#sidebar")[0].getBoundingClientRect().left;
-		canvasOffsetX = divOffsetX - bodyOffsetX;
+  		var positionOffset = $("#tileCanvas").offset();
 
-		var bodyOffsetY = document.body.getBoundingClientRect().top;
-		var divOffsetY = $("#contentDiv")[0].getBoundingClientRect().top;
-		canvasOffsetY = divOffsetY - bodyOffsetY;
-
-		var pixelClick = {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
+		var pixelClick = {x : e.pageX - positionOffset.left, y: e.pageY - positionOffset.top};
 		var canvasClick = renderer.pixelsToTile(pixelClick);
+
+		console.log(canvasClick);
 
 		if (canvasClick.y > .1 * h && canvasClick.y < .3 * h && canvasClick.x > .4 * w && canvasClick.x < .6 * w) {
 			renderer.selectedMeeple = "UP";

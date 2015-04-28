@@ -3,6 +3,7 @@ CANVAS_SIZE = 1000;
 
 MOVES_COLOR = "red";
 MEEPLES_COLOR = "red";
+LINE_WIDTH = 6;
 
 // TODO
 
@@ -11,6 +12,10 @@ MEEPLES_COLOR = "red";
 // get better tiles and graphics
 // integrate with back end
 // fix settings and instructions
+// README
+// DEBUG
+// use network get and stuff
+// game over
 
 // Core rendering object which takes a variety of components of the game, an offset, and a scale
 // and renders the game board onto the canvas.
@@ -99,7 +104,7 @@ Renderer.prototype.renderTile = function() {
     } else {
       ctx.fillStyle = null;
       ctx.strokeStyle = MEEPLES_COLOR;
-      ctx.lineWidth = 4;
+      ctx.lineWidth = LINE_WIDTH;
       ctx.stroke();
     }
   }
