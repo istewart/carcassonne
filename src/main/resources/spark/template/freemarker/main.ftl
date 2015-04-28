@@ -55,20 +55,10 @@
       <button class="menubutton" id="instructionsButton"> Instructions </button></br>
     </div>
 
-    <div id="hostDiv">
-      <h1>Host</h1>
-
-      <textarea id="hostName" class="hostField" rows="1" placeholder="Game Name"></textarea></br>
-      <textarea id="hostIP" class="hostField" rows="1" placeholder="Your I.P. Address"></textarea></br>
-      <button class="submitButton" id="hostStart"> Start </button><br>
-      <button class="backButton" id="hostBack"> Back </button>
-    </div>
-
     <div id="joinDiv">
       <h1>Join</h1>
 
       <textarea id="joinName" class="hostField" rows="1" placeholder="Your Name"></textarea></br>
-      <textarea id="joinIP" class="hostField" rows="1" placeholder="Host I.P. Address"></textarea></br>
       <button class="submitButton" id="joinJoin"> Start </button><br>
       <button class="backButton" id="joinBack"> Back </button>
     </div>

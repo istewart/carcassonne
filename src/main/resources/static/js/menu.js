@@ -46,11 +46,8 @@ var Menu = function() {
 
       renderer = new Renderer(board, currTile, players, validMoves, validMeeples, 1, 0, 0);
       renderer.render();
-    });
 
-    hostStart.addEventListener("click", function(event) {
-      hideAll();
-      $("#menuDiv").show();
+      network.say("newPlayer", $("#joinName").val());
     });
 
     settingsButton.addEventListener("click", function(event) {

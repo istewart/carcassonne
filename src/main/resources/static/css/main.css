@@ -51,6 +51,11 @@ button.menubutton {
     position: relative;
     border:2px solid #000000;
     border-left: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #contentDiv {
@@ -98,6 +103,10 @@ button.placeButton {
   -moz-border-radius: 15px;
   border-radius: 15px;
   border:1px solid #888;
+}
+
+button.placeButton:focus {
+  outline: none;
 }
 
 textarea.playerBox {

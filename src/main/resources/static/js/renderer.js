@@ -7,12 +7,10 @@ MEEPLES_COLOR = "red";
 // TODO
 
 // can clean things up with global context and canvas
-// take a look at clearing meeples and tiles and tile spacing
 // add a better background to the board
-// get better tiles
+// get better tiles and graphics
 // integrate with back end
 // fix settings and instructions
-// make meeples on curr tile prettier
 
 // Core rendering object which takes a variety of components of the game, an offset, and a scale
 // and renders the game board onto the canvas.
