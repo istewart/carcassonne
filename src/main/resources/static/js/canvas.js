@@ -1,4 +1,6 @@
 MIN_DRAG_DISTANCE = 5;
+MIN_SCALE = .3;
+MAX_SCALE = 10;
 // var mouseStart;
 // var dragging;
 
@@ -8,8 +10,16 @@ var Canvas = function() {
 	
 	$("#mainCanvas").bind('mousewheel', function(e) {
 		if (e.originalEvent.wheelDelta > 0) { // scroll out
+			if (renderer.scale < MIN_SCALE) {
+				return; // do nothing
+			}
+
 			renderer.scale = .9 * renderer.scale;
 		} else { // scroll in
+			if (renderer.scale > MAX_SCALE) {
+				return; // do nothing
+			}
+
 			renderer.scale = 10.0 * renderer.scale / 9.0;
 		}
 
