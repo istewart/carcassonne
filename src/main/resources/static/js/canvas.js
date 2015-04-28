@@ -1,8 +1,12 @@
 MIN_DRAG_DISTANCE = 5;
 MIN_SCALE = .6;
 MAX_SCALE = 3;
-// var mouseStart;
-// var dragging;
+
+var mouseStart;
+var dragging;
+
+var startXT;
+var startYT;
 
 // Generates handlers for user interaction with the main canvas and the tile canvas.
 var Canvas = function() {
@@ -27,7 +31,7 @@ var Canvas = function() {
 
 		renderer.render();
 	});
-	
+
 	// Selects a valid move on click, or allows board movement on click and drag.
 	$("#mainCanvas").bind('mousedown', function(e) {
 		var bodyOffsetX = document.body.getBoundingClientRect().left;
@@ -38,22 +42,53 @@ var Canvas = function() {
 		var divOffsetY = $("#contentDiv")[0].getBoundingClientRect().top;
 		canvasOffsetY = divOffsetY - bodyOffsetY;
 
-		$(this).data('p0', {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY});
-	}).on('mouseup', function(e) {
-		var start = $(this).data('p0'),
+		startXT = renderer.xt;
+		startYT = renderer.yt;
+
+		mouseStart = {x : e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
+		dragging = true;
+	}).on('mousemove', function(e) {
+		var start = mouseStart;
 		end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY},
 		d = Math.sqrt(Math.pow((start.x - end.x), 2) + Math.pow((start.y - end.y), 2)); // distance in pixels
 		
-		if (d > MIN_DRAG_DISTANCE) { // treat like a click and drag
+		if (d > MIN_DRAG_DISTANCE && dragging) { // treat like a click and drag
 			var pixDiff = {x: (end.x - start.x), y: (end.y - start.y)};
 			var canvasDiff = renderer.pixelsToCanvas(pixDiff);
 			var posDiff = renderer.canvasDiffToPosDiff(canvasDiff);
 
-			renderer.xt += posDiff.x;
-			renderer.yt += posDiff.y;
+			renderer.xt = startXT + posDiff.x;
+			renderer.yt = startYT + posDiff.y;
 
 			renderer.render();
-		} else { // treat like a regular click
+		}
+	}).on('mouseup', function(e) {
+		var start = mouseStart;
+		dragging = false;
+		end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY},
+		d = Math.sqrt(Math.pow((start.x - end.x), 2) + Math.pow((start.y - end.y), 2)); // distance in pixels
+		
+		if (d <= MIN_DRAG_DISTANCE) { // treat like a regular click
+			var pixPos = start;
+			var canvasPos = renderer.pixelsToCanvas(pixPos);
+			var cordPos = renderer.canvasToPos(canvasPos);
+
+			var roundedPos = {x: Math.round(cordPos.x), y: Math.round(cordPos.y)};
+
+			if (!renderer.containsMove(roundedPos)) { // not a valid move
+				return;
+			}
+
+			renderer.selectedTile = roundedPos;
+			renderer.render();
+		}
+	}).on('mouseleave', function(e) {
+		var start = mouseStart;
+		dragging = false;
+		end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY},
+		d = Math.sqrt(Math.pow((start.x - end.x), 2) + Math.pow((start.y - end.y), 2)); // distance in pixels
+		
+		if (d <= MIN_DRAG_DISTANCE) { // treat like a regular click
 			var pixPos = start;
 			var canvasPos = renderer.pixelsToCanvas(pixPos);
 			var cordPos = renderer.canvasToPos(canvasPos);

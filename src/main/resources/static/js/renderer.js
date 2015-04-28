@@ -1,6 +1,9 @@
 TILE_SIZE = 60;
 CANVAS_SIZE = 1000;
 
+MOVES_COLOR = "red";
+MEEPLES_COLOR = "red";
+
 // TODO
 
 // can clean things up with global context and canvas
@@ -92,12 +95,12 @@ Renderer.prototype.renderTile = function() {
     ctx.closePath();
 
     if (this.selectedMeeple && spots[i] === this.selectedMeeple) {
-      ctx.fillStyle = "red";
+      ctx.fillStyle = MEEPLES_COLOR;
       ctx.strokeStyle = null;
       ctx.fill();
     } else {
       ctx.fillStyle = null;
-      ctx.strokeStyle = "red";
+      ctx.strokeStyle = MEEPLES_COLOR;
       ctx.lineWidth = 4;
       ctx.stroke();
     }
@@ -174,7 +177,7 @@ Renderer.prototype.renderMoves = function() {
     var pos = moves[i];
     var targetPlacement = this.posToCanvas(pos);
 
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = MOVES_COLOR;
     ctx.rect(targetPlacement.x, targetPlacement.y, 
              targetPlacement.s, targetPlacement.s);
     ctx.stroke();
@@ -284,7 +287,7 @@ Renderer.prototype.shadeMove = function() {
 
   var targetPlacement = this.posToCanvas(this.selectedTile);
 
-  ctx.fillStyle = "red";
+  ctx.fillStyle = MOVES_COLOR;
   ctx.fillRect(targetPlacement.x, targetPlacement.y, 
            targetPlacement.s, targetPlacement.s);
 
