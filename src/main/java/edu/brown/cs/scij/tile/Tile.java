@@ -15,8 +15,6 @@ public class Tile {
                             // Edge, not an int here -Colby
   private int rotation = 0; // TODO change in rotateLeft
   private int numRoads;
-  private Feature meepledFeature;
-  //this still isnt how this works^ could be multiple meepled features
 
   public Tile(Center center, Edge top, Edge right, Edge bottom, Edge left,
       int shield) {
@@ -34,7 +32,6 @@ public class Tile {
     this.id = numTiles;
     numTiles++;
     setNumRoads();
-    this.meepledFeature = null;
   }
 
   private void setNumRoads() {
@@ -52,14 +49,6 @@ public class Tile {
       roads++;
     }
     numRoads = roads;
-  }
-
-  public Feature getMeepledFeature() {
-    return meepledFeature;
-  }
-
-  public void setMeepledFeature(Feature f) {
-    meepledFeature = f;
   }
 
   public Edge getTop() {
