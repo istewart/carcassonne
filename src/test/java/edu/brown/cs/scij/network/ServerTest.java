@@ -11,7 +11,7 @@ import com.google.common.collect.ImmutableSet;
 public class ServerTest {
   @Test
   public void connectTest() throws NoSuchPlayerException {
-    Server s = new DummyServer();
+    Server s = new MainServer();
     Map<String, Object> id0 = s.connect("an.ip.address");
     Map<String, Object> id1 = s.connect("another.ip.address");
     Key k0 = Key.fromJSONString((String) id0.get("key"));
@@ -28,7 +28,7 @@ public class ServerTest {
 
   @Test
   public void pingTest() throws NoSuchPlayerException {
-    Server s = new DummyServer();
+    Server s = new MainServer();
     Map<String, Object> map0 = s.connect("my.ip.address");
     Map<String, Object> map1 = s.connect("your.ip.address");
     Key id0 = Key.fromJSONString((String) map0.get("key"));
@@ -58,7 +58,7 @@ public class ServerTest {
 
   @Test
   public void connectPingTest() throws NoSuchPlayerException {
-    Server s = new DummyServer();
+    Server s = new MainServer();
     Map<String, Object> map0 = s.connect("my.ip.address");
     Key id0 = Key.fromJSONString((String) map0.get("key"));
     int player0 = (Integer) map0.get("player");
@@ -86,7 +86,7 @@ public class ServerTest {
 
   @Test
   public void disconnectTest() throws NoSuchPlayerException {
-    Server s = new DummyServer();
+    Server s = new MainServer();
     Map<String, Object> map0 = s.connect("0.1.2.3");
     Map<String, Object> map1 = s.connect("1.2.3.4");
     Key id0 = Key.fromJSONString((String) map0.get("key"));
@@ -119,7 +119,7 @@ public class ServerTest {
 
   @Test
   public void updateTest() throws NoSuchPlayerException {
-    Server s = new DummyServer();
+    Server s = new MainServer();
     Map<String, Object> map0 = s.connect("0.1.2.3");
     Map<String, Object> map1 = s.connect("1.2.3.4");
     Key id0 = Key.fromJSONString((String) map0.get("key"));
@@ -153,7 +153,7 @@ public class ServerTest {
 
   @Test
   public void multipleUpdateTest() throws NoSuchPlayerException {
-    Server s = new DummyServer();
+    Server s = new MainServer();
     Map<String, Object> map0 = s.connect("0.1.2.3");
     Key id0 = Key.fromJSONString((String) map0.get("key"));
     s.update(id0);
@@ -182,7 +182,7 @@ public class ServerTest {
 
   @Test
   public void reUpdateTest() throws NoSuchPlayerException {
-    Server s = new DummyServer();
+    Server s = new MainServer();
     Map<String, Object> map0 = s.connect("my.ip");
     Key id0 = Key.fromJSONString((String) map0.get("key"));
     s.update(id0);
@@ -214,7 +214,7 @@ public class ServerTest {
   public void outOfDateKeyTest() {
     Key.setActiveGeneration(-1);
     Key k = Key.generate();
-    Server s = new DummyServer();
+    Server s = new MainServer();
 
     assertEquals(-1, s.pingCount(k));
     try {
@@ -228,7 +228,7 @@ public class ServerTest {
 
   @Test
   public void multipleConnectTest() {
-    Server s = new DummyServer();
+    Server s = new MainServer();
 
     Key k = Key.fromJSONString((String) s.connect("an.ip").get("key"));
     Map<String, Object> map = s.connect("an.ip");
@@ -243,7 +243,7 @@ public class ServerTest {
 
   @Test
   public void sealUnsealTest() throws NoSuchPlayerException {
-    Server s = new DummyServer();
+    Server s = new MainServer();
     Key k = Key.fromJSONString((String) s.connect("an.ip").get("key"));
 
     s.seal();
@@ -275,7 +275,7 @@ public class ServerTest {
 
   @Test
   public void connectAndLoadTest() throws NoSuchPlayerException {
-    Server s = new DummyServer();
+    Server s = new MainServer();
     s.putField("someField", "someValue");
     Key k = Key.fromJSONString((String) s.connect("an.ip").get("key"));
     assertTrue(s.ping(k));

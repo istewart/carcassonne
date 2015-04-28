@@ -35,7 +35,7 @@ public final class Network {
   private int port = DEFAULT_PORT;
   private String url;
 
-  private Server server = new DummyServer().talk();
+  private Server server = new MainServer().talk();
   private BackEnd back = new DummyBackEnd();
 
   /**

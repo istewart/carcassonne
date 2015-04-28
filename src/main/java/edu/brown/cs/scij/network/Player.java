@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Represents a single player/client. Keeps track of their id, ip, ping count,
  * most recent ping, connected state, and what information they have that is
- * out of date. Used by the {@link DummyServer} class.
+ * out of date. Used by the {@link MainServer} class.
  */
 class Player {
   private String ip;
