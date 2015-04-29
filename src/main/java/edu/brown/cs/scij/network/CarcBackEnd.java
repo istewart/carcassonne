@@ -28,7 +28,7 @@ public class CarcBackEnd implements BackEnd {
   @Override
   public synchronized Object answer(int player, String field, Object val) {
     Tile t;
-    Map<String, String> data = (HashMap<String, String>) val;
+    Map<String, String> data = (Map<String, String>) val;
     assert (player == r.getCurPlayer().getId());
     switch (field) {
       case "rotate":
