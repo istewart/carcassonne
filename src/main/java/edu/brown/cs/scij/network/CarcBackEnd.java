@@ -1,6 +1,5 @@
 package edu.brown.cs.scij.network;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,11 +40,13 @@ public class CarcBackEnd implements BackEnd {
         Map<String, Object> toReturn = new HashMap<>();
         toReturn.put("currTile", t);
         toReturn.put("validMoves", r.getBoard().validMoves(t));
-        if (r.getCurPlayer().getNumMeeples() > 0) {
-          toReturn.put("validMeeples", t.validMeeples());
-        } else {
-          toReturn.put("validMeeples", new ArrayList<Direction>());
-        }
+        /*
+         * if (r.getCurPlayer().getNumMeeples() > 0) {
+         * toReturn.put("validMeeples", t.validMeeples());
+         * } else {
+         * toReturn.put("validMeeples", new ArrayList<Direction>());
+         * }
+         */
         break;
       case "newPlayer":
         Map<String, String> newPlayer = (HashMap<String, String>) val;
@@ -59,22 +60,24 @@ public class CarcBackEnd implements BackEnd {
         List<Player> players = r.getPlayers();
         List<Posn> validMoves = b.validMoves(t);
 
-        List<Direction> validMeeples = t.validMeeples();
+        // List<Direction> validMeeples = /*t.validMeeples()*/
+        // r.validMeeples(p);
         s.putField("currTile", t);
         s.putField("board", b);
         s.putField("players", players);
         s.putField("validMoves", validMoves);
-        s.putField("validMer.drawTile()eples", validMeeples);
+        // s.putField("validMeeples", validMeeples);
         s.putField("currentPlayer", r.nextPlayer());
         // putField() current board, current tile, list of players,
         // current player, valid moves, valid meeples
         return null;
-      case "place":
+      case "placeTile":
         // receiving: posn, meeple placement (UP RIGHT DOWN LEFT CENTER)
         Map<String, String> place = (HashMap<String, String>) val;
         String posn = place.get("posn");
         String[] xy = posn.split(",");
         Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
+
         String meeple = place.get("meeple");
         try {
           r.getBoard().place(p, r.getCurTile());
@@ -128,11 +131,13 @@ public class CarcBackEnd implements BackEnd {
         Tile currTile = r.drawTile();
         s.putField("currTile", currTile);
         s.putField("validMoves", r.getBoard().validMoves(currTile));
-        if (r.getCurPlayer().getNumMeeples() > 0) {
-          s.putField("validMeeples", currTile.validMeeples());
-        } else {
-          s.putField("validMeeples", new ArrayList<Direction>());
-        }
+        /*
+         * if (r.getCurPlayer().getNumMeeples() > 0) {
+         * s.putField("validMeeples", currTile.validMeeples());
+         * } else {
+         * s.putField("validMeeples", new ArrayList<Direction>());
+         * }
+         */
         s.putField("gameover", r.isGameOver());
         break;
       default:

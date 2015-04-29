@@ -923,6 +923,37 @@ public class Referee {
     return null;
   }
 
+  public List<Direction> validMeeples(Posn p) throws NullTileException {
+    Tile t = board.getBoard().get(p);
+    if (t == null) {
+      throw new NullTileException();
+    }
+
+    TileFeature top = t.getTop();
+    TileFeature bottom = t.getBottom();
+    TileFeature right = t.getRight();
+    TileFeature left = t.getLeft();
+    TileFeature center = t.getCenter();
+
+    List<Direction> meepleableLocations = new ArrayList<>();
+    if (top.isMeeplable()) {
+      meepleableLocations.add(Direction.UP);
+    }
+    if (left.isMeeplable()) {
+      meepleableLocations.add(Direction.LEFT);
+    }
+    if (right.isMeeplable()) {
+      meepleableLocations.add(Direction.RIGHT);
+    }
+    if (bottom.isMeeplable()) {
+      meepleableLocations.add(Direction.DOWN);
+    }
+    if (center.isMeeplable()) {
+      meepleableLocations.add(Direction.CENTER);
+    }
+    return meepleableLocations;
+  }
+
   public void placeMeeple(Posn posn, Player player,
       Direction d) throws NullTileException, OutOfMeeplesException,
       UnMeeplableException {

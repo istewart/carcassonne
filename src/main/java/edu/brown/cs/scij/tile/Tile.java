@@ -1,7 +1,5 @@
 package edu.brown.cs.scij.tile;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Tile {
   static int numTiles = 0;
@@ -126,26 +124,6 @@ public class Tile {
    * }
    * }
    */
-
-  public List</* TileFeature */Direction> validMeeples() {
-    List</* TileFeature */Direction> meepleableLocations = new ArrayList<>();
-    if (top.isMeeplable) {
-      meepleableLocations.add(Direction.UP);
-    }
-    if (left.isMeeplable) {
-      meepleableLocations.add(Direction.LEFT);
-    }
-    if (right.isMeeplable) {
-      meepleableLocations.add(Direction.RIGHT);
-    }
-    if (bottom.isMeeplable) {
-      meepleableLocations.add(Direction.DOWN);
-    }
-    if (center.isMeeplable) {
-      meepleableLocations.add(Direction.CENTER);
-    }
-    return meepleableLocations;
-  }
 
   @Override
   public String toString() {
