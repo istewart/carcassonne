@@ -98,6 +98,7 @@ public abstract class TileFeature {
     }
     sb.append(" meeplable: " + isMeeplable);
     sb.append(", Belongs to: " + String.valueOf(meeple));
+    sb.append(", touchesMeeple: " + touchesMeeple);
     return sb.toString();
   }
 }

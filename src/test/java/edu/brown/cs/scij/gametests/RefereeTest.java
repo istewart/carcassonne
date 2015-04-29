@@ -80,8 +80,9 @@ public class RefereeTest {
   @Test
   public void placeMeepleRoadTest() throws InvalidEdgeException,
       NullTileException,
-      OutOfMeeplesException, UnMeeplableException, PosnTakenException {
-    Player p1 = new Player(1, "p1");
+      OutOfMeeplesException, PosnTakenException {
+	 
+	  Player p1 = new Player(1, "p1");
     Posn center = new Posn(0, 0);
     Referee r = new Referee();
     List<Player> pList = new ArrayList<>();
@@ -96,11 +97,11 @@ public class RefereeTest {
     r.place(center, t);
     int numMeeples = p1.getNumMeeples();
     assertTrue(t.getRight().getMeeple() == null);
+    try {
     r.placeMeeple(center, p1, Direction.RIGHT);
     assertTrue(numMeeples - 1 == p1.getNumMeeples());
     assertTrue(t.getRight().getMeeple() != null);
     assertTrue(t.getRight().getMeeple().getPlayer().getId() == p1.getId());
-    try {
       r.placeMeeple(center, p1, Direction.DOWN);
       assertTrue(false);
     } catch (UnMeeplableException ume) {
@@ -266,23 +267,17 @@ public class RefereeTest {
     score = p.getScore();
     r.scoreRoad(to);
     assertTrue(score + 3 == p.getScore());
-    r.placeMeeple(bo, p, Direction.UP);
-    score = p.getScore();
-    r.scoreRoad(bo);
-    assertTrue(score + 3 == p.getScore());
-    r.placeMeeple(ct, p, Direction.CENTER);
-    score = p.getScore();
-    r.scoreRoad(ct);
-    assertTrue(score + 3 == p.getScore());
-    r.placeMeeple(ct, p, Direction.UP);
-    score = p.getScore();
-    r.scoreRoad(ct);
-    assertTrue(score + 3 == p.getScore());
-    r.placeMeeple(ct, p, Direction.DOWN);
-    score = p.getScore();
-    r.scoreRoad(ct);
-    assertTrue(score + 3 == p.getScore());
     r = new Referee();
+    roadOnTop = new Edge(Feature.ROAD);
+    roadOnBottom = new Edge(Feature.ROAD);
+    topRoad = new Tile(c, roadOnTop, field, field, field, 0);
+    c = new Center(Feature.ENDPOINT);
+    botRoad = new Tile(c, field, field, roadOnBottom, field, 0);
+    c = new Center(Feature.ROAD);
+    roadCenterTop = new Edge(Feature.ROAD);
+    roadCenterBottom = new Edge(Feature.ROAD);
+    roadThrough =
+            new Tile(c, roadCenterTop, field, roadCenterBottom, field, 0);
     pList = new ArrayList<>();
     pList.add(p);
     r.setPlayers(pList);
@@ -307,61 +302,9 @@ public class RefereeTest {
     r.place(botLeftPosn, botLeft);
     Posn topRoadPosn = new Posn(2, -2);
     r.place(topRoadPosn, topRoad);
-    r.placeMeeple(to, p, Direction.DOWN);
-    score = p.getScore();
-    r.scoreRoad(to);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(ct, p, Direction.UP);
-    score = p.getScore();
-    r.scoreRoad(ct);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(ct, p, Direction.CENTER);
-    score = p.getScore();
-    r.scoreRoad(ct);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(ct, p, Direction.DOWN);
-    score = p.getScore();
-    r.scoreRoad(ct);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(bo, p, Direction.UP);
-    score = p.getScore();
-    r.scoreRoad(bo);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(bo, p, Direction.CENTER);
-    score = p.getScore();
-    r.scoreRoad(bo);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(bo, p, Direction.RIGHT);
-    score = p.getScore();
-    r.scoreRoad(bo);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(horizPosn, p, Direction.LEFT);
-    score = p.getScore();
-    r.scoreRoad(horizPosn);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(horizPosn, p, Direction.CENTER);
-    score = p.getScore();
-    r.scoreRoad(horizPosn);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(horizPosn, p, Direction.RIGHT);
-    score = p.getScore();
-    r.scoreRoad(horizPosn);
-    assertTrue(score + 6 == p.getScore());
     r.placeMeeple(botLeftPosn, p, Direction.LEFT);
     score = p.getScore();
     r.scoreRoad(botLeftPosn);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(botLeftPosn, p, Direction.CENTER);
-    score = p.getScore();
-    r.scoreRoad(botLeftPosn);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(botLeftPosn, p, Direction.DOWN);
-    score = p.getScore();
-    r.scoreRoad(botLeftPosn);
-    assertTrue(score + 6 == p.getScore());
-    r.placeMeeple(topRoadPosn, p, Direction.UP);
-    score = p.getScore();
-    r.scoreRoad(topRoadPosn);
     assertTrue(score + 6 == p.getScore());
 
   }
