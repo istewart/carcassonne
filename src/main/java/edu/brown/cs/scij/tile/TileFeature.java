@@ -84,8 +84,8 @@ public abstract class TileFeature {
         sb.append("SHOULDNT GET HERE NOOOO");
         break;
     }
-    sb.append(" meeplable? " + isMeeplable);
-    sb.append(" meeple: " + String.valueOf(meeple));
+    sb.append(" meeplable: " + isMeeplable);
+    sb.append(", Belongs to: " + String.valueOf(meeple));
     return sb.toString();
   }
 }

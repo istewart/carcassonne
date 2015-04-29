@@ -24,4 +24,9 @@ public class Meeple {
     return player;
   }
 
+  @Override
+  public String toString() {
+    return player.getName();
+  }
+
 }
