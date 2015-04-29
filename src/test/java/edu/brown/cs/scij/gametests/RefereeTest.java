@@ -81,8 +81,8 @@ public class RefereeTest {
   public void placeMeepleRoadTest() throws InvalidEdgeException,
       NullTileException,
       OutOfMeeplesException, PosnTakenException {
-	 
-	  Player p1 = new Player(1, "p1");
+
+    Player p1 = new Player(1, "p1");
     Posn center = new Posn(0, 0);
     Referee r = new Referee();
     List<Player> pList = new ArrayList<>();
@@ -98,10 +98,10 @@ public class RefereeTest {
     int numMeeples = p1.getNumMeeples();
     assertTrue(t.getRight().getMeeple() == null);
     try {
-    r.placeMeeple(center, p1, Direction.RIGHT);
-    assertTrue(numMeeples - 1 == p1.getNumMeeples());
-    assertTrue(t.getRight().getMeeple() != null);
-    assertTrue(t.getRight().getMeeple().getPlayer().getId() == p1.getId());
+      r.placeMeeple(center, p1, Direction.RIGHT);
+      assertTrue(numMeeples - 1 == p1.getNumMeeples());
+      assertTrue(t.getRight().getMeeple() != null);
+      assertTrue(t.getRight().getMeeple().getPlayer().getId() == p1.getId());
       r.placeMeeple(center, p1, Direction.DOWN);
       assertTrue(false);
     } catch (UnMeeplableException ume) {
@@ -277,7 +277,7 @@ public class RefereeTest {
     roadCenterTop = new Edge(Feature.ROAD);
     roadCenterBottom = new Edge(Feature.ROAD);
     roadThrough =
-            new Tile(c, roadCenterTop, field, roadCenterBottom, field, 0);
+        new Tile(c, roadCenterTop, field, roadCenterBottom, field, 0);
     pList = new ArrayList<>();
     pList.add(p);
     r.setPlayers(pList);
@@ -793,16 +793,90 @@ public class RefereeTest {
   }
 
   // @Test
-  public void circularRoadTest() throws InvalidEdgeException,
+  public void circularRoadTest() /*
+                                  * throws InvalidEdgeException,
+                                  * PosnTakenException, NullTileException,
+                                  * OutOfMeeplesException,
+                                  * UnMeeplableException
+                                  */{
+
+    try {
+      Center c = new Center(Feature.ROAD);
+      Center c1 = new Center(Feature.ROAD);
+      Center c2 = new Center(Feature.ROAD);
+      Center c3 = new Center(Feature.ROAD);
+      Edge road = new Edge(Feature.ROAD);
+      Edge road1 = new Edge(Feature.ROAD);
+      Edge road2 = new Edge(Feature.ROAD);
+      Edge road3 = new Edge(Feature.ROAD);
+      Edge road4 = new Edge(Feature.ROAD);
+      Edge road5 = new Edge(Feature.ROAD);
+      Edge road6 = new Edge(Feature.ROAD);
+      Edge road7 = new Edge(Feature.ROAD);
+      Edge field = new Edge(Feature.FIELD);
+      Tile topRight = new Tile(c, road, road1, field, field, 0);
+      Tile bottomRight = new Tile(c1, field, road2, road3, field, 0);
+      Tile bottomLeft = new Tile(c2, field, field, road4, road5, 0);
+      Tile topLeft = new Tile(c3, road6, field, field, road7, 0);
+      Posn topRightP = new Posn(-1, -1);
+      Posn bottomRightP = new Posn(-1, 0);
+      Posn bottomLeftP = new Posn(0, 0);
+      Posn topLeftP = new Posn(0, -1);
+      Referee r = new Referee();
+      Player p = new Player(1, "p");
+      List<Player> pList = new ArrayList<>();
+      pList.add(p);
+      r.setPlayers(pList);
+      r.place(topRightP, topRight);
+      r.placeMeeple(topRightP, p, Direction.UP);
+      r.place(bottomRightP, bottomRight);
+      r.place(bottomLeftP, bottomLeft);
+      int score = p.getScore();
+      r.place(topLeftP, topLeft);
+      r.scoreRoad(topLeftP);
+      assertTrue(score + 4 == p.getScore());
+    } catch (InvalidEdgeException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (PosnTakenException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (NullTileException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (OutOfMeeplesException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (UnMeeplableException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  // @Test Infinite loops, must fix
+  public void circularTestWithEndpoint() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
-    Center c = new Center(Feature.ROAD);
+    Center c = new Center(Feature.ENDPOINT);
+    Center c1 = new Center(Feature.ROAD);
+    Center c2 = new Center(Feature.ROAD);
+    Center c3 = new Center(Feature.ROAD);
     Edge road = new Edge(Feature.ROAD);
+    Edge road1 = new Edge(Feature.ROAD);
+    Edge road2 = new Edge(Feature.ROAD);
+    Edge road3 = new Edge(Feature.ROAD);
+    Edge road4 = new Edge(Feature.ROAD);
+    Edge road5 = new Edge(Feature.ROAD);
+    Edge road6 = new Edge(Feature.ROAD);
+    Edge road7 = new Edge(Feature.ROAD);
     Edge field = new Edge(Feature.FIELD);
-    Tile topRight = new Tile(c, road, road, field, field, 0);
-    Tile bottomRight = new Tile(c, field, road, road, field, 0);
-    Tile bottomLeft = new Tile(c, field, field, road, road, 0);
-    Tile topLeft = new Tile(c, road, field, field, road, 0);
+    Tile topRight = new Tile(c, road, road1, field, field, 0);
+    Tile bottomRight = new Tile(c1, field, road2, road3, field, 0);
+    Tile bottomLeft = new Tile(c2, field, field, road4, road5, 0);
+    Tile topLeft = new Tile(c3, road6, field, field, road7, 0);
     Posn topRightP = new Posn(-1, -1);
     Posn bottomRightP = new Posn(-1, 0);
     Posn bottomLeftP = new Posn(0, 0);

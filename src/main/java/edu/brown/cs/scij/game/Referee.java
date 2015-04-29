@@ -533,21 +533,24 @@ public class Referee {
     }
   }
 
-  private int scoreRoadHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
-      Map<Posn, TileFeature> meepledRoads, Direction d, int count, Finished f) {
+  private int scoreRoadHelper(Posn curPosn, Posn origPosn, Set<Posn> visited,
+      Map<Posn, TileFeature> meepledRoads, Direction d, Finished f) {
 
     // System.out.println(curPosn + " " + prevPosn);
 
     Tile curTile = board.getBoard().get(curPosn);
     int score = 0;
     while (curTile != null) {
-      // TODO need to worry about case where the road didn't originally end and
-      // there is a cycle, because then we're multiplying by two if there is a
-      // cycle...
       // System.out.println("Direction: " + d + " curPosn " + curPosn);
-      if (curPosn.equals(prevPosn)) {
+
+      if (visited.contains(curPosn)) {
         return score;
       }
+      /*
+       * if (curPosn.equals(origPosn)) {
+       * return score;
+       * }
+       */
       score++;
       grabMeepleAtEdge(curPosn, curTile, d, meepledRoads);
       if (curTile.roadEnds()) {
@@ -587,68 +590,6 @@ public class Referee {
     return score;
   }
 
-  /*
-   * System.out.println("prevPosn" + prevPosn + ", curPosn " + curPosn);
-   * if (curPosn.equals(prevPosn)) {
-   * System.out.println("BEEN HERE BEFORE");
-   * return 0;
-   * }
-   * if (visited.contains(curPosn)) {
-   * return 0;
-   * } else {
-   * visited.add(curPosn);
-   * }
-   * Tile curTile = board.getBoard().get(curPosn);
-   * if (curTile == null) {
-   * f.setFinished(false);
-   * return 0;
-   * //return count;
-   * } else {
-   * grabMeepleAtEdge(curTile, d, meepledRoads);
-   * if (curTile.roadEnds()) {
-   * return count + 1;
-   * } else {
-   * // if the road doesn't end at this tile, there is always a chance that
-   * // the meeple was placed in the center.
-   * grabMeepleAtCenter(curTile, meepledRoads);
-   * int downScore = 0;
-   * int upScore = 0;
-   * int leftScore = 0;
-   * int rightScore = 0;
-   * if (curTile.getBottom().getFeature() == Feature.ROAD) {
-   * System.out.println("WENT DOWN");
-   * // check meeple on bottom and continue in this direction
-   * grabMeepleAtEdge(curTile, Direction.DOWN, meepledRoads);
-   * downScore = scoreRoadHelper(curPosn.withY(curPosn.getY() - 1),
-   * curPosn, visited, meepledRoads, Direction.UP, count + 1, f);
-   * }
-   * if (curTile.getRight().getFeature() == Feature.ROAD) {
-   * System.out.println("WENT RIGHT");
-   * // check meeple on right and continue in this direction
-   * grabMeepleAtEdge(curTile, Direction.RIGHT, meepledRoads);
-   * rightScore = scoreRoadHelper(curPosn.withX(curPosn.getX() + 1),
-   * curPosn, visited, meepledRoads, Direction.LEFT, count + 1, f);
-   * }
-   * if (curTile.getTop().getFeature() == Feature.ROAD) {
-   * System.out.println("WENT UP");
-   * // check meeple on top and continue in this direction
-   * grabMeepleAtEdge(curTile, Direction.UP, meepledRoads);
-   * upScore = scoreRoadHelper(curPosn.withY(curPosn.getY() + 1), curPosn,
-   * visited, meepledRoads, Direction.DOWN, count + 1, f);
-   * }
-   * if (curTile.getLeft().getFeature() == Feature.ROAD) {
-   * System.out.println("WENT LEFT");
-   * // check meeple on left and continue in this direction
-   * grabMeepleAtEdge(curTile, Direction.LEFT, meepledRoads);
-   * upScore = scoreRoadHelper(curPosn.withX(curPosn.getX() - 1), curPosn,
-   * visited, meepledRoads, Direction.RIGHT, count + 1, f);
-   * }
-   * 
-   * return downScore + upScore + leftScore + rightScore;
-   * }
-   * }
-   */
-
   private void scoreRoadAt(Posn p) {
     Tile curTile = board.getBoard().get(p);
     Edge top = curTile.getTop();
@@ -672,7 +613,7 @@ public class Referee {
           rightRoadMeeples.put(p, right);
         }
         rightScore = scoreRoadHelper(p.withX(p.getX() + 1), p, visitedRight,
-            rightRoadMeeples, Direction.RIGHT, 0, rightF);
+            rightRoadMeeples, Direction.RIGHT, rightF);
         if (isGameOver()) {
           scoreMeeples(rightRoadMeeples, rightScore + 1);
         } else if (rightF.isFinished()) {
@@ -689,7 +630,7 @@ public class Referee {
           leftRoadMeeples.put(p, left);
         }
         leftScore = scoreRoadHelper(p.withX(p.getX() - 1), p, visitedLeft,
-            leftRoadMeeples, Direction.LEFT, 0, leftF);
+            leftRoadMeeples, Direction.LEFT, leftF);
         if (isGameOver()) {
           scoreMeeples(leftRoadMeeples, leftScore + 1);
         } else if (leftF.isFinished()) {
@@ -706,7 +647,7 @@ public class Referee {
           topRoadMeeples.put(p, top);
         }
         upScore = scoreRoadHelper(p.withY(p.getY() + 1), p, visitedTop,
-            topRoadMeeples, Direction.UP, 0, upF);
+            topRoadMeeples, Direction.UP, upF);
         if (isGameOver()) {
           scoreMeeples(topRoadMeeples, upScore + 1);
         } else if (upF.isFinished()) {
@@ -723,7 +664,7 @@ public class Referee {
           bottomRoadMeeples.put(p, bottom);
         }
         downScore = scoreRoadHelper(p.withY(p.getY() - 1), p, visitedBottom,
-            bottomRoadMeeples, Direction.DOWN, 0, downF);
+            bottomRoadMeeples, Direction.DOWN, downF);
         if (isGameOver()) {
           scoreMeeples(bottomRoadMeeples, downScore + 1);
         } else if (downF.isFinished()) {
@@ -746,7 +687,7 @@ public class Referee {
           meepledRoads.put(p, right);
         }
         rightScore = scoreRoadHelper(p.withX(p.getX() + 1), p, visited,
-            meepledRoads, Direction.RIGHT, 0, f);
+            meepledRoads, Direction.RIGHT, f);
       }
       if (left.getFeature() == Feature.ROAD) {
         // check to the left
@@ -754,7 +695,7 @@ public class Referee {
           meepledRoads.put(p, left);
         }
         leftScore = scoreRoadHelper(p.withX(p.getX() - 1), p, visited,
-            meepledRoads, Direction.LEFT, 0, f);
+            meepledRoads, Direction.LEFT, f);
       }
       if (top.getFeature() == Feature.ROAD) {
         // check to the top
@@ -762,7 +703,7 @@ public class Referee {
           meepledRoads.put(p, top);
         }
         upScore = scoreRoadHelper(p.withY(p.getY() + 1), p, visited,
-            meepledRoads, Direction.UP, 0, f);
+            meepledRoads, Direction.UP, f);
       }
       if (bottom.getFeature() == Feature.ROAD) {
         // check to the bottom
@@ -770,7 +711,7 @@ public class Referee {
           meepledRoads.put(p, bottom);
         }
         downScore = scoreRoadHelper(p.withY(p.getY() - 1), p, visited,
-            meepledRoads, Direction.DOWN, 0, f);
+            meepledRoads, Direction.DOWN, f);
       }
 
       int score = 1 + upScore + downScore + leftScore + rightScore;

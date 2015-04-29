@@ -40,6 +40,6 @@ trap "rm -rf /ltmp/$USER; exit 255;" SIGINT SIGKILL SIGTERM
 mkdir -p /ltmp/$USER
 cp /course/cs032/data/bacon/bacon.sqlite3 /ltmp/$USER >/dev/null
 
-java -cp $TARGET:$CP edu.brown.cs.$USER.$PROJECT.Main "$@"
+java -cp $TARGET:$CP edu.brown.cs.scij.carcassonne.Main "$@"
 
 rm -rf /ltmp/$USER/bacon.sqlite3
