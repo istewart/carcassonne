@@ -6,11 +6,13 @@ public abstract class TileFeature {
   protected final Feature feature;
   protected boolean isMeeplable;
   protected Meeple meeple;
+  protected boolean touchesMeeple;
 
   public TileFeature(Feature feature) {
     this.feature = feature;
     setIsMeeplable(feature);
     this.meeple = null;
+    this.touchesMeeple = false;
   }
 
   public boolean hasMeeple() {
@@ -31,10 +33,19 @@ public abstract class TileFeature {
   public Feature getFeature() {
     return feature;
   }
+  
+  public boolean touchesMeeple() {
+	  return touchesMeeple;
+  }
+  
+  public void setTouchesMeeple(boolean tm){
+	  touchesMeeple = tm;
+  }
 
   public void setMeeple(Meeple m) throws UnMeeplableException {
     if (isMeeplable) {
       this.meeple = m;
+      touchesMeeple = true;
     } else {
       throw new UnMeeplableException("This feature cannot be meepled");
     }
@@ -45,6 +56,7 @@ public abstract class TileFeature {
       throw new NullMeepleException("there is no meeple here to return");
     }
     meeple.getPlayer().returnMeeple();
+    touchesMeeple = false;
     meeple = null;
   }
 
@@ -56,7 +68,7 @@ public abstract class TileFeature {
       isMeeplable = true;
     }
   }
-
+  
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
