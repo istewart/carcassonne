@@ -198,7 +198,7 @@ public final class Network {
       } else {
         updates = ImmutableMap.of();
       }
-
+      
       return GSON.toJson(ImmutableMap.of("val", result,
         "updates", updates));
     }
