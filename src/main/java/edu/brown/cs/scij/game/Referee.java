@@ -361,7 +361,7 @@ public class Referee {
         }
         rightScore =
             scoreCityHelper(p.withX(p.getX() + 1), p, visited,
-                meepledCities, Direction.LEFT, 0, f);
+                meepledCities, Direction.RIGHT, 0, f);
       }
       if (left.getFeature() == Feature.CITY) {
         if (left.hasMeeple()) {
@@ -369,7 +369,7 @@ public class Referee {
         }
         leftScore =
             scoreCityHelper(p.withX(p.getX() - 1), p, visited,
-                meepledCities, Direction.RIGHT, 0, f);
+                meepledCities, Direction.LEFT, 0, f);
       }
       if (bottom.getFeature() == Feature.CITY) {
         if (bottom.hasMeeple()) {
@@ -377,7 +377,7 @@ public class Referee {
         }
         downScore =
             scoreCityHelper(p.withY(p.getY() - 1), p, visited,
-                meepledCities, Direction.UP, 0, f);
+                meepledCities, Direction.DOWN, 0, f);
       }
       if (top.getFeature() == Feature.CITY) {
         if (top.hasMeeple()) {
@@ -385,7 +385,7 @@ public class Referee {
         }
         upScore =
             scoreCityHelper(p.withY(p.getY() + 1), p, visited,
-                meepledCities, Direction.DOWN, 0, f);
+                meepledCities, Direction.UP, 0, f);
       }
       int score = 1 + upScore + downScore + leftScore + rightScore;
       if (isGameOver()) {
@@ -405,7 +405,7 @@ public class Referee {
           rightCityMeeples.put(p, right);
         }
         rightScore = scoreCityHelper(p.withX(p.getX() + 1), p, visitedRight,
-            rightCityMeeples, Direction.LEFT, 1 + curTile.getShield(), rightF);
+            rightCityMeeples, Direction.RIGHT, 1 + curTile.getShield(), rightF);
 
         if (isGameOver()) {
           scoreMeeples(rightCityMeeples, rightScore);
@@ -424,7 +424,7 @@ public class Referee {
           leftCityMeeples.put(p, left);
         }
         leftScore = scoreCityHelper(p.withX(p.getX() - 1), p, visitedLeft,
-            leftCityMeeples, Direction.RIGHT, 1 + curTile.getShield(), leftF);
+            leftCityMeeples, Direction.LEFT, 1 + curTile.getShield(), leftF);
 
         if (isGameOver()) {
           scoreMeeples(leftCityMeeples, leftScore);
@@ -442,7 +442,7 @@ public class Referee {
           downCityMeeples.put(p, bottom);
         }
         downScore = scoreCityHelper(p.withY(p.getY() - 1), p, visitedDown,
-            downCityMeeples, Direction.UP, 1 + curTile.getShield(), downF);
+            downCityMeeples, Direction.DOWN, 1 + curTile.getShield(), downF);
 
         if (isGameOver()) {
           scoreMeeples(downCityMeeples, downScore);
@@ -460,7 +460,7 @@ public class Referee {
           upCityMeeples.put(p, top);
         }
         upScore = scoreCityHelper(p.withY(p.getY() - 1), p, visitedUp,
-            upCityMeeples, Direction.DOWN, 1 + curTile.getShield(), upF);
+            upCityMeeples, Direction.UP, 1 + curTile.getShield(), upF);
 
         if (isGameOver()) {
           scoreMeeples(upCityMeeples, upScore);
@@ -492,7 +492,7 @@ public class Referee {
       }
 
     }
-    return 0;
+    return score;
     /*
      * if (curPosn.equals(prevPosn)) {
      * return 0;
@@ -563,7 +563,11 @@ public class Referee {
     while (curTile != null) {
       // System.out.println("Direction: " + d + " curPosn " + curPosn);
 
+      System.out.println(visited);
+      System.out.println(curPosn);
       if (visited.contains(curPosn)) {
+        System.out.println("It did contain the posn!");
+        System.out.println(score);
         return score;
       }
       visited.add(curPosn);
@@ -698,6 +702,7 @@ public class Referee {
       Map<Posn, TileFeature> meepledRoads = new HashMap<>();
       grabMeepleAtCenter(p, curTile, meepledRoads);
       Finished f = new Finished(true);
+      visited.add(p);
 
       upScore = 0;
       downScore = 0;
