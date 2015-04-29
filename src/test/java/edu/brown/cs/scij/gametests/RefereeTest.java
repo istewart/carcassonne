@@ -114,7 +114,7 @@ public class RefereeTest {
     }
   }
 
-  @Test
+  // @Test
   public void cityScoringTest() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
