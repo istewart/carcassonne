@@ -131,8 +131,14 @@ public class Board {
         }
       }
       if (t.getCenter().getFeature() == feature) {
+    	  if (t.getCenter().touchesMeeple()){
+    		  return;
+    	  }
         t.getCenter().setTouchesMeeple(true);
         if (t.getLeft().getFeature() == feature) {
+        	if (t.getLeft().touchesMeeple()){
+        		return;
+        	}
           t.getLeft().setTouchesMeeple(true);
           Posn left = p.withX(p.getX() - 1);
           if (board.containsKey(left)) {
@@ -141,6 +147,9 @@ public class Board {
           }
         }
         if (t.getTop().getFeature() == feature) {
+        	if (t.getTop().touchesMeeple()){
+        		return;
+        	}
           t.getTop().setTouchesMeeple(true);
           Posn top = p.withY(p.getY() + 1);
           if (board.containsKey(top)) {
@@ -149,6 +158,9 @@ public class Board {
           }
         }
         if (t.getBottom().getFeature() == feature) {
+        	if (t.getBottom().touchesMeeple()){
+        		return;
+        	}
           t.getBottom().setTouchesMeeple(true);
           Posn bottom = p.withY(p.getY() - 1);
           if (board.containsKey(bottom)) {
@@ -166,8 +178,14 @@ public class Board {
         }
       }
       if (t.getCenter().getFeature() == feature) {
+    	  if (t.getCenter().touchesMeeple()){
+    		  return;
+    	  }
         t.getCenter().setTouchesMeeple(true);
         if (t.getRight().getFeature() == feature) {
+    	  if (t.getRight().touchesMeeple()){
+    		  return;
+    	  }
           t.getRight().setTouchesMeeple(true);
           Posn right = p.withX(p.getX() + 1);
           if (board.containsKey(right)) {
@@ -176,6 +194,9 @@ public class Board {
           }
         }
         if (t.getTop().getFeature() == feature) {
+    	  if (t.getTop().touchesMeeple()){
+    		  return;
+    	  }
           t.getTop().setTouchesMeeple(true);
           Posn top = p.withY(p.getY() + 1);
           if (board.containsKey(top)) {
@@ -184,6 +205,9 @@ public class Board {
           }
         }
         if (t.getBottom().getFeature() == feature) {
+    	  if (t.getBottom().touchesMeeple()){
+    		  return;
+    	  }
           t.getBottom().setTouchesMeeple(true);
           Posn bottom = p.withY(p.getY() - 1);
           if (board.containsKey(bottom)) {
@@ -201,8 +225,14 @@ public class Board {
         }
       }
       if (t.getCenter().getFeature() == feature) {
+    	  if (t.getCenter().touchesMeeple()){
+    		  return;
+    	  }
         t.getCenter().setTouchesMeeple(true);
         if (t.getRight().getFeature() == feature) {
+    	  if (t.getRight().touchesMeeple()){
+    		  return;
+    	  }
           t.getRight().setTouchesMeeple(true);
           Posn right = p.withX(p.getX() + 1);
           if (board.containsKey(right)) {
@@ -211,6 +241,9 @@ public class Board {
           }
         }
         if (t.getLeft().getFeature() == feature) {
+    	  if (t.getLeft().touchesMeeple()){
+    		  return;
+    	  }
           t.getLeft().setTouchesMeeple(true);
           Posn left = p.withX(p.getX() - 1);
           if (board.containsKey(left)) {
@@ -219,6 +252,9 @@ public class Board {
           }
         }
         if (t.getBottom().getFeature() == feature) {
+    	  if (t.getBottom().touchesMeeple()){
+    		  return;
+    	  }
           t.getBottom().setTouchesMeeple(true);
           Posn bottom = p.withY(p.getY() - 1);
           if (board.containsKey(bottom)) {
@@ -237,8 +273,14 @@ public class Board {
         }
       }
       if (t.getCenter().getFeature() == feature) {
+    	  if (t.getCenter().touchesMeeple()){
+    		  return;
+    	  }
         t.getCenter().setTouchesMeeple(true);
         if (t.getRight().getFeature() == feature) {
+    	  if (t.getRight().touchesMeeple()){
+    		  return;
+    	  }
           t.getRight().setTouchesMeeple(true);
           Posn right = p.withX(p.getX() + 1);
           if (board.containsKey(right)) {
@@ -247,6 +289,9 @@ public class Board {
           }
         }
         if (t.getLeft().getFeature() == feature) {
+    	  if (t.getLeft().touchesMeeple()){
+    		  return;
+    	  }
           t.getLeft().setTouchesMeeple(true);
           Posn left = p.withX(p.getX() - 1);
           if (board.containsKey(left)) {
@@ -255,6 +300,9 @@ public class Board {
           }
         }
         if (t.getTop().getFeature() == feature) {
+    	  if (t.getTop().touchesMeeple()){
+    		  return;
+    	  }
           t.getTop().setTouchesMeeple(true);
           Posn top = p.withY(p.getY() + 1);
           if (board.containsKey(top)) {

@@ -800,14 +800,8 @@ public class RefereeTest {
     assertTrue(score2 + 7 == p2.getScore());
   }
 
-  // @Test
-  public void circularRoadTest() /*
-                                  * throws InvalidEdgeException,
-                                  * PosnTakenException, NullTileException,
-                                  * OutOfMeeplesException,
-                                  * UnMeeplableException
-                                  */{
-
+  @Test
+  public void circularRoadTest() {
     try {
       Center c = new Center(Feature.ROAD);
       Center c1 = new Center(Feature.ROAD);
