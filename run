@@ -1,29 +1,24 @@
-#!/usr/local/bin/bash
+#!/bin/sh
 
-# To run our code, we must have it in our classpath.
-# We use $(ls target/*.jar) instead of target/stars-1.0.jar so that
-# this script can be reused in other projects more easily.
-
-TARGET=$(ls target/*.jar 2>/dev/null)
-if [ -z "$TARGET" ]; then
-    echo "No jar file in target/, try 'mvn package'".
-    exit 1
-fi
-
-# In the pom.xml, we've already explained other what libraries we
-# depend on. Maven downloaded them, and put them "somewhere" (our
+# In the pom.xml, we've already explained what libraries we depend
+# on. Maven downloaded them, and put them "somewhere" (our
 # repository). Now we ask maven to build up the CLASSPATH that let us
 # run against those libraries.
 
-# First, we put the CLASSPATH in .classpath if the pom.xml is newer
-# than out existing .classpath file. (We avoid this command if
-# .classpath is fresh, since it's rather slow.)
-if [ ! .mvn-classpath -nt pom.xml ]; then
-  mvn dependency:build-classpath -Dmdep.outputFile=.mvn-classpath -q
-fi
+# In a shell script, $(some command), runs "some command" and returns
+# its output as a string.  You can run
+#  mvn dependency:build-classpath
+# from the command-line to see how this works.
 
-# Now, we set $CP to the contents of the .classpath file.
-CP=$(cat .mvn-classpath)
+CP=$(mvn dependency:build-classpath | grep -v INFO)
+
+# In addition to the libraries we depend on, to run our program, we
+# have to add the jar file that contains our own code to the
+# classpath.  We use $(ls target/*.jar) instead of
+# target/boggle-1.0.jar so that this script can be reused in other
+# projects more easily.
+
+TARGET=$(ls target/*.jar)
 
 # Again, we're trying to make the script more reusable by guessing the
 # package name from the current directory, instead of hard coding.
@@ -32,14 +27,7 @@ CP=$(cat .mvn-classpath)
 
 PROJECT=$(basename $(pwd))
 
-# The funny symbol: "$@" passes the command-line arguments on from
+# The funny symbol: "$*" passes the command-line arguments on from
 # this script to your Java program.
 
-trap "rm -rf /ltmp/$USER; exit 255;" SIGINT SIGKILL SIGTERM
-
-mkdir -p /ltmp/$USER
-cp /course/cs032/data/bacon/bacon.sqlite3 /ltmp/$USER >/dev/null
-
-java -cp $TARGET:$CP edu.brown.cs.scij.carcassonne.Main "$@"
-
-rm -rf /ltmp/$USER/bacon.sqlite3
+java -cp $TARGET:$CP edu.brown.cs.scij.game.Main $*
