@@ -11,8 +11,7 @@ public class Tile {
   private Edge left;
   private Edge right;
   private int id;
-  private final int shield; // I think shield should be a boolean in Center or
-                            // Edge, not an int here -Colby
+  private final int shield;
   private int rotation = 0; // TODO change in rotateLeft
   private int numRoads;
 

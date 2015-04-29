@@ -30,15 +30,16 @@ public class Referee {
   private int turnNumber;
   private Board board;
   private Tile curTile = null;
-
-  // is this used?
-  // private static final int FINISHED_ROAD = 2;
-  // private static final int UNFINISHED_ROAD = 1;
+  private Player curPlayer;
 
   public Referee() {
     // TODO should be done but there might be something else but I can't think
     // of more setup (and it should go in setupGame()
     setupGame();
+  }
+
+  public Player getCurPlayer() {
+    return curPlayer;
   }
 
   public Tile getCurTile() {
@@ -111,7 +112,7 @@ public class Referee {
     try {
       tiles = buildDeck();
     } catch (InvalidEdgeException ite) {
-      System.out.println("wont be reached, tiles currentlyhardcoded");
+      System.out.println("wont be reached, tiles currently hardcoded");
     }
     deck = new Deck(tiles);
     board = new Board();
@@ -881,7 +882,7 @@ public class Referee {
   }
 
   private void scoreMeeples(Set<TileFeature> meepledFeatures, int baseScore) {
-    Map<String, Integer> meeples = new HashMap<>();
+    Map<Integer, Integer> meeples = new HashMap<>();
     for (Player p : players) {
       meeples.put(p.getId(), 0);
     }
@@ -906,16 +907,16 @@ public class Referee {
       }
     }
 
-    for (Map.Entry<String, Integer> meepleCount : meeples.entrySet()) {
+    for (Map.Entry<Integer, Integer> meepleCount : meeples.entrySet()) {
       if (meepleCount.getValue() == maxMeeples) {
         getPlayer(meepleCount.getKey()).addScore(baseScore);
       }
     }
   }
 
-  private Player getPlayer(String id) {
+  private Player getPlayer(int id) {
     for (Player p : players) {
-      if (p.getId().equals(id)) {
+      if (p.getId() == id) {
         return p;
       }
     }
@@ -969,7 +970,9 @@ public class Referee {
   }
 
   public Player nextPlayer() {
-    return players.get(turnNumber % players.size());
+    curPlayer = players.get(turnNumber % players.size());
+    turnNumber++;
+    return curPlayer;
   }
 
   private List<Tile> buildDeck() throws InvalidEdgeException {
@@ -1132,8 +1135,8 @@ public class Referee {
 
     Referee r = new Referee();
     r.setupGame();
-    r.newPlayer(new Player("0", "Scott"));
-    r.newPlayer(new Player("1", "Ian"));
+    r.newPlayer(new Player(0, "Scott"));
+    r.newPlayer(new Player(1, "Ian"));
     r.shuffleOrder();
     r.run();
 

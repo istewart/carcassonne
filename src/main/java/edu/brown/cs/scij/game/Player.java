@@ -4,12 +4,12 @@ import edu.brown.cs.scij.tile.OutOfMeeplesException;
 
 public class Player {
   private Color playerColor;
-  private final String id;
+  private final int id;
   private final String name;
   private int score;
   private int numMeeples;
 
-  public Player(String id, String name) {
+  public Player(int id, String name) {
     this.id = id;
     this.name = name;
     this.score = 0;
@@ -24,7 +24,7 @@ public class Player {
     this.playerColor = playerColor;
   }
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
@@ -69,6 +69,32 @@ public class Player {
     if (numMeeples != 7) {
       numMeeples++;
     }
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + id;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (!(obj instanceof Player)) {
+      return false;
+    }
+    Player other = (Player) obj;
+    if (id != other.id) {
+      return false;
+    }
+    return true;
   }
 
   @Override
