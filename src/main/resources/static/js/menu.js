@@ -42,11 +42,13 @@ var Menu = function() {
 
       network.say("newPlayer", {"name": $("#joinName").val()});
       network.ask("gameStart", {"message": "gameStart"}, function(responseObject) {
-        var currTile = responseObject.currTile;
-        var board = responseObject.board;
-        var validMoves = responseObject.validMoves;
-        var validMeeples = responseObject.validMoves;
-        var players = currTile.players;
+        // responseObject is null
+
+        var currTile = network.get("currTile");
+        var board = network.get("board");
+        var validMoves = network.get("validMoves");
+        var validMeeples = network.get("validMeeples");
+        var players = network.get("players");
 
         renderer = new Renderer(board, currTile, players, validMoves, validMeeples, 1, 0, 0);
 
