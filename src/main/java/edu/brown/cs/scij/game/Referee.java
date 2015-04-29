@@ -737,6 +737,7 @@ public class Referee {
           scoreMeeples(bottomRoadMeeples, downScore + 1);
         } else if (downF.isFinished()) {
           System.out.println("Game not over");
+          System.out.println("DOWNSCORE " + downScore);
           scoreMeeples(bottomRoadMeeples, downScore + 1);
         }
       }
