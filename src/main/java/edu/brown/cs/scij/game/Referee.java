@@ -361,7 +361,7 @@ public class Referee {
         }
         rightScore =
             scoreCityHelper(p.withX(p.getX() + 1), p, visited,
-                meepledCities, Direction.RIGHT, 0, f);
+                meepledCities, Direction.RIGHT, f);
       }
       if (left.getFeature() == Feature.CITY) {
         if (left.hasMeeple()) {
@@ -369,7 +369,7 @@ public class Referee {
         }
         leftScore =
             scoreCityHelper(p.withX(p.getX() - 1), p, visited,
-                meepledCities, Direction.LEFT, 0, f);
+                meepledCities, Direction.LEFT, f);
       }
       if (bottom.getFeature() == Feature.CITY) {
         if (bottom.hasMeeple()) {
@@ -377,7 +377,7 @@ public class Referee {
         }
         downScore =
             scoreCityHelper(p.withY(p.getY() - 1), p, visited,
-                meepledCities, Direction.DOWN, 0, f);
+                meepledCities, Direction.DOWN, f);
       }
       if (top.getFeature() == Feature.CITY) {
         if (top.hasMeeple()) {
@@ -385,7 +385,7 @@ public class Referee {
         }
         upScore =
             scoreCityHelper(p.withY(p.getY() + 1), p, visited,
-                meepledCities, Direction.UP, 0, f);
+                meepledCities, Direction.UP, f);
       }
       int score = 1 + upScore + downScore + leftScore + rightScore;
       if (isGameOver()) {
@@ -405,7 +405,7 @@ public class Referee {
           rightCityMeeples.put(p, right);
         }
         rightScore = scoreCityHelper(p.withX(p.getX() + 1), p, visitedRight,
-            rightCityMeeples, Direction.RIGHT, 1 + curTile.getShield(), rightF);
+            rightCityMeeples, Direction.RIGHT, rightF);
 
         if (isGameOver()) {
           scoreMeeples(rightCityMeeples, rightScore);
@@ -424,7 +424,7 @@ public class Referee {
           leftCityMeeples.put(p, left);
         }
         leftScore = scoreCityHelper(p.withX(p.getX() - 1), p, visitedLeft,
-            leftCityMeeples, Direction.LEFT, 1 + curTile.getShield(), leftF);
+            leftCityMeeples, Direction.LEFT, leftF);
 
         if (isGameOver()) {
           scoreMeeples(leftCityMeeples, leftScore);
@@ -442,7 +442,7 @@ public class Referee {
           downCityMeeples.put(p, bottom);
         }
         downScore = scoreCityHelper(p.withY(p.getY() - 1), p, visitedDown,
-            downCityMeeples, Direction.DOWN, 1 + curTile.getShield(), downF);
+            downCityMeeples, Direction.DOWN, downF);
 
         if (isGameOver()) {
           scoreMeeples(downCityMeeples, downScore);
@@ -460,7 +460,7 @@ public class Referee {
           upCityMeeples.put(p, top);
         }
         upScore = scoreCityHelper(p.withY(p.getY() - 1), p, visitedUp,
-            upCityMeeples, Direction.UP, 1 + curTile.getShield(), upF);
+            upCityMeeples, Direction.UP, upF);
 
         if (isGameOver()) {
           scoreMeeples(upCityMeeples, upScore);
@@ -472,7 +472,7 @@ public class Referee {
   }
 
   private int scoreCityHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
-      Map<Posn, TileFeature> meepledCities, Direction d, int count, Finished f) {
+      Map<Posn, TileFeature> meepledCities, Direction d, Finished f) {
     // recursively check each direction until there is no more center that
     // is a city. If a tile
     // has a shield, it must be connected to the current city checking, because

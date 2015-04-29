@@ -60,7 +60,7 @@ public class CarcBackEnd implements BackEnd {
         break;
       case "gameStart":
         s.seal();
-        t = r.getCurTile();
+        t = r.drawTile();
         Board b = r.getBoard();
         List<Player> players = r.getPlayers();
         List<Posn> validMoves = b.validMoves(t);
