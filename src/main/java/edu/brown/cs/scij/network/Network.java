@@ -272,7 +272,7 @@ public final class Network {
       String field = qm.get("field").value();
       String val = qm.get("val").value();
       System.out.println(val);
-      return GSON.toJson(server.ask(key, field, GSON.fromJson(val, Map.class)));
+      return GSON.toJson(server.ask(key, field, GSON.fromJson(val, HashMap.class)));
     }
   }
 }
