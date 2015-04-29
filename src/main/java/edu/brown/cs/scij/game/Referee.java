@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Queue;
 import java.util.Set;
 
 import edu.brown.cs.scij.tile.Center;
@@ -472,65 +474,83 @@ public class Referee {
   private int scoreCityHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
       Map<Posn, TileFeature> meepledCities, Direction d, int count, Finished f) {
     // recursively check each direction until there is no more center that
-    // is a city. If the prev posn maps to a null tile, then return 0. If a tile
+    // is a city. If a tile
     // has a shield, it must be connected to the current city checking, because
     // of the way the tiles are set up.
-    if (curPosn.equals(prevPosn)) {
-      return 0;
-    }
-    if (visited.contains(curPosn)) {
-      return count;
-    } else {
-      visited.add(curPosn);
-    }
-    Tile curTile = board.getBoard().get(curPosn);
-    if (curTile == null) {
-      f.setFinished(false);
-      return count;
-    } else {
-      grabMeepleAtEdge(curPosn, curTile, d, meepledCities);
-      if (curTile.getCenter().getFeature() != Feature.CITY) {
-        // city ends at this tile
-        return count + 1 + curTile.getShield();
-      } else {
-        // city keeps going
-        grabMeepleAtCenter(curPosn, curTile, meepledCities);
-        int downScore = 0;
-        int upScore = 0;
-        int leftScore = 0;
-        int rightScore = 0;
-        if (curTile.getBottom().getFeature() == Feature.CITY) {
-          grabMeepleAtEdge(curPosn, curTile, Direction.DOWN, meepledCities);
-          downScore =
-              scoreCityHelper(curPosn.withY(curPosn.getY() - 1),
-                  curPosn, visited, meepledCities, Direction.UP, count + 1
-                      + curTile.getShield(), f);
-        }
-        if (curTile.getTop().getFeature() == Feature.CITY) {
-          grabMeepleAtEdge(curPosn, curTile, Direction.UP, meepledCities);
-          upScore =
-              scoreCityHelper(curPosn.withY(curPosn.getY() + 1),
-                  curPosn, visited, meepledCities, Direction.DOWN, count + 1
-                      + curTile.getShield(), f);
-        }
-        if (curTile.getRight().getFeature() == Feature.CITY) {
-          grabMeepleAtEdge(curPosn, curTile, Direction.RIGHT, meepledCities);
-          rightScore =
-              scoreCityHelper(curPosn.withX(curPosn.getX() + 1),
-                  curPosn, visited, meepledCities, Direction.LEFT, count + 1
-                      + curTile.getShield(), f);
-        }
-        if (curTile.getLeft().getFeature() == Feature.CITY) {
-          grabMeepleAtEdge(curPosn, curTile, Direction.LEFT, meepledCities);
-          leftScore =
-              scoreCityHelper(curPosn.withX(curPosn.getX() - 1),
-                  curPosn, visited, meepledCities, Direction.RIGHT, count + 1
-                      + curTile.getShield(), f);
-        }
+    Queue<Posn> queue = new LinkedList<>();
+    queue.add(curPosn);
+    int score = 0;
 
-        return upScore + downScore + leftScore + rightScore;
+    while (!queue.isEmpty()) {
+      visited.add(curPosn);
+      Tile curTile = board.getBoard().get(curPosn);
+      if (curTile == null) {
+        // the city is not finished
+        f.setFinished(false);
+      } else {
+        grabMeepleAtEdge(curPosn, curTile, d, meepledCities);
       }
+
     }
+    return 0;
+    /*
+     * if (curPosn.equals(prevPosn)) {
+     * return 0;
+     * }
+     * if (visited.contains(curPosn)) {
+     * return count;
+     * } else {
+     * visited.add(curPosn);
+     * }
+     * Tile curTile = board.getBoard().get(curPosn);
+     * if (curTile == null) {
+     * f.setFinished(false);
+     * return count;
+     * } else {
+     * grabMeepleAtEdge(curPosn, curTile, d, meepledCities);
+     * if (curTile.getCenter().getFeature() != Feature.CITY) {
+     * // city ends at this tile
+     * return count + 1 + curTile.getShield();
+     * } else {
+     * // city keeps going
+     * grabMeepleAtCenter(curPosn, curTile, meepledCities);
+     * int downScore = 0;
+     * int upScore = 0;
+     * int leftScore = 0;
+     * int rightScore = 0;
+     * if (curTile.getBottom().getFeature() == Feature.CITY) {
+     * grabMeepleAtEdge(curPosn, curTile, Direction.DOWN, meepledCities);
+     * downScore =
+     * scoreCityHelper(curPosn.withY(curPosn.getY() - 1),
+     * curPosn, visited, meepledCities, Direction.UP, count + 1
+     * + curTile.getShield(), f);
+     * }
+     * if (curTile.getTop().getFeature() == Feature.CITY) {
+     * grabMeepleAtEdge(curPosn, curTile, Direction.UP, meepledCities);
+     * upScore =
+     * scoreCityHelper(curPosn.withY(curPosn.getY() + 1),
+     * curPosn, visited, meepledCities, Direction.DOWN, count + 1
+     * + curTile.getShield(), f);
+     * }
+     * if (curTile.getRight().getFeature() == Feature.CITY) {
+     * grabMeepleAtEdge(curPosn, curTile, Direction.RIGHT, meepledCities);
+     * rightScore =
+     * scoreCityHelper(curPosn.withX(curPosn.getX() + 1),
+     * curPosn, visited, meepledCities, Direction.LEFT, count + 1
+     * + curTile.getShield(), f);
+     * }
+     * if (curTile.getLeft().getFeature() == Feature.CITY) {
+     * grabMeepleAtEdge(curPosn, curTile, Direction.LEFT, meepledCities);
+     * leftScore =
+     * scoreCityHelper(curPosn.withX(curPosn.getX() - 1),
+     * curPosn, visited, meepledCities, Direction.RIGHT, count + 1
+     * + curTile.getShield(), f);
+     * }
+     * 
+     * return upScore + downScore + leftScore + rightScore;
+     * }
+     * }
+     */
   }
 
   private int scoreRoadHelper(Posn curPosn, Posn origPosn, Set<Posn> visited,
@@ -546,6 +566,7 @@ public class Referee {
       if (visited.contains(curPosn)) {
         return score;
       }
+      visited.add(curPosn);
       /*
        * if (curPosn.equals(origPosn)) {
        * return score;
@@ -584,6 +605,7 @@ public class Referee {
         curPosn = curPosn.withX(curPosn.getX() - 1);
         d = Direction.LEFT;
       }
+
       curTile = board.getBoard().get(curPosn);
     }
     f.setFinished(false);

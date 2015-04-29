@@ -856,10 +856,12 @@ public class RefereeTest {
 
   }
 
-  // @Test Infinite loops, must fix
-  public void circularTestWithEndpoint() throws InvalidEdgeException,
-      PosnTakenException, NullTileException, OutOfMeeplesException,
-      UnMeeplableException {
+  @Test
+  // Infinite loops, must fix
+      public
+      void circularTestWithEndpoint() throws InvalidEdgeException,
+          PosnTakenException, NullTileException, OutOfMeeplesException,
+          UnMeeplableException {
     Center c = new Center(Feature.ENDPOINT);
     Center c1 = new Center(Feature.ROAD);
     Center c2 = new Center(Feature.ROAD);
@@ -893,6 +895,8 @@ public class RefereeTest {
     int score = p.getScore();
     r.place(topLeftP, topLeft);
     r.scoreRoad(topLeftP);
+    System.out.println(score);
+    System.out.println(p.getScore());
     assertTrue(score + 4 == p.getScore());
   }
 

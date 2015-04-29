@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableMap;
+
 import edu.brown.cs.scij.game.Board;
 import edu.brown.cs.scij.game.NullTileException;
 import edu.brown.cs.scij.game.Player;
@@ -32,14 +34,16 @@ public class CarcBackEnd implements BackEnd {
         // receive left or right
         // return tile, valid moves, valid meeples
         t = r.getCurTile();
-        if (val.equals("left")) {
-          t.rotateLeft();
-        } else {
-          t.rotateRight();
+        if (t != null) {
+          if (val.equals("left")) {
+            t.rotateLeft();
+          } else {
+            t.rotateRight();
+          }
+          Map<String, Object> toReturn = new HashMap<>();
+          toReturn.put("currTile", t);
+          toReturn.put("validMoves", r.getBoard().validMoves(t));
         }
-        Map<String, Object> toReturn = new HashMap<>();
-        toReturn.put("currTile", t);
-        toReturn.put("validMoves", r.getBoard().validMoves(t));
         /*
          * if (r.getCurPlayer().getNumMeeples() > 0) {
          * toReturn.put("validMeeples", t.validMeeples());
@@ -144,7 +148,7 @@ public class CarcBackEnd implements BackEnd {
         // TODO not sure what to do when it's none of these
     }
     // return only what the person requesting should know
-    return null;
+    return ImmutableMap.of();
   }
 
   @Override
