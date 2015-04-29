@@ -45,10 +45,12 @@ var network = {
    * returned.
    */
   say: function(field, val) {
+    console.log(val);
+    console.log(JSON.stringify(val));
     var response = {
       key: network.key,
       field: field,
-      val: val,
+      val: JSON.stringify(val),
     }
     $.post("/ask", response);
   },
@@ -63,10 +65,12 @@ var network = {
    * returned. This handler will be passed the return value.
    */
   ask: function(field, val, handler) {
+    console.log(val);
+    console.log(JSON.stringify(val));
     var response = {
       key: network.key,
       field: field,
-      val: val,
+      val: JSON.stringify(val),
     }
     $.post("/ask", response, function(responseJSON) {
       answer = JSON.parse(responseJSON);

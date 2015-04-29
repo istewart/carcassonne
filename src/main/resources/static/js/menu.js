@@ -40,8 +40,8 @@ var Menu = function() {
       renderer = new Renderer(board, currTile, players, validMoves, validMeeples, 1, 0, 0);
       renderer.render();
 
-      network.say("newPlayer", $("#joinName").val());
-      network.ask("gameStart", "gameStart", function(responseObject) {
+      network.say("newPlayer", {"name": $("#joinName").val()});
+      network.ask("gameStart", {"message": "gameStart"}, function(responseObject) {
         var currTile = responseObject.currTile;
         var board = responseObject.board;
         var validMoves = responseObject.validMoves;
