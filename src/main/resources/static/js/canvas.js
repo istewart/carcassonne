@@ -127,8 +127,6 @@ var Canvas = function() {
 		var pixelClick = {x : e.pageX - positionOffset.left, y: e.pageY - positionOffset.top};
 		var canvasClick = renderer.pixelsToTile(pixelClick);
 
-		console.log(canvasClick);
-
 		if (canvasClick.y > .1 * h && canvasClick.y < .3 * h && canvasClick.x > .4 * w && canvasClick.x < .6 * w) {
 			renderer.selectedMeeple = "UP";
 		} else if (canvasClick.y > .4 * h && canvasClick.y < .6 * h) {
