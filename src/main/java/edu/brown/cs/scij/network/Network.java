@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URI;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
@@ -162,7 +164,7 @@ public final class Network {
         ImmutableMap.of("title", "Network",
           "body", "A simple website",
           "url", url);
-      return new ModelAndView(variables, "networkhome.ftl");
+      return new ModelAndView(variables, "main.ftl");
     }
   }
 
@@ -185,8 +187,10 @@ public final class Network {
       try {
         result = server.ping(key);
       } catch (NoSuchPlayerException ex) {
-        return GSON.toJson(ImmutableMap.of("val", "undefined", "alert",
-          "Your server connection has expired. Please refresh to reconnect."));
+        Map ret = new HashMap<String, Object>();
+        ret.put("val", "undefined");
+        ret.put("alert", "Your server connection has expired. Please refresh to reconnect.");
+        return GSON.toJson(Collections.unmodifiableMap(ret));
       }
       Map<String, Object> updates;
       if (result) {

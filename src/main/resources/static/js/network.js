@@ -122,7 +122,7 @@ var network = {
 
   onLoad: function() {
     network.getIp();
-  }
+  },
 
   /**
    * Contains all data the server is sharing with the client. Automatically
@@ -177,6 +177,7 @@ var network = {
      * Called when the user first connects to the server (by loading the page).
      */
     connect: function() {
+      console.log("connected2")
       if (network.server.inConnectFunction || typeof network.ip === "undefined") {
         return;
       }
@@ -200,6 +201,7 @@ var network = {
         network.id = responseObject.player;
         network.key = responseObject.key;
 
+        console.log("connected1");
         network.server.handle("connect", undefined);
 
         network.pingInterval = setInterval(network.server.ping, 100);
@@ -243,7 +245,7 @@ var network = {
 
   updators: {
     connect: function() {
-
+      console.log("connected");
     },
 
     reconnect: function() {
