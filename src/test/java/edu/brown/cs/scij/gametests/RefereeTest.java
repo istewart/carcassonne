@@ -860,7 +860,6 @@ public class RefereeTest {
   public void circularTestWithEndpoint() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
-    System.out.println("*************************");
     Center c = new Center(Feature.ENDPOINT);
     Center c1 = new Center(Feature.ROAD);
     Center c2 = new Center(Feature.ROAD);
@@ -894,9 +893,6 @@ public class RefereeTest {
     int score = p.getScore();
     r.place(topLeftP, topLeft);
     r.scoreRoad(topLeftP);
-    System.out.println(score);
-    System.out.println(p.getScore());
-    System.out.println("*************************");
     assertTrue(score + 4 == p.getScore());
   }
 

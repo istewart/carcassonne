@@ -28,6 +28,7 @@ public class CarcBackEnd implements BackEnd {
   @Override
   public synchronized Object answer(int player, String field, Object val) {
     Tile t;
+    Map<String, String> data = (HashMap<String, String>) val;
     assert (player == r.getCurPlayer().getId());
     switch (field) {
       case "rotate":
@@ -35,7 +36,7 @@ public class CarcBackEnd implements BackEnd {
         // return tile, valid moves, valid meeples
         t = r.getCurTile();
         if (t != null) {
-          if (val.equals("left")) {
+          if (data.get("rotate").equals("left")) {
             t.rotateLeft();
           } else {
             t.rotateRight();
@@ -53,8 +54,8 @@ public class CarcBackEnd implements BackEnd {
          */
         break;
       case "newPlayer":
-        Map<String, String> newPlayer = (HashMap<String, String>) val;
-        String name = newPlayer.get("name");
+        /* Map<String, String> newPlayer = (HashMap<String, Object>) val; */
+        String name = data.get("name");
         r.newPlayer(new Player(player, name));
         break;
       case "gameStart":
@@ -77,12 +78,12 @@ public class CarcBackEnd implements BackEnd {
         return null;
       case "placeTile":
         // receiving: posn, meeple placement (UP RIGHT DOWN LEFT CENTER)
-        Map<String, String> place = (HashMap<String, String>) val;
-        String posn = place.get("posn");
+        // Map<String, String> place = (HashMap<String, String>) val;
+        String posn = data.get("posn");
         String[] xy = posn.split(",");
         Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
 
-        String meeple = place.get("meeple");
+        String meeple = data.get("meeple");
         try {
           r.getBoard().place(p, r.getCurTile());
         } catch (PosnTakenException e) {

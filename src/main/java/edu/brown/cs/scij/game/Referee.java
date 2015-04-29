@@ -489,6 +489,10 @@ public class Referee {
         f.setFinished(false);
       } else {
         grabMeepleAtEdge(curPosn, curTile, d, meepledCities);
+        if (curTile.getCenter().getFeature() == Feature.CITY) {
+
+        }
+
       }
 
     }
@@ -556,26 +560,14 @@ public class Referee {
   private int scoreRoadHelper(Posn curPosn, Posn origPosn, Set<Posn> visited,
       Map<Posn, TileFeature> meepledRoads, Direction d, Finished f) {
 
-    // System.out.println(curPosn + " " + prevPosn);
-
     Tile curTile = board.getBoard().get(curPosn);
     int score = 0;
     while (curTile != null) {
-      // System.out.println("Direction: " + d + " curPosn " + curPosn);
 
-      System.out.println(visited);
-      System.out.println(curPosn);
       if (visited.contains(curPosn)) {
-        System.out.println("It did contain the posn!");
-        System.out.println(score);
         return score;
       }
       visited.add(curPosn);
-      /*
-       * if (curPosn.equals(origPosn)) {
-       * return score;
-       * }
-       */
       score++;
       grabMeepleAtEdge(curPosn, curTile, d, meepledRoads);
       if (curTile.roadEnds()) {
@@ -862,15 +854,6 @@ public class Referee {
         System.out.println(e.getMessage());
       }
     }
-
-    // TODO delete after testing, for testing only
-    /*
-     * for (Map.Entry<Player, Integer> meepleCount : meeples.entrySet()) {
-     * System.out.println("Player: " + meepleCount.getKey().getName()
-     * + ", meeples: "
-     * + meepleCount.getValue());
-     * }
-     */
 
     int maxMeeples = 0;
     for (Integer meepleCounts : meeples.values()) {
