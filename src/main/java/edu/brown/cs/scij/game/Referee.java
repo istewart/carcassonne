@@ -942,21 +942,50 @@ public class Referee {
     TileFeature center = t.getCenter();
 
     List<Direction> meepleableLocations = new ArrayList<>();
+    Feature feature = null;
     if (top.isMeeplable()) {
-      meepleableLocations.add(Direction.UP);
+    	feature = top.getFeature();
+    	if (feature == Feature.ROAD || feature == Feature.CITY){
+    		if (!top.touchesMeeple()){
+    	    	meepleableLocations.add(Direction.UP);
+    		}
+    	}
     }
     if (left.isMeeplable()) {
-      meepleableLocations.add(Direction.LEFT);
+    	feature = left.getFeature();
+    	if (feature == Feature.ROAD || feature == Feature.CITY){
+    		if (!left.touchesMeeple()){
+    	    	meepleableLocations.add(Direction.LEFT);
+    		}
+    	} 
     }
     if (right.isMeeplable()) {
-      meepleableLocations.add(Direction.RIGHT);
+    	feature = right.getFeature();
+    	if (feature == Feature.ROAD || feature == Feature.CITY){
+    		if (!right.touchesMeeple()){
+    	    	meepleableLocations.add(Direction.RIGHT);
+    		}
+    	}
     }
     if (bottom.isMeeplable()) {
-      meepleableLocations.add(Direction.DOWN);
+    	feature = bottom.getFeature();
+    	if (feature == Feature.ROAD || feature == Feature.CITY){
+    		if (!bottom.touchesMeeple()){
+    	    	meepleableLocations.add(Direction.DOWN);
+    		}
+    	}
     }
     if (center.isMeeplable()) {
-      meepleableLocations.add(Direction.CENTER);
+    	feature = center.getFeature();
+    	if (feature == Feature.ROAD || feature == Feature.CITY){
+    		if (!center.touchesMeeple()){
+    	    	meepleableLocations.add(Direction.CENTER);
+    		}
+    	} else if (feature == Feature.MONASTERY) {
+    		meepleableLocations.add(Direction.CENTER);
+    	}
     }
+    
     return meepleableLocations;
   }
 
@@ -964,6 +993,9 @@ public class Referee {
       Direction d) throws NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Tile t = board.getBoard().get(posn);
+    if (!validMeeples(posn).contains(d)){
+    	throw new UnMeeplableException();
+    }
     if (t != null) {
       if (d == Direction.RIGHT) {
         t.getRight().setMeeple(new Meeple(player));
@@ -981,6 +1013,7 @@ public class Referee {
         t.getCenter().setMeeple(new Meeple(player));
         player.useMeeple();
       }
+      board.setTouchesMeeple(posn, d);
     } else {
       /*
        * throw new NullTileException(
@@ -988,7 +1021,7 @@ public class Referee {
        */
     }
   }
-
+  
   /**
    * Adds a player to the current game.
    *
