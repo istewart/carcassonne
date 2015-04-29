@@ -198,7 +198,7 @@ public final class Network {
       } else {
         updates = ImmutableMap.of();
       }
-      
+
       return GSON.toJson(ImmutableMap.of("val", result,
         "updates", updates));
     }
@@ -267,10 +267,12 @@ public final class Network {
     @Override
     public Object handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
+      System.out.println(qm.toMap());
       Key key = Key.fromJSONString(qm.get("key").value());
       String field = qm.get("field").value();
       String val = qm.get("val").value();
-      return GSON.toJson(server.ask(key, field, val));
+      System.out.println(val);
+      return GSON.toJson(server.ask(key, field, GSON.fromJson(val, Map.class)));
     }
   }
 }

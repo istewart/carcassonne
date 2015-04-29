@@ -282,7 +282,7 @@ public class MainServer implements Server {
   }
 
   @Override
-  public Object ask(Key key, String field, String val) {
+  public Object ask(Key key, String field, Object val) {
     NetworkPlayer p = players.get(key);
     if (p == null) {
       return null;
