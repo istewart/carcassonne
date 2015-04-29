@@ -1,6 +1,7 @@
 package edu.brown.cs.scij.network;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -126,11 +127,13 @@ public class MainServer implements Server {
             System.out.println("Player " + p.getId()
               + " opened a second window.");
           }
-          return ImmutableMap.of("key", "undefined",
-            "player", "undefined",
-            "alert", "You appear to have a window open already."
+          Map<String, Object> m = new HashMap<>();
+          m.put("key", "undefined");
+          m.put("player", "undefined");
+          m.put("alert", "You appear to have a window open already."
             + " If so, please close this window."
             + " If not, refresh this page.");
+          return Collections.unmodifiableMap(m);
         }
         p.setOpenWindow(true);
 
@@ -196,13 +199,13 @@ public class MainServer implements Server {
     }
     synchronized (p) {
       p.update();
-      return ImmutableMap.copyOf(fields);
+      return Collections.unmodifiableMap(fields);
     }
   }
 
   @Override
   public Map<String, Object> getAllFields() {
-    return ImmutableMap.copyOf(fields);
+    return Collections.unmodifiableMap(fields);
   }
 
   @Override
@@ -227,7 +230,7 @@ public class MainServer implements Server {
         }
       }
     }
-    return ImmutableMap.copyOf(updates);
+    return Collections.unmodifiableMap(updates);
   }
 
   @Override
