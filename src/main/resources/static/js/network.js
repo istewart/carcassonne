@@ -45,8 +45,6 @@ var network = {
    * returned.
    */
   say: function(field, val) {
-    console.log(val);
-    console.log(JSON.stringify(val));
     var response = {
       key: network.key,
       field: field,
@@ -65,8 +63,6 @@ var network = {
    * returned. This handler will be passed the return value.
    */
   ask: function(field, val, handler) {
-    console.log(val);
-    console.log(JSON.stringify(val));
     var response = {
       key: network.key,
       field: field,
@@ -163,7 +159,6 @@ var network = {
         }
         network.consecutivePingFailures = 0;
         if (network.connected == false) {
-          console.log("reconnected");
           network.server.handle("reconnect", undefined);
         }
         inPingFunction = false;
@@ -181,7 +176,6 @@ var network = {
      * Called when the user first connects to the server (by loading the page).
      */
     connect: function() {
-      console.log("connected2")
       if (network.server.inConnectFunction || typeof network.ip === "undefined") {
         return;
       }
@@ -205,7 +199,6 @@ var network = {
         network.id = responseObject.player;
         network.key = responseObject.key;
 
-        console.log("connected1");
         network.server.handle("connect", undefined);
 
         network.pingInterval = setInterval(network.server.ping, 100);
@@ -249,11 +242,9 @@ var network = {
 
   updators: {
     connect: function() {
-      console.log("connected");
     },
 
     reconnect: function() {
-      console.log("hi");
       network.connected = true;
     },
 
