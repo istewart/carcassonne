@@ -3,7 +3,7 @@ CANVAS_SIZE = 1000;
 
 MOVES_COLOR = "red";
 MEEPLES_COLOR = "red";
-LINE_WIDTH = 6;
+LINE_WIDTH = 3;
 
 // TODO
 
@@ -78,6 +78,10 @@ Renderer.prototype.renderTile = function() {
 
   var spots = this.validMeeples;
   var radius = w / 10;
+
+  if (!spots) {
+    return;
+  }
 
   for (var i = 0; i < spots.length; i++) {
     var x;
@@ -179,6 +183,7 @@ Renderer.prototype.renderMoves = function() {
     var pos = moves[i];
     var targetPlacement = this.posToCanvas(pos);
 
+    ctx.lineWidth = LINE_WIDTH;
     ctx.strokeStyle = MOVES_COLOR;
     ctx.rect(targetPlacement.x, targetPlacement.y, 
              targetPlacement.s, targetPlacement.s);
@@ -303,6 +308,12 @@ Renderer.prototype.shadeMove = function() {
     ctx.drawImage(targetImg, targetPlacement.x, targetPlacement.y, targetPlacement.s, targetPlacement.s);
   }
 
+  ctx.lineWidth = LINE_WIDTH;
+  ctx.strokeStyle = MOVES_COLOR;
+  ctx.rect(targetPlacement.x, targetPlacement.y, 
+           targetPlacement.s, targetPlacement.s);
+  ctx.stroke();
+
   var meeple = this.selectedMeeple;
 
   if (meeple) {
@@ -350,6 +361,10 @@ Renderer.prototype.pixelsToTile = function(pixPos) {
 // Takes the position of a potential move.
 // Returns true if that move is valid and false otherwise.
 Renderer.prototype.containsMove = function(pos) {
+  if (!this.validMoves) {
+    return false;
+  }
+
   for (var i = 0; i < this.validMoves.length; i++) {
     var curr = this.validMoves[i];
 

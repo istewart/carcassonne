@@ -45,7 +45,7 @@ var Menu = function() {
         // responseObject is null
 
         var currTile = network.get("currTile");
-        var board = network.get("board");
+        var board = network.get("board").board;
         var validMoves = network.get("validMoves");
         var validMeeples = network.get("validMeeples");
         var players = network.get("players");

@@ -113,6 +113,62 @@ public class RefereeTest {
       }
     }
   }
+  
+  @Test
+  public void placeMeepleAfterTilePlace() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException {
+	  Player p = new Player(1, "p");
+	  Posn right = new Posn(0,0);
+	  Referee r = new Referee();
+	  List<Player> pList = new ArrayList<>();
+	  pList.add(p);
+	  r.setPlayers(pList);
+	  Center c = new Center(Feature.ENDPOINT);
+	  Edge road = new Edge(Feature.ROAD);
+	  Edge field = new Edge(Feature.FIELD);
+	  Tile rightTile = new Tile(c, field, field, field, road, 0);
+	  c = new Center(Feature.ROAD);
+	  Edge road2 = new Edge(Feature.ROAD);
+	  Edge road3 = new Edge(Feature.ROAD);
+	  r.place(right, rightTile);
+	  try {
+		  Posn centerP = new Posn(-1, 0);
+		  Tile center = new Tile(c, field, road2, field, road3, 0);
+		  r.place(centerP, center);
+		  r.placeMeeple(right, p, Direction.LEFT);
+		  r.placeMeeple(centerP, p, Direction.LEFT);
+		  assertTrue(false);
+	  } catch (UnMeeplableException ume) {
+		  assertTrue(true);
+	  }
+  }
+  
+  @Test
+  public void placeMeepleBeforeTilePlace() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException {
+	  Player p = new Player(1, "p");
+	  Posn right = new Posn(0,0);
+	  Referee r = new Referee();
+	  List<Player> pList = new ArrayList<>();
+	  pList.add(p);
+	  r.setPlayers(pList);
+	  Center c = new Center(Feature.ENDPOINT);
+	  Edge road = new Edge(Feature.ROAD);
+	  Edge field = new Edge(Feature.FIELD);
+	  Tile rightTile = new Tile(c, field, field, field, road, 0);
+	  c = new Center(Feature.ROAD);
+	  Edge road2 = new Edge(Feature.ROAD);
+	  Edge road3 = new Edge(Feature.ROAD);
+	  r.place(right, rightTile);
+	  try {
+		  r.placeMeeple(right, p, Direction.LEFT);
+		  Posn centerP = new Posn(-1, 0);
+		  Tile center = new Tile(c, field, road2, field, road3, 0);
+		  r.place(centerP, center);
+		  r.placeMeeple(centerP, p, Direction.LEFT);
+		  assertTrue(false);
+	  } catch (UnMeeplableException ume) {
+		  assertTrue(true);
+	  }
+  }
 
   @Test
   public void cityScoringTest() throws InvalidEdgeException,
