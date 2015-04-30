@@ -29,7 +29,7 @@ var PlacementButtons = function() {
     });
 
   mainPlace.addEventListener("click", function(event) {
-    if (!isPlaced) {
+    if (isPlaced) {
       if (!renderer.selectedTile) {
         return;
       }
