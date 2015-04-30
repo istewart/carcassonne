@@ -140,7 +140,7 @@ public class Tile {
    * @return rotation
    */
   public int getRotation() {
-	  return rotation;
+    return rotation;
   }
 
   /**
@@ -148,7 +148,7 @@ public class Tile {
    * @param rotation what to set rotation to
    */
   public void setRotation(int rotation) {
-	  this.rotation = rotation;
+    this.rotation = rotation;
   }
 
   /**
@@ -187,9 +187,13 @@ public class Tile {
     right = bottom;
     bottom = left;
     left = tmptop;
-    rotation -= 90;
+    if (rotation == 0) {
+      rotation = 270;
+    } else {
+      rotation -= 90;
+    }
   }
-  
+
   /**
    * rotates the tile to the right.
    */
@@ -199,7 +203,11 @@ public class Tile {
     left = bottom;
     bottom = right;
     right = tmptop;
-    rotation += 90;
+    if (rotation == 270) {
+      rotation = 0;
+    } else {
+      rotation += 90;
+    }
   }
 
   @Override

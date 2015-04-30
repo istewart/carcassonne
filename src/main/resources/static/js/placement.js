@@ -29,7 +29,7 @@ var PlacementButtons = function() {
     });
 
   mainPlace.addEventListener("click", function(event) {
-    if (isPlaced) {
+    if (!isPlaced) {
       if (!renderer.selectedTile) {
         return;
       }
@@ -50,7 +50,8 @@ var PlacementButtons = function() {
         renderer.render();
 
         isPlaced = false;
-        $("#mainPlace").html("Place Meeple");
+        $("#mainPlace").html("place Tile");
+        console.log("placed a meeple.");
       });
     } else {
 
@@ -63,7 +64,7 @@ var PlacementButtons = function() {
 
         renderer.render();
         isPlaced = true;
-        $("#mainPlace").html("Place Tile");
+        $("#mainPlace").html("Place Meeple");
       });
     }
   });
