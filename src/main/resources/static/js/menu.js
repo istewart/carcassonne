@@ -4,6 +4,7 @@ var Menu = function() {
     var instructionsButton = document.getElementById("instructionsButton");
 
     var joinJoin = document.getElementById("joinJoin");
+    var startGame = document.getElementById("startGame");
 
     var mainLeft = document.getElementById("mainLeft");
     var mainPlace = document.getElementById("mainPlace");
@@ -15,6 +16,8 @@ var Menu = function() {
       $("#mainDiv").hide();
       $("#settingsDiv").hide();
       $("#instructionsDiv").hide();
+      $("#lobbyDiv").hide();
+      console.log('hidden');
     }
 
     joinButton.addEventListener("click", function(event) {
@@ -22,14 +25,8 @@ var Menu = function() {
       $("#joinDiv").show();
     });
 
-    joinJoin.addEventListener("click", function(event) {
-      hideAll();
-      $("#mainDiv").show();
-
-      network.ask("newPlayer", {"name": $("#joinName").val()}, function(responseObject) {
-        console.log(responseObject);
-
-        network.ask("gameStart", {"message": "gameStart"}, function(responseObject) {
+    gameStart.addEventListener("click", function(event) {
+      network.ask("gameStart", {"message": "gameStart"}, function(responseObject) {
           // responseObject is null
 
           var currTile = responseObject.currTile;
@@ -41,6 +38,14 @@ var Menu = function() {
           renderer = new Renderer(board.board, currTile, players, validMoves, validMeeples, 1, 0, 0);
           renderer.render();
         });
+    })
+
+    joinJoin.addEventListener("click", function(event) {
+      hideAll();
+      $("#mainDiv").show();
+
+      network.ask("newPlayer", {"name": $("#joinName").val()}, function(responseObject) {
+        console.log(responseObject);
       });
     });
 

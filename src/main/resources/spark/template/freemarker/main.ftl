@@ -61,6 +61,13 @@
       <button class="submitButton" id="joinJoin"> Start </button><br>
       <button class="backButton" id="joinBack"> Back </button>
     </div>
+
+    <div id="lobbyDiv">
+      <h1>Lobby</h1>
+      <button class="submitButton" id="startGame"> Start </button><br>
+      <button class="backButton" id="joinBack"> Back </button>
+    </div>
+
       
     <div id="settingsDiv">
       <h1>Settings</h1>
