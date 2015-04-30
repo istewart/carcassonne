@@ -49,3 +49,10 @@ var PlacementButtons = function() {
       });
     });
 }
+
+var handler = {
+  currTile: function(tile) {
+    renderer.currTile = tile;
+    renderer.render();
+  },
+}

@@ -1,5 +1,6 @@
 package edu.brown.cs.scij.network;
 
+import java.util.Map;
 /**
  * A BackEnd is a class that can communicate with a Server.
  * A Server can run withotu a back end, but it will only serve up a single,
@@ -24,7 +25,7 @@ public interface BackEnd {
    *         response
    *         object.
    */
-  Object answer(int player, String field, Object val);
+  Object answer(int player, String field, Map<String, String> val);
 
   /**
    * Optional operation that tells the Back end what server it is
