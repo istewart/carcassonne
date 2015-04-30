@@ -110,7 +110,7 @@ public class CarcBackEnd implements BackEnd {
           toReturn.put("validMeeples", new ArrayList<>());
         }
 
-        // TODO shouldn't send this here, or
+        // TODO shouldn't send this here, erase
         /*
          * s.putField("gameover", r.isGameOver());
          * toReturn.put("gameover", r.isGameOver());
@@ -158,6 +158,8 @@ public class CarcBackEnd implements BackEnd {
           r.gameOverScoring();
           s.putField("gameover", r.isGameOver());
           toReturn.put("gameover", r.isGameOver());
+          s.putField("players", r.getPlayers());
+          toReturn.put("players", r.getPlayers());
 
           // TODO send only a gameover message with the list of players
         } else {
