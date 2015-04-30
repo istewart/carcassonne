@@ -195,9 +195,10 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
 
     ctx.beginPath();
     ctx.fillStyle =  "blue"; // meeple.player.color;
+    ctx.strokeStyle = null;
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
-    ctx.fill();
     ctx.closePath();
+    ctx.fill();
   }
 
   return;
@@ -207,6 +208,11 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
 Renderer.prototype.renderMoves = function() {
   var mainCanvas = document.getElementById("mainCanvas");
   var ctx = mainCanvas.getContext("2d");
+
+  if (isPlaced) { // currently have a move selected
+    return;
+  }
+
   ctx.beginPath();
 
   var moves = this.validMoves;
@@ -315,11 +321,13 @@ Renderer.prototype.shadeMove = function() {
     ctx.drawImage(targetImg, targetPlacement.x, targetPlacement.y, targetPlacement.s, targetPlacement.s);
   }
 
+  ctx.beginPath();
   ctx.lineWidth = LINE_WIDTH;
   ctx.strokeStyle = MOVES_COLOR;
   ctx.rect(targetPlacement.x, targetPlacement.y, 
            targetPlacement.s, targetPlacement.s);
   ctx.stroke();
+  ctx.closePath();
 
   var meeple = this.selectedMeeple;
 
