@@ -28,7 +28,7 @@
         <!-- <img src="" id="tileImage"> -->
         <div>
             <button id="mainLeft" class="placeButton"> Left </button>
-            <button id="mainPlace" class="placeButton"> Place </button>
+            <button id="mainPlace" class="placeButton"> Place Tile </button>
             <button id="mainRight" class="placeButton"> Right </button>
         </div>
 

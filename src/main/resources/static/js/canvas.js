@@ -85,7 +85,7 @@ var Canvas = function() {
 			} else {
 				renderer.selectedTile = roundedPos;
 			}
-
+/*
 			var move = "" + renderer.selectedTile.x + "," + renderer.selectedTile.y;
       		var postParameters = {"move": move};
 
@@ -94,7 +94,8 @@ var Canvas = function() {
         		renderer.validMeeples = validMeeples;
 
         		renderer.render();
-			});
+			});*/
+
 		}
 	}).on('mouseleave', function(e) {
 		dragging = false;

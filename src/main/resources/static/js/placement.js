@@ -1,4 +1,5 @@
 var PlacementButtons = function() {
+  var isPlaced = false;
 	mainLeft.addEventListener("click", function(event) {
       network.ask("rotate",  {"rotate": "left"}, function(responseObject) {
         var currTile = responseObject.currTile;
@@ -28,8 +29,9 @@ var PlacementButtons = function() {
     });
 
   mainPlace.addEventListener("click", function(event) {
+    if (isPlaced) {
       if (!renderer.selectedTile) {
-          return;
+        return;
       }
 
       var postParameters = {"meeple": renderer.selectedMeeple};
@@ -47,5 +49,21 @@ var PlacementButtons = function() {
 
         renderer.render();
       });
-    });
+      isPlaced = false;
+      $("#mainPlace").html("Place Meeple");
+    } else {
+
+      var move = "" + renderer.selectedTile.x + "," + renderer.selectedTile.y;
+        var postParameters = {"move": move};
+
+      network.ask("placeTile", postParameters, function(responseObject) {
+        var validMeeples = responseObject.validMeeples;
+        renderer.validMeeples = validMeeples;
+
+        renderer.render();
+      });
+      isPlaced = true;
+      $("#mainPlace").html("Place Tile");
+    }
+  });
 }
