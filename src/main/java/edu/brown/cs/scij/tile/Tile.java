@@ -92,14 +92,6 @@ public class Tile {
     return id;
   }
 
-  public int getRotation() {
-    return rotation;
-  }
-
-  public void setRotation(int rotation) {
-    this.rotation = rotation;
-  }
-
   public int getShield() {
     return shield;
   }
@@ -117,6 +109,7 @@ public class Tile {
     right = bottom;
     bottom = left;
     left = tmptop;
+    rotation -= 90;
     return this;
   }
 
@@ -126,6 +119,7 @@ public class Tile {
     left = bottom;
     bottom = right;
     right = tmptop;
+    rotation += 90;
     return this;
   }
 
