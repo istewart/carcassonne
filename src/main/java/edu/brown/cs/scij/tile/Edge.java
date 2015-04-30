@@ -1,7 +1,20 @@
 package edu.brown.cs.scij.tile;
 
+/**
+ * Edge is an object that keeps track of an edge element of a tile. It
+ * contains an Enum describing what type of edge is part of the tile, and the
+ * meeple that is on it, if there is one.
+ * 
+ * @author scij
+ *
+ */
 public class Edge extends TileFeature {
 
+	/**
+	 * constructor for Edge.
+	 * @param feature the feature contained by edge.
+	 * @throws InvalidEdgeException if this is not an acceptable feature
+	 */
   public Edge(Feature feature)
     throws InvalidEdgeException {
     super(feature);
