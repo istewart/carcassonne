@@ -58,14 +58,14 @@
       <h1>Join</h1>
 
       <textarea id="joinName" class="hostField" rows="1" placeholder="Your Name"></textarea></br>
-      <button class="submitButton" id="joinJoin"> Enter Lobby </button><br>
+      <button class="submitButton" id="joinJoin"> Start </button><br>
       <button class="backButton" id="joinBack"> Back </button>
     </div>
 
     <div id="lobbyDiv">
       <h1>Lobby</h1>
       <button class="submitButton" id="startGame"> Start </button><br>
-      <button class="backButton" id="lobbyBack"> Back </button>
+      <button class="backButton" id="joinBack"> Back </button>
     </div>
 
       
