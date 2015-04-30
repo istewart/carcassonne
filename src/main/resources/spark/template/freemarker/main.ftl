@@ -65,11 +65,7 @@
     <div id="lobbyDiv">
       <h1>Lobby</h1>
       <button class="submitButton" id="startGame"> Start </button><br>
-<<<<<<< HEAD
       <button class="backButton" id="lobbyBack"> Back </button>
-=======
-      <button class="backButton" id="joinBack"> Back </button>
->>>>>>> ee5c76915e100ce216656daba3b823081a7c5d5a
     </div>
 
       

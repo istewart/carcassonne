@@ -4,12 +4,9 @@ var Menu = function() {
     var instructionsButton = document.getElementById("instructionsButton");
 
     var joinJoin = document.getElementById("joinJoin");
-<<<<<<< HEAD
-    var startGame = document.getElementById("joinGame");
     var lobbyBack = document.getElementById("lobbyBack");
-=======
     var startGame = document.getElementById("startGame");
->>>>>>> ee5c76915e100ce216656daba3b823081a7c5d5a
+
 
     var mainLeft = document.getElementById("mainLeft");
     var mainPlace = document.getElementById("mainPlace");
@@ -22,10 +19,6 @@ var Menu = function() {
       $("#settingsDiv").hide();
       $("#instructionsDiv").hide();
       $("#lobbyDiv").hide();
-<<<<<<< HEAD
-=======
-      console.log('hidden');
->>>>>>> ee5c76915e100ce216656daba3b823081a7c5d5a
     }
 
     joinButton.addEventListener("click", function(event) {
@@ -33,21 +26,7 @@ var Menu = function() {
       $("#joinDiv").show();
     });
 
-<<<<<<< HEAD
-    joinJoin.addEventListener("click", function(event) {
-      hideAll();
-      $("#lobbyDiv").show();
-
-      network.ask("newPlayer", {"name": $("#joinName").val()}, function(responseObject) {
-        console.log(responseObject);
-
-      });
-    });
-
     startGame.addEventListener("click", function(event) {
-=======
-    gameStart.addEventListener("click", function(event) {
->>>>>>> ee5c76915e100ce216656daba3b823081a7c5d5a
       network.ask("gameStart", {"message": "gameStart"}, function(responseObject) {
           // responseObject is null
 
@@ -64,8 +43,6 @@ var Menu = function() {
           $("#mainDiv").show();
         });
     })
-<<<<<<< HEAD
-=======
 
     joinJoin.addEventListener("click", function(event) {
       hideAll();
@@ -75,7 +52,6 @@ var Menu = function() {
         console.log(responseObject);
       });
     });
->>>>>>> ee5c76915e100ce216656daba3b823081a7c5d5a
 
     settingsButton.addEventListener("click", function(event) {
       hideAll();
