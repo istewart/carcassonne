@@ -9,6 +9,7 @@ var PlacementButtons = function() {
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;
         renderer.players = players;
+        renderer.selectedTile = null;
 
         renderer.render();
       });
@@ -23,6 +24,7 @@ var PlacementButtons = function() {
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;
         renderer.players = players;
+        renderer.selectedTile = null;
 
         renderer.render();
       });

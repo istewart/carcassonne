@@ -146,18 +146,13 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
   var ctx = mainCanvas.getContext("2d");
 
   var tileMap = this.board;
-  console.log(tileMap);
 
   for (var posn in tileMap) {
     var posArray = posn.replace("(", "").replace(")", "").split(", ");
     var pos = {x: posArray[0], y: posArray[1]};
-    console.log(pos);
 
     var targetPlacement = this.posToCanvas(pos);
     var tileObj = tileMap[posn];
-
-    console.log(tileObj);
-    console.log(targetPlacement);
 
     var targetImg = document.getElementById(tileObj.pngID);
     var targetRadians = tileObj.rotation * Math.PI / 180;
@@ -172,33 +167,37 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
       ctx.drawImage(targetImg, targetPlacement.x, targetPlacement.y, targetPlacement.s, targetPlacement.s);
     }
 
-    // var meeple = tileObj.meeple;
+    var w = targetPlacement.s;
+    var h = targetPlacement.s;
+    var radius = targetPlacement.s / 10;
 
-    // if (meeple) {
-    //   var w = targetPlacement.s;
-    //   var h = targetPlacement.s;
-    //   var radius = targetPlacement.s / 10;
+    var x = targetPlacement.x;
+    var y = targetPlacement.y;
 
-    //   var x = targetPlacement.x;
-    //   var y = targetPlacement.y;
+    if (tileObj.top.meeple) {
+      x += w / 2;
+      y += h / 4; 
+    } else if (tileObj.bottom.meeple) {
+      x += w / 2;
+      y += 3 * h / 4;
+    } else if (tileObj.left.meeple) {
+      x += w / 4;
+      y += h / 2;
+    } else if (tileObj.right.meeple) {
+      x += 3 * w / 4;
+      y += h / 2;
+    } else if (tileObj.center.meeple) {
+      x += w / 2;
+      y += h / 2;
+    } else {
+      continue;
+    }
 
-    //   var meeplePlacement = meeple.meeplePlacement;
-
-    //   switch(meeplePlacement) {
-    //     case "UP": x += w / 2; y += h / 4; break;
-    //     case "DOWN": x += w / 2; y += 3 * h / 4; break;
-    //     case "RIGHT": x += 3 * w / 4; y += h / 2; break;
-    //     case "LEFT": x += w / 4; y += h / 2; break;
-    //     case "CENTER": x += w / 2; y += h / 2; break;
-    //     default: alert("Meeple switch failed!")
-    //   }
-
-    //   ctx.beginPath();
-    //   ctx.fillStyle = meeple.player.color;
-    //   ctx.arc(x, y, radius, 0, 2 * Math.PI);
-    //   ctx.fill();
-    //   ctx.closePath();
-    // }
+    ctx.beginPath();
+    ctx.fillStyle =  "blue"; // meeple.player.color;
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.closePath();
   }
 
   return;
