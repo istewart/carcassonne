@@ -90,16 +90,21 @@ public class CarcBackEnd implements BackEnd {
           // same tile and such
         }
 
-        // putField: board, next player, list of all players, valid meeples
-        s.putField("board", r.getBoard());
-        toReturn.put("board", r.getBoard());
-        s.putField("currentPlayer", r.getCurPlayer());
-        toReturn.put("currentPlayer", r.getCurPlayer());
-        s.putField("players", r.getPlayers());
-        toReturn.put("players", r.getPlayers());
-        Tile currTile = r.getCurTile();
-        s.putField("currTile", currTile);
-        toReturn.put("currTile", currTile);
+        // putField: board, current player, list of all players, valid meeples,
+        // current tile
+        /*
+         * s.putField("board", r.getBoard());
+         * toReturn.put("board", r.getBoard());
+         * s.putField("currentPlayer", r.getCurPlayer());
+         * toReturn.put("currentPlayer", r.getCurPlayer());
+         * s.putField("players", r.getPlayers());
+         * toReturn.put("players", r.getPlayers());
+         */
+        /* Tile currTile = r.getCurTile(); */
+        /*
+         * s.putField("currTile", currTile);
+         * toReturn.put("currTile", currTile);
+         */
         if (r.getCurPlayer().getNumMeeples() > 0) {
           try {
             List<Direction> validMeeples = r.validMeeples(p);
@@ -124,6 +129,7 @@ public class CarcBackEnd implements BackEnd {
       case "placeMeeple":
         // TODO receiving: direction
         // returning: currtile, board, validmoves, players, currplayer
+
         break;
       default:
         // TODO not sure what to do when it's none of these
