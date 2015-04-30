@@ -103,7 +103,7 @@ public class CarcBackEnd implements BackEnd {
 
         if (r.getCurPlayer().getNumMeeples() > 0) {
           try {
-            List<Direction> validMeeples = r.validMeeples(p);
+            List<Direction> validMeeples = r.getBoard().validMeeples(p);
             s.putField("validMeeples", validMeeples);
             toReturn.put("validMeeples", validMeeples);
           } catch (NullTileException e) {

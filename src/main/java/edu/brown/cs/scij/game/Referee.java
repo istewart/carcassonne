@@ -866,71 +866,11 @@ public class Referee {
     return null;
   }
 
-  public List<Direction> validMeeples(Posn p) throws NullTileException {
-    Tile t = board.getBoard().get(p);
-    if (t == null) {
-      throw new NullTileException();
-    }
-
-    TileFeature top = t.getTop();
-    TileFeature bottom = t.getBottom();
-    TileFeature right = t.getRight();
-    TileFeature left = t.getLeft();
-    TileFeature center = t.getCenter();
-
-    List<Direction> meepleableLocations = new ArrayList<>();
-    Feature feature = null;
-    if (top.isMeeplable()) {
-      feature = top.getFeature();
-      if (feature == Feature.ROAD || feature == Feature.CITY) {
-        if (!top.touchesMeeple()) {
-          meepleableLocations.add(Direction.UP);
-        }
-      }
-    }
-    if (left.isMeeplable()) {
-      feature = left.getFeature();
-      if (feature == Feature.ROAD || feature == Feature.CITY) {
-        if (!left.touchesMeeple()) {
-          meepleableLocations.add(Direction.LEFT);
-        }
-      }
-    }
-    if (right.isMeeplable()) {
-      feature = right.getFeature();
-      if (feature == Feature.ROAD || feature == Feature.CITY) {
-        if (!right.touchesMeeple()) {
-          meepleableLocations.add(Direction.RIGHT);
-        }
-      }
-    }
-    if (bottom.isMeeplable()) {
-      feature = bottom.getFeature();
-      if (feature == Feature.ROAD || feature == Feature.CITY) {
-        if (!bottom.touchesMeeple()) {
-          meepleableLocations.add(Direction.DOWN);
-        }
-      }
-    }
-    if (center.isMeeplable()) {
-      feature = center.getFeature();
-      if (feature == Feature.ROAD || feature == Feature.CITY) {
-        if (!center.touchesMeeple()) {
-          meepleableLocations.add(Direction.CENTER);
-        }
-      } else if (feature == Feature.MONASTERY) {
-        meepleableLocations.add(Direction.CENTER);
-      }
-    }
-
-    return meepleableLocations;
-  }
-
   public void placeMeeple(Posn posn, Player player,
       Direction d) throws NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Tile t = board.getBoard().get(posn);
-    if (!validMeeples(posn).contains(d)) {
+    if (!board.validMeeples(posn).contains(d)) {
       throw new UnMeeplableException();
     }
     if (t != null) {

@@ -58,21 +58,22 @@ public abstract class TileFeature {
   public Feature getFeature() {
     return feature;
   }
-  
+
   /**
    * determines whether the feature touches a meeple.
    * @return touchesMeeple
    */
   public boolean touchesMeeple() {
-	  return touchesMeeple;
+    return touchesMeeple;
   }
 
   /**
+   * .getFeature()
    * setter for touchesMeeple
    * @param tm what to set touchesMeeple to
    */
-  public void setTouchesMeeple(boolean tm){
-	  touchesMeeple = tm;
+  public void setTouchesMeeple(boolean tm) {
+    touchesMeeple = tm;
   }
 
   /**
@@ -114,8 +115,8 @@ public abstract class TileFeature {
       isMeeplable = true;
     }
   }
-  
-  @Override
+
+  @Override.getFeature()
   public String toString() {
     StringBuilder sb = new StringBuilder();
     // sb.append("Feature: ");
