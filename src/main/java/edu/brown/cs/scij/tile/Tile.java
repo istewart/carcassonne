@@ -87,7 +87,15 @@ public class Tile {
   public Edge getRight() {
     return right;
   }
+  
+  public int getRotation() {
+	  return rotation;
+  }
 
+  public void setRotation(int rotation) {
+	  this.rotation = rotation;
+  }
+  
   public int getId() {
     return id;
   }
@@ -111,8 +119,8 @@ public class Tile {
     left = tmptop;
     rotation -= 90;
     return this;
-  }
-
+  }  
+  
   public Tile rotateRight() {
     Edge tmptop = top;
     top = left;
