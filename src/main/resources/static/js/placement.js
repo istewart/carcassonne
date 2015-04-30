@@ -1,9 +1,9 @@
 var PlacementButtons = function() {
 	mainLeft.addEventListener("click", function(event) {
       network.ask("rotate",  {"rotate": "left"}, function(responseObject) {
-        var currTile = network.get("currTile");
-        var validMoves = network.get("validMoves");
-        var players = network.get("players");
+        var currTile = responseObject.currTile;
+        var validMoves = responseObject.validMoves;
+        var players = responseObject.players;
 
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;
@@ -15,9 +15,9 @@ var PlacementButtons = function() {
 
   mainRight.addEventListener("click", function(event) {
       network.ask("rotate", {"rotate": "right"}, function(responseObject) {
-        var currTile = network.get("currTile");
-        var validMoves = network.get("validMoves");
-        var players = network.get("players");
+        var currTile = responseObject.currTile;
+        var validMoves = responseObject.validMoves;
+        var players = responseObject.players;
 
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;
@@ -28,17 +28,17 @@ var PlacementButtons = function() {
     });
 
   mainPlace.addEventListener("click", function(event) {
-      if (!renderer.selectedMove) {
-        return;
-      }
-
       var postParameters = {move: renderer.selectedMove, meeple: renderer.selectedMeeple};
 
       network.ask("place", postParameters, function(responseObject) {
-        var currTile = network.get("currTile");
-        var board = network.get("board");
-        var validMoves = network.get("validMoves");
-        var players = network.get("players");
+        if (!renderer.selectedMove) {
+          return;
+        }
+
+        var currTile = responseObject.currTile;
+        var board = responseObject.board;
+        var validMoves = responseObject.validMoves;
+        var players = responseObject.players;
 
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;
