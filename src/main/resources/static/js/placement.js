@@ -36,7 +36,7 @@ var PlacementButtons = function() {
 
       var postParameters = {move: move, meeple: renderer.selectedMeeple};
 
-      network.ask("placeTile", postParameters, function(responseObject) {
+      network.ask("placeMeeple", postParameters, function(responseObject) {
         var currTile = responseObject.currTile;
         var board = responseObject.board;
         var validMoves = responseObject.validMoves;
