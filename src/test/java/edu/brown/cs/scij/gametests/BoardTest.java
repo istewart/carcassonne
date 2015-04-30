@@ -42,15 +42,17 @@ public class BoardTest {
     Edge left1 = new Edge(Feature.CITY);
     Edge right1 = new Edge(Feature.CITY);
     Tile toTest = new Tile(c1, top1, right1, bottom1, left1, 1);
-
-    // List<Posn> validMoves = new ArrayList<>();
     Player p = new Player(0, "Scott");
     Referee r = new Referee();
     r.newPlayer(p);
     r.place(new Posn(0, 0), t);
-    r.placeMeeple(new Posn(0, 0), p, Direction.LEFT);
 
-    System.out.println(r.getBoard().validMoves(toTest));
+    r.placeMeeple(new Posn(0, 0), p, Direction.LEFT);
+    List<Posn> actualValidMoves = r.getBoard().validMoves(toTest);
+    assertTrue(actualValidMoves.size() == 3);
+    assertTrue(actualValidMoves.contains(new Posn(0, 1)));
+    assertTrue(actualValidMoves.contains(new Posn(-1, 0)));
+    assertTrue(actualValidMoves.contains(new Posn(1, 0)));
   }
 
   @Test
@@ -322,7 +324,6 @@ public class BoardTest {
     assertTrue(validMoves.contains(p32));
     assertTrue(validMoves.contains(p11));
   }
-  
 
   @Test
   public void veryValidMeepleTest() throws InvalidEdgeException,
