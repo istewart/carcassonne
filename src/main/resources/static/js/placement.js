@@ -32,8 +32,7 @@ var PlacementButtons = function() {
           return;
       }
 
-      var move = "" + renderer.selectedTile.x + "," + renderer.selectedTile.y;
-      var postParameters = {"move": move, "meeple": renderer.selectedMeeple};
+      var postParameters = {"meeple": renderer.selectedMeeple};
 
       network.ask("placeMeeple", postParameters, function(responseObject) {
         var currTile = responseObject.currTile;
