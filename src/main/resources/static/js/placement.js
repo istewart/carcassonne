@@ -46,12 +46,14 @@ var PlacementButtons = function() {
         renderer.validMoves = validMoves;
         renderer.board = board.board;
         renderer.players = players;
+        renderer.validMeeples = null;
+        renderer.selectedTile = null;
+        renderer.selectedMeeple = null;
 
         isPlaced = false;
         $("#mainPlace").html("Place Tile");
         $("#mainLeft").show();
         $("#mainRight").show();
-        console.log("placed a meeple.");
 
         renderer.render();
       });

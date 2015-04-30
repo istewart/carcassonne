@@ -32,6 +32,33 @@ function Renderer(board, currTile, players, validMoves, validMeeples, scale, xt,
   console.log(this);
 }
 
+// Clears and re-renders the entire page.
+Renderer.prototype.render = function() {
+  console.log(this);
+
+  var canvas = document.getElementById("mainCanvas");
+  var ctx = canvas.getContext("2d");
+
+  // Store the current transformation matrix
+  ctx.save();
+
+  // Use the identity matrix while clearing the canvas
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.beginPath();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.stroke();
+  ctx.closePath();
+
+  // Restore the transform
+  ctx.restore();
+
+  this.renderBoard();
+  this.renderTile();
+  this.renderMoves();
+  this.renderPlayers();
+  this.shadeMove();
+};
+
 // Renders the player list.
 Renderer.prototype.renderPlayers = function() {
   var playersList = this.players;
@@ -119,12 +146,18 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
   var ctx = mainCanvas.getContext("2d");
 
   var tileMap = this.board;
+  console.log(tileMap);
 
-  for (var i = 0; i < tileMap.length; i++) {
-    var currTile = tileMap[i];
+  for (var posn in tileMap) {
+    var posArray = posn.replace("(", "").replace(")", "").split(", ");
+    var pos = {x: posArray[0], y: posArray[1]};
+    console.log(pos);
 
-    var targetPlacement = this.posToCanvas(currTile.pos);
-    var tileObj = currTile.tile;
+    var targetPlacement = this.posToCanvas(pos);
+    var tileObj = tileMap[posn];
+
+    console.log(tileObj);
+    console.log(targetPlacement);
 
     var targetImg = document.getElementById(tileObj.pngID);
     var targetRadians = tileObj.rotation * Math.PI / 180;
@@ -139,33 +172,33 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
       ctx.drawImage(targetImg, targetPlacement.x, targetPlacement.y, targetPlacement.s, targetPlacement.s);
     }
 
-    var meeple = currTile.meeple;
+    // var meeple = tileObj.meeple;
 
-    if (meeple) {
-      var w = targetPlacement.s;
-      var h = targetPlacement.s;
-      var radius = targetPlacement.s / 10;
+    // if (meeple) {
+    //   var w = targetPlacement.s;
+    //   var h = targetPlacement.s;
+    //   var radius = targetPlacement.s / 10;
 
-      var x = targetPlacement.x;
-      var y = targetPlacement.y;
+    //   var x = targetPlacement.x;
+    //   var y = targetPlacement.y;
 
-      var meeplePlacement = meeple.meeplePlacement;
+    //   var meeplePlacement = meeple.meeplePlacement;
 
-      switch(meeplePlacement) {
-        case "UP": x += w / 2; y += h / 4; break;
-        case "DOWN": x += w / 2; y += 3 * h / 4; break;
-        case "RIGHT": x += 3 * w / 4; y += h / 2; break;
-        case "LEFT": x += w / 4; y += h / 2; break;
-        case "CENTER": x += w / 2; y += h / 2; break;
-        default: alert("Meeple switch failed!")
-      }
+    //   switch(meeplePlacement) {
+    //     case "UP": x += w / 2; y += h / 4; break;
+    //     case "DOWN": x += w / 2; y += 3 * h / 4; break;
+    //     case "RIGHT": x += 3 * w / 4; y += h / 2; break;
+    //     case "LEFT": x += w / 4; y += h / 2; break;
+    //     case "CENTER": x += w / 2; y += h / 2; break;
+    //     default: alert("Meeple switch failed!")
+    //   }
 
-      ctx.beginPath();
-      ctx.fillStyle = meeple.player.color;
-      ctx.arc(x, y, radius, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.closePath();
-    }
+    //   ctx.beginPath();
+    //   ctx.fillStyle = meeple.player.color;
+    //   ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    //   ctx.fill();
+    //   ctx.closePath();
+    // }
   }
 
   return;
@@ -192,33 +225,6 @@ Renderer.prototype.renderMoves = function() {
 
   ctx.closePath();
   return;
-};
-
-// Clears and re-renders the entire page.
-Renderer.prototype.render = function() {
-  console.log(this);
-
-  var canvas = document.getElementById("mainCanvas");
-  var ctx = canvas.getContext("2d");
-
-  // Store the current transformation matrix
-  ctx.save();
-
-  // Use the identity matrix while clearing the canvas
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.beginPath();
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.stroke();
-  ctx.closePath();
-
-  // Restore the transform
-  ctx.restore();
-
-  this.renderBoard();
-  this.renderTile();
-  this.renderMoves();
-  this.renderPlayers();
-  this.shadeMove();
 };
 
 // Takes a pos {x: x, y: y}

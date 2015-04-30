@@ -87,7 +87,7 @@ var Canvas = function() {
 			}
 
 
-			r.render();
+			renderer.render();
 		}
 	}).on('mouseleave', function(e) {
 		dragging = false;
