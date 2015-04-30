@@ -984,137 +984,137 @@ public class Referee {
 
     List<Tile> tiles = new ArrayList<>();
     // 1x 4-road piece w/endpoint
-    tiles.add(new Tile(new Center(endpoint), new Edge(road), new Edge(road),
+    tiles.add(new Tile(2, new Center(endpoint), new Edge(road), new Edge(road),
         new Edge(road), new Edge(road), 0));
 
     // 4x 3-road 1-field w/endpoint
     for (i = 0; i < 4; i++) {
-      tiles.add(new Tile(new Center(endpoint), new Edge(field), new Edge(road),
+      tiles.add(new Tile(7, new Center(endpoint), new Edge(field), new Edge(road),
           new Edge(road), new Edge(road), 0));
     }
 
     // 3x 3-road 1-city w/endpoint
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(new Center(endpoint), new Edge(city), new Edge(road),
+      tiles.add(new Tile(23, new Center(endpoint), new Edge(city), new Edge(road),
           new Edge(road), new Edge(road), 0));
     }
 
     // 8x straight road
     for (i = 0; i < 8; i++) {
-      tiles.add(new Tile(new Center(road), new Edge(field), new Edge(road),
+      tiles.add(new Tile(10, new Center(road), new Edge(field), new Edge(road),
           new Edge(field), new Edge(road), 0));
     }
 
     // 9x curved road
     for (i = 0; i < 9; i++) {
-      tiles.add(new Tile(new Center(road), new Edge(field), new Edge(field),
+      tiles.add(new Tile(15, new Center(road), new Edge(field), new Edge(field),
           new Edge(road), new Edge(road), 0));
     }
 
     // 4x 1-city w/straight road
     for (i = 0; i < 4; i++) {
-      tiles.add(new Tile(new Center(road), new Edge(city), new Edge(road),
+      tiles.add(new Tile(24, new Center(road), new Edge(city), new Edge(road),
           new Edge(field), new Edge(road), 0));
     }
 
     // 3x 1-city w/curved road from left
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(new Center(field), new Edge(city), new Edge(field),
+      tiles.add(new Tile(22, new Center(field), new Edge(city), new Edge(field),
           new Edge(road), new Edge(road), 0));
     }
 
     // 3x 1-city w/curved road from right
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(new Center(field), new Edge(city), new Edge(road),
+      tiles.add(new Tile(21, new Center(field), new Edge(city), new Edge(road),
           new Edge(road), new Edge(field), 0));
     }
 
     // 3x 2-sided city w/curved road
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+      tiles.add(new Tile(13, new Center(city), new Edge(city), new Edge(city),
           new Edge(road), new Edge(road), 0));
     }
 
     // 2x 2-sided city w/curved road and shield
     for (i = 0; i < 2; i++) {
-      tiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+      tiles.add(new Tile(14, new Center(city), new Edge(city), new Edge(city),
           new Edge(road), new Edge(road), 1));
     }
 
     // 2x one-roaded monastery
     for (i = 0; i < 2; i++) {
-      tiles.add(new Tile(new Center(monastery), new Edge(field),
+      tiles.add(new Tile(18, new Center(monastery), new Edge(field),
           new Edge(field), new Edge(road), new Edge(field), 0));
     }
 
     // 1x 1-road 3-city
-    tiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+    tiles.add(new Tile(5, new Center(city), new Edge(city), new Edge(city),
         new Edge(road), new Edge(city), 0));
 
     // 2x 1-road 3-city w/shield
     for (i = 0; i < 2; i++) {
-      tiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+      tiles.add(new Tile(6, new Center(city), new Edge(city), new Edge(city),
           new Edge(road), new Edge(city), 1));
     }
 
     // 4x 4-field w/monastery
     for (i = 0; i < 4; i++) {
-      tiles.add(new Tile(new Center(monastery), new Edge(field),
+      tiles.add(new Tile(19, new Center(monastery), new Edge(field),
           new Edge(field), new Edge(field), new Edge(field), 0));
     }
 
     // 5x 3-field 1-city
     for (i = 0; i < 5; i++) {
-      tiles.add(new Tile(new Center(field), new Edge(city), new Edge(field),
+      tiles.add(new Tile(20, new Center(field), new Edge(city), new Edge(field),
           new Edge(field), new Edge(field), 0));
     }
 
     // 1x 2-city (bridge) 2-field
-    tiles.add(new Tile(new Center(city), new Edge(field), new Edge(city),
+    tiles.add(new Tile(8, new Center(city), new Edge(field), new Edge(city),
         new Edge(field), new Edge(city), 0));
 
     // 2x 2-city (bridge) 2-field w/shield
     for (i = 0; i < 2; i++) {
-      tiles.add(new Tile(new Center(city), new Edge(field), new Edge(city),
+      tiles.add(new Tile(9, new Center(city), new Edge(field), new Edge(city),
           new Edge(field), new Edge(city), 1));
     }
 
     // 3x 2-city (corner) 2-field
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+      tiles.add(new Tile(11, new Center(city), new Edge(city), new Edge(city),
           new Edge(field), new Edge(field), 0));
     }
 
     // 2x 2-city (corner) 2-field w/shield
     for (i = 0; i < 2; i++) {
-      tiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+      tiles.add(new Tile(12, new Center(city), new Edge(city), new Edge(city),
           new Edge(field), new Edge(field), 1));
     }
 
     // 3x 2-city (not-connected, opposite sides) 2-field
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(new Center(field), new Edge(city), new Edge(field),
+      tiles.add(new Tile(17, new Center(field), new Edge(city), new Edge(field),
           new Edge(city), new Edge(field), 0));
     }
 
     // 2x 2-city (not-connected, adjacent sides) 2-field
     for (i = 0; i < 2; i++) {
-      tiles.add(new Tile(new Center(field), new Edge(city), new Edge(city),
+      tiles.add(new Tile(16, new Center(field), new Edge(city), new Edge(city),
           new Edge(field), new Edge(field), 0));
     }
 
     // 3x 3-city 1-field
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+      tiles.add(new Tile(3, new Center(city), new Edge(city), new Edge(city),
           new Edge(field), new Edge(city), 0));
     }
 
     // 1x 3-city 1-field w/shield
-    tiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+    tiles.add(new Tile(4, new Center(city), new Edge(city), new Edge(city),
         new Edge(field), new Edge(city), 1));
 
     // 1x 4-city w/shield
-    tiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+    tiles.add(new Tile(1, new Center(city), new Edge(city), new Edge(city),
         new Edge(city), new Edge(city), 1));
 
     Collections.shuffle(tiles);
