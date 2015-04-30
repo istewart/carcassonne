@@ -1143,5 +1143,28 @@ public class RefereeTest {
     r.scoreMonasteryEndgame();
     assertTrue(score + 6 == p.getScore());
   }
-
+  
+  @Test
+  public void veryValidMeepleTest() throws InvalidEdgeException, PosnTakenException, NullTileException {
+	  Center c = new Center(Feature.CITY);
+	  Edge city = new Edge(Feature.CITY);
+	  Edge city2 = new Edge(Feature.CITY);
+	  Edge city3 = new Edge(Feature.CITY);
+	  Edge city4 = new Edge(Feature.CITY);
+	  Tile t = new Tile(c, city, city2, city3, city4, 0);
+	  Posn p = new Posn(0,0);
+	  Player p1 = new Player(1, "p1");
+	  List<Player> players = new ArrayList<>();
+	  players.add(p1);
+	  Referee r = new Referee();
+	  r.setPlayers(players);
+	  r.place(p,  t);
+	  List<Direction> directions = r.validMeeples(p);
+	  assertTrue(directions.size() == 5);
+	  assertTrue(directions.contains(Direction.CENTER));
+	  assertTrue(directions.contains(Direction.UP));
+	  assertTrue(directions.contains(Direction.DOWN));
+	  assertTrue(directions.contains(Direction.LEFT));
+	  assertTrue(directions.contains(Direction.RIGHT));
+  }
 }
