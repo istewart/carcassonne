@@ -111,24 +111,22 @@ public class Tile {
     return true;
   }
 
-  public Tile rotateLeft() {
+  public void rotateLeft() {
     Edge tmptop = top;
     top = right;
     right = bottom;
     bottom = left;
     left = tmptop;
     rotation -= 90;
-    return this;
   }  
   
-  public Tile rotateRight() {
+  public void rotateRight() {
     Edge tmptop = top;
     top = left;
     left = bottom;
     bottom = right;
     right = tmptop;
     rotation += 90;
-    return this;
   }
 
   /*

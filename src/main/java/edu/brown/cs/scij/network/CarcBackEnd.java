@@ -30,6 +30,7 @@ public class CarcBackEnd implements BackEnd {
     Tile t;
     Map<String, String> data = (Map<String, String>) val;
     assert (player == r.getCurPlayer().getId());
+    Map<String, Object> toReturn = new HashMap<>();
     switch (field) {
       case "rotate":
         // receive left or right
@@ -41,7 +42,6 @@ public class CarcBackEnd implements BackEnd {
           } else {
             t.rotateRight();
           }
-          Map<String, Object> toReturn = new HashMap<>();
           toReturn.put("currTile", t);
           toReturn.put("validMoves", r.getBoard().validMoves(t));
         }
@@ -145,7 +145,7 @@ public class CarcBackEnd implements BackEnd {
         // TODO not sure what to do when it's none of these
     }
     // return only what the person requesting should know
-    return ImmutableMap.of();
+    return toReturn;
   }
 
   @Override

@@ -37,18 +37,20 @@ public class TileTest {
     Edge left = new Edge(Feature.FIELD);
     Edge right = new Edge(Feature.FIELD);
     Tile t = new Tile(c, top, right, bottom, left, 0);
-    t = t.rotateLeft();
+    t.rotateLeft();
     assertTrue(t.getCenter().equals(c));
     assertTrue(t.getTop().equals(right));
     assertTrue(t.getBottom().equals(left));
     assertTrue(t.getLeft().equals(top));
     assertTrue(t.getRight().equals(bottom));
-    t = t.rotateRight();
+    assertTrue(t.getRotation() == -90);
+    t.rotateRight();
     assertTrue(t.getCenter().equals(c));
     assertTrue(t.getTop().equals(top));
     assertTrue(t.getBottom().equals(bottom));
     assertTrue(t.getLeft().equals(left));
     assertTrue(t.getRight().equals(right));
+    assertTrue(t.getRotation() == 0);
   }
 
   @Test
