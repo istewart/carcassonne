@@ -86,12 +86,11 @@ var Canvas = function() {
 				renderer.selectedTile = roundedPos;
 			}
 
-			var postParameters = "TODO";
-			network.ask("placeTile", postParameters, function(responseObject) {
-        		var validMoves = responseObject.validMoves;
-        		var validMeeples = responseObject.validMeeples;
+			var move = "" + renderer.selectedTile.x + "," + renderer.selectedTile.y;
+      		var postParameters = {"move": move};
 
-        		renderer.validMoves = validMoves;
+			network.ask("placeTile", postParameters, function(responseObject) {
+        		var validMeeples = responseObject.validMeeples;
         		renderer.validMeeples = validMeeples;
 
         		renderer.render();
