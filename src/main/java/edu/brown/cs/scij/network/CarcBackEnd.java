@@ -32,6 +32,7 @@ public class CarcBackEnd implements BackEnd {
   @Override
   public synchronized Object answer(int player, String field,
       Map<String, String> val) {
+    System.out.println("field: " + field);
     List<Posn> validMoves;
     Tile t;
     assert (player == r.getCurPlayer().getId());
@@ -68,8 +69,8 @@ public class CarcBackEnd implements BackEnd {
         // r.validMeeples(p);
         s.putField("currTile", t);
         toReturn.put("currTile", t);
-        s.putField("board", b.getBoard());
-        toReturn.put("board", b.getBoard());
+        s.putField("board", b);
+        toReturn.put("board", b);
         s.putField("players", players);
         toReturn.put("players", players);
         s.putField("validMoves", validMoves);
@@ -121,6 +122,7 @@ public class CarcBackEnd implements BackEnd {
         // TODO receiving: direction
         // returning: currtile, board, validmoves, players, currplayer
         String dir = val.get("meeple");
+        System.out.println("LOOK HERE THORUGH THE MESS ::: " + dir);
         Direction d = null;
         Tile curTile = r.getCurTile();
         if (dir != null) {
@@ -164,7 +166,7 @@ public class CarcBackEnd implements BackEnd {
 
           // TODO send only a gameover message with the list of players
         } else {
-          s.putField("board", r.getBoard().getBoard());
+          s.putField("board", r.getBoard());
           toReturn.put("board", r.getBoard());
           s.putField("currentPlayer", r.getCurPlayer());
           toReturn.put("currentPlayer", r.getCurPlayer());
@@ -184,6 +186,7 @@ public class CarcBackEnd implements BackEnd {
 
         break;
       default:
+        System.out.println("GOT TO DEWFAULT BIZNATCHES");
         // TODO not sure what to do when it's none of these
     }
     // return only what the person requesting should know
