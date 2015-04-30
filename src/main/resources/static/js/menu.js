@@ -25,7 +25,7 @@ var Menu = function() {
   joinButton.addEventListener("click", function(event) {
     hideAll();
 
-    if (menu.joined) {
+    if (Menu.joined) {
       $("#lobbyDiv").show();
     } else {
       $("#joinDiv").show();
@@ -53,7 +53,9 @@ var Menu = function() {
   joinJoin.addEventListener("click", function(event) {
     hideAll();
     $("#lobbyDiv").show();
+    $("#joinButton").html(" Back to Lobby ");
 
+    Menu.joined = true;
     network.ask("newPlayer", {"name": $("#joinName").val()}, function(responseObject) {
       console.log(responseObject);
     });
@@ -84,3 +86,4 @@ var Menu = function() {
     backButtons[i].addEventListener('click', goBack, false);
   };
 }
+
