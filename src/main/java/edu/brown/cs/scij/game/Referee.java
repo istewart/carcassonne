@@ -352,6 +352,7 @@ public class Referee {
       // check in all directions for cities, there are at least two connected,
       // and they count as the same city
       Set<Posn> visited = new HashSet<>();
+      visited.add(p);
       Map<Posn, TileFeature> meepledCities = new HashMap<>();
       Finished f = new Finished(true);
       grabMeepleAtCenter(p, curTile, meepledCities);
@@ -387,7 +388,9 @@ public class Referee {
             scoreCityHelper(p.withY(p.getY() + 1), p, visited,
                 meepledCities, Direction.UP, f);
       }
-      int score = 1 + upScore + downScore + leftScore + rightScore;
+      int score =
+          1 + curTile.getShield() + upScore + downScore + leftScore
+              + rightScore;
       if (isGameOver()) {
         scoreMeeples(meepledCities, score);
       } else if (f.isFinished()) {
@@ -405,7 +408,7 @@ public class Referee {
           rightCityMeeples.put(p, right);
         }
         rightScore = scoreCityHelper(p.withX(p.getX() + 1), p, visitedRight,
-            rightCityMeeples, Direction.RIGHT, rightF);
+            rightCityMeeples, Direction.RIGHT, rightF) + 1;
 
         if (isGameOver()) {
           scoreMeeples(rightCityMeeples, rightScore);
@@ -424,7 +427,7 @@ public class Referee {
           leftCityMeeples.put(p, left);
         }
         leftScore = scoreCityHelper(p.withX(p.getX() - 1), p, visitedLeft,
-            leftCityMeeples, Direction.LEFT, leftF);
+            leftCityMeeples, Direction.LEFT, leftF) + 1;
 
         if (isGameOver()) {
           scoreMeeples(leftCityMeeples, leftScore);
@@ -442,7 +445,7 @@ public class Referee {
           downCityMeeples.put(p, bottom);
         }
         downScore = scoreCityHelper(p.withY(p.getY() - 1), p, visitedDown,
-            downCityMeeples, Direction.DOWN, downF);
+            downCityMeeples, Direction.DOWN, downF) + 1;
 
         if (isGameOver()) {
           scoreMeeples(downCityMeeples, downScore);
@@ -460,7 +463,7 @@ public class Referee {
           upCityMeeples.put(p, top);
         }
         upScore = scoreCityHelper(p.withY(p.getY() - 1), p, visitedUp,
-            upCityMeeples, Direction.UP, upF);
+            upCityMeeples, Direction.UP, upF) + 1;
 
         if (isGameOver()) {
           scoreMeeples(upCityMeeples, upScore);
@@ -481,43 +484,45 @@ public class Referee {
     Posn toAdd;
     queue.add(new Pair<Posn, Direction>(curPosn, d));
     int score = 0;
-
+    Posn p = curPosn;
+    Direction dir = d;
     while (!queue.isEmpty()) {
-      curPosn = queue.poll().getP1();
-      d = queue.poll().getP2();
+      Pair<Posn, Direction> pair = queue.poll();
+      p = pair.getP1();
+      dir = pair.getP2();
       visited.add(curPosn);
-      Tile curTile = board.getBoard().get(curPosn);
+      Tile curTile = board.getBoard().get(p);
       if (curTile == null) {
         // the city is not finished
         f.setFinished(false);
       } else {
         score++;
-        grabMeepleAtEdge(curPosn, curTile, d, meepledCities);
+        grabMeepleAtEdge(p, curTile, dir, meepledCities);
         if (curTile.getCenter().getFeature() == Feature.CITY) {
           // The center is a city, so recur
-          grabMeepleAtCenter(curPosn, curTile, meepledCities);
+          grabMeepleAtCenter(p, curTile, meepledCities);
           if (curTile.getBottom().getFeature() == Feature.CITY
-              && d != Direction.UP) {
-            grabMeepleAtEdge(curPosn, curTile, Direction.UP, meepledCities);
-            toAdd = curPosn.withY(curPosn.getY() - 1);
+              && dir != Direction.UP) {
+            grabMeepleAtEdge(p, curTile, Direction.UP, meepledCities);
+            toAdd = p.withY(p.getY() - 1);
             addToQueue(toAdd, Direction.UP, queue, visited);
           }
           if (curTile.getTop().getFeature() == Feature.CITY
-              && d != Direction.DOWN) {
-            grabMeepleAtEdge(curPosn, curTile, Direction.DOWN, meepledCities);
-            toAdd = curPosn.withY(curPosn.getY() + 1);
+              && dir != Direction.DOWN) {
+            grabMeepleAtEdge(p, curTile, Direction.DOWN, meepledCities);
+            toAdd = p.withY(p.getY() + 1);
             addToQueue(toAdd, Direction.DOWN, queue, visited);
           }
           if (curTile.getRight().getFeature() == Feature.CITY
-              && d != Direction.LEFT) {
-            grabMeepleAtEdge(curPosn, curTile, Direction.LEFT, meepledCities);
-            toAdd = curPosn.withX(curPosn.getX() + 1);
+              && dir != Direction.LEFT) {
+            grabMeepleAtEdge(p, curTile, Direction.LEFT, meepledCities);
+            toAdd = p.withX(p.getX() + 1);
             addToQueue(toAdd, Direction.LEFT, queue, visited);
           }
           if (curTile.getLeft().getFeature() == Feature.CITY
-              && d != Direction.RIGHT) {
-            grabMeepleAtEdge(curPosn, curTile, Direction.RIGHT, meepledCities);
-            toAdd = curPosn.withX(curPosn.getX() - 1);
+              && dir != Direction.RIGHT) {
+            grabMeepleAtEdge(p, curTile, Direction.RIGHT, meepledCities);
+            toAdd = p.withX(p.getX() - 1);
             addToQueue(toAdd, Direction.RIGHT, queue, visited);
           }
         }
@@ -529,8 +534,7 @@ public class Referee {
   private void addToQueue(Posn p, Direction d,
       Queue<Pair<Posn, Direction>> queue, Set<Posn> visited) {
     if (!visited.contains(p)) {
-      queue.add(new Pair<Posn, Direction>(p
-          .withY(p.getY() - 1), d));
+      queue.add(new Pair<Posn, Direction>(p, d));
     }
   }
 

@@ -28,29 +28,29 @@ var Menu = function() {
 
       // Simple Tests
 
-      var players = [{color: "red", id: "1", name: "Ian", score: "314", numMeeples: 8}, 
-                   {color: "blue", id: "2", name: "Scott", score: "32", numMeeples: 4}];
-      var currTile = {center: null, top: null, bottom: null, left: null, right: null, id: "1", rotation: 90, shield: false};
-      var validMoves = [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: -2}, {x: 5, y: 5}];
-      var board = [{tile: {id: "2", rotation: -90}, pos: {x: -1, y: 0}, meeple: {meeplePlacement: "CENTER", player: {color: "blue", id: "2", name: "Scott", score: "32", numMeeples: 4}}}, 
-                   {tile: {id: "3"}, pos: {x: -1, y: 1}}, 
-                   {tile: {id: "4"}, pos: {x: 0, y: -1}}];
-      var validMeeples = ["UP", "CENTER", "RIGHT"];
+      // var players = [{color: "red", id: "1", name: "Ian", score: "314", numMeeples: 8}, 
+      //              {color: "blue", id: "2", name: "Scott", score: "32", numMeeples: 4}];
+      // var currTile = {center: null, top: null, bottom: null, left: null, right: null, id: "1", rotation: 90, shield: false};
+      // var validMoves = [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: -2}, {x: 5, y: 5}];
+      // var board = [{tile: {id: "2", rotation: -90}, pos: {x: -1, y: 0}, meeple: {meeplePlacement: "CENTER", player: {color: "blue", id: "2", name: "Scott", score: "32", numMeeples: 4}}}, 
+      //              {tile: {id: "3"}, pos: {x: -1, y: 1}}, 
+      //              {tile: {id: "4"}, pos: {x: 0, y: -1}}];
+      // var validMeeples = ["UP", "CENTER", "RIGHT"];
 
-      renderer = new Renderer(board, currTile, players, validMoves, validMeeples, 1, 0, 0);
-      renderer.render();
+      // renderer = new Renderer(board, currTile, players, validMoves, validMeeples, 1, 0, 0);
+      // renderer.render();
 
       network.say("newPlayer", {"name": $("#joinName").val()});
       network.ask("gameStart", {"message": "gameStart"}, function(responseObject) {
         // responseObject is null
 
         var currTile = network.get("currTile");
-        var board = network.get("board").board;
+        var board = network.get("board");
         var validMoves = network.get("validMoves");
         var validMeeples = network.get("validMeeples");
         var players = network.get("players");
 
-        renderer = new Renderer(board, currTile, players, validMoves, validMeeples, 1, 0, 0);
+        renderer = new Renderer(board.board, currTile, players, validMoves, validMeeples, 1, 0, 0);
 
         renderer.render();
       });
