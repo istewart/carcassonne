@@ -48,9 +48,10 @@ var PlacementButtons = function() {
         renderer.players = players;
 
         renderer.render();
+
+        isPlaced = false;
+        $("#mainPlace").html("Place Meeple");
       });
-      isPlaced = false;
-      $("#mainPlace").html("Place Meeple");
     } else {
 
       var move = "" + renderer.selectedTile.x + "," + renderer.selectedTile.y;
@@ -61,9 +62,9 @@ var PlacementButtons = function() {
         renderer.validMeeples = validMeeples;
 
         renderer.render();
+        isPlaced = true;
+        $("#mainPlace").html("Place Tile");
       });
-      isPlaced = true;
-      $("#mainPlace").html("Place Tile");
     }
   });
 }
