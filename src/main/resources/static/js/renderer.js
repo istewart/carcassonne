@@ -91,7 +91,7 @@ Renderer.prototype.renderTile = function() {
       case "UP": x = .5 * w; y = .2 * w; break;
       case "DOWN": x = .5 * w; y = .8 * w; break;
       case "RIGHT": x = .8 * w; y = .5 * w; break;
-      case "LEFT": x =.8 * w; y = .5 * w; break;
+      case "LEFT": x =.2 * w; y = .5 * w; break;
       case "CENTER": x = .5 * w; y = .5 * w; break;
       default: alert("Meeple switch failed!")
     }
