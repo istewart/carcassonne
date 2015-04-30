@@ -50,7 +50,9 @@ var PlacementButtons = function() {
         renderer.render();
 
         isPlaced = false;
-        $("#mainPlace").html("place Tile");
+        $("#mainPlace").html("Place Tile");
+        $("#mainLeft").show();
+        $("#mainRight").show();
         console.log("placed a meeple.");
       });
     } else {
@@ -65,6 +67,8 @@ var PlacementButtons = function() {
         renderer.render();
         isPlaced = true;
         $("#mainPlace").html("Place Meeple");
+        $("#mainLeft").hide();
+        $("#mainRight").hide();
       });
     }
   });
