@@ -1127,6 +1127,60 @@ public class Referee {
 
     Collections.shuffle(tiles);
 
+    // add river tiles to the deck
+
+    List<Tile> riverTiles = new ArrayList<>();
+
+    // 2x straight river 2 field
+    for (i = 0; i < 2; i++) {
+      riverTiles.add(new Tile(new Center(river), new Edge(field), new Edge(
+          river),
+          new Edge(field), new Edge(river), 0));
+    }
+
+    // 2x curved river 2 field
+    for (i = 0; i < 2; i++) {
+      riverTiles.add(new Tile(new Center(river), new Edge(field), new Edge(
+          field),
+          new Edge(river), new Edge(river), 0));
+    }
+
+    // 1x curved river city on other sides
+    riverTiles.add(new Tile(new Center(city), new Edge(city), new Edge(city),
+        new Edge(river), new Edge(river), 0));
+
+    // 1x straight river city on other sides
+    riverTiles.add(new Tile(new Center(city), new Edge(city), new Edge(river),
+        new Edge(city), new Edge(river), 0));
+
+    // 1x monastery center road on bottom straight river
+    riverTiles.add(new Tile(new Center(monastery), new Edge(field), new Edge(
+        river), new Edge(road), new Edge(river), 0));
+
+    // 1x city top, road bottom, straight river
+    riverTiles.add(new Tile(new Center(endpoint), new Edge(city), new Edge(
+        river), new Edge(road), new Edge(river), 0));
+
+    // 1x straight road, straight river
+    riverTiles.add(new Tile(new Center(road), new Edge(road), new Edge(
+        river), new Edge(road), new Edge(river), 0));
+
+    // 1x curved road, curved river
+    riverTiles.add(new Tile(new Center(field), new Edge(road), new Edge(
+        road), new Edge(river), new Edge(river), 0));
+
+    Collections.shuffle(riverTiles);
+
+    // 1x river end
+    riverTiles.add(riverTiles.size(), new Tile(new Center(river), new Edge(
+        field), new Edge(field), new Edge(river), new Edge(field), 0));
+
+    // 1x river start
+    riverTiles.add(0, new Tile(new Center(river), new Edge(
+        field), new Edge(field), new Edge(river), new Edge(field), 0));
+
+    // tiles.addAll(0, riverTiles);
+
     /*
      * TODO add river pieces:
      * add the ten that aren't the end pieces, shuffle them.
