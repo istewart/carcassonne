@@ -8,13 +8,13 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JOptionPane;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
 import freemarker.template.Configuration;
-
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
@@ -25,15 +25,15 @@ import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
 
 /**
- * Opens a new server and runs it, then sets up a Spark Server and attempts
- * to open a browser window for the host player. If it cannot open this window,
- * it directs the player to the correct address.
+ * Opens a new server and runs it, then sets up a Spark Server and attempts to
+ * open a browser window for the host player. If it cannot open this window, it
+ * directs the player to the correct address.
  */
 public final class Network {
   private String ip;
 
   private static final Gson GSON = new Gson();
-  private static final int DEFAULT_PORT = 4567;
+  private static final int DEFAULT_PORT = 3141;
   private int port = DEFAULT_PORT;
   private String url;
 
@@ -43,11 +43,12 @@ public final class Network {
   /**
    * The basic constructor for this class. The default port 4567 will be used.
    */
-  private Network() { }
+  private Network() {
+  }
 
   /**
-   * Creates a new Network that has yet to be set in motion. To launch it,
-   * call {@link #go()} on it.
+   * Creates a new Network that has yet to be set in motion. To launch it, call
+   * {@link #go()} on it.
    * @param args The arguments to the program
    * @return The Network.
    */
@@ -57,7 +58,7 @@ public final class Network {
 
   /**
    * Creates a new Network with the given arguments.
-   * @param args  The command-line arguments
+   * @param args The command-line arguments
    */
   private Network(String[] args) {
     if (args.length == 1) {
@@ -72,10 +73,10 @@ public final class Network {
   }
 
   /**
-   * Sets the <code>BackEnd</code> for this Server. If used, this must be
-   * called before {@link #go()}.
-   * @param back  The BackEnd
-   * @return  <code>this</code>
+   * Sets the <code>BackEnd</code> for this Server. If used, this must be called
+   * before {@link #go()}.
+   * @param back The BackEnd
+   * @return <code>this</code>
    */
   public Network setBackEnd(BackEnd back) {
     this.back = back;
@@ -83,10 +84,10 @@ public final class Network {
   }
 
   /**
-   * Sets the <code>Server</code> for this Network. If used, this must be
-   * called before {@link #go()}.
-   * @param server  The Server
-   * @return  <code>this</code>
+   * Sets the <code>Server</code> for this Network. If used, this must be called
+   * before {@link #go()}.
+   * @param server The Server
+   * @return <code>this</code>
    */
   public Network setServer(Server server) {
     this.server = server;
@@ -125,7 +126,7 @@ public final class Network {
       Desktop.getDesktop().browse(URI.create(url));
     } catch (IOException ex) {
       JOptionPane.showMessageDialog(null,
-        "Failed to open default browser. Please visit " + url + " instead.");
+          "Failed to open default browser. Please visit " + url + " instead.");
     }
   }
 
@@ -148,7 +149,7 @@ public final class Network {
       config.setDirectoryForTemplateLoading(templates);
     } catch (IOException ioe) {
       System.out.printf("ERROR: Unable to use %s for template loading.%n",
-        templates);
+          templates);
       System.exit(1);
     }
     return new FreeMarkerEngine(config);
@@ -161,19 +162,20 @@ public final class Network {
     @Override
     public ModelAndView handle(final Request req, final Response res) {
       Map<String, Object> variables =
-        ImmutableMap.of("title", "Network",
-          "body", "A simple website",
-          "url", url);
+          ImmutableMap.of("title", "Network",
+              "body", "A simple website",
+              "url", url);
       return new ModelAndView(variables, "main.ftl");
     }
   }
 
   /**
-   * Handles the pings to the server that are sent each second by each client
-   * to see if the client needs to update the game in any way.
+   * Handles the pings to the server that are sent each second by each client to
+   * see if the client needs to update the game in any way.
    */
   private static class PingHandler implements Route {
     private Server server;
+
     public PingHandler(Server server) {
       this.server = server;
     }
@@ -189,7 +191,8 @@ public final class Network {
       } catch (NoSuchPlayerException ex) {
         Map ret = new HashMap<String, Object>();
         ret.put("val", "undefined");
-        ret.put("alert", "Your server connection has expired. Please refresh to reconnect.");
+        ret.put("alert",
+            "Your server connection has expired. Please refresh to reconnect.");
         return GSON.toJson(Collections.unmodifiableMap(ret));
       }
       Map<String, Object> updates;
@@ -200,16 +203,17 @@ public final class Network {
       }
 
       return GSON.toJson(ImmutableMap.of("val", result,
-        "updates", updates));
+          "updates", updates));
     }
   }
 
   /**
-   * Handles requests to /connect, which is used when a player connects to
-   * the server (i.e. upon reopening page or opening it for the first time).
+   * Handles requests to /connect, which is used when a player connects to the
+   * server (i.e. upon reopening page or opening it for the first time).
    */
   private static class ConnectHandler implements Route {
     private Server server;
+
     public ConnectHandler(Server server) {
       this.server = server;
     }
@@ -222,9 +226,9 @@ public final class Network {
     }
 
     /**
-     * Some devices connect with complex IP addresses or two IP addresses.
-     * This method converts those into simple IP addresses to prevent
-     * a single device from having multiple open connections.
+     * Some devices connect with complex IP addresses or two IP addresses. This
+     * method converts those into simple IP addresses to prevent a single device
+     * from having multiple open connections.
      * @param ip The ip to filter
      * @return The filtered ip.
      */
@@ -239,6 +243,7 @@ public final class Network {
    */
   private static class DisconnectHandler implements Route {
     private Server server;
+
     public DisconnectHandler(Server server) {
       this.server = server;
     }
@@ -260,6 +265,7 @@ public final class Network {
    */
   private static class AskHandler implements Route {
     private Server server;
+
     public AskHandler(Server server) {
       this.server = server;
     }
@@ -272,7 +278,8 @@ public final class Network {
       String field = qm.get("field").value();
       String val = qm.get("val").value();
       System.out.println(val);
-      return GSON.toJson(server.ask(key, field, GSON.fromJson(val, HashMap.class)));
+      return GSON.toJson(server.ask(key, field,
+          GSON.fromJson(val, HashMap.class)));
     }
   }
 }
