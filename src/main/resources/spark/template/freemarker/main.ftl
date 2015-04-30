@@ -69,11 +69,11 @@
       <button class="backButton" id="lobbyBack"> Back </button>
 
       <form class="players">
-        <textarea id="playerOne" class="playerBox" rows="1" readonly></textarea></br>
-        <textarea id="playerTwo" class="playerBox" rows="1" readonly></textarea></br>
-        <textarea id="playerThree" class="playerBox" rows="1" readonly></textarea></br>
-        <textarea id="playerFour" class="playerBox" rows="1" readonly></textarea></br>
-      </form>
+          <textarea id="playerOne" class="playerBox2" rows="1" readonly></textarea></br>
+          <textarea id="playerTwo" class="playerBox2" rows="1" readonly></textarea></br>
+          <textarea id="playerThree" class="playerBox2" rows="1" readonly></textarea></br>
+          <textarea id="playerFour" class="playerBox2" rows="1" readonly></textarea></br>
+        </form>
     </div>
 
       
