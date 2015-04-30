@@ -1,6 +1,7 @@
 package edu.brown.cs.scij.network;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,8 @@ public class CarcBackEnd implements BackEnd {
             t.rotateRight();
           }
           toReturn.put("currTile", t);
-          toReturn.put("validMoves", r.getBoard().validMoves(t));
+          validMoves = r.getBoard().validMoves(t);
+          toReturn.put("validMoves", validMoves);
           toReturn.put("players", r.getPlayers());
           return toReturn;
         }
@@ -60,6 +62,7 @@ public class CarcBackEnd implements BackEnd {
         return ImmutableMap.of("success", "success");
       case "gameStart":
         s.seal();
+
         t = r.drawTile();
         Board b = r.getBoard();
         List<Player> players = r.getPlayers();
@@ -155,6 +158,7 @@ public class CarcBackEnd implements BackEnd {
           }
         }
 
+        System.out.println("current posn: " + r.getCurPosn());
         r.score(r.getCurPosn());
 
         if (r.isGameOver()) {
@@ -175,8 +179,14 @@ public class CarcBackEnd implements BackEnd {
 
           curTile = r.drawTile();
           validMoves = r.getBoard().validMoves(curTile);
-          s.putField("currTile", curTile);
-          toReturn.put("currTile", curTile);
+          while (validMoves.isEmpty()) {
+            validMoves = checkValidMoves(r.getBoard(), curTile);
+          }
+
+          // check current orientation
+
+          s.putField("currTile", r.getCurTile());
+          toReturn.put("currTile", r.getCurTile());
           s.putField("validMoves", validMoves);
           toReturn.put("validMoves", validMoves);
           s.putField("gameover", r.isGameOver());
@@ -191,6 +201,29 @@ public class CarcBackEnd implements BackEnd {
     }
     // return only what the person requesting should know
     return toReturn;
+  }
+
+  private List<Posn> checkValidMoves(Board b, Tile curTile) {
+    List<Posn> validMoves;
+    curTile.rotateLeft();
+    // check rotation 270
+    validMoves = r.getBoard().validMoves(curTile);
+    if (validMoves.isEmpty()) {
+      curTile.rotateLeft();
+      // check rotation 180
+      validMoves = r.getBoard().validMoves(curTile);
+      if (validMoves.isEmpty()) {
+        curTile.rotateLeft();
+        // check rotation 90
+        validMoves = r.getBoard().validMoves(curTile);
+        if (validMoves.isEmpty()) {
+          r.getDeck().getTiles().add(curTile);
+          Collections.shuffle(r.getDeck().getTiles());
+          curTile = r.drawTile();
+        }
+      }
+    }
+    return validMoves;
   }
 
   @Override

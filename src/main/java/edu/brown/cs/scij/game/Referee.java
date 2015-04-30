@@ -1033,28 +1033,32 @@ public class Referee {
 
     // 3x 1-city w/curved road from left
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(22, new Center(field), new Edge(city),
+      tiles.add(new Tile(22, new Center(road), new Edge(city),
           new Edge(field),
           new Edge(road), new Edge(road), 0));
     }
 
     // 3x 1-city w/curved road from right
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(21, new Center(field), new Edge(city), new Edge(road),
+      tiles.add(new Tile(21, new Center(road), new Edge(city), new Edge(road),
           new Edge(road), new Edge(field), 0));
     }
 
     // 3x 2-sided city w/curved road
-    for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(13, new Center(city), new Edge(city), new Edge(city),
-          new Edge(road), new Edge(road), 0));
-    }
+    /*
+     * for (i = 0; i < 3; i++) {
+     * tiles.add(new Tile(13, new Center(city), new Edge(city), new Edge(city),
+     * new Edge(road), new Edge(road), 0));
+     * }
+     */
 
     // 2x 2-sided city w/curved road and shield
-    for (i = 0; i < 2; i++) {
-      tiles.add(new Tile(14, new Center(city), new Edge(city), new Edge(city),
-          new Edge(road), new Edge(road), 1));
-    }
+    /*
+     * for (i = 0; i < 2; i++) {
+     * tiles.add(new Tile(14, new Center(city), new Edge(city), new Edge(city),
+     * new Edge(road), new Edge(road), 1));
+     * }
+     */
 
     // 2x one-roaded monastery
     for (i = 0; i < 2; i++) {
