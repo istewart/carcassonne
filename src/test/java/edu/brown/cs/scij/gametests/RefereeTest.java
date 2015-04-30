@@ -113,61 +113,63 @@ public class RefereeTest {
       }
     }
   }
-  
+
   @Test
-  public void placeMeepleAfterTilePlace() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException {
-	  Player p = new Player(1, "p");
-	  Posn right = new Posn(0,0);
-	  Referee r = new Referee();
-	  List<Player> pList = new ArrayList<>();
-	  pList.add(p);
-	  r.setPlayers(pList);
-	  Center c = new Center(Feature.ENDPOINT);
-	  Edge road = new Edge(Feature.ROAD);
-	  Edge field = new Edge(Feature.FIELD);
-	  Tile rightTile = new Tile(c, field, field, field, road, 0);
-	  c = new Center(Feature.ROAD);
-	  Edge road2 = new Edge(Feature.ROAD);
-	  Edge road3 = new Edge(Feature.ROAD);
-	  r.place(right, rightTile);
-	  try {
-		  Posn centerP = new Posn(-1, 0);
-		  Tile center = new Tile(c, field, road2, field, road3, 0);
-		  r.place(centerP, center);
-		  r.placeMeeple(right, p, Direction.LEFT);
-		  r.placeMeeple(centerP, p, Direction.LEFT);
-		  assertTrue(false);
-	  } catch (UnMeeplableException ume) {
-		  assertTrue(true);
-	  }
+  public void placeMeepleAfterTilePlace() throws InvalidEdgeException,
+      PosnTakenException, NullTileException, OutOfMeeplesException {
+    Player p = new Player(1, "p");
+    Posn right = new Posn(0, 0);
+    Referee r = new Referee();
+    List<Player> pList = new ArrayList<>();
+    pList.add(p);
+    r.setPlayers(pList);
+    Center c = new Center(Feature.ENDPOINT);
+    Edge road = new Edge(Feature.ROAD);
+    Edge field = new Edge(Feature.FIELD);
+    Tile rightTile = new Tile(c, field, field, field, road, 0);
+    c = new Center(Feature.ROAD);
+    Edge road2 = new Edge(Feature.ROAD);
+    Edge road3 = new Edge(Feature.ROAD);
+    r.place(right, rightTile);
+    try {
+      Posn centerP = new Posn(-1, 0);
+      Tile center = new Tile(c, field, road2, field, road3, 0);
+      r.place(centerP, center);
+      r.placeMeeple(right, p, Direction.LEFT);
+      r.placeMeeple(centerP, p, Direction.LEFT);
+      assertTrue(false);
+    } catch (UnMeeplableException ume) {
+      assertTrue(true);
+    }
   }
-  
+
   @Test
-  public void placeMeepleBeforeTilePlace() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException {
-	  Player p = new Player(1, "p");
-	  Posn right = new Posn(0,0);
-	  Referee r = new Referee();
-	  List<Player> pList = new ArrayList<>();
-	  pList.add(p);
-	  r.setPlayers(pList);
-	  Center c = new Center(Feature.ENDPOINT);
-	  Edge road = new Edge(Feature.ROAD);
-	  Edge field = new Edge(Feature.FIELD);
-	  Tile rightTile = new Tile(c, field, field, field, road, 0);
-	  c = new Center(Feature.ROAD);
-	  Edge road2 = new Edge(Feature.ROAD);
-	  Edge road3 = new Edge(Feature.ROAD);
-	  r.place(right, rightTile);
-	  try {
-		  r.placeMeeple(right, p, Direction.LEFT);
-		  Posn centerP = new Posn(-1, 0);
-		  Tile center = new Tile(c, field, road2, field, road3, 0);
-		  r.place(centerP, center);
-		  r.placeMeeple(centerP, p, Direction.LEFT);
-		  assertTrue(false);
-	  } catch (UnMeeplableException ume) {
-		  assertTrue(true);
-	  }
+  public void placeMeepleBeforeTilePlace() throws InvalidEdgeException,
+      PosnTakenException, NullTileException, OutOfMeeplesException {
+    Player p = new Player(1, "p");
+    Posn right = new Posn(0, 0);
+    Referee r = new Referee();
+    List<Player> pList = new ArrayList<>();
+    pList.add(p);
+    r.setPlayers(pList);
+    Center c = new Center(Feature.ENDPOINT);
+    Edge road = new Edge(Feature.ROAD);
+    Edge field = new Edge(Feature.FIELD);
+    Tile rightTile = new Tile(c, field, field, field, road, 0);
+    c = new Center(Feature.ROAD);
+    Edge road2 = new Edge(Feature.ROAD);
+    Edge road3 = new Edge(Feature.ROAD);
+    r.place(right, rightTile);
+    try {
+      r.placeMeeple(right, p, Direction.LEFT);
+      Posn centerP = new Posn(-1, 0);
+      Tile center = new Tile(c, field, road2, field, road3, 0);
+      r.place(centerP, center);
+      r.placeMeeple(centerP, p, Direction.LEFT);
+      assertTrue(false);
+    } catch (UnMeeplableException ume) {
+      assertTrue(true);
+    }
   }
 
   @Test
@@ -284,17 +286,18 @@ public class RefereeTest {
     assertTrue(score + 10 == p.getScore());
   }
 
-  // @Test
+  @Test
   public void oneShieldCityTest() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Center c = new Center(Feature.FIELD);
-    Edge top = new Edge(Feature.CITY);
+    Edge city = new Edge(Feature.CITY);
+    Edge city1 = new Edge(Feature.CITY);
     Edge right = new Edge(Feature.FIELD);
     Edge bottom = new Edge(Feature.FIELD);
     Edge left = new Edge(Feature.FIELD);
-    Tile topCity = new Tile(c, top, right, bottom, left, 1);
-    Tile bottomCity = new Tile(c, bottom, right, top, left, 0);
+    Tile topCity = new Tile(c, city, right, bottom, left, 1);
+    Tile bottomCity = new Tile(c, bottom, right, city1, left, 0);
     Referee r = new Referee();
     Posn topPosn = new Posn(-4, -4);
     Posn bottomPosn = new Posn(-4, -5);
@@ -436,22 +439,34 @@ public class RefereeTest {
     assertTrue(score + 9 == p.getScore());
   }
 
-  // @Test
+  @Test
   public void gameOverCityScoringTest() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Center c = new Center(Feature.FIELD);
     Edge top = new Edge(Feature.FIELD);
-    Edge right = new Edge(Feature.CITY);
+    Edge city = new Edge(Feature.CITY);
+    Edge city1 = new Edge(Feature.CITY);
+    Edge city2 = new Edge(Feature.CITY);
+    Edge city3 = new Edge(Feature.CITY);
+    Edge city4 = new Edge(Feature.CITY);
+    Edge city5 = new Edge(Feature.CITY);
+    Edge city6 = new Edge(Feature.CITY);
+    Edge city7 = new Edge(Feature.CITY);
+    Edge city8 = new Edge(Feature.CITY);
     Edge bottom = new Edge(Feature.FIELD);
     Edge left = new Edge(Feature.FIELD);
-    Tile rightCity = new Tile(c, top, right, bottom, left, 0);
-    c = new Center(Feature.CITY);
-    Tile horizCity1 = new Tile(c, top, right, bottom, right, 0);
-    Tile horizCity2 = new Tile(c, top, right, bottom, right, 0);
-    Tile horizCity3 = new Tile(c, top, right, bottom, right, 0);
-    Tile horizCity4 = new Tile(c, top, right, bottom, right, 0);
+    Tile rightCity = new Tile(c, top, city, bottom, left, 0);
+    Center c0 = new Center(Feature.CITY);
+    Center c1 = new Center(Feature.CITY);
+    Center c2 = new Center(Feature.CITY);
+    Center c3 = new Center(Feature.CITY);
+    Tile horizCity1 = new Tile(c0, top, city1, bottom, city2, 0);
+    Tile horizCity2 = new Tile(c1, top, city3, bottom, city4, 0);
+    Tile horizCity3 = new Tile(c2, top, city5, bottom, city6, 0);
+    Tile horizCity4 = new Tile(c3, top, city7, bottom, city8, 0);
     Referee r = new Referee();
+    r.setGameOver(true);
     Posn center = new Posn(0, 0);
     r.place(center, rightCity);
     r.place(new Posn(1, 0), horizCity1);
@@ -468,22 +483,34 @@ public class RefereeTest {
     assertTrue(score + 5 == p.getScore());
   }
 
-  // @Test
+  @Test
   public void gameOverCityShieldScoringTest() throws PosnTakenException,
       InvalidEdgeException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Center c = new Center(Feature.FIELD);
     Edge top = new Edge(Feature.FIELD);
-    Edge right = new Edge(Feature.CITY);
+    Edge city = new Edge(Feature.CITY);
+    Edge city1 = new Edge(Feature.CITY);
+    Edge city2 = new Edge(Feature.CITY);
+    Edge city3 = new Edge(Feature.CITY);
+    Edge city4 = new Edge(Feature.CITY);
+    Edge city5 = new Edge(Feature.CITY);
+    Edge city6 = new Edge(Feature.CITY);
+    Edge city7 = new Edge(Feature.CITY);
+    Edge city8 = new Edge(Feature.CITY);
     Edge bottom = new Edge(Feature.FIELD);
     Edge left = new Edge(Feature.FIELD);
-    Tile rightCity = new Tile(c, top, right, bottom, left, 0);
-    c = new Center(Feature.CITY);
-    Tile horizCity1 = new Tile(c, top, right, bottom, right, 1);
-    Tile horizCity2 = new Tile(c, top, right, bottom, right, 0);
-    Tile horizCity3 = new Tile(c, top, right, bottom, right, 1);
-    Tile horizCity4 = new Tile(c, top, right, bottom, right, 0);
+    Tile rightCity = new Tile(c, top, city, bottom, left, 0);
+    Center c1 = new Center(Feature.CITY);
+    Center c2 = new Center(Feature.CITY);
+    Center c3 = new Center(Feature.CITY);
+    Center c4 = new Center(Feature.CITY);
+    Tile horizCity1 = new Tile(c1, top, city1, bottom, city2, 1);
+    Tile horizCity2 = new Tile(c2, top, city3, bottom, city4, 0);
+    Tile horizCity3 = new Tile(c3, top, city5, bottom, city6, 1);
+    Tile horizCity4 = new Tile(c4, top, city7, bottom, city8, 0);
     Referee r = new Referee();
+    r.setGameOver(true);
     Posn center = new Posn(0, 0);
     r.place(center, rightCity);
     r.place(new Posn(1, 0), horizCity1);
@@ -494,7 +521,7 @@ public class RefereeTest {
     List<Player> pList = new ArrayList<>();
     pList.add(p);
     r.setPlayers(pList);
-    r.placeMeeple(center, p, Direction.RIGHT);
+    r.placeMeeple(new Posn(1, 0), p, Direction.CENTER);
     int score = p.getScore();
     r.scoreCityEndgame();
     assertTrue(score + 7 == p.getScore());
@@ -574,24 +601,30 @@ public class RefereeTest {
         new Tile(c, field, centerRoadRight, field, centerRoadLeft, 0);
     r.place(center, centerR);
     r.scoreRoad(center);
-    // System.out.println("score: " + p1.getScore() + " was: " + score1);
     assertTrue(score1 + 3 == p1.getScore());
     assertTrue(score2 + 3 == p2.getScore());
   }
 
-  // @Test
+  @Test
   public void twoToOneCityTest() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Center c = new Center(Feature.FIELD);
     Edge city = new Edge(Feature.CITY);
+    Edge city1 = new Edge(Feature.CITY);
+    Edge city2 = new Edge(Feature.CITY);
+    Edge city3 = new Edge(Feature.CITY);
+    Edge city4 = new Edge(Feature.CITY);
+    Edge city5 = new Edge(Feature.CITY);
+    Edge city6 = new Edge(Feature.CITY);
+    Edge city7 = new Edge(Feature.CITY);
     Edge field = new Edge(Feature.FIELD);
     Tile left = new Tile(c, field, city, field, field, 0);
-    Tile top = new Tile(c, field, field, city, field, 0);
-    Tile right = new Tile(c, field, field, field, city, 0);
-    Tile bottom = new Tile(c, city, field, field, field, 0);
+    Tile top = new Tile(c, field, field, city1, field, 0);
+    Tile right = new Tile(c, field, field, field, city2, 0);
+    Tile bottom = new Tile(c, city3, field, field, field, 0);
     c = new Center(Feature.CITY);
-    Tile center = new Tile(c, city, city, city, city, 0);
+    Tile center = new Tile(c, city4, city5, city6, city7, 0);
     Player p1 = new Player(1, "p1");
     Player p2 = new Player(2, "p2");
     Referee r = new Referee();
@@ -619,19 +652,26 @@ public class RefereeTest {
     assertTrue(score2 == p2.getScore());
   }
 
-  // @Test
+  @Test
   public void threeToOneCityTest() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Center c = new Center(Feature.FIELD);
     Edge city = new Edge(Feature.CITY);
+    Edge city1 = new Edge(Feature.CITY);
+    Edge city2 = new Edge(Feature.CITY);
+    Edge city3 = new Edge(Feature.CITY);
+    Edge city4 = new Edge(Feature.CITY);
+    Edge city5 = new Edge(Feature.CITY);
+    Edge city6 = new Edge(Feature.CITY);
+    Edge city7 = new Edge(Feature.CITY);
     Edge field = new Edge(Feature.FIELD);
     Tile left = new Tile(c, field, city, field, field, 0);
-    Tile top = new Tile(c, field, field, city, field, 0);
-    Tile right = new Tile(c, field, field, field, city, 0);
-    Tile bottom = new Tile(c, city, field, field, field, 0);
+    Tile top = new Tile(c, field, field, city1, field, 0);
+    Tile right = new Tile(c, field, field, field, city2, 0);
+    Tile bottom = new Tile(c, city3, field, field, field, 0);
     c = new Center(Feature.CITY);
-    Tile center = new Tile(c, city, city, city, city, 0);
+    Tile center = new Tile(c, city4, city5, city6, city7, 0);
     Player p1 = new Player(1, "p1");
     Player p2 = new Player(2, "p2");
     Referee r = new Referee();
@@ -660,19 +700,26 @@ public class RefereeTest {
     assertTrue(score2 == p2.getScore());
   }
 
-  // @Test
+  @Test
   public void twoToTwoCityTest() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Center c = new Center(Feature.ENDPOINT);
     Edge city = new Edge(Feature.CITY);
+    Edge city1 = new Edge(Feature.CITY);
+    Edge city2 = new Edge(Feature.CITY);
+    Edge city3 = new Edge(Feature.CITY);
+    Edge city4 = new Edge(Feature.CITY);
+    Edge city5 = new Edge(Feature.CITY);
+    Edge city6 = new Edge(Feature.CITY);
+    Edge city7 = new Edge(Feature.CITY);
     Edge field = new Edge(Feature.FIELD);
     Tile left = new Tile(c, field, city, field, field, 0);
-    Tile top = new Tile(c, field, field, city, field, 0);
-    Tile right = new Tile(c, field, field, field, city, 0);
-    Tile bottom = new Tile(c, city, field, field, field, 0);
+    Tile top = new Tile(c, field, field, city2, field, 0);
+    Tile right = new Tile(c, field, field, field, city3, 0);
+    Tile bottom = new Tile(c, city4, field, field, field, 0);
     c = new Center(Feature.CITY);
-    Tile center = new Tile(c, city, city, city, city, 0);
+    Tile center = new Tile(c, city5, city6, city7, city1, 0);
     Player p1 = new Player(1, "p1");
     Player p2 = new Player(2, "p2");
     Referee r = new Referee();
@@ -962,17 +1009,20 @@ public class RefereeTest {
     assertTrue(score + 4 == p.getScore());
   }
 
-  // @Test
+  @Test
   public void twoPlayerCityCase() throws InvalidEdgeException,
       PosnTakenException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Center c = new Center(Feature.FIELD);
     Edge city = new Edge(Feature.CITY);
+    Edge city1 = new Edge(Feature.CITY);
+    Edge city2 = new Edge(Feature.CITY);
+    Edge city3 = new Edge(Feature.CITY);
     Edge field = new Edge(Feature.FIELD);
     Tile bottomCity = new Tile(c, field, field, city, field, 0);
-    Tile leftCity = new Tile(c, field, field, field, city, 0);
+    Tile leftCity = new Tile(c, field, field, field, city1, 0);
     c = new Center(Feature.CITY);
-    Tile topRightCity = new Tile(c, city, city, field, field, 0);
+    Tile topRightCity = new Tile(c, city2, city3, field, field, 0);
     Posn up = new Posn(0, 1);
     Posn mid = new Posn(0, 0);
     Posn right = new Posn(1, 0);
@@ -1028,17 +1078,20 @@ public class RefereeTest {
     assertTrue(score + 3 == p.getScore());
   }
 
-  // @Test
+  @Test
   public void twoPlayerSameCityCase() throws PosnTakenException,
       InvalidEdgeException, NullTileException, OutOfMeeplesException,
       UnMeeplableException {
     Center c = new Center(Feature.FIELD);
     Edge city = new Edge(Feature.CITY);
+    Edge city1 = new Edge(Feature.CITY);
+    Edge city2 = new Edge(Feature.CITY);
+    Edge city3 = new Edge(Feature.CITY);
     Edge field = new Edge(Feature.FIELD);
     Tile bottomCity = new Tile(c, field, field, city, field, 0);
-    Tile leftCity = new Tile(c, field, field, field, city, 0);
+    Tile leftCity = new Tile(c, field, field, field, city1, 0);
     c = new Center(Feature.CITY);
-    Tile topRightCity = new Tile(c, city, city, field, field, 0);
+    Tile topRightCity = new Tile(c, city2, city3, field, field, 0);
     Posn up = new Posn(0, 1);
     Posn mid = new Posn(0, 0);
     Posn right = new Posn(1, 0);

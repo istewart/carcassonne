@@ -38,6 +38,8 @@ var Menu = function() {
           var validMeeples = network.get("validMeeples");
           var players = network.get("players");
 
+          console.log(board);
+
           renderer = new Renderer(board.board, currTile, players, validMoves, validMeeples, 1, 0, 0);
           renderer.render();
         });
