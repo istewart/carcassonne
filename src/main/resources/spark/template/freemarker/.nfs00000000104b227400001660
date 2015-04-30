@@ -46,7 +46,6 @@
       </div>
     </div>
 
-
     <div id="menuDiv">
       <h1>Carcassonne</h1>
 
@@ -59,21 +58,14 @@
       <h1>Join</h1>
 
       <textarea id="joinName" class="hostField" rows="1" placeholder="Your Name"></textarea></br>
-      <button class="submitButton" id="joinJoin"> Enter Lobby </button><br>
+      <button class="submitButton" id="joinJoin"> Start </button><br>
       <button class="backButton" id="joinBack"> Back </button>
     </div>
 
     <div id="lobbyDiv">
       <h1>Lobby</h1>
       <button class="submitButton" id="startGame"> Start </button><br>
-      <button class="backButton" id="lobbyBack"> Back </button>
-
-      <form class="players">
-        <textarea id="playerOne" class="playerBox" rows="1" readonly></textarea></br>
-        <textarea id="playerTwo" class="playerBox" rows="1" readonly></textarea></br>
-        <textarea id="playerThree" class="playerBox" rows="1" readonly></textarea></br>
-        <textarea id="playerFour" class="playerBox" rows="1" readonly></textarea></br>
-      </form>
+      <button class="backButton" id="joinBack"> Back </button>
     </div>
 
       
