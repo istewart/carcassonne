@@ -1,6 +1,5 @@
 package edu.brown.cs.scij.tile;
 
-
 public class Tile {
   static int numTiles = 0;
   private final Center center;
@@ -12,6 +11,7 @@ public class Tile {
   private final int shield;
   private int rotation = 0; // TODO change in rotateLeft
   private int numRoads;
+  private int pngID = 0;
 
   public Tile(Center center, Edge top, Edge right, Edge bottom, Edge left,
       int shield) {
@@ -26,6 +26,26 @@ public class Tile {
     this.bottom = bottom;
     this.left = left;
     this.shield = shield;
+    this.id = numTiles;
+    numTiles++;
+    setNumRoads();
+  }
+
+  public Tile(int pngID, Center center, Edge top, Edge right, Edge bottom,
+      Edge left,
+      int shield) {
+    if (center == null || top == null || right == null || bottom == null
+        || left == null) {
+      throw new UnsupportedOperationException(
+          "All centers and edges of a tile must be non-null");
+    }
+    this.center = center;
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+    this.left = left;
+    this.shield = shield;
+    this.pngID = pngID;
     this.id = numTiles;
     numTiles++;
     setNumRoads();
