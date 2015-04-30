@@ -124,6 +124,7 @@ Renderer.prototype.renderTile = function() {
     }
 
     ctx.beginPath();
+    ctx.lineWidth = 5 * LINE_WIDTH;
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.closePath();
 
@@ -134,7 +135,6 @@ Renderer.prototype.renderTile = function() {
     } else {
       ctx.fillStyle = null;
       ctx.strokeStyle = MEEPLES_COLOR;
-      ctx.lineWidth = LINE_WIDTH;
       ctx.stroke();
     }
   }
