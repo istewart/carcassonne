@@ -49,6 +49,7 @@ public class CarcBackEnd implements BackEnd {
           }
           toReturn.put("currTile", t);
           toReturn.put("validMoves", r.getBoard().validMoves(t));
+          toReturn.put("players", r.getPlayers());
           return toReturn;
         }
         break;
@@ -59,7 +60,7 @@ public class CarcBackEnd implements BackEnd {
       case "gameStart":
         s.seal();
         t = r.drawTile();
-        Board b = r.getBoard().getBoard();
+        Board b = r.getBoard();
         List<Player> players = r.getPlayers();
         validMoves = b.validMoves(t);
 
@@ -67,8 +68,8 @@ public class CarcBackEnd implements BackEnd {
         // r.validMeeples(p);
         s.putField("currTile", t);
         toReturn.put("currTile", t);
-        s.putField("board", b);
-        toReturn.put("board", b);
+        s.putField("board", b.getBoard());
+        toReturn.put("board", b.getBoard());
         s.putField("players", players);
         toReturn.put("players", players);
         s.putField("validMoves", validMoves);
