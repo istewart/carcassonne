@@ -47,17 +47,15 @@ public class CarcBackEnd implements BackEnd {
         }
         /*
          * if (r.getCurPlayer().getNumMeeples() > 0) {
-         * toReturn.put("validMeeples", t.validMeeples());
-         * } else {
-         * toReturn.put("validMeeples", new ArrayList<Direction>());
-         * }
+         * toReturn.put("validMeeples", t.validMeeples()); } else {
+         * toReturn.put("validMeeples", new ArrayList<Direction>()); }
          */
         break;
       case "newPlayer":
         /* Map<String, String> newPlayer = (HashMap<String, Object>) val; */
         String name = data.get("name");
         r.newPlayer(new Player(player, name));
-        break;
+        return ImmutableMap.of("success", "success");
       case "gameStart":
         s.seal();
         t = r.drawTile();
@@ -138,10 +136,8 @@ public class CarcBackEnd implements BackEnd {
         s.putField("validMoves", r.getBoard().validMoves(currTile));
         /*
          * if (r.getCurPlayer().getNumMeeples() > 0) {
-         * s.putField("validMeeples", currTile.validMeeples());
-         * } else {
-         * s.putField("validMeeples", new ArrayList<Direction>());
-         * }
+         * s.putField("validMeeples", currTile.validMeeples()); } else {
+         * s.putField("validMeeples", new ArrayList<Direction>()); }
          */
         s.putField("gameover", r.isGameOver());
         break;
