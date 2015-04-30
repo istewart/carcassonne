@@ -10,6 +10,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
 import edu.brown.cs.scij.game.Board;
+import edu.brown.cs.scij.game.Meeple;
 import edu.brown.cs.scij.game.NullTileException;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.game.Posn;
@@ -17,6 +18,7 @@ import edu.brown.cs.scij.game.PosnTakenException;
 import edu.brown.cs.scij.game.Referee;
 import edu.brown.cs.scij.tile.Direction;
 import edu.brown.cs.scij.tile.Tile;
+import edu.brown.cs.scij.tile.UnMeeplableException;
 
 public class CarcBackEnd implements BackEnd {
   private Referee r;
@@ -78,7 +80,6 @@ public class CarcBackEnd implements BackEnd {
         return toReturn;
       case "placeTile":
         // receiving: posn
-        System.out.println(val);
         String posn = val.get("move");
         String[] xy = posn.split(",");
         Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
@@ -129,6 +130,26 @@ public class CarcBackEnd implements BackEnd {
       case "placeMeeple":
         // TODO receiving: direction
         // returning: currtile, board, validmoves, players, currplayer
+        String dir = val.get("meeple");
+        Tile curTile = r.getCurTile();
+        if (dir != null) {
+          try {
+            if (dir.equals("UP")) {
+              curTile.getTop().setMeeple(new Meeple(r.getCurPlayer()));
+            } else if (dir.equals("DOWN")) {
+              curTile.getBottom().setMeeple(new Meeple(r.getCurPlayer()));
+            } else if (dir.equals("LEFT")) {
+              curTile.getLeft().setMeeple(new Meeple(r.getCurPlayer()));
+            } else if (dir.equals("RIGHT")) {
+              curTile.getRight().setMeeple(new Meeple(r.getCurPlayer()));
+            } else if (dir.equals("CENTER")) {
+              curTile.getCenter().setMeeple(new Meeple(r.getCurPlayer()));
+            }
+          } catch (UnMeeplableException e) {
+            e.printStackTrace();
+          }
+
+        }
 
         break;
       default:
