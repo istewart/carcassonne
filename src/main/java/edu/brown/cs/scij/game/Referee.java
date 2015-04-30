@@ -85,9 +85,8 @@ public class Referee {
    * game is over. (Game is over when there are no tiles left).
    *
    * @param p Where the player wants to place their tile
-   * @param t The tile the
-   * @return
-   * @throws PosnTakenException
+   * @param t The tile to place
+   * @throws PosnTakenException if the posn is taken
    */
   public void place(Posn p, Tile t) throws PosnTakenException {
     // TODO pretty sure throw, right, because if the Posn is taken the
@@ -250,7 +249,7 @@ public class Referee {
    * Scores the board after the last tile and meeple have been placed has been
    * placed.
    *
-   * @param prevTile the tile that was last placed on the board
+   * @param p The tile that was last placed on the board
    */
   public void score(Posn p) {
     if (isGameOver()) {

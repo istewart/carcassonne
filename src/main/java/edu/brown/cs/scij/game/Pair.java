@@ -4,8 +4,8 @@ package edu.brown.cs.scij.game;
  * Holds a pair of any two items.
  * @author szellers
  *
- * @param <T1>
- * @param <T2>
+ * @param <T1> the first type
+ * @param <T2> the second type
  */
 public class Pair<T1, T2> {
   private T1 p1;
