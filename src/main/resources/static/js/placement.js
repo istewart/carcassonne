@@ -1,9 +1,9 @@
 var PlacementButtons = function() {
 	mainLeft.addEventListener("click", function(event) {
       network.ask("rotate",  {"rotate": "left"}, function(responseObject) {
-        var currTile = responseObject.currTile;
-        var validMoves = responseObject.validMoves;
-        var players = responseObject.players;
+        var currTile = network.get("currTile");
+        var validMoves = network.get("validMoves");
+        var players = network.get("players");
 
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;
@@ -15,9 +15,9 @@ var PlacementButtons = function() {
 
   mainRight.addEventListener("click", function(event) {
       network.ask("rotate", {"rotate": "right"}, function(responseObject) {
-        var currTile = responseObject.currTile;
-        var validMoves = responseObject.validMoves;
-        var players = responseObject.players;
+        var currTile = network.get("currTile");
+        var validMoves = network.get("validMoves");
+        var players = network.get("players");
 
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;

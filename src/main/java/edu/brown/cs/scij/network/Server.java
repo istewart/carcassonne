@@ -115,5 +115,5 @@ public interface Server {
    * not be processed by the BackEnd or no BackEnd exists.
    * @throws UnsupportedOperationException  if this operation is not supported
    */
-  Object ask(Key key, String field, Object value);
+  Object ask(Key key, String field, Map<String, String> value);
 }
