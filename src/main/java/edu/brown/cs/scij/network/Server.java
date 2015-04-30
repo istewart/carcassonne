@@ -10,10 +10,10 @@ public interface Server {
   /**
    * Pings the server.
    * @param player The {@link Key} of the player who is pinging
-   * @return <code>true</code> if the player needs to update,
-   * <code>false</code> if the player's information is up to date
+   * @return <code>true</code> if the player needs to update, <code>false</code>
+   *         if the player's information is up to date
    * @throws NoSuchPlayerException when a player tries to ping with an invalid
-   * Key.
+   *         Key.
    */
   boolean ping(Key player) throws NoSuchPlayerException;
 
@@ -35,9 +35,10 @@ public interface Server {
    * Gets all necessary updates.
    * @param player The {@link Key} for player sending the request
    * @return A <code>Map&lt;String, Object&gt;</code> containing a mapping
-   * between names of fields and the values of those fields. This mapping
-   * only contains the fields that have not changed since the last time
-   * update() was called for this player.
+   *         between names of fields and the values of those fields. This
+   *         mapping
+   *         only contains the fields that have not changed since the last time
+   *         update() was called for this player.
    */
   Map<String, Object> update(Key player);
 
@@ -48,15 +49,16 @@ public interface Server {
    * when previous data has been lost by the front end.
    * @param player The {@link Key} of the player sending hte requst
    * @return a <code>Map&lt;String, Object&gt;</code> containing a mapping
-   * between names of fields and the values of those fields. It contains all
-   * fields stored in the Server.
+   *         between names of fields and the values of those fields. It contains
+   *         all
+   *         fields stored in the Server.
    */
   Map<String, Object> updateAll(Key player);
 
   /**
    * Gets a Map containing all of the fields stored by the server.
    * @return A <code>Map&lt;String, Object&gt;</code> containing all fields
-   * stored by the server
+   *         stored by the server
    */
   Map<String, Object> getAllFields();
 
@@ -100,21 +102,21 @@ public interface Server {
 
   /**
    * Sets the Server's {@link BackEnd}. Optional operation.
-   * @param back  The BackEnd to use
-   * @return  <code>this</code>
-   * @throws UnsupportedOperationException  if this operation is not supported
+   * @param back The BackEnd to use
+   * @return <code>this</code>
+   * @throws UnsupportedOperationException if this operation is not supported
    */
   Server setBackEnd(BackEnd back);
 
   /**
    * Forwards the ask request to the BackEnd and returns the object that
    * the back end returns. Optional operation.
-   * @param key  The key of the player asking the question
-   * @param field  The field the query should be applied to
-   * @param value  The value of the field
-   * @return  A response object or <code>null</code> if the query could
-   * not be processed by the BackEnd or no BackEnd exists.
-   * @throws UnsupportedOperationException  if this operation is not supported
+   * @param key The key of the player asking the question
+   * @param field The field the query should be applied to
+   * @param value The value of the field
+   * @return A response object or <code>null</code> if the query could
+   *         not be processed by the BackEnd or no BackEnd exists.
+   * @throws UnsupportedOperationException if this operation is not supported
    */
   Object ask(Key key, String field, Map<String, String> value);
 }

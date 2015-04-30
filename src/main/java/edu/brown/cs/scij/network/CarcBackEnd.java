@@ -1,5 +1,6 @@
 package edu.brown.cs.scij.network;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +10,12 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
 import edu.brown.cs.scij.game.Board;
+import edu.brown.cs.scij.game.NullTileException;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.game.Posn;
 import edu.brown.cs.scij.game.PosnTakenException;
 import edu.brown.cs.scij.game.Referee;
+import edu.brown.cs.scij.tile.Direction;
 import edu.brown.cs.scij.tile.Tile;
 
 public class CarcBackEnd implements BackEnd {
@@ -48,8 +51,8 @@ public class CarcBackEnd implements BackEnd {
         break;
       case "newPlayer":
         /* Map<String, String> newPlayer = (HashMap<String, Object>) val; */
-        String name = val.get("name");
-        r.newPlayer(new Player(player, name));
+        Object name = val.get("name");
+        // r.newPlayer(new Player(player, name));
         return ImmutableMap.of("success", "success");
       case "gameStart":
         s.seal();
@@ -71,40 +74,56 @@ public class CarcBackEnd implements BackEnd {
         s.putField("currentPlayer", r.nextPlayer());
         toReturn.put("currentPlayer", r.nextPlayer());
         // putField() current board, current tile, list of players,
-        // current player, valid moves, valid meeples
+        // current player, valid moves
         return toReturn;
       case "placeTile":
         // receiving: posn
-        // Map<String, String> place = (HashMap<String, String>) val;
-        Posn posn = GSON.fromJson(val.get("move"), Posn.class);
-        // System.out.println(posn);
-        // String[] xy = posn.split(",");
-        // Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
+        System.out.println(val);
+        String posn = val.get("move");
+        String[] xy = posn.split(",");
+        Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
         try {
-          r.getBoard().place(posn, r.getCurTile());
+          r.getBoard().place(p, r.getCurTile());
         } catch (PosnTakenException e) {
           // TODO Send back a message saying it's the same player's turn with
           // the
           // same tile and such
         }
 
-        // putField: board, next player, list of all players, next tile, valid
-        // meeples
+        // putField: board, next player, list of all players, valid meeples
         s.putField("board", r.getBoard());
-        s.putField("currentPlayer", r.nextPlayer());
+        toReturn.put("board", r.getBoard());
+        s.putField("currentPlayer", r.getCurPlayer());
+        toReturn.put("currentPlayer", r.getCurPlayer());
         s.putField("players", r.getPlayers());
-        Tile currTile = r.drawTile();
+        toReturn.put("players", r.getPlayers());
+        Tile currTile = r.getCurTile();
         s.putField("currTile", currTile);
-        s.putField("validMoves", r.getBoard().validMoves(currTile));
+        toReturn.put("currTile", currTile);
+        if (r.getCurPlayer().getNumMeeples() > 0) {
+          try {
+            List<Direction> validMeeples = r.validMeeples(p);
+            s.putField("validMeeples", validMeeples);
+            toReturn.put("validMeeples", validMeeples);
+          } catch (NullTileException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+        } else {
+          s.putField("validMeeples", new ArrayList<>());
+          toReturn.put("validMeeples", new ArrayList<>());
+        }
+
         /*
          * if (r.getCurPlayer().getNumMeeples() > 0) {
          * s.putField("validMeeples", currTile.validMeeples()); } else {
          * s.putField("validMeeples", new ArrayList<Direction>()); }
          */
         s.putField("gameover", r.isGameOver());
-        break;
+        return toReturn;
       case "placeMeeple":
-        // TODO
+        // TODO receiving: direction
+        // returning: currtile, board, validmoves, players, currplayer
         break;
       default:
         // TODO not sure what to do when it's none of these
