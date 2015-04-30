@@ -56,7 +56,7 @@ var PlacementButtons = function() {
     } else {
 
       var move = "" + renderer.selectedTile.x + "," + renderer.selectedTile.y;
-        var postParameters = {"move": move};
+      var postParameters = {"move": move};
 
       network.ask("placeTile", postParameters, function(responseObject) {
         var validMeeples = responseObject.validMeeples;
