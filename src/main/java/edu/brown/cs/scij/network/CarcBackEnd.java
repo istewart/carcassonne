@@ -7,15 +7,11 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.scij.game.Board;
-import edu.brown.cs.scij.game.NullTileException;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.game.Posn;
 import edu.brown.cs.scij.game.PosnTakenException;
 import edu.brown.cs.scij.game.Referee;
-import edu.brown.cs.scij.tile.Direction;
-import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
-import edu.brown.cs.scij.tile.UnMeeplableException;
 
 public class CarcBackEnd implements BackEnd {
   private Referee r;
@@ -26,9 +22,9 @@ public class CarcBackEnd implements BackEnd {
   }
 
   @Override
-  public synchronized Object answer(int player, String field, Map<String, String> val) {
+  public synchronized Object answer(int player, String field,
+      Map<String, String> val) {
     Tile t;
-    Map<String, String> data = (Map<String, String>) val;
     assert (player == r.getCurPlayer().getId());
     Map<String, Object> toReturn = new HashMap<>();
     switch (field) {
@@ -37,7 +33,7 @@ public class CarcBackEnd implements BackEnd {
         // return tile, valid moves, valid meeples
         t = r.getCurTile();
         if (t != null) {
-          if (data.get("rotate").equals("left")) {
+          if (val.get("rotate").equals("left")) {
             t.rotateLeft();
           } else {
             t.rotateRight();
@@ -53,7 +49,7 @@ public class CarcBackEnd implements BackEnd {
         break;
       case "newPlayer":
         /* Map<String, String> newPlayer = (HashMap<String, Object>) val; */
-        String name = data.get("name");
+        String name = val.get("name");
         r.newPlayer(new Player(player, name));
         return ImmutableMap.of("success", "success");
       case "gameStart":
@@ -75,13 +71,12 @@ public class CarcBackEnd implements BackEnd {
         // current player, valid moves, valid meeples
         return null;
       case "placeTile":
-        // receiving: posn, meeple placement (UP RIGHT DOWN LEFT CENTER)
+        // receiving: posn
         // Map<String, String> place = (HashMap<String, String>) val;
-        String posn = data.get("posn");
+        String posn = val.get("move");
+        System.out.println(posn);
         String[] xy = posn.split(",");
         Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
-
-        String meeple = data.get("meeple");
         try {
           r.getBoard().place(p, r.getCurTile());
         } catch (PosnTakenException e) {
@@ -90,44 +85,8 @@ public class CarcBackEnd implements BackEnd {
           // same tile and such
         }
 
-        if (meeple != null) {
-          Direction d = null;
-          switch (meeple) {
-            case "DOWN":
-              d = Direction.DOWN;
-              break;
-            case "UP":
-              d = Direction.UP;
-              break;
-            case "RIGHT":
-              d = Direction.RIGHT;
-              break;
-            case "LEFT":
-              d = Direction.LEFT;
-              break;
-            case "CENTER":
-              d = Direction.CENTER;
-              break;
-            default:
-              break;
-          }
-          try {
-            r.placeMeeple(p, r.getCurPlayer(), d);
-            r.score(p);
-          } catch (NullTileException e) {
-            // TODO shouldn't get here
-            e.printStackTrace();
-          } catch (OutOfMeeplesException e) {
-            // TODO don't send anything, just nothing gets added
-          } catch (UnMeeplableException e) {
-            // TODO should send back a message saying can't meeple there, have
-            // them redo whole move
-          }
-
-        }
-
         // putField: board, next player, list of all players, next tile, valid
-        // moves, valid meeples
+        // meeples
         s.putField("board", r.getBoard());
         s.putField("currentPlayer", r.nextPlayer());
         s.putField("players", r.getPlayers());
@@ -140,6 +99,9 @@ public class CarcBackEnd implements BackEnd {
          * s.putField("validMeeples", new ArrayList<Direction>()); }
          */
         s.putField("gameover", r.isGameOver());
+        break;
+      case "placeMeeple":
+        // TODO
         break;
       default:
         // TODO not sure what to do when it's none of these
