@@ -50,9 +50,8 @@ public class CarcBackEnd implements BackEnd {
         }
         break;
       case "newPlayer":
-        /* Map<String, String> newPlayer = (HashMap<String, Object>) val; */
-        Object name = val.get("name");
-        // r.newPlayer(new Player(player, name));
+        String name = val.get("name");
+        r.newPlayer(new Player(player, name));
         return ImmutableMap.of("success", "success");
       case "gameStart":
         s.seal();
