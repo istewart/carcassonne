@@ -28,13 +28,13 @@ var PlacementButtons = function() {
     });
 
   mainPlace.addEventListener("click", function(event) {
-      var postParameters = {move: renderer.selectedMove, meeple: renderer.selectedMeeple};
-
-      network.ask("place", postParameters, function(responseObject) {
-        if (!renderer.selectedMove) {
+      if (!renderer.selectedTile) {
           return;
-        }
+      }
 
+      var postParameters = {move: renderer.selectedTile, meeple: renderer.selectedMeeple};
+
+      network.ask("placeTile", postParameters, function(responseObject) {
         var currTile = responseObject.currTile;
         var board = responseObject.board;
         var validMoves = responseObject.validMoves;
