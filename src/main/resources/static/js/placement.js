@@ -1,5 +1,4 @@
 var PlacementButtons = function() {
-  var isPlaced = false;
 	mainLeft.addEventListener("click", function(event) {
       network.ask("rotate",  {"rotate": "left"}, function(responseObject) {
         var currTile = responseObject.currTile;

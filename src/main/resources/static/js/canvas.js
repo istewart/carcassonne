@@ -73,7 +73,7 @@ var Canvas = function() {
 		end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY},
 		d = Math.sqrt(Math.pow((start.x - end.x), 2) + Math.pow((start.y - end.y), 2)); // distance in pixels
 		
-		if (d <= MIN_DRAG_DISTANCE) { // treat like a regular click
+		if (d <= MIN_DRAG_DISTANCE && !isPlaced) { // treat like a regular click
 			var pixPos = start;
 			var canvasPos = renderer.pixelsToCanvas(pixPos);
 			var cordPos = renderer.canvasToPos(canvasPos);
