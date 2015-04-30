@@ -47,13 +47,13 @@ var PlacementButtons = function() {
         renderer.board = board.board;
         renderer.players = players;
 
-        renderer.render();
-
         isPlaced = false;
         $("#mainPlace").html("Place Tile");
         $("#mainLeft").show();
         $("#mainRight").show();
         console.log("placed a meeple.");
+
+        renderer.render();
       });
     } else {
 
@@ -64,11 +64,12 @@ var PlacementButtons = function() {
         var validMeeples = responseObject.validMeeples;
         renderer.validMeeples = validMeeples;
 
-        renderer.render();
         isPlaced = true;
         $("#mainPlace").html("Place Meeple");
         $("#mainLeft").hide();
         $("#mainRight").hide();
+
+        renderer.render();
       });
     }
   });

@@ -85,17 +85,9 @@ var Canvas = function() {
 			} else {
 				renderer.selectedTile = roundedPos;
 			}
-/*
-			var move = "" + renderer.selectedTile.x + "," + renderer.selectedTile.y;
-      		var postParameters = {"move": move};
 
-			network.ask("placeTile", postParameters, function(responseObject) {
-        		var validMeeples = responseObject.validMeeples;
-        		renderer.validMeeples = validMeeples;
 
-        		renderer.render();
-			});*/
-
+			r.render();
 		}
 	}).on('mouseleave', function(e) {
 		dragging = false;
