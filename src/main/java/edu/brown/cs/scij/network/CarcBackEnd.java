@@ -73,7 +73,8 @@ public class CarcBackEnd implements BackEnd {
       case "placeTile":
         // receiving: posn
         // Map<String, String> place = (HashMap<String, String>) val;
-        String posn = val.get("posn");
+        String posn = val.get("move");
+        System.out.println(posn);
         String[] xy = posn.split(",");
         Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
         try {
