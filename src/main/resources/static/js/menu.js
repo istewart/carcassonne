@@ -46,11 +46,16 @@ var Menu = function() {
 
     joinJoin.addEventListener("click", function(event) {
       hideAll();
-      $("#mainDiv").show();
+      $("#lobbyDiv").show();
 
       network.ask("newPlayer", {"name": $("#joinName").val()}, function(responseObject) {
         console.log(responseObject);
       });
+    });
+
+    lobbyBack.addEventListener("click", function(event) {
+      hideAll();
+      $("#joinDiv").show();
     });
 
     settingsButton.addEventListener("click", function(event) {
