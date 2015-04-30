@@ -30,6 +30,7 @@ public class CarcBackEnd implements BackEnd {
     Tile t;
     Map<String, String> data = (Map<String, String>) val;
     assert (player == r.getCurPlayer().getId());
+    Map<String, Object> toReturn = new HashMap<>();
     switch (field) {
       case "rotate":
         // receive left or right
@@ -41,23 +42,20 @@ public class CarcBackEnd implements BackEnd {
           } else {
             t.rotateRight();
           }
-          Map<String, Object> toReturn = new HashMap<>();
           toReturn.put("currTile", t);
           toReturn.put("validMoves", r.getBoard().validMoves(t));
         }
         /*
          * if (r.getCurPlayer().getNumMeeples() > 0) {
-         * toReturn.put("validMeeples", t.validMeeples());
-         * } else {
-         * toReturn.put("validMeeples", new ArrayList<Direction>());
-         * }
+         * toReturn.put("validMeeples", t.validMeeples()); } else {
+         * toReturn.put("validMeeples", new ArrayList<Direction>()); }
          */
         break;
       case "newPlayer":
         /* Map<String, String> newPlayer = (HashMap<String, Object>) val; */
         String name = data.get("name");
         r.newPlayer(new Player(player, name));
-        break;
+        return ImmutableMap.of("success", "success");
       case "gameStart":
         s.seal();
         t = r.drawTile();
@@ -138,10 +136,8 @@ public class CarcBackEnd implements BackEnd {
         s.putField("validMoves", r.getBoard().validMoves(currTile));
         /*
          * if (r.getCurPlayer().getNumMeeples() > 0) {
-         * s.putField("validMeeples", currTile.validMeeples());
-         * } else {
-         * s.putField("validMeeples", new ArrayList<Direction>());
-         * }
+         * s.putField("validMeeples", currTile.validMeeples()); } else {
+         * s.putField("validMeeples", new ArrayList<Direction>()); }
          */
         s.putField("gameover", r.isGameOver());
         break;
@@ -149,7 +145,7 @@ public class CarcBackEnd implements BackEnd {
         // TODO not sure what to do when it's none of these
     }
     // return only what the person requesting should know
-    return ImmutableMap.of();
+    return toReturn;
   }
 
   @Override

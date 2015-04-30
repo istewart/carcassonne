@@ -87,17 +87,17 @@ public class Tile {
   public Edge getRight() {
     return right;
   }
-
-  public int getId() {
-    return id;
-  }
-
+  
   public int getRotation() {
-    return rotation;
+	  return rotation;
   }
 
   public void setRotation(int rotation) {
-    this.rotation = rotation;
+	  this.rotation = rotation;
+  }
+  
+  public int getId() {
+    return id;
   }
 
   public int getShield() {
@@ -111,22 +111,22 @@ public class Tile {
     return true;
   }
 
-  public Tile rotateLeft() {
+  public void rotateLeft() {
     Edge tmptop = top;
     top = right;
     right = bottom;
     bottom = left;
     left = tmptop;
-    return this;
-  }
-
-  public Tile rotateRight() {
+    rotation -= 90;
+  }  
+  
+  public void rotateRight() {
     Edge tmptop = top;
     top = left;
     left = bottom;
     bottom = right;
     right = tmptop;
-    return this;
+    rotation += 90;
   }
 
   /*
