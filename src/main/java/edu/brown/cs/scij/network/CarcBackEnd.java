@@ -48,8 +48,8 @@ public class CarcBackEnd implements BackEnd {
         break;
       case "newPlayer":
         /* Map<String, String> newPlayer = (HashMap<String, Object>) val; */
-        String name = val.get("name");
-        r.newPlayer(new Player(player, name));
+        Object name = val.get("name");
+        // r.newPlayer(new Player(player, name));
         return ImmutableMap.of("success", "success");
       case "gameStart":
         s.seal();
@@ -75,13 +75,12 @@ public class CarcBackEnd implements BackEnd {
         return toReturn;
       case "placeTile":
         // receiving: posn
-        // Map<String, String> place = (HashMap<String, String>) val;
-        Posn posn = GSON.fromJson(val.get("move"), Posn.class);
-        // System.out.println(posn);
-        // String[] xy = posn.split(",");
-        // Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
+        System.out.println(val);
+        String posn = val.get("move");
+        String[] xy = posn.split(",");
+        Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
         try {
-          r.getBoard().place(posn, r.getCurTile());
+          r.getBoard().place(p, r.getCurTile());
         } catch (PosnTakenException e) {
           // TODO Send back a message saying it's the same player's turn with
           // the

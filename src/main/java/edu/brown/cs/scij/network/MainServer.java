@@ -46,7 +46,7 @@ public class MainServer implements Server {
 
   /**
    * Constructs a MainServer with the given {@link BackEnd}.
-   * @param back  The BackEnd to use
+   * @param back The BackEnd to use
    */
   public MainServer(BackEnd back) {
     this();
@@ -89,8 +89,8 @@ public class MainServer implements Server {
     if (p == null) {
       if (talkative) {
         System.out.println(
-          "Unknown player attempted to ping with broken key "
-            + key.toJSONString() + ".");
+            "Unknown player attempted to ping with broken key "
+                + key.toJSONString() + ".");
       }
       throw new NoSuchPlayerException();
     }
@@ -98,7 +98,7 @@ public class MainServer implements Server {
       p.incrementPingCount();
       p.setLastPing(serverTime);
       if (talkative) {
-        //System.out.println("Player " + p.getId() + " pinged.");
+        // System.out.println("Player " + p.getId() + " pinged.");
       }
       connect(p);
       return !p.isUpToDate();
@@ -125,14 +125,14 @@ public class MainServer implements Server {
         if (p.isOpenWindow()) {
           if (talkative) {
             System.out.println("Player " + p.getId()
-              + " opened a second window.");
+                + " opened a second window.");
           }
           Map<String, Object> m = new HashMap<>();
           m.put("key", "undefined");
           m.put("player", "undefined");
           m.put("alert", "You appear to have a window open already."
-            + " If so, please close this window."
-            + " If not, refresh this page.");
+              + " If so, please close this window."
+              + " If not, refresh this page.");
           return Collections.unmodifiableMap(m);
         }
         p.setOpenWindow(true);
@@ -140,26 +140,27 @@ public class MainServer implements Server {
         p.notify(fields.keySet());
 
         return ImmutableMap.of("key", playerIps.get(ip).toJSONString(),
-          "player", p.getId());
+            "player", p.getId());
       }
     } else {
       if (isSealed) {
         return ImmutableMap.of("key", "undefined",
-          "player", "undefined",
-          "alert", "The server has closed and the game has begun. It is too"
-          + " late to connect to this server.");
+            "player", "undefined",
+            "alert", "The server has closed and the game has begun. It is too"
+                + " late to connect to this server.");
       }
       Key key = Key.generate();
       playerCount += 1;
-      NetworkPlayer player = new NetworkPlayer(key, playerCount, ip).setOpenWindow(true);
+      NetworkPlayer player =
+          new NetworkPlayer(key, playerCount, ip).setOpenWindow(true);
       playerIps.put(ip, key);
       players.put(key, player);
       try {
         ping(key);
       } catch (NoSuchPlayerException ex) {
         return ImmutableMap.of("key", "undefined",
-          "player", "undefined",
-          "alert", "Error: The server could not be reached.");
+            "player", "undefined",
+            "alert", "Error: The server could not be reached.");
       }
       synchronized (player) {
         player.notify(fields.keySet());
@@ -252,13 +253,13 @@ public class MainServer implements Server {
     synchronized (p) {
       p.connect();
       Map<Integer, Boolean> connected =
-        (Map<Integer, Boolean>) fields.get("connected");
+          (Map<Integer, Boolean>) fields.get("connected");
       Boolean status = connected.get(p.getId());
       if (status == null || !status) {
         if (talkative) {
           if (status == null) {
             System.out.println("Player " + p.getId() + " connected at "
-              + p.getIp() + ".");
+                + p.getIp() + ".");
           } else {
             System.out.println("Player " + p.getId() + " reconnected.");
           }
@@ -288,7 +289,8 @@ public class MainServer implements Server {
       return null;
     }
     if (talkative) {
-      System.out.println("Player " + p.getId() + " asked " + field + ":" + val + ".");
+      System.out.println("Player " + p.getId() + " asked " + field + ":" + val
+          + ".");
     }
     if (back != null) {
       Object answer = back.answer(p.getId(), field, val);
@@ -314,7 +316,7 @@ public class MainServer implements Server {
       p.disconnect();
       p.setOpenWindow(false);
       Map<Integer, Boolean> connected =
-        (Map<Integer, Boolean>) fields.get("connected");
+          (Map<Integer, Boolean>) fields.get("connected");
       assert connected != null;
       if (connected.get(p.getId())) {
         connected.put(p.getId(), false);
@@ -346,7 +348,7 @@ public class MainServer implements Server {
         }
         serverTime++;
         if (talkative) {
-          //System.out.println("Clock: " + serverTime + ".");
+          // System.out.println("Clock: " + serverTime + ".");
         }
         checkConnections();
       }
