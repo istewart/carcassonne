@@ -58,7 +58,7 @@ Renderer.prototype.renderPlayers = function() {
 
 // Renders the current tile, meeple slots, and selected meeple in the tile canvas.
 Renderer.prototype.renderTile = function() {
-  var currImage = document.getElementById(this.currTile.id);
+  var currImage = document.getElementById(this.currTile.pngID);
   var tileCanvas = document.getElementById("tileCanvas");
   var ctx = tileCanvas.getContext("2d");
 
@@ -126,7 +126,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     var targetPlacement = this.posToCanvas(currTile.pos);
     var tileObj = currTile.tile;
 
-    var targetImg = document.getElementById(tileObj.id);
+    var targetImg = document.getElementById(tileObj.pngID);
     var targetRadians = tileObj.rotation * Math.PI / 180;
 
     if (targetRadians) { // fancy way of drawing an image rotated about it's center
@@ -196,6 +196,8 @@ Renderer.prototype.renderMoves = function() {
 
 // Clears and re-renders the entire page.
 Renderer.prototype.render = function() {
+  console.log(this);
+
   var canvas = document.getElementById("mainCanvas");
   var ctx = canvas.getContext("2d");
 
@@ -295,7 +297,7 @@ Renderer.prototype.shadeMove = function() {
   var targetPlacement = this.posToCanvas(this.selectedTile);
 
   var tileObj = this.currTile;
-  var targetImg = document.getElementById(tileObj.id);
+  var targetImg = document.getElementById(tileObj.pngID);
   var targetRadians = tileObj.rotation * Math.PI / 180;
 
   if (targetRadians) { // fancy way of drawing an image rotated about it's center
