@@ -10,13 +10,13 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
 import edu.brown.cs.scij.game.Board;
-import edu.brown.cs.scij.game.Meeple;
 import edu.brown.cs.scij.game.NullTileException;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.game.Posn;
 import edu.brown.cs.scij.game.PosnTakenException;
 import edu.brown.cs.scij.game.Referee;
 import edu.brown.cs.scij.tile.Direction;
+import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.UnMeeplableException;
 
@@ -32,6 +32,7 @@ public class CarcBackEnd implements BackEnd {
   @Override
   public synchronized Object answer(int player, String field,
       Map<String, String> val) {
+    List<Posn> validMoves;
     Tile t;
     assert (player == r.getCurPlayer().getId());
     Map<String, Object> toReturn = new HashMap<>();
@@ -60,7 +61,7 @@ public class CarcBackEnd implements BackEnd {
         t = r.drawTile();
         Board b = r.getBoard();
         List<Player> players = r.getPlayers();
-        List<Posn> validMoves = b.validMoves(t);
+        validMoves = b.validMoves(t);
 
         // List<Direction> validMeeples = /*t.validMeeples()*/
         // r.validMeeples(p);
@@ -85,6 +86,7 @@ public class CarcBackEnd implements BackEnd {
         Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
         try {
           r.getBoard().place(p, r.getCurTile());
+          r.setCurPosn(p);
         } catch (PosnTakenException e) {
           // TODO Send back a message saying it's the same player's turn with
           // the
@@ -93,19 +95,7 @@ public class CarcBackEnd implements BackEnd {
 
         // putField: board, current player, list of all players, valid meeples,
         // current tile
-        /*
-         * s.putField("board", r.getBoard());
-         * toReturn.put("board", r.getBoard());
-         * s.putField("currentPlayer", r.getCurPlayer());
-         * toReturn.put("currentPlayer", r.getCurPlayer());
-         * s.putField("players", r.getPlayers());
-         * toReturn.put("players", r.getPlayers());
-         */
-        /* Tile currTile = r.getCurTile(); */
-        /*
-         * s.putField("currTile", currTile);
-         * toReturn.put("currTile", currTile);
-         */
+
         if (r.getCurPlayer().getNumMeeples() > 0) {
           try {
             List<Direction> validMeeples = r.validMeeples(p);
@@ -120,35 +110,73 @@ public class CarcBackEnd implements BackEnd {
           toReturn.put("validMeeples", new ArrayList<>());
         }
 
+        // TODO shouldn't send this here, or
         /*
-         * if (r.getCurPlayer().getNumMeeples() > 0) {
-         * s.putField("validMeeples", currTile.validMeeples()); } else {
-         * s.putField("validMeeples", new ArrayList<Direction>()); }
+         * s.putField("gameover", r.isGameOver());
+         * toReturn.put("gameover", r.isGameOver());
          */
-        s.putField("gameover", r.isGameOver());
         return toReturn;
       case "placeMeeple":
         // TODO receiving: direction
         // returning: currtile, board, validmoves, players, currplayer
         String dir = val.get("meeple");
+        Direction d = null;
         Tile curTile = r.getCurTile();
         if (dir != null) {
           try {
             if (dir.equals("UP")) {
-              curTile.getTop().setMeeple(new Meeple(r.getCurPlayer()));
+              d = Direction.UP;
+              // curTile.getTop().setMeeple(new Meeple(r.getCurPlayer()));
             } else if (dir.equals("DOWN")) {
-              curTile.getBottom().setMeeple(new Meeple(r.getCurPlayer()));
+              d = Direction.DOWN;
+              // curTile.getBottom().setMeeple(new Meeple(r.getCurPlayer()));
             } else if (dir.equals("LEFT")) {
-              curTile.getLeft().setMeeple(new Meeple(r.getCurPlayer()));
+              d = Direction.LEFT;
+              // curTile.getLeft().setMeeple(new Meeple(r.getCurPlayer()));
             } else if (dir.equals("RIGHT")) {
-              curTile.getRight().setMeeple(new Meeple(r.getCurPlayer()));
+              d = Direction.RIGHT;
+              // curTile.getRight().setMeeple(new Meeple(r.getCurPlayer()));
             } else if (dir.equals("CENTER")) {
-              curTile.getCenter().setMeeple(new Meeple(r.getCurPlayer()));
+              d = Direction.CENTER;
+              // curTile.getCenter().setMeeple(new Meeple(r.getCurPlayer()));
             }
+            r.placeMeeple(r.getCurPosn(), r.getCurPlayer(), d);
           } catch (UnMeeplableException e) {
             e.printStackTrace();
+          } catch (NullTileException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          } catch (OutOfMeeplesException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
           }
+        }
 
+        r.score(r.getCurPosn());
+
+        if (r.isGameOver()) {
+          r.gameOverScoring();
+          s.putField("gameover", r.isGameOver());
+          toReturn.put("gameover", r.isGameOver());
+
+          // TODO send only a gameover message with the list of players
+        } else {
+          s.putField("board", r.getBoard());
+          toReturn.put("board", r.getBoard());
+          s.putField("currentPlayer", r.getCurPlayer());
+          toReturn.put("currentPlayer", r.getCurPlayer());
+          s.putField("players", r.getPlayers());
+          toReturn.put("players", r.getPlayers());
+
+          curTile = r.drawTile();
+          validMoves = r.getBoard().validMoves(curTile);
+          s.putField("currTile", curTile);
+          toReturn.put("currTile", curTile);
+          s.putField("validMoves", validMoves);
+          toReturn.put("validMoves", validMoves);
+          s.putField("gameover", r.isGameOver());
+          toReturn.put("gameover", r.isGameOver());
+          return toReturn;
         }
 
         break;

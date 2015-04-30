@@ -31,6 +31,7 @@ public class Referee {
   private int turnNumber;
   private Board board;
   private Tile curTile = null;
+  private Posn curPosn = null;
   private Player curPlayer;
   private boolean isGameOver;
 
@@ -46,6 +47,14 @@ public class Referee {
 
   public Tile getCurTile() {
     return curTile;
+  }
+
+  public void setCurPosn(Posn p) {
+    curPosn = p;
+  }
+
+  public Posn getCurPosn() {
+    return curPosn;
   }
 
   public Board getBoard() {
