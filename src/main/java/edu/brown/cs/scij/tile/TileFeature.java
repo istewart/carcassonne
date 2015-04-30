@@ -116,7 +116,7 @@ public abstract class TileFeature {
     }
   }
 
-  @Override.getFeature()
+  @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     // sb.append("Feature: ");
