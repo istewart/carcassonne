@@ -58,6 +58,8 @@ var Menu = function() {
     Menu.joined = true;
     network.ask("newPlayer", {"name": $("#joinName").val()}, function(responseObject) {
       console.log(responseObject);
+      
+      renderer.render();
     });
   });
 
