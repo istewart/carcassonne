@@ -1,7 +1,9 @@
 package edu.brown.cs.scij.gametests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,7 +20,7 @@ import edu.brown.cs.scij.tile.Tile;
 public class BoardTest {
 
   @Test
-  public void validMovesAgainTest() throws InvalidEdgeException,
+  public void validMovesOtherTest() throws InvalidEdgeException,
       PosnTakenException {
     Center c = new Center(Feature.ROAD);
     Edge top = new Edge(Feature.ROAD);
@@ -35,7 +37,9 @@ public class BoardTest {
     Tile toTest = new Tile(c1, top1, right1, bottom1, left1, 0);
     Board b = new Board();
     b.place(new Posn(0, 0), t);
-    System.out.println(b.validMoves(toTest));
+    List<Posn> validMoves = new ArrayList<>();
+    validMoves.add(new Posn(0, 1));
+    assertEquals(b.validMoves(toTest), validMoves);
   }
 
   @Test
