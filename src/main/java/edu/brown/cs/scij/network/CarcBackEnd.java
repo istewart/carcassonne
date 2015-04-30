@@ -40,12 +40,8 @@ public class CarcBackEnd implements BackEnd {
           }
           toReturn.put("currTile", t);
           toReturn.put("validMoves", r.getBoard().validMoves(t));
+          return toReturn;
         }
-        /*
-         * if (r.getCurPlayer().getNumMeeples() > 0) {
-         * toReturn.put("validMeeples", t.validMeeples()); } else {
-         * toReturn.put("validMeeples", new ArrayList<Direction>()); }
-         */
         break;
       case "newPlayer":
         /* Map<String, String> newPlayer = (HashMap<String, Object>) val; */
@@ -62,14 +58,18 @@ public class CarcBackEnd implements BackEnd {
         // List<Direction> validMeeples = /*t.validMeeples()*/
         // r.validMeeples(p);
         s.putField("currTile", t);
+        toReturn.put("currTile", t);
         s.putField("board", b);
+        toReturn.put("board", b);
         s.putField("players", players);
+        toReturn.put("players", players);
         s.putField("validMoves", validMoves);
-        // s.putField("validMeeples", validMeeples);
+        toReturn.put("validMoves", validMoves);
         s.putField("currentPlayer", r.nextPlayer());
+        toReturn.put("currentPlayer", r.nextPlayer());
         // putField() current board, current tile, list of players,
         // current player, valid moves, valid meeples
-        return null;
+        return toReturn;
       case "placeTile":
         // receiving: posn
         // Map<String, String> place = (HashMap<String, String>) val;
