@@ -110,6 +110,10 @@ button.placeButton {
   border:1px solid #888;
 }
 
+#mainPlace {
+  width: 8em;
+}
+
 button.placeButton:focus {
   outline: none;
 }
@@ -169,6 +173,6 @@ button.submitButton, button.backButton {
     overflow: hidden;
 }
 
-#mainDiv, #hostDiv, #joinDiv, #settingsDiv, #instructionsDiv, #tileDiv {
+#mainDiv, #hostDiv, #joinDiv, #settingsDiv, #instructionsDiv, #tileDiv, #lobbyDiv {
   display: none;
 }
