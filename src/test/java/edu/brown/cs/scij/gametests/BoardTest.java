@@ -9,15 +9,49 @@ import java.util.List;
 import org.junit.Test;
 
 import edu.brown.cs.scij.game.Board;
+import edu.brown.cs.scij.game.NullTileException;
+import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.game.Posn;
 import edu.brown.cs.scij.game.PosnTakenException;
+import edu.brown.cs.scij.game.Referee;
 import edu.brown.cs.scij.tile.Center;
+import edu.brown.cs.scij.tile.Direction;
 import edu.brown.cs.scij.tile.Edge;
 import edu.brown.cs.scij.tile.Feature;
 import edu.brown.cs.scij.tile.InvalidEdgeException;
+import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
+import edu.brown.cs.scij.tile.UnMeeplableException;
 
 public class BoardTest {
+
+  @Test
+  public void validMoveWithMeeple() throws InvalidEdgeException,
+      PosnTakenException, NullTileException, OutOfMeeplesException,
+      UnMeeplableException {
+    Center c = new Center(Feature.FIELD);
+    Edge top = new Edge(Feature.FIELD);
+    Edge bottom = new Edge(Feature.FIELD);
+    Edge left = new Edge(Feature.CITY);
+    Edge right = new Edge(Feature.CITY);
+    Tile t = new Tile(c, top, right, bottom, left, 0);
+
+    Center c1 = new Center(Feature.CITY);
+    Edge top1 = new Edge(Feature.CITY);
+    Edge bottom1 = new Edge(Feature.FIELD);
+    Edge left1 = new Edge(Feature.CITY);
+    Edge right1 = new Edge(Feature.CITY);
+    Tile toTest = new Tile(c1, top1, right1, bottom1, left1, 1);
+
+    // List<Posn> validMoves = new ArrayList<>();
+    Player p = new Player(0, "Scott");
+    Referee r = new Referee();
+    r.newPlayer(p);
+    r.place(new Posn(0, 0), t);
+    r.placeMeeple(new Posn(0, 0), p, Direction.LEFT);
+
+    System.out.println(r.getBoard().validMoves(toTest));
+  }
 
   @Test
   public void validMovesOtherTest() throws InvalidEdgeException,
