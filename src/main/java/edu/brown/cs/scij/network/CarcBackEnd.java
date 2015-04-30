@@ -26,7 +26,7 @@ public class CarcBackEnd implements BackEnd {
   }
 
   @Override
-  public synchronized Object answer(int player, String field, Object val) {
+  public synchronized Object answer(int player, String field, Map<String, String> val) {
     Tile t;
     Map<String, String> data = (Map<String, String>) val;
     assert (player == r.getCurPlayer().getId());

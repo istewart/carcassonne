@@ -38,7 +38,7 @@ public final class Network {
   private String url;
 
   private Server server = new MainServer().talk();
-  private BackEnd back = new DummyBackEnd();
+  private BackEnd back;
 
   /**
    * The basic constructor for this class. The default port 4567 will be used.
@@ -278,7 +278,7 @@ public final class Network {
       String field = qm.get("field").value();
       String val = qm.get("val").value();
       System.out.println(val);
-      return GSON.toJson(server.ask(key, field,
+      return GSON.toJson(server.ask(key, field, (Map<String, String>)
           GSON.fromJson(val, HashMap.class)));
     }
   }
