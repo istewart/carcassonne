@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
+import com.google.gson.Gson;
+
 import edu.brown.cs.scij.game.Board;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.game.Posn;
@@ -16,6 +18,7 @@ import edu.brown.cs.scij.tile.Tile;
 public class CarcBackEnd implements BackEnd {
   private Referee r;
   private Server s;
+  private static final Gson GSON = new Gson();
 
   public CarcBackEnd(Referee r) {
     this.r = r;
@@ -73,12 +76,12 @@ public class CarcBackEnd implements BackEnd {
       case "placeTile":
         // receiving: posn
         // Map<String, String> place = (HashMap<String, String>) val;
-        String posn = val.get("move");
-        System.out.println(posn);
-        String[] xy = posn.split(",");
-        Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
+        Posn posn = GSON.fromJson(val.get("move"), Posn.class);
+        // System.out.println(posn);
+        // String[] xy = posn.split(",");
+        // Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
         try {
-          r.getBoard().place(p, r.getCurTile());
+          r.getBoard().place(posn, r.getCurTile());
         } catch (PosnTakenException e) {
           // TODO Send back a message saying it's the same player's turn with
           // the
