@@ -46,6 +46,7 @@
       </div>
     </div>
 
+
     <div id="menuDiv">
       <h1>Carcassonne</h1>
 
@@ -66,6 +67,13 @@
       <h1>Lobby</h1>
       <button class="submitButton" id="startGame"> Start </button><br>
       <button class="backButton" id="lobbyBack"> Back </button>
+
+      <form class="players">
+        <textarea id="playerOne" class="playerBox" rows="1" readonly></textarea></br>
+        <textarea id="playerTwo" class="playerBox" rows="1" readonly></textarea></br>
+        <textarea id="playerThree" class="playerBox" rows="1" readonly></textarea></br>
+        <textarea id="playerFour" class="playerBox" rows="1" readonly></textarea></br>
+      </form>
     </div>
 
       
