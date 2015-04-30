@@ -4,7 +4,7 @@ var renderer; // global rendering object
 var handler = {
 	connect: function() {
 		Menu();
-    	PlacementButtons();
-    	Canvas();
+    PlacementButtons();
+    Canvas();
 	},
 }

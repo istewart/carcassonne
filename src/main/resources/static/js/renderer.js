@@ -377,3 +377,4 @@ Renderer.prototype.containsMove = function(pos) {
 
   return false;
 }
+
