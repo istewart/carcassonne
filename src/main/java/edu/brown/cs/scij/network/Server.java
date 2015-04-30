@@ -99,7 +99,7 @@ public interface Server {
   void unseal();
 
   /**
-   * Sets the Server's {@Link BackEnd}. Optional operation.
+   * Sets the Server's {@link BackEnd}. Optional operation.
    * @param back  The BackEnd to use
    * @return  <code>this</code>
    * @throws UnsupportedOperationException  if this operation is not supported
@@ -109,8 +109,9 @@ public interface Server {
   /**
    * Forwards the ask request to the BackEnd and returns the object that
    * the back end returns. Optional operation.
+   * @param key  The key of the player asking the question
    * @param field  The field the query should be applied to
-   * @param val  The value of the field
+   * @param value  The value of the field
    * @return  A response object or <code>null</code> if the query could
    * not be processed by the BackEnd or no BackEnd exists.
    * @throws UnsupportedOperationException  if this operation is not supported
