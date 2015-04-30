@@ -25,7 +25,6 @@ import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.TileFeature;
 import edu.brown.cs.scij.tile.UnMeeplableException;
 
-//SCOTT LOOK AT JOSEPHS CODE AND HOW PRETTY IT IS COMMENT YOURS THE SAME WAY
 public class Referee {
   private List<Player> players;
   private Deck deck;
@@ -33,6 +32,7 @@ public class Referee {
   private Board board;
   private Tile curTile = null;
   private Player curPlayer;
+  private boolean isGameOver;
 
   public Referee() {
     // TODO should be done but there might be something else but I can't think
@@ -102,8 +102,15 @@ public class Referee {
     return t;
   }
 
+  public void setGameOver(boolean b) {
+    isGameOver = b;
+  }
+
   public boolean isGameOver() {
-    return deck.isEmpty();
+    if (deck.isEmpty()) {
+      isGameOver = true;
+    }
+    return isGameOver;
   }
 
   public void setupGame() {
@@ -407,8 +414,10 @@ public class Referee {
         if (right.hasMeeple()) {
           rightCityMeeples.put(p, right);
         }
-        rightScore = scoreCityHelper(p.withX(p.getX() + 1), p, visitedRight,
-            rightCityMeeples, Direction.RIGHT, rightF) + 1;
+        rightScore =
+            scoreCityHelper(p.withX(p.getX() + 1), p, visitedRight,
+                rightCityMeeples, Direction.RIGHT, rightF) + 1
+                + curTile.getShield();
 
         if (isGameOver()) {
           scoreMeeples(rightCityMeeples, rightScore);
@@ -427,7 +436,7 @@ public class Referee {
           leftCityMeeples.put(p, left);
         }
         leftScore = scoreCityHelper(p.withX(p.getX() - 1), p, visitedLeft,
-            leftCityMeeples, Direction.LEFT, leftF) + 1;
+            leftCityMeeples, Direction.LEFT, leftF) + 1 + curTile.getShield();
 
         if (isGameOver()) {
           scoreMeeples(leftCityMeeples, leftScore);
@@ -445,7 +454,7 @@ public class Referee {
           downCityMeeples.put(p, bottom);
         }
         downScore = scoreCityHelper(p.withY(p.getY() - 1), p, visitedDown,
-            downCityMeeples, Direction.DOWN, downF) + 1;
+            downCityMeeples, Direction.DOWN, downF) + 1 + curTile.getShield();
 
         if (isGameOver()) {
           scoreMeeples(downCityMeeples, downScore);
@@ -462,8 +471,8 @@ public class Referee {
         if (top.hasMeeple()) {
           upCityMeeples.put(p, top);
         }
-        upScore = scoreCityHelper(p.withY(p.getY() - 1), p, visitedUp,
-            upCityMeeples, Direction.UP, upF) + 1;
+        upScore = scoreCityHelper(p.withY(p.getY() + 1), p, visitedUp,
+            upCityMeeples, Direction.UP, upF) + 1 + curTile.getShield();
 
         if (isGameOver()) {
           scoreMeeples(upCityMeeples, upScore);
@@ -490,40 +499,40 @@ public class Referee {
       Pair<Posn, Direction> pair = queue.poll();
       p = pair.getP1();
       dir = pair.getP2();
-      visited.add(curPosn);
+      visited.add(p);
       Tile curTile = board.getBoard().get(p);
       if (curTile == null) {
         // the city is not finished
         f.setFinished(false);
       } else {
-        score++;
+        score = score + 1 + curTile.getShield();
         grabMeepleAtEdge(p, curTile, dir, meepledCities);
         if (curTile.getCenter().getFeature() == Feature.CITY) {
-          // The center is a city, so recur
+          // The center is a city, so check all sides
           grabMeepleAtCenter(p, curTile, meepledCities);
           if (curTile.getBottom().getFeature() == Feature.CITY
               && dir != Direction.UP) {
             grabMeepleAtEdge(p, curTile, Direction.UP, meepledCities);
             toAdd = p.withY(p.getY() - 1);
-            addToQueue(toAdd, Direction.UP, queue, visited);
+            addToQueue(toAdd, Direction.DOWN, queue, visited);
           }
           if (curTile.getTop().getFeature() == Feature.CITY
               && dir != Direction.DOWN) {
             grabMeepleAtEdge(p, curTile, Direction.DOWN, meepledCities);
             toAdd = p.withY(p.getY() + 1);
-            addToQueue(toAdd, Direction.DOWN, queue, visited);
+            addToQueue(toAdd, Direction.UP, queue, visited);
           }
           if (curTile.getRight().getFeature() == Feature.CITY
               && dir != Direction.LEFT) {
             grabMeepleAtEdge(p, curTile, Direction.LEFT, meepledCities);
             toAdd = p.withX(p.getX() + 1);
-            addToQueue(toAdd, Direction.LEFT, queue, visited);
+            addToQueue(toAdd, Direction.RIGHT, queue, visited);
           }
           if (curTile.getLeft().getFeature() == Feature.CITY
               && dir != Direction.RIGHT) {
             grabMeepleAtEdge(p, curTile, Direction.RIGHT, meepledCities);
             toAdd = p.withX(p.getX() - 1);
-            addToQueue(toAdd, Direction.RIGHT, queue, visited);
+            addToQueue(toAdd, Direction.LEFT, queue, visited);
           }
         }
       }
@@ -613,9 +622,7 @@ public class Referee {
         }
         rightScore = scoreRoadHelper(p.withX(p.getX() + 1), p, visitedRight,
             rightRoadMeeples, Direction.RIGHT, rightF);
-        if (isGameOver()) {
-          scoreMeeples(rightRoadMeeples, rightScore + 1);
-        } else if (rightF.isFinished()) {
+        if (isGameOver() || rightF.isFinished()) {
           scoreMeeples(rightRoadMeeples, rightScore + 1);
         }
       }
@@ -630,9 +637,7 @@ public class Referee {
         }
         leftScore = scoreRoadHelper(p.withX(p.getX() - 1), p, visitedLeft,
             leftRoadMeeples, Direction.LEFT, leftF);
-        if (isGameOver()) {
-          scoreMeeples(leftRoadMeeples, leftScore + 1);
-        } else if (leftF.isFinished()) {
+        if (isGameOver() || leftF.isFinished()) {
           scoreMeeples(leftRoadMeeples, leftScore + 1);
         }
       }
@@ -647,9 +652,7 @@ public class Referee {
         }
         upScore = scoreRoadHelper(p.withY(p.getY() + 1), p, visitedTop,
             topRoadMeeples, Direction.UP, upF);
-        if (isGameOver()) {
-          scoreMeeples(topRoadMeeples, upScore + 1);
-        } else if (upF.isFinished()) {
+        if (isGameOver() || upF.isFinished()) {
           scoreMeeples(topRoadMeeples, upScore + 1);
         }
       }
@@ -664,9 +667,7 @@ public class Referee {
         }
         downScore = scoreRoadHelper(p.withY(p.getY() - 1), p, visitedBottom,
             bottomRoadMeeples, Direction.DOWN, downF);
-        if (isGameOver()) {
-          scoreMeeples(bottomRoadMeeples, downScore + 1);
-        } else if (downF.isFinished()) {
+        if (isGameOver() || downF.isFinished()) {
           scoreMeeples(bottomRoadMeeples, downScore + 1);
         }
       }
@@ -716,9 +717,7 @@ public class Referee {
 
       int score = 1 + upScore + downScore + leftScore + rightScore;
       // System.out.println("Total Score = " + score);
-      if (isGameOver()) {
-        scoreMeeples(meepledRoads, score);
-      } else if (f.isFinished()) {
+      if (isGameOver() || f.isFinished()) {
         scoreMeeples(meepledRoads, score);
       }
     }
@@ -993,13 +992,15 @@ public class Referee {
 
     // 4x 3-road 1-field w/endpoint
     for (i = 0; i < 4; i++) {
-      tiles.add(new Tile(7, new Center(endpoint), new Edge(field), new Edge(road),
+      tiles.add(new Tile(7, new Center(endpoint), new Edge(field), new Edge(
+          road),
           new Edge(road), new Edge(road), 0));
     }
 
     // 3x 3-road 1-city w/endpoint
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(23, new Center(endpoint), new Edge(city), new Edge(road),
+      tiles.add(new Tile(23, new Center(endpoint), new Edge(city), new Edge(
+          road),
           new Edge(road), new Edge(road), 0));
     }
 
@@ -1011,7 +1012,8 @@ public class Referee {
 
     // 9x curved road
     for (i = 0; i < 9; i++) {
-      tiles.add(new Tile(15, new Center(road), new Edge(field), new Edge(field),
+      tiles.add(new Tile(15, new Center(road), new Edge(field),
+          new Edge(field),
           new Edge(road), new Edge(road), 0));
     }
 
@@ -1023,7 +1025,8 @@ public class Referee {
 
     // 3x 1-city w/curved road from left
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(22, new Center(field), new Edge(city), new Edge(field),
+      tiles.add(new Tile(22, new Center(field), new Edge(city),
+          new Edge(field),
           new Edge(road), new Edge(road), 0));
     }
 
@@ -1069,7 +1072,8 @@ public class Referee {
 
     // 5x 3-field 1-city
     for (i = 0; i < 5; i++) {
-      tiles.add(new Tile(20, new Center(field), new Edge(city), new Edge(field),
+      tiles.add(new Tile(20, new Center(field), new Edge(city),
+          new Edge(field),
           new Edge(field), new Edge(field), 0));
     }
 
@@ -1097,7 +1101,8 @@ public class Referee {
 
     // 3x 2-city (not-connected, opposite sides) 2-field
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(17, new Center(field), new Edge(city), new Edge(field),
+      tiles.add(new Tile(17, new Center(field), new Edge(city),
+          new Edge(field),
           new Edge(city), new Edge(field), 0));
     }
 
