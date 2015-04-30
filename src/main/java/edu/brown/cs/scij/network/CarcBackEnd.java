@@ -163,7 +163,7 @@ public class CarcBackEnd implements BackEnd {
 
           // TODO send only a gameover message with the list of players
         } else {
-          s.putField("board", r.getBoard());
+          s.putField("board", r.getBoard().getBoard());
           toReturn.put("board", r.getBoard());
           s.putField("currentPlayer", r.getCurPlayer());
           toReturn.put("currentPlayer", r.getCurPlayer());
