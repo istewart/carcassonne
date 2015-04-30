@@ -2,12 +2,21 @@ package edu.brown.cs.scij.tile;
 
 import edu.brown.cs.scij.game.Meeple;
 
+/**
+ * a feature that resides on a tile.
+ * @author scij
+ *
+ */
 public abstract class TileFeature {
   protected final Feature feature;
   protected boolean isMeeplable;
   protected Meeple meeple;
   protected boolean touchesMeeple;
 
+  /**
+   * constructor for TileFeature.
+   * @param feature what feature is contained
+   */
   public TileFeature(Feature feature) {
     this.feature = feature;
     setIsMeeplable(feature);
@@ -15,6 +24,10 @@ public abstract class TileFeature {
     this.touchesMeeple = false;
   }
 
+  /**
+   * determines whether the feature has a meeple.
+   * @return whether the feature has a meeple
+   */
   public boolean hasMeeple() {
     if (meeple == null) {
       return false;
@@ -22,26 +35,51 @@ public abstract class TileFeature {
     return true;
   }
 
+  /**
+   * getter for meeple.
+   * @return meeple
+   */
   public Meeple getMeeple() {
     return meeple;
   }
 
+  /**
+   * determines whether the feature is meeplable.
+   * @return isMeeplable
+   */
   public boolean isMeeplable() {
     return isMeeplable;
   }
 
+  /**
+   * getter for feature.
+   * @return feature
+   */
   public Feature getFeature() {
     return feature;
   }
   
+  /**
+   * determines whether the feature touches a meeple.
+   * @return touchesMeeple
+   */
   public boolean touchesMeeple() {
 	  return touchesMeeple;
   }
-  
+
+  /**
+   * setter for touchesMeeple
+   * @param tm what to set touchesMeeple to
+   */
   public void setTouchesMeeple(boolean tm){
 	  touchesMeeple = tm;
   }
 
+  /**
+   * setter for meeple.
+   * @param m what to set meeple to
+   * @throws UnMeeplableException if you cant meeple this feature
+   */
   public void setMeeple(Meeple m) throws UnMeeplableException {
     if (isMeeplable) {
       this.meeple = m;
@@ -51,6 +89,10 @@ public abstract class TileFeature {
     }
   }
 
+  /**
+   * gets rid of the meeple.
+   * @throws NullMeepleException when there is no meeple to remove
+   */
   public void removeMeeple() throws NullMeepleException {
     if (meeple == null) {
       throw new NullMeepleException("there is no meeple here to return");
@@ -60,6 +102,10 @@ public abstract class TileFeature {
     meeple = null;
   }
 
+  /**
+   * setter for isMeeplable.
+   * @param feature what feature the meeple would be on.
+   */
   private void setIsMeeplable(Feature feature) {
     if (feature == Feature.ENDPOINT || feature == Feature.RIVER
         || feature == Feature.FIELD) {

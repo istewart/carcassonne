@@ -1,5 +1,10 @@
 package edu.brown.cs.scij.tile;
 
+/**
+ * main class for a tile in carcassonne.
+ * @author scij
+ *
+ */
 public class Tile {
   static int numTiles = 0;
   private final Center center;
@@ -13,6 +18,15 @@ public class Tile {
   private int numRoads;
   private int pngID = 0;
 
+  /**
+   * constructor for Tile.
+   * @param center the Center of the tile
+   * @param top the top edge of the tile
+   * @param right the right edge of the tile
+   * @param bottom the bottom edge of the tile
+   * @param left the left edge of the tile
+   * @param shield how many shields are on the tile
+   */
   public Tile(Center center, Edge top, Edge right, Edge bottom, Edge left,
       int shield) {
     if (center == null || top == null || right == null || bottom == null
@@ -31,6 +45,16 @@ public class Tile {
     setNumRoads();
   }
 
+  /**
+   * overloaded constructor for tiles with image ids.
+   * @param pngID the id of the image
+   * @param center the Center of the tile
+   * @param top the top edge of the tile
+   * @param right the right edge of the tile
+   * @param bottom the bottom edge of the tile
+   * @param left the left edge of the tile
+   * @param shield how many shields are on the tile
+   */
   public Tile(int pngID, Center center, Edge top, Edge right, Edge bottom,
       Edge left,
       int shield) {
@@ -51,6 +75,9 @@ public class Tile {
     setNumRoads();
   }
 
+  /**
+   * sets the number of roads on a tile.
+   */
   private void setNumRoads() {
     int roads = 0;
     if (top.getFeature() == Feature.ROAD) {
@@ -68,42 +95,82 @@ public class Tile {
     numRoads = roads;
   }
 
+  /**
+   * getter for top.
+   * @return top
+   */
   public Edge getTop() {
     return top;
   }
 
+  /**
+   * getter for center.
+   * @return center
+   */
   public Center getCenter() {
     return center;
   }
 
+  /**
+   * getter for bottom.
+   * @return bottom
+   */
   public Edge getBottom() {
     return bottom;
   }
 
+  /**
+   * getter for left.
+   * @return left
+   */
   public Edge getLeft() {
     return left;
   }
 
+  /**
+   * getter for right.
+   * @return right
+   */
   public Edge getRight() {
     return right;
   }
-  
+
+  /**
+   * getter for rotation.
+   * @return rotation
+   */
   public int getRotation() {
 	  return rotation;
   }
 
+  /**
+   * setter for rotation.
+   * @param rotation what to set rotation to
+   */
   public void setRotation(int rotation) {
 	  this.rotation = rotation;
   }
-  
+
+  /**
+   * getter for id.
+   * @return id
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * getter for shield.
+   * @return shield.
+   */
   public int getShield() {
     return shield;
   }
 
+  /**
+   * determines whether a road ends on the tile.
+   * @return whether a road ends on a tile.
+   */
   public boolean roadEnds() {
     if (numRoads == 2) {
       return false;
@@ -111,6 +178,9 @@ public class Tile {
     return true;
   }
 
+  /**
+   * rotates the tile to the left.
+   */
   public void rotateLeft() {
     Edge tmptop = top;
     top = right;
@@ -118,8 +188,11 @@ public class Tile {
     bottom = left;
     left = tmptop;
     rotation -= 90;
-  }  
+  }
   
+  /**
+   * rotates the tile to the right.
+   */
   public void rotateRight() {
     Edge tmptop = top;
     top = left;
@@ -128,22 +201,6 @@ public class Tile {
     right = tmptop;
     rotation += 90;
   }
-
-  /*
-   * public void placeMeeple(Player player, TileFeature feature)
-   * throws OutOfMeeplesException, InvalidMeeplePlacementException {
-   * if (player.getNumMeeples() == 0) {
-   * throw new OutOfMeeplesException("You have no meeples left!");
-   * } else if (!feature.isMeeplable()) {
-   * throw new InvalidMeeplePlacementException("no. cant meeple there");
-   * } else {
-   * player.useMeeple();
-   * Meeple m = new Meeple(player);
-   * feature.setMeeple(m);
-   * meepledFeature = feature.getFeature();
-   * }
-   * }
-   */
 
   @Override
   public String toString() {
