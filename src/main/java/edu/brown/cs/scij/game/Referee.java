@@ -342,7 +342,8 @@ public class Referee {
   }
 
   public void scoreRoadEndgame() {
-    for (Posn p : board.getMeeplePosns()) {
+    Set<Posn> meepledPosns = board.getMeeplePosns();
+    for (Posn p : meepledPosns) {
       scoreRoadAt(p);
     }
   }
@@ -561,13 +562,13 @@ public class Referee {
     Tile curTile = board.getBoard().get(curPosn);
     int score = 0;
     while (curTile != null) {
-
+      grabMeepleAtEdge(curPosn, curTile, d, meepledRoads);
       if (visited.contains(curPosn)) {
         return score;
       }
       visited.add(curPosn);
       score++;
-      grabMeepleAtEdge(curPosn, curTile, d, meepledRoads);
+
       if (curTile.roadEnds()) {
         return score;
       }
