@@ -83,6 +83,8 @@ public class CarcBackEnd implements BackEnd {
         Player curPlayer = r.nextPlayer();
         s.putField("currentPlayer", curPlayer);
         toReturn.put("currentPlayer", curPlayer);
+        s.putField("gameStart", true);
+        toReturn.put("gameStart", true);
         // putField() current board, current tile, list of players,
         // current player, valid moves
         return toReturn;
