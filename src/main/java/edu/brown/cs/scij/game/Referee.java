@@ -367,11 +367,8 @@ public class Referee {
     int downScore = 0;
     int leftScore = 0;
     int rightScore = 0;
-    System.out.println(curTile.getCenter1().getFeature());
-    System.out.println(curTile.getCenter2().getFeature());
     if (curTile.getCenter1().getFeature() == Feature.CITY
         || curTile.getCenter2().getFeature() == Feature.CITY) {
-      System.out.println("one of the centers was a city");
       // check in all directions for cities, there are at least two connected,
       // and they count as the same city
       Set<Posn> visited = new HashSet<>();
@@ -384,25 +381,24 @@ public class Referee {
           meepledCities.put(p, right);
         }
         rightScore =
-            scoreCityHelper(p.withX(p.getX() + 1), p, visited,
+            scoreCityHelper(p.withX(p.getX() + 1), visited,
                 meepledCities, Direction.RIGHT, f);
-
       }
       if (left.getFeature() == Feature.CITY) {
         if (left.hasMeeple()) {
           meepledCities.put(p, left);
         }
         leftScore =
-            scoreCityHelper(p.withX(p.getX() - 1), p, visited,
+            scoreCityHelper(p.withX(p.getX() - 1), visited,
                 meepledCities, Direction.LEFT, f);
-        System.out.println("leftScore = " + leftScore);
+
       }
       if (bottom.getFeature() == Feature.CITY) {
         if (bottom.hasMeeple()) {
           meepledCities.put(p, bottom);
         }
         downScore =
-            scoreCityHelper(p.withY(p.getY() - 1), p, visited,
+            scoreCityHelper(p.withY(p.getY() - 1), visited,
                 meepledCities, Direction.DOWN, f);
       }
       if (top.getFeature() == Feature.CITY) {
@@ -410,9 +406,9 @@ public class Referee {
           meepledCities.put(p, top);
         }
         upScore =
-            scoreCityHelper(p.withY(p.getY() + 1), p, visited,
+            scoreCityHelper(p.withY(p.getY() + 1), visited,
                 meepledCities, Direction.UP, f);
-        System.out.println("upScore = " + upScore);
+
       }
       int score =
           1 + curTile.getShield() + upScore + downScore + leftScore
@@ -434,7 +430,7 @@ public class Referee {
           rightCityMeeples.put(p, right);
         }
         rightScore =
-            scoreCityHelper(p.withX(p.getX() + 1), p, visitedRight,
+            scoreCityHelper(p.withX(p.getX() + 1), visitedRight,
                 rightCityMeeples, Direction.RIGHT, rightF) + 1
                 + curTile.getShield();
 
@@ -454,7 +450,7 @@ public class Referee {
         if (left.hasMeeple()) {
           leftCityMeeples.put(p, left);
         }
-        leftScore = scoreCityHelper(p.withX(p.getX() - 1), p, visitedLeft,
+        leftScore = scoreCityHelper(p.withX(p.getX() - 1), visitedLeft,
             leftCityMeeples, Direction.LEFT, leftF) + 1 + curTile.getShield();
 
         if (isGameOver()) {
@@ -472,7 +468,7 @@ public class Referee {
         if (bottom.hasMeeple()) {
           downCityMeeples.put(p, bottom);
         }
-        downScore = scoreCityHelper(p.withY(p.getY() - 1), p, visitedDown,
+        downScore = scoreCityHelper(p.withY(p.getY() - 1), visitedDown,
             downCityMeeples, Direction.DOWN, downF) + 1 + curTile.getShield();
 
         if (isGameOver()) {
@@ -490,7 +486,7 @@ public class Referee {
         if (top.hasMeeple()) {
           upCityMeeples.put(p, top);
         }
-        upScore = scoreCityHelper(p.withY(p.getY() + 1), p, visitedUp,
+        upScore = scoreCityHelper(p.withY(p.getY() + 1), visitedUp,
             upCityMeeples, Direction.UP, upF) + 1 + curTile.getShield();
 
         if (isGameOver()) {
@@ -502,7 +498,7 @@ public class Referee {
     }
   }
 
-  private int scoreCityHelper(Posn curPosn, Posn prevPosn, Set<Posn> visited,
+  private int scoreCityHelper(Posn curPosn, Set<Posn> visited,
       Map<Posn, TileFeature> meepledCities, Direction d, Finished f) {
     // recursively check each direction until there is no more center that
     // is a city. If a tile
@@ -511,6 +507,9 @@ public class Referee {
     Queue<Pair<Posn, Direction>> queue = new LinkedList<>();
     Posn toAdd;
     queue.add(new Pair<Posn, Direction>(curPosn, d));
+    if (visited.contains(curPosn)) {
+      return 0;
+    }
     int score = 0;
     Posn p = curPosn;
     Direction dir = d;
@@ -855,7 +854,7 @@ public class Referee {
       }
     }
 
-    int maxMeeples = 0;
+    int maxMeeples = 1;
     for (Integer meepleCounts : meeples.values()) {
       if (meepleCounts > maxMeeples) {
         maxMeeples = meepleCounts;
