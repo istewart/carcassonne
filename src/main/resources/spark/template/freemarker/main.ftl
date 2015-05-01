@@ -157,6 +157,7 @@
       <img src="images/tiles/32.png" id="32">
       <img src="images/tiles/33.png" id="33">
       <img src="images/tiles/34.png" id="34">
+      <img src="images/tiles/35.png" id="35">
     </div>
 
   </body>

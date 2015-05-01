@@ -1,11 +1,10 @@
 body {
-    color: #222;
-    background-color: white;
-    /*padding: 35pt;*/
-    font: 12pt 'Merienda One';
-    line-height: 120%;
-    text-align: center;
-    overflow: hidden;
+  color: #222;
+  background-color: white;
+  /*padding: 35pt;*/
+  font: 12pt 'Merienda One';
+  line-height: 120%;
+  text-align: center;
 }
 
 /* should divide css and js into a bunch of files */
@@ -147,6 +146,7 @@ textarea.lobbyBox {
 #mainDiv { 
   height: 50em; 
   width: 100%;
+  overflow: hidden;
 }
 
 textarea.hostField {
@@ -170,20 +170,24 @@ textarea.hostField {
 }
 
 button.submitButton, button.backButton {
-    width: 30%;  
-    height: 3em;
-    margin: .5em;
-    border: 1px solid #444;
-    font: 18pt 'Merienda One';
-    color: #e8e8e8;
-    background-color: #222222;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    resize: none;
-    overflow: hidden;
+  width: 30%;  
+  height: 3em;
+  margin: .5em;
+  border: 1px solid #444;
+  font: 18pt 'Merienda One';
+  color: #e8e8e8;
+  background-color: #222222;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  resize: none;
+  overflow: hidden;
 }
 
 #mainDiv, #hostDiv, #joinDiv, #settingsDiv, #instructionsDiv, #tileDiv, #lobbyDiv {
   display: none;
+}
+
+#hostDiv, #joinDiv, #settingsDiv, #instructionsDiv, #tileDiv, #lobbyDiv {
+  overflow: scroll;
 }
