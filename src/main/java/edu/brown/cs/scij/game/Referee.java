@@ -154,7 +154,7 @@ public class Referee {
 
   }
 
-  // Probably don't need this, handled by the handlers/main
+  // Don't need this, handled by the handlers/main
   public void takeTurn(Player p, BufferedReader r) throws IOException {
     Tile t = drawTile();
     System.out.println(t);
@@ -342,14 +342,17 @@ public class Referee {
   }
 
   public void scoreRoadEndgame() {
-    Set<Posn> meepledPosns = board.getMeeplePosns();
+    Set<Posn> meepledPosns = new HashSet<>(board.getMeeplePosns());
+
     for (Posn p : meepledPosns) {
       scoreRoadAt(p);
     }
   }
 
   public void scoreCityEndgame() {
-    for (Posn p : board.getMeeplePosns()) {
+    Set<Posn> meepledPosns = new HashSet<>(board.getMeeplePosns());
+
+    for (Posn p : meepledPosns) {
       scoreCityAt(p);
     }
   }
