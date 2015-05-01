@@ -37,4 +37,17 @@ var handler = {
       });
     }
   }
+
+  gameStart: function(state) {
+    console.log("gameStart = ")
+    console.log(state);
+    if (state == true) {
+      renderer.hideAll();
+      $("#mainDiv").show();
+    }
+  }
+
+  currPlayer: function(player) {
+    console.log(player);
+  }
 }

@@ -15,14 +15,7 @@ var Menu = function() {
   var mainMeeple = document.getElementById("mainMeeple");
   var mainSkip = document.getElementById("mainSkip");
 
-  var hideAll = function() {
-    $("#menuDiv").hide();
-    $("#joinDiv").hide();
-    $("#mainDiv").hide();
-    $("#settingsDiv").hide();
-    $("#instructionsDiv").hide();
-    $("#lobbyDiv").hide();
-  }
+  var hideAll = renderer.hideAll;
 
   hideAll();
   $("#menuDiv").show();
