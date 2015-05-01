@@ -186,27 +186,34 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     var x = targetPlacement.x;
     var y = targetPlacement.y;
 
+    var meeplePlayerId;
+
     if (tileObj.top.meeple) {
       x += w / 2;
       y += h / 4; 
+      meeplePlayerId = tileObj.top.meeple.id;
     } else if (tileObj.bottom.meeple) {
       x += w / 2;
       y += 3 * h / 4;
+      meeplePlayerId = tileObj.bottom.meeple.player.id;
     } else if (tileObj.left.meeple) {
       x += w / 4;
       y += h / 2;
+      meeplePlayerId = tileObj.left.meeple.player.id;
     } else if (tileObj.right.meeple) {
       x += 3 * w / 4;
       y += h / 2;
+      meeplePlayerId = tileObj.right.meeple.player.id;
     } else if (tileObj.centers[0].meeple) {
       x += w / 2;
       y += h / 2;
+      meeplePlayerId = tileObj.centers[0].meeple.player.id;
     } else {
       continue;
     }
 
     ctx.beginPath();
-    ctx.fillStyle =  "blue"; // meeple.player.color;
+    ctx.fillStyle =  colors[meeplePlayerId]; // meeple.player.color;
     ctx.strokeStyle = null;
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.closePath();
