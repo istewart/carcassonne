@@ -191,10 +191,16 @@ public class CarcBackEnd implements BackEnd {
         toReturn.put("players", r.getPlayers());
 
         curTile = r.drawTile();
-        validMoves = r.getBoard().validMoves(curTile);
-        while (validMoves.isEmpty()) {
-          validMoves = checkValidMoves(r.getBoard(), curTile);
+        if (curTile == null) {
+          validMoves = new ArrayList<>();
+        } else {
+          validMoves = r.getBoard().validMoves(curTile);
+          while (validMoves.isEmpty()) {
+            validMoves = checkValidMoves(r.getBoard(), curTile);
+          }
         }
+        
+        
 
         // check current orientation
 
@@ -202,8 +208,8 @@ public class CarcBackEnd implements BackEnd {
         toReturn.put("currTile", r.getCurTile());
         s.putField("validMoves", validMoves);
         toReturn.put("validMoves", validMoves);
-        s.putField("gameover", r.isGameOver());
-        toReturn.put("gameover", r.isGameOver());
+        s.putField("gameOver", r.isGameOver());
+        toReturn.put("gameOver", r.isGameOver());
         s.putField("validMeeples", new ArrayList<>());
         toReturn.put("validMeeples", new ArrayList<>());
         return toReturn;
