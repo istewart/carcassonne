@@ -150,6 +150,7 @@ var network = {
       $.post("/ping", response, function(responseJSON) {
         var responseObject = JSON.parse(responseJSON);
         if (responseObject.val == "undefined" && !network.fatal) {
+          network.server.handle("fatal");
           network.fatal = true;
           alert(responseObject.alert);
           clearInterval(network.pingInterval);
@@ -191,6 +192,7 @@ var network = {
         var responseObject = JSON.parse(responseJSON);
         if ((responseObject.key == "undefined"
           || responseObject.player == "undefined") && !network.fatal) {
+          network.server.handle("fatal");
           network.fatal = true;
           alert(responseObject.alert);
           clearInterval(network.connectedInterval);

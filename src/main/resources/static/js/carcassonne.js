@@ -115,13 +115,16 @@ var handler = {
   },
 
   disconnect: function() {
-    console.log("disconnected");
     grayOut(true);
+    alert("You appear to have disconnected. The game will return when you reconnect.");
   },
 
   reconnect: function() {
-    console.log("reconnected");
     grayOut(false);
+  },
+
+  fatal: function() {
+    grayOut(true);
   },
 }
 
