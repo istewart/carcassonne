@@ -125,26 +125,26 @@ public class CarcBackEnd implements BackEnd {
         // TODO receiving: direction
         // returning: currtile, board, validmoves, players, currplayer
         String dir = val.get("meeple");
-        System.out.println("LOOK HERE THORUGH THE MESS ::: " + dir);
         Direction d = null;
         Tile curTile = r.getCurTile();
         if (dir != null) {
           try {
-            if (dir.equals("UP")) {
-              d = Direction.UP;
-              // curTile.getTop().setMeeple(new Meeple(r.getCurPlayer()));
-            } else if (dir.equals("DOWN")) {
-              d = Direction.DOWN;
-              // curTile.getBottom().setMeeple(new Meeple(r.getCurPlayer()));
-            } else if (dir.equals("LEFT")) {
-              d = Direction.LEFT;
-              // curTile.getLeft().setMeeple(new Meeple(r.getCurPlayer()));
-            } else if (dir.equals("RIGHT")) {
-              d = Direction.RIGHT;
-              // curTile.getRight().setMeeple(new Meeple(r.getCurPlayer()));
-            } else if (dir.equals("CENTER")) {
-              d = Direction.CENTER;
-              // curTile.getCenter().setMeeple(new Meeple(r.getCurPlayer()));
+            switch (dir) {
+              case "UP":
+                d = Direction.UP;
+                break;
+              case "LEFT":
+                d = Direction.LEFT;
+                break;
+              case "DOWN":
+                d = Direction.DOWN;
+                break;
+              case "RIGHT":
+                d = Direction.RIGHT;
+                break;
+              case "CENTER":
+                d = Direction.CENTER;
+                break;
             }
             r.placeMeeple(r.getCurPosn(), r.getCurPlayer(), d);
           } catch (UnMeeplableException e) {
@@ -162,7 +162,6 @@ public class CarcBackEnd implements BackEnd {
         r.score(r.getCurPosn());
 
         if (r.isGameOver()) {
-          r.gameOverScoring();
           s.putField("gameover", r.isGameOver());
           toReturn.put("gameover", r.isGameOver());
           s.putField("players", r.getPlayers());
