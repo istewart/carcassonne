@@ -854,7 +854,7 @@ public class Referee {
       }
     }
 
-    int maxMeeples = 0;
+    int maxMeeples = 1;
     for (Integer meepleCounts : meeples.values()) {
       if (meepleCounts > maxMeeples) {
         maxMeeples = meepleCounts;
