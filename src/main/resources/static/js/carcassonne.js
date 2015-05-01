@@ -10,6 +10,7 @@ function hideAll() {
   $("#settingsDiv").hide();
   $("#instructionsDiv").hide();
   $("#lobbyDiv").hide();
+  resize();
 }
 
 // main function to configure the web page
@@ -142,6 +143,12 @@ var handler = {
 
   fatal: function() {
     grayOut(true);
+  },
+
+  gameOver: function(val) {
+    if (val == true) {
+      alert("gameOver!");
+    }
   },
 }
 

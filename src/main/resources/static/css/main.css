@@ -1,10 +1,11 @@
 body {
     color: #222;
     background-color: white;
-    padding: 35pt;
+    /*padding: 35pt;*/
     font: 12pt 'Merienda One';
     line-height: 120%;
     text-align: center;
+    overflow: hidden;
 }
 
 /* should divide css and js into a bunch of files */
@@ -45,11 +46,12 @@ button.menubutton {
 #sidebar {
     background:#222222;
     float: right;
-    width: 30%;
+    width: 300px;
     height: 100%;
     position: relative;
     border:2px solid #000000;
     border-left: none;
+    overflow: scroll;
 
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -66,7 +68,7 @@ button.menubutton {
 
 #contentDiv {
     background:#e8e8e8;
-    width: 70%;
+    width: 0px;
     height: 100%;
     position: relative;
     border:2px solid #000000;

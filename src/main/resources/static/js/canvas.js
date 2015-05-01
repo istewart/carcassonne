@@ -141,3 +141,17 @@ var Canvas = function() {
 		renderer.render();
 	});
 }
+
+$(window).resize(resize);
+
+function resize() {
+	var height = $(window).height();
+	var width = $(window).width() - 300;
+	console.log(width);
+	$("#contentDiv").css("width", width + "px");
+	$("#contentDiv").css("height", height);
+	$("#sidebarDiv").css("height", height);
+	if (renderer != undefined) {
+		renderer.render();
+	}
+}
