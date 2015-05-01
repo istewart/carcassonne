@@ -43,6 +43,16 @@ var handler = {
     console.log("gameStart = ")
     console.log(state);
     if (state == true) {
+      var n = network;
+
+      var currTile = n.get("currTile");
+      var board = n.get("board");
+      var validMoves = n.get("validMoves");
+      var validMeeples = n.get("validMeeples");
+      var players = n.get("players");
+
+      renderer = new Renderer(board.board, currTile, players, validMoves, validMeeples, 1, 0, 0);
+      renderer.render();
       
       $("#menuDiv").hide();
       $("#joinDiv").hide();
@@ -56,5 +66,25 @@ var handler = {
 
   currPlayer: function(player) {
     console.log(player);
+  },
+
+  currTile: function(tile) {
+    renderer.currTile = tile;
+    renderer.render();
+  },
+
+  board: function(board) {
+    renderer.board = board.board;
+    renderer.render();
+  },
+
+  validMoves: function(validMoves) {
+    renderer.validMoves = validMoves;
+    renderer.render();
+  },
+
+  validMeeples: function(validMeeples) {
+    renderer.validMeeples = validMeeples;
+    renderer.render();
   },
 }
