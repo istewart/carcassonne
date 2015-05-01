@@ -77,12 +77,12 @@ var handler = {
   currentPlayer: function(player) {
     if (player.id == network.id) {
       myTurn = true;
+      renderer.render();
       $("#mainLeft").show();
       $("#mainRight").show();
       $("#mainPlace").show();
     } else {
       myTurn = false;
-      renderer.validMeeples = {};
       renderer.render();
       $("#mainLeft").hide();
       $("#mainRight").hide();

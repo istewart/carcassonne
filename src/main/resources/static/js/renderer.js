@@ -116,7 +116,7 @@ Renderer.prototype.renderTile = function() {
   var spots = this.validMeeples;
   var radius = w / 10;
 
-  if (!spots || !showHints) {
+  if (!spots || !showHints || !myTurn) {
     return;
   }
 
