@@ -30,6 +30,8 @@
             <button id="mainLeft" class="placeButton"> Left </button>
             <button id="mainPlace" class="placeButton"> Place Tile </button>
             <button id="mainRight" class="placeButton"> Right </button>
+            <button id="mainMeeple" class="placeButton"> Place Meeple </button>
+            <button id="mainSkip" class="placeButton"> Skip Meeple </button>
         </div>
 
         <form class="players">

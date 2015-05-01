@@ -13,6 +13,9 @@ var Menu = function() {
   var mainPlace = document.getElementById("mainPlace");
   var mainRight = document.getElementById("mainRight");
 
+  var mainMeeple = document.getElementById("mainMeeple");
+  var mainSkip = document.getElementById("mainSkip");
+
   var hideAll = function() {
     $("#menuDiv").hide();
     $("#joinDiv").hide();
