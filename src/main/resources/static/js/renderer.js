@@ -186,7 +186,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     } else if (tileObj.right.meeple) {
       x += 3 * w / 4;
       y += h / 2;
-    } else if (tileObj.center.meeple) {
+    } else if (tileObj.centers[0].meeple) {
       x += w / 2;
       y += h / 2;
     } else {

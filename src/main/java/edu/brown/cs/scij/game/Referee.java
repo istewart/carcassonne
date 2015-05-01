@@ -298,7 +298,7 @@ public class Referee {
     if (t == null) {
       return;
     }
-    Center c = t.getCenter();
+    Center c = t.getCenter1();
     if (c.getFeature() == Feature.MONASTERY) {
       Meeple m = c.getMeeple();
       if (m != null) {
@@ -333,7 +333,7 @@ public class Referee {
     for (Entry<Posn, Tile> e : board.getBoard().entrySet()) {
       currTile = e.getValue();
       currPosn = e.getKey();
-      c = currTile.getCenter();
+      c = currTile.getCenter1();
 
       if (c.getFeature() == Feature.MONASTERY && c.hasMeeple()) {
         c.getMeeple().getPlayer().addScore(numSurroundingTiles(currPosn));
@@ -364,7 +364,7 @@ public class Referee {
     int downScore = 0;
     int leftScore = 0;
     int rightScore = 0;
-    if (curTile.getCenter().getFeature() == Feature.CITY) {
+    if (curTile.getCenter1().getFeature() == Feature.CITY || curTile.getCenter2().getFeature() == Feature.CITY) {
       // check in all directions for cities, there are at least two connected,
       // and they count as the same city
       Set<Posn> visited = new HashSet<>();
@@ -516,7 +516,7 @@ public class Referee {
       } else {
         score = score + 1 + curTile.getShield();
         grabMeepleAtEdge(p, curTile, dir, meepledCities);
-        if (curTile.getCenter().getFeature() == Feature.CITY) {
+        if (curTile.getCenter1().getFeature() == Feature.CITY || curTile.getCenter2().getFeature() == Feature.CITY) {
           // The center is a city, so check all sides
           grabMeepleAtCenter(p, curTile, meepledCities);
           if (curTile.getBottom().getFeature() == Feature.CITY
@@ -817,8 +817,8 @@ public class Referee {
 
   private void
       grabMeepleAtCenter(Posn p, Tile t, Map<Posn, TileFeature> meepled) {
-    if (t.getCenter().hasMeeple()) {
-      meepled.put(p, t.getCenter());
+    if (t.getCenter1().hasMeeple()) {
+      meepled.put(p, t.getCenter1());
     }
   }
 
@@ -888,7 +888,7 @@ public class Referee {
         t.getBottom().setMeeple(new Meeple(player));
         player.useMeeple();
       } else if (d == Direction.CENTER) {
-        t.getCenter().setMeeple(new Meeple(player));
+        t.getCenter1().setMeeple(new Meeple(player));
         player.useMeeple();
       }
       board.getMeeplePosns().add(posn);
@@ -986,20 +986,18 @@ public class Referee {
     }
 
     // 3x 2-sided city w/curved road
-    /*
-     * for (i = 0; i < 3; i++) {
-     * tiles.add(new Tile(13, new Center(city), new Edge(city), new Edge(city),
-     * new Edge(road), new Edge(road), 0));
-     * }
-     */
+     for (i = 0; i < 3; i++) {
+    	 tiles.add(new Tile(13, new Center(city), new Center(road), new Edge(city), new Edge(city),
+    		 new Edge(road), new Edge(road), 0));
+     }
+    
 
     // 2x 2-sided city w/curved road and shield
-    /*
-     * for (i = 0; i < 2; i++) {
-     * tiles.add(new Tile(14, new Center(city), new Edge(city), new Edge(city),
-     * new Edge(road), new Edge(road), 1));
-     * }
-     */
+     for (i = 0; i < 2; i++) {
+    	 tiles.add(new Tile(14, new Center(city), new Center(road), new Edge(city), new Edge(city),
+    		 new Edge(road), new Edge(road), 1));
+     }
+     
 
     // 2x one-roaded monastery
     for (i = 0; i < 2; i++) {
