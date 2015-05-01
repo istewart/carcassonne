@@ -251,9 +251,9 @@ var network = {
     },
 
     disconnect: function() {
+      network.connected = false;
       network.fields.connected[network.id] = false;
       handle("connected", network.fields.connected);
-      network.connected = false;
     },
   },
 
