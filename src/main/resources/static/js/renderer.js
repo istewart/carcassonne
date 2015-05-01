@@ -5,7 +5,7 @@ MOVES_COLOR = "red";
 MEEPLES_COLOR = "red";
 LINE_WIDTH = 3;
 
-var colors = ["red", "blue", "purple", "orange"];
+var colors = ["red", "blue", "purple", "orange"]; // player colors by id
 
 // TODO
 
