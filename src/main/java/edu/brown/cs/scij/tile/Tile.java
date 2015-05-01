@@ -1,5 +1,7 @@
 package edu.brown.cs.scij.tile;
 
+import java.util.List;
+
 /**
  * main class for a tile in carcassonne.
  * @author scij
@@ -7,7 +9,7 @@ package edu.brown.cs.scij.tile;
  */
 public class Tile {
   static int numTiles = 0;
-  private final Center center;
+  private final Center[] centers;
   private Edge top;
   private Edge bottom;
   private Edge left;
@@ -34,7 +36,39 @@ public class Tile {
       throw new UnsupportedOperationException(
           "All centers and edges of a tile must be non-null");
     }
-    this.center = center;
+    this.centers = new Center[2];
+    this.centers[0] = center;
+    this.centers[1] = new Center(Feature.FIELD);
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+    this.left = left;
+    this.shield = shield;
+    this.id = numTiles;
+    numTiles++;
+    setNumRoads();
+  }
+  
+  /**
+   * overloaded constructor for 2 centered Tile.
+   * @param center1 the first Center of the tile
+   * @param center2 the second Center of the tile
+   * @param top the top edge of the tile
+   * @param right the right edge of the tile
+   * @param bottom the bottom edge of the tile
+   * @param left the left edge of the tile
+   * @param shield how many shields are on the tile
+   */
+  public Tile(Center center1, Center center2, Edge top, Edge right, Edge bottom, Edge left,
+      int shield) {
+    if (center1 == null || center2 == null || top == null || right == null || bottom == null
+        || left == null) {
+      throw new UnsupportedOperationException(
+          "All centers and edges of a tile must be non-null");
+    }
+    this.centers = new Center[2];
+    this.centers[0] = center1;
+    this.centers[1] = center2;
     this.top = top;
     this.right = right;
     this.bottom = bottom;
@@ -63,7 +97,41 @@ public class Tile {
       throw new UnsupportedOperationException(
           "All centers and edges of a tile must be non-null");
     }
-    this.center = center;
+    this.centers = new Center[2];
+    this.centers[0] = center;
+    this.centers[1] = new Center(Feature.FIELD);
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+    this.left = left;
+    this.shield = shield;
+    this.pngID = pngID;
+    this.id = numTiles;
+    numTiles++;
+    setNumRoads();
+  }
+  
+  /**
+   * overloaded constructor for 2 centered Tile with image id.
+   * @param pngID the id of the image
+   * @param center1 the first Center of the tile
+   * @param center2 the second Center of the tile
+   * @param top the top edge of the tile
+   * @param right the right edge of the tile
+   * @param bottom the bottom edge of the tile
+   * @param left the left edge of the tile
+   * @param shield how many shields are on the tile
+   */
+  public Tile(int pngID, Center center1, Center center2, Edge top, Edge right, Edge bottom, Edge left,
+      int shield) {
+    if (center1 == null || center2 == null || top == null || right == null || bottom == null
+        || left == null) {
+      throw new UnsupportedOperationException(
+          "All centers and edges of a tile must be non-null");
+    }
+    this.centers = new Center[2];
+    this.centers[0] = center1;
+    this.centers[1] = center2;
     this.top = top;
     this.right = right;
     this.bottom = bottom;
@@ -105,12 +173,27 @@ public class Tile {
 
   /**
    * getter for center.
-   * @return center
+   * @return centers[0]
    */
-  public Center getCenter() {
-    return center;
+  public Center getCenter1() {
+    return centers[0];
   }
 
+  /**
+   * tells whether the tile has one center.
+   * @return whether the tile has one center
+   */
+  public boolean hasOneCenter(){
+	  return centers[1] == null;
+  }
+  
+  /**
+   * getter for second center
+   * @return centers[1]
+   */
+  public Center getCenter2() {
+	  return centers[1];
+  }
   /**
    * getter for bottom.
    * @return bottom
@@ -212,7 +295,7 @@ public class Tile {
 
   @Override
   public String toString() {
-    return "Tile: id:" + id + ", c:" + center.toString() + ", t:"
+    return "Tile: id:" + id + ", c:" + centers.toString() + ", t:"
         + top.toString() + ", r:" + right.toString() + ", b:"
         + bottom.toString() + ", l:" + left.toString() + ", shields" + shield;
   }

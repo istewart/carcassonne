@@ -114,6 +114,11 @@ button.placeButton {
   width: 8em;
 }
 
+#mainMeeple, #mainSkip {
+  width: 8em;
+  display: none;
+}
+
 button.placeButton:focus {
   outline: none;
 }

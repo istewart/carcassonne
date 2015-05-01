@@ -130,11 +130,19 @@ public class Board {
           setTouchesMeeple(right, Direction.LEFT);
         }
       }
-      if (t.getCenter().getFeature() == feature) {
-        if (t.getCenter().touchesMeeple()) {
-          return;
+      if (t.getCenter1().getFeature() == feature || t.getCenter2().getFeature() == feature) {
+        if (t.getCenter1().getFeature() == feature){
+        	if (t.getCenter1().touchesMeeple()) {
+        		return;
+        	}
+        	t.getCenter1().setTouchesMeeple(true);
         }
-        t.getCenter().setTouchesMeeple(true);
+        if (t.getCenter2().getFeature() == feature){
+        	if (t.getCenter2().touchesMeeple()) {
+        		return;
+        	}
+        	t.getCenter2().setTouchesMeeple(true);
+        }
         if (t.getLeft().getFeature() == feature) {
           if (t.getLeft().touchesMeeple()) {
             return;
@@ -177,11 +185,19 @@ public class Board {
           setTouchesMeeple(left, Direction.RIGHT);
         }
       }
-      if (t.getCenter().getFeature() == feature) {
-        if (t.getCenter().touchesMeeple()) {
-          return;
-        }
-        t.getCenter().setTouchesMeeple(true);
+      if (t.getCenter1().getFeature() == feature || t.getCenter2().getFeature() == feature) {
+          if (t.getCenter1().getFeature() == feature){
+          	if (t.getCenter1().touchesMeeple()) {
+          		return;
+          	}
+          	t.getCenter1().setTouchesMeeple(true);
+          }
+          if (t.getCenter2().getFeature() == feature){
+          	if (t.getCenter2().touchesMeeple()) {
+          		return;
+          	}
+          	t.getCenter2().setTouchesMeeple(true);
+          }
         if (t.getRight().getFeature() == feature) {
           if (t.getRight().touchesMeeple()) {
             return;
@@ -224,11 +240,19 @@ public class Board {
           setTouchesMeeple(up, Direction.DOWN);
         }
       }
-      if (t.getCenter().getFeature() == feature) {
-        if (t.getCenter().touchesMeeple()) {
-          return;
-        }
-        t.getCenter().setTouchesMeeple(true);
+      if (t.getCenter1().getFeature() == feature || t.getCenter2().getFeature() == feature) {
+          if (t.getCenter1().getFeature() == feature){
+          	if (t.getCenter1().touchesMeeple()) {
+          		return;
+          	}
+          	t.getCenter1().setTouchesMeeple(true);
+          }
+          if (t.getCenter2().getFeature() == feature){
+          	if (t.getCenter2().touchesMeeple()) {
+          		return;
+          	}
+          	t.getCenter2().setTouchesMeeple(true);
+          }
         if (t.getRight().getFeature() == feature) {
           if (t.getRight().touchesMeeple()) {
             return;
@@ -272,11 +296,19 @@ public class Board {
           setTouchesMeeple(down, Direction.UP);
         }
       }
-      if (t.getCenter().getFeature() == feature) {
-        if (t.getCenter().touchesMeeple()) {
-          return;
-        }
-        t.getCenter().setTouchesMeeple(true);
+      if (t.getCenter1().getFeature() == feature || t.getCenter2().getFeature() == feature) {
+          if (t.getCenter1().getFeature() == feature){
+          	if (t.getCenter1().touchesMeeple()) {
+          		return;
+          	}
+          	t.getCenter1().setTouchesMeeple(true);
+          }
+          if (t.getCenter2().getFeature() == feature){
+          	if (t.getCenter2().touchesMeeple()) {
+          		return;
+          	}
+          	t.getCenter2().setTouchesMeeple(true);
+          }
         if (t.getRight().getFeature() == feature) {
           if (t.getRight().touchesMeeple()) {
             return;
@@ -311,42 +343,43 @@ public class Board {
           }
         }
       }
-
-    } else if (d == Direction.CENTER) {
-      feature = t.getCenter().getFeature();
-      if (t.getRight().getFeature() == feature) {
-        t.getRight().setTouchesMeeple(true);
-        Posn right = p.withX(p.getX() + 1);
-        if (board.containsKey(right)) {
-          board.get(right).getLeft().setTouchesMeeple(true);
-          setTouchesMeeple(right, Direction.LEFT);
-        }
-      }
-      if (t.getLeft().getFeature() == feature) {
-        t.getLeft().setTouchesMeeple(true);
-        Posn left = p.withX(p.getX() - 1);
-        if (board.containsKey(left)) {
-          board.get(left).getRight().setTouchesMeeple(true);
-          setTouchesMeeple(left, Direction.RIGHT);
-        }
-      }
-      if (t.getTop().getFeature() == feature) {
-        t.getTop().setTouchesMeeple(true);
-        Posn top = p.withY(p.getY() + 1);
-        if (board.containsKey(top)) {
-          board.get(top).getBottom().setTouchesMeeple(true);
-          setTouchesMeeple(top, Direction.DOWN);
-        }
-      }
-      if (t.getBottom().getFeature() == feature) {
-        t.getBottom().setTouchesMeeple(true);
-        Posn bottom = p.withY(p.getY() - 1);
-        if (board.containsKey(bottom)) {
-          board.get(bottom).getTop().setTouchesMeeple(true);
-          setTouchesMeeple(bottom, Direction.UP);
-        }
-      }
     }
+
+//    } else if (d == Direction.CENTER) {
+//      feature = t.getCenter1().getFeature();
+//      if (t.getRight().getFeature() == feature) {
+//        t.getRight().setTouchesMeeple(true);
+//        Posn right = p.withX(p.getX() + 1);
+//        if (board.containsKey(right)) {
+//          board.get(right).getLeft().setTouchesMeeple(true);
+//          setTouchesMeeple(right, Direction.LEFT);
+//        }
+//      }
+//      if (t.getLeft().getFeature() == feature) {
+//        t.getLeft().setTouchesMeeple(true);
+//        Posn left = p.withX(p.getX() - 1);
+//        if (board.containsKey(left)) {
+//          board.get(left).getRight().setTouchesMeeple(true);
+//          setTouchesMeeple(left, Direction.RIGHT);
+//        }
+//      }
+//      if (t.getTop().getFeature() == feature) {
+//        t.getTop().setTouchesMeeple(true);
+//        Posn top = p.withY(p.getY() + 1);
+//        if (board.containsKey(top)) {
+//          board.get(top).getBottom().setTouchesMeeple(true);
+//          setTouchesMeeple(top, Direction.DOWN);
+//        }
+//      }
+//      if (t.getBottom().getFeature() == feature) {
+//        t.getBottom().setTouchesMeeple(true);
+//        Posn bottom = p.withY(p.getY() - 1);
+//        if (board.containsKey(bottom)) {
+//          board.get(bottom).getTop().setTouchesMeeple(true);
+//          setTouchesMeeple(bottom, Direction.UP);
+//        }
+//      }
+//    }
   }
 
   /**
@@ -406,7 +439,7 @@ public class Board {
     TileFeature bottom = t.getBottom();
     TileFeature right = t.getRight();
     TileFeature left = t.getLeft();
-    TileFeature center = t.getCenter();
+    TileFeature center = t.getCenter1();
 
     List<Direction> meepleableLocations = new ArrayList<>();
     Feature feature = null;
@@ -444,11 +477,7 @@ public class Board {
     }
     if (center.isMeeplable()) {
       feature = center.getFeature();
-      if (feature == Feature.ROAD || feature == Feature.CITY) {
-        if (!center.touchesMeeple()) {
-          meepleableLocations.add(Direction.CENTER);
-        }
-      } else if (feature == Feature.MONASTERY) {
+      if (feature == Feature.MONASTERY) {
         meepleableLocations.add(Direction.CENTER);
       }
     }

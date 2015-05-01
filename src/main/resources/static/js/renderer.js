@@ -106,7 +106,7 @@ Renderer.prototype.renderTile = function() {
   var spots = this.validMeeples;
   var radius = w / 10;
 
-  if (!spots) {
+  if (!spots || !showHints) {
     return;
   }
 
@@ -186,7 +186,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     } else if (tileObj.right.meeple) {
       x += 3 * w / 4;
       y += h / 2;
-    } else if (tileObj.center.meeple) {
+    } else if (tileObj.centers[0].meeple) {
       x += w / 2;
       y += h / 2;
     } else {
@@ -209,7 +209,8 @@ Renderer.prototype.renderMoves = function() {
   var mainCanvas = document.getElementById("mainCanvas");
   var ctx = mainCanvas.getContext("2d");
 
-  if (isPlaced) { // currently have a move selected
+  console.log(showHints);
+  if (isPlaced || !showHints) { // currently have a move selected or hints are hidden
     return;
   }
 
