@@ -95,7 +95,7 @@ var network = {
    * Gets the value of a field.
    */
   get: function(field) {
-    return network.fields[field];
+    return this.fields[field];
   },
 
   /**
@@ -220,6 +220,8 @@ var network = {
     update: function(updates) {
       for (var key in updates) {
         network.fields[key] = updates[key];
+      }
+      for (var key in updates) {
         network.server.handle(key, updates[key]);
       }
     },

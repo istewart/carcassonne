@@ -17,7 +17,7 @@
     <script src="js/carcassonne.js"></script>
     
     
-    <title>${title}</title>
+    <title> Carcassonne </title>
   </head>
   
   <body onload="network.onLoad()">
@@ -26,7 +26,7 @@
 
       <div id="sidebar">
         <canvas id="tileCanvas" height="1000" width="1000"></canvas>
-        <!-- <img src="" id="tileImage"> -->
+        
         <div>
             <button id="mainLeft" class="placeButton"> &#8630 </button>
             <button id="mainPlace" class="placeButton"> Place Tile </button>

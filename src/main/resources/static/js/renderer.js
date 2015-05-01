@@ -5,6 +5,8 @@ MOVES_COLOR = "red";
 MEEPLES_COLOR = "red";
 LINE_WIDTH = 3;
 
+var colors = ["red", "blue", "purple", "orange"];
+
 // TODO
 
 // can clean things up with global context and canvas
@@ -81,7 +83,7 @@ Renderer.prototype.renderPlayers = function() {
     obj.value = "" + currPlayer.name + ": " + currPlayer.score + " Meeples: " + currPlayer.numMeeples;
 
     console.log(network.get("currentPlayer"));
-    if (network.get("currentPlayer") != null && currPlayer.id === network.get("currentPlayer").id) {
+    if (network.get("currentPlayer") != null && (currPlayer.id === network.get("currentPlayer").id)) {
       obj.style.backgroundColor = "#222";
       obj.style.color = "#e8e8e8";
     } else {
@@ -137,12 +139,14 @@ Renderer.prototype.renderTile = function() {
     ctx.closePath();
 
     if (this.selectedMeeple && spots[i] === this.selectedMeeple) {
-      ctx.fillStyle = MEEPLES_COLOR;
+      console.log(this.selectedMeeple);
+      console.log(network.get("currentPlayer"));
+      ctx.fillStyle = colors[network.get("currentPlayer").id];
       ctx.strokeStyle = null;
       ctx.fill();
     } else {
       ctx.fillStyle = null;
-      ctx.strokeStyle = MEEPLES_COLOR;
+      ctx.strokeStyle = colors[network.get("currentPlayer").id];
       ctx.stroke();
     }
   }
@@ -357,7 +361,7 @@ Renderer.prototype.shadeMove = function() {
     }
 
     ctx.beginPath();
-    ctx.fillStyle = MEEPLES_COLOR; // meeple.player.color;
+    ctx.fillStyle = colors[this.selectedMeeple.player.id];
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
