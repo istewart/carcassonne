@@ -10,7 +10,7 @@ LINE_WIDTH = 3;
 // can clean things up with global context and canvas
 // get better tiles and graphics
 // integrate with back end
-// fix settings and instructions
+// fix instructions
 // README
 // DEBUG
 // use network get and stuff
