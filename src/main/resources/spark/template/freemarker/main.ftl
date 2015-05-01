@@ -69,15 +69,15 @@
 
     <div id="lobbyDiv">
       <h1>Lobby</h1>
+      <h2>Current Players</h2>
+      <form class="players">
+        <textarea id="playerOne" class="lobbyBox" rows="1" readonly></textarea></br>
+        <textarea id="playerTwo" class="lobbyBox" rows="1" readonly></textarea></br>
+        <textarea id="playerThree" class="lobbyBox" rows="1" readonly></textarea></br>
+        <textarea id="playerFour" class="lobbyBox" rows="1" readonly></textarea></br>
+      </form><br>
       <button class="submitButton" id="startGame"> Start </button><br>
       <button class="backButton" id="lobbyBack"> Back </button>
-
-      <form class="players">
-          <textarea id="playerOne" class="lobbyBox" rows="1" readonly></textarea></br>
-          <textarea id="playerTwo" class="lobbyBox" rows="1" readonly></textarea></br>
-          <textarea id="playerThree" class="lobbyBox" rows="1" readonly></textarea></br>
-          <textarea id="playerFour" class="lobbyBox" rows="1" readonly></textarea></br>
-        </form>
     </div>
 
       
