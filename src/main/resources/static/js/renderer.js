@@ -139,12 +139,14 @@ Renderer.prototype.renderTile = function() {
     ctx.closePath();
 
     if (this.selectedMeeple && spots[i] === this.selectedMeeple) {
-      ctx.fillStyle = colors[this.selectedMeeple.player.id];
+      console.log(this.selectedMeeple);
+      console.log(network.get("currentPlayer"));
+      ctx.fillStyle = colors[network.get("currentPlayer").id];
       ctx.strokeStyle = null;
       ctx.fill();
     } else {
       ctx.fillStyle = null;
-      ctx.strokeStyle = colors[this.selectedMeeple.player.id];
+      ctx.strokeStyle = colors[network.get("currentPlayer").id];
       ctx.stroke();
     }
   }
