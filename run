@@ -20,13 +20,6 @@ CP=$(mvn dependency:build-classpath | grep -v INFO)
 
 TARGET=$(ls target/*.jar)
 
-# Again, we're trying to make the script more reusable by guessing the
-# package name from the current directory, instead of hard coding.
-# But this relies on some conventions in naming.  You'll have to call
-# your class "Main" and use our recommended package structure.
-
-PROJECT=$(basename $(pwd))
-
 # The funny symbol: "$*" passes the command-line arguments on from
 # this script to your Java program.
 
