@@ -59,15 +59,6 @@ Renderer.prototype.render = function() {
   this.shadeMove();
 };
 
-Renderer.prototype.hideAll = function() {
-  $("#menuDiv").hide();
-  $("#joinDiv").hide();
-  $("#mainDiv").hide();
-  $("#settingsDiv").hide();
-  $("#instructionsDiv").hide();
-  $("#lobbyDiv").hide();
-}
-
 // Renders the player list.
 Renderer.prototype.renderPlayers = function() {
   var playersList = this.players;
@@ -88,13 +79,14 @@ Renderer.prototype.renderPlayers = function() {
 
     var currPlayer = playersList[i];
     obj.value = "" + currPlayer.name + ": " + currPlayer.score + " Meeples: " + currPlayer.numMeeples;
-    obj.style.color = currPlayer.color;
 
-    console.log(network.get("currPlayer"));
-    if (network.get("currPlayer") != null && currPlayer.id === network.get("currPlayer").id) {
+    console.log(network.get("currentPlayer"));
+    if (network.get("currentPlayer") != null && currPlayer.id === network.get("currentPlayer").id) {
       obj.style.backgroundColor = "#222";
+      obj.style.color = "#e8e8e8";
     } else {
       obj.style.backgroundColor = "#e8e8e8";
+      obj.style.color = currPlayer.color;
     }
   });
 };
