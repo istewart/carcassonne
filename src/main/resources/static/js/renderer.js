@@ -88,7 +88,7 @@ Renderer.prototype.renderPlayers = function() {
       obj.style.color = "#e8e8e8";
     } else {
       obj.style.backgroundColor = "#e8e8e8";
-      obj.style.color = currPlayer.color;
+      obj.style.color = colors[currPlayer.id];
     }
   });
 };
