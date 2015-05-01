@@ -70,7 +70,6 @@ var network = {
     }
     $.post("/ask", response, function(responseJSON) {
       answer = JSON.parse(responseJSON);
-      console.log(answer);
       if (handler != undefined) {
         handler(answer);
       }
@@ -221,7 +220,6 @@ var network = {
     update: function(updates) {
       for (var key in updates) {
         network.fields[key] = updates[key];
-        console.log('updated ' + key);
         network.server.handle(key, updates[key]);
       }
     },
