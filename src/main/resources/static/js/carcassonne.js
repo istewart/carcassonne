@@ -3,10 +3,37 @@ var isPlaced = false; // if a tile has been placed but not meepled
 var showHints = true; // if meeple and tile hints should be displayed
 var myTurn = false;
 
+function hideAll() {
+  $("#menuDiv").hide();
+  $("#joinDiv").hide();
+  $("#mainDiv").hide();
+  $("#settingsDiv").hide();
+  $("#instructionsDiv").hide();
+  $("#lobbyDiv").hide();
+}
+
 // main function to configure the web page
 var handler = {
   connect: function() {
-    console.log("connect");
+    if (network.get("gameStart")) {
+      handler.gameStart();
+    } else {
+      hideAll();
+      $("#menuDiv").show();
+      var players = network.get("players");
+      for (key in  players) {
+        if (players[key].id == network.id) {
+          console.log("i already exist!");
+          hideAll();
+          $("#lobbyDiv").show();
+          $("#joinButton").html(" Back to Lobby ");
+
+          Menu.joined = true;
+        }
+      }
+    }
+
+
     Menu();
     PlacementButtons();
     Canvas();
@@ -42,17 +69,10 @@ var handler = {
   },
 
   gameStart: function(state) {
-    console.log("gameStart = ")
-    console.log(state);
     if (state == true) {
       var n = network;
 
-      $("#menuDiv").hide();
-      $("#joinDiv").hide();
-      $("#mainDiv").hide();
-      $("#settingsDiv").hide();
-      $("#instructionsDiv").hide();
-      $("#lobbyDiv").hide();
+      hideAll();
       $("#mainDiv").show();
 
       if (network.get("currentPlayer").id != network.id) {

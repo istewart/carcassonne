@@ -138,7 +138,7 @@ var network = {
     /**
      * Called each second to see if the page needs updating.
      */
-    ping: function() {
+    ping: function(handler) {
       if (network.server.inPingFunction || typeof network.key === "undefined") {
         return;
       }
@@ -161,6 +161,9 @@ var network = {
         network.consecutivePingFailures = 0;
         if (network.connected == false) {
           network.server.handle("reconnect", undefined);
+        }
+        if (typeof handler === "function") {
+          handler();
         }
         inPingFunction = false;
       }).fail(function() {
@@ -201,11 +204,11 @@ var network = {
         network.id = responseObject.player;
         network.key = responseObject.key;
 
-        network.server.handle("connect", undefined);
-
         network.pingInterval = setInterval(network.server.ping, 100);
-        network.server.ping();
-        network.server.inConnectFunction = false;
+        network.server.ping(function() {
+          network.server.handle("connect", undefined);
+          network.server.inConnectFunction = false;
+        });
       });
     },
 

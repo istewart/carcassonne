@@ -24,9 +24,6 @@ var Menu = function() {
     $("#lobbyDiv").hide();
   }
 
-  hideAll();
-  $("#menuDiv").show();
-
   joinButton.addEventListener("click", function(event) {
     hideAll();
 
