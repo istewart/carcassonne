@@ -33,11 +33,24 @@ public class CarcBackEnd implements BackEnd {
   @Override
   public synchronized Object answer(int player, String field,
       Map<String, String> val) {
-    System.out.println("field: " + field);
-    List<Posn> validMoves;
     Tile t;
-    assert (player == r.getCurPlayer().getId());
     Map<String, Object> toReturn = new HashMap<>();
+    if (player != r.getCurPlayer().getId()) {
+      t = r.getCurTile();
+      s.putField("currTile", t);
+      toReturn.put("currTile", t);
+      s.putField("board", r.getBoard());
+      toReturn.put("board", r.getBoard());
+      s.putField("players", r.getPlayers());
+      toReturn.put("players", r.getPlayers());
+      Player curPlayer = r.getCurPlayer();
+      s.putField("currentPlayer", curPlayer);
+      toReturn.put("currentPlayer", curPlayer);
+    }
+    List<Posn> validMoves;
+
+    assert (player == r.getCurPlayer().getId());
+
     switch (field) {
       case "rotate":
         // receive left or right
