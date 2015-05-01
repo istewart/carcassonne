@@ -23,9 +23,6 @@ var handler = {
       var players = network.get("players");
       for (key in  players) {
         if (players[key].id == network.id) {
-          console.log("i already exist!");
-          hideAll();
-          $("#lobbyDiv").show();
           $("#joinButton").html(" Back to Lobby ");
 
           Menu.joined = true;

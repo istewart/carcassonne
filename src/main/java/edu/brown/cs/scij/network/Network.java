@@ -102,6 +102,7 @@ public final class Network {
       ip = InetAddress.getLocalHost().getHostAddress().toString();
       url = "http://" + ip + ":" + Integer.toString(port) + "/home";
       System.out.println(url);
+      server.putField("url", url);
     } catch (Exception ex) {
       System.out.println("Failed to launch server.");
       throw new RuntimeException(ex);

@@ -52,6 +52,7 @@
 
     <div id="menuDiv">
       <h1>Carcassonne</h1>
+      <p>Tell your friends to join this game by visitin <a href=${url}>${url}</a> while on the same LAN</p>
 
       <button class="menubutton" id="joinButton"> Join </button></br>
       <button class="menubutton" id="settingsButton"> Settings </button></br>
