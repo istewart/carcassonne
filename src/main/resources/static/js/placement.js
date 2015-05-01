@@ -59,6 +59,11 @@ var PlacementButtons = function() {
   });
 
   mainMeeple.addEventListener("click", function(event) {
+      if (!renderer.selectedMeeple) {
+        alert("You have no meeple place!");
+        return;
+      }
+
       var postParameters = {"meeple": renderer.selectedMeeple};
 
       network.ask("placeMeeple", postParameters, function(responseObject) {
