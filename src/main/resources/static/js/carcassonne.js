@@ -16,8 +16,6 @@ var handler = {
   },
 
   players: function(playersList) {
-    console.log("hello00");
-    console.log(playersList);
 
     if (playersList == null || playersList.length == 0) {
       $('.lobbyBox').each(function(i, obj) {
@@ -37,6 +35,9 @@ var handler = {
         obj.style.color = currPlayer.color;
       });
     }
+
+    renderer.players = playersList;
+
   },
 
   gameStart: function(state) {
@@ -44,6 +45,14 @@ var handler = {
     console.log(state);
     if (state == true) {
       var n = network;
+
+      $("#menuDiv").hide();
+      $("#joinDiv").hide();
+      $("#mainDiv").hide();
+      $("#settingsDiv").hide();
+      $("#instructionsDiv").hide();
+      $("#lobbyDiv").hide();
+      $("#mainDiv").show();
 
       var currTile = n.get("currTile");
       var board = n.get("board");
@@ -53,14 +62,6 @@ var handler = {
 
       renderer = new Renderer(board.board, currTile, players, validMoves, validMeeples, 1, 0, 0);
       renderer.render();
-      
-      $("#menuDiv").hide();
-      $("#joinDiv").hide();
-      $("#mainDiv").hide();
-      $("#settingsDiv").hide();
-      $("#instructionsDiv").hide();
-      $("#lobbyDiv").hide();
-      $("#mainDiv").show();
     }
   },
 
