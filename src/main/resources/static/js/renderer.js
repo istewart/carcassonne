@@ -80,6 +80,13 @@ Renderer.prototype.renderPlayers = function() {
     var currPlayer = playersList[i];
     obj.value = "" + currPlayer.name + ": " + currPlayer.score + " Meeples: " + currPlayer.numMeeples;
     obj.style.color = currPlayer.color;
+
+    console.log(network.get("currPlayer"));
+    if (network.get("currPlayer") != null && currPlayer.id === network.get("currPlayer").id) {
+      obj.style.backgroundColor = "#222";
+    } else {
+      obj.style.backgroundColor = "#e8e8e8";
+    }
   });
 };
 
@@ -209,7 +216,6 @@ Renderer.prototype.renderMoves = function() {
   var mainCanvas = document.getElementById("mainCanvas");
   var ctx = mainCanvas.getContext("2d");
 
-  console.log(showHints);
   if (isPlaced || (!showHints && !$.isEmptyObject(this.board))) { // currently have a move selected or hints are hidden
     return;
   }
