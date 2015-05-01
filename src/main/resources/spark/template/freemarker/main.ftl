@@ -28,9 +28,9 @@
         <canvas id="tileCanvas" height="1000" width="1000"></canvas>
         
         <div>
-            <button id="mainLeft" class="placeButton"> &#8630 </button>
+            <button id="mainLeft" class="placeButton"> &#8630 <!-- &#x27f2 --></button>
             <button id="mainPlace" class="placeButton"> Place Tile </button>
-            <button id="mainRight" class="placeButton"> &#8631 </button>
+            <button id="mainRight" class="placeButton"> &#8631 <!-- &#x27F3 --> </button>
             <button id="mainMeeple" class="placeButton"> Place Meeple </button>
             <button id="mainSkip" class="placeButton"> Skip Meeple </button>
         </div>
