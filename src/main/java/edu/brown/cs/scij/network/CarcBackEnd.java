@@ -35,7 +35,7 @@ public class CarcBackEnd implements BackEnd {
       Map<String, String> val) {
     Tile t;
     Map<String, Object> toReturn = new HashMap<>();
-    if (player != r.getCurPlayer().getId()) {
+    if (r.getCurPlayer() != null && player != r.getCurPlayer().getId()) {
       t = r.getCurTile();
       s.putField("currTile", t);
       toReturn.put("currTile", t);
@@ -192,8 +192,9 @@ public class CarcBackEnd implements BackEnd {
         } else {
           s.putField("board", r.getBoard());
           toReturn.put("board", r.getBoard());
-          s.putField("currentPlayer", r.getCurPlayer());
-          toReturn.put("currentPlayer", r.getCurPlayer());
+          Player nextPlayer = r.nextPlayer();
+          s.putField("currentPlayer", nextPlayer);
+          toReturn.put("currentPlayer", nextPlayer);
           s.putField("players", r.getPlayers());
           toReturn.put("players", r.getPlayers());
 

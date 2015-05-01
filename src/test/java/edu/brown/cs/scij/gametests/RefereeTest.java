@@ -1179,10 +1179,12 @@ public class RefereeTest {
     Player p = new Player(1, "colby");
     r.newPlayer(p);
     r.placeMeeple(bottomRight, p, Direction.LEFT);
+    System.out.println("********************");
     int score = p.getScore();
     r.score(topLeft);
     System.out.println(score);
     System.out.println(p.getScore());
+    System.out.println("********************");
     // assertTrue(score + 8 == p.getScore());
 
   }
