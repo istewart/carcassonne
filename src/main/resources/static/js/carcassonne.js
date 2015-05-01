@@ -5,6 +5,7 @@ var showHints = true; // if meeple and tile hints should be displayed
 // main function to configure the web page
 var handler = {
   connect: function() {
+    console.log("connect");
     Menu();
     PlacementButtons();
     Canvas();
@@ -36,7 +37,7 @@ var handler = {
         obj.style.color = currPlayer.color;
       });
     }
-  }
+  },
 
   gameStart: function(state) {
     console.log("gameStart = ")
@@ -45,9 +46,9 @@ var handler = {
       renderer.hideAll();
       $("#mainDiv").show();
     }
-  }
+  },
 
   currPlayer: function(player) {
     console.log(player);
-  }
+  },
 }
