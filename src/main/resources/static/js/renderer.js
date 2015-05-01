@@ -80,7 +80,11 @@ Renderer.prototype.renderPlayers = function() {
     }
 
     var currPlayer = playersList[i];
-    obj.value = "" + currPlayer.name + ": " + currPlayer.score + " Meeples: " + currPlayer.numMeeples;
+    network.get("connected")[playersList[i].id];
+    console.log(network.get("connected"));
+    console.log(network.get("connected")[playersList[i].id]);
+    var isDisconnected = (network.get("connected")[playersList[i].id] ? "" : " (disconnected)");
+    obj.value = "" + currPlayer.name + ": " + currPlayer.score + ", Meeples: " + currPlayer.numMeeples + isDisconnected;
 
     if (network.get("currentPlayer") != null && (currPlayer.id === network.get("currentPlayer").id)) {
       obj.style.backgroundColor = "#222";

@@ -150,6 +150,10 @@ var handler = {
       alert("gameOver!");
     }
   },
+
+  connected: function() {
+    renderer.render();
+  },
 }
 
 function grayOut(vis, options) {
