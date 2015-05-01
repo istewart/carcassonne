@@ -77,8 +77,16 @@ var handler = {
   currentPlayer: function(player) {
     if (player.id == network.id) {
       myTurn = true;
+      $("#mainLeft").show();
+      $("#mainRight").show();
+      $("#mainPlace").show();
     } else {
       myTurn = false;
+      $("#mainLeft").hide();
+      $("#mainRight").hide();
+      $("#mainPlace").hide();
+      $("#mainMeeple").hide();
+      $("#mainSkip").hide();
     }
     console.log("MyTurn? " + myTurn);
   },
