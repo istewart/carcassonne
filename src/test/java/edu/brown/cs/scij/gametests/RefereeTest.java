@@ -1144,4 +1144,46 @@ public class RefereeTest {
     assertTrue(score + 6 == p.getScore());
   }
 
+  @Test
+  public void diamondTilesTest() throws InvalidEdgeException,
+      PosnTakenException, NullTileException, OutOfMeeplesException,
+      UnMeeplableException {
+    // while testing a diamond pattern, received 10 points not 8
+    Center c = new Center(Feature.CITY);
+    Center c1 = new Center(Feature.CITY);
+    Center c2 = new Center(Feature.CITY);
+    Center c3 = new Center(Feature.CITY);
+    Edge field = new Edge(Feature.FIELD);
+    Edge road = new Edge(Feature.ROAD);
+    Edge city = new Edge(Feature.CITY);
+    Edge city1 = new Edge(Feature.CITY);
+    Edge city2 = new Edge(Feature.CITY);
+    Edge city3 = new Edge(Feature.CITY);
+    Edge city4 = new Edge(Feature.CITY);
+    Edge city5 = new Edge(Feature.CITY);
+    Edge city6 = new Edge(Feature.CITY);
+    Edge city7 = new Edge(Feature.CITY);
+    Tile tl = new Tile(c, field, city, city1, field, 0);
+    Tile tr = new Tile(c1, road, road, city2, city3, 0);
+    Tile bl = new Tile(c2, city4, city5, road, road, 0);
+    Tile br = new Tile(c3, city6, road, road, city7, 0);
+    Referee r = new Referee();
+    Posn topRight = new Posn(0, 0);
+    Posn topLeft = new Posn(-1, 0);
+    Posn bottomRight = new Posn(0, -1);
+    Posn bottomLeft = new Posn(-1, -1);
+    r.place(topRight, tr);
+    r.place(topLeft, tl);
+    r.place(bottomRight, br);
+    r.place(bottomLeft, bl);
+    Player p = new Player(1, "colby");
+    r.newPlayer(p);
+    r.placeMeeple(bottomRight, p, Direction.LEFT);
+    int score = p.getScore();
+    r.score(topLeft);
+    System.out.println(score);
+    System.out.println(p.getScore());
+    assertTrue(score + 8 == p.getScore());
+
+  }
 }

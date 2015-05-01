@@ -125,6 +125,7 @@ public class CarcBackEnd implements BackEnd {
         // TODO receiving: direction
         // returning: currtile, board, validmoves, players, currplayer
         String dir = val.get("meeple");
+        System.out.println(String.valueOf(dir));
         Direction d = null;
         Tile curTile = r.getCurTile();
         if (dir != null) {
@@ -144,6 +145,9 @@ public class CarcBackEnd implements BackEnd {
                 break;
               case "CENTER":
                 d = Direction.CENTER;
+                break;
+              default:
+                System.out.println("DEFAULT WAS REQAACHED IN PLACE MEEPLE");
                 break;
             }
             r.placeMeeple(r.getCurPosn(), r.getCurPlayer(), d);
@@ -166,7 +170,7 @@ public class CarcBackEnd implements BackEnd {
           toReturn.put("gameover", r.isGameOver());
           s.putField("players", r.getPlayers());
           toReturn.put("players", r.getPlayers());
-
+          return toReturn;
           // TODO send only a gameover message with the list of players
         } else {
           s.putField("board", r.getBoard());
@@ -192,8 +196,6 @@ public class CarcBackEnd implements BackEnd {
           toReturn.put("gameover", r.isGameOver());
           return toReturn;
         }
-
-        break;
       default:
         System.out.println("GOT TO DEWFAULT BIZNATCHES");
         // TODO not sure what to do when it's none of these
