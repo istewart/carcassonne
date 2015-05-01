@@ -8,7 +8,6 @@ var Menu = function() {
   var lobbyBack = document.getElementById("lobbyBack");
   var startGame = document.getElementById("startGame");
 
-
   var mainLeft = document.getElementById("mainLeft");
   var mainPlace = document.getElementById("mainPlace");
   var mainRight = document.getElementById("mainRight");
@@ -75,6 +74,17 @@ var Menu = function() {
   settingsButton.addEventListener("click", function(event) {
     hideAll();
     $("#settingsDiv").show();
+    console.log(showHints);
+    console.log($("#settingsHints")[0].checked);
+    $("#settingsHints")[0].checked = showHints;
+  });
+
+  $("#settingsSave")[0].addEventListener("click", function(event) {
+    showHints = $("#settingsHints")[0].checked;
+    console.log(showHints);
+
+    hideAll();
+    $("#menuDiv").show();
   });
 
   instructionsButton.addEventListener("click", function(event) {

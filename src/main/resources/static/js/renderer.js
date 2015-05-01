@@ -106,7 +106,7 @@ Renderer.prototype.renderTile = function() {
   var spots = this.validMeeples;
   var radius = w / 10;
 
-  if (!spots) {
+  if (!spots || !showHints) {
     return;
   }
 
@@ -209,7 +209,8 @@ Renderer.prototype.renderMoves = function() {
   var mainCanvas = document.getElementById("mainCanvas");
   var ctx = mainCanvas.getContext("2d");
 
-  if (isPlaced) { // currently have a move selected
+  console.log(showHints);
+  if (isPlaced || !showHints) { // currently have a move selected or hints are hidden
     return;
   }
 

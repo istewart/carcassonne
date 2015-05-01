@@ -82,7 +82,7 @@
     <div id="settingsDiv">
       <h1>Settings</h1>
 
-      <input type="checkbox" name="hints" value="True" checked> Show Hints<br>
+      <input type="checkbox" name="hints" value="True" id="settingsHints" checked> Show Hints<br>
       <button class="submitButton" id="settingsSave"> Save </button><br>
       <button class="backButton" id="settingsBack"> Back </button>
     </div>
