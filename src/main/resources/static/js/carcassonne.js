@@ -82,6 +82,8 @@ var handler = {
       $("#mainPlace").show();
     } else {
       myTurn = false;
+      renderer.validMeeples = {};
+      renderer.render();
       $("#mainLeft").hide();
       $("#mainRight").hide();
       $("#mainPlace").hide();
