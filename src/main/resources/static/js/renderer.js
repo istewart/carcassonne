@@ -210,7 +210,7 @@ Renderer.prototype.renderMoves = function() {
   var ctx = mainCanvas.getContext("2d");
 
   console.log(showHints);
-  if (isPlaced || !showHints) { // currently have a move selected or hints are hidden
+  if (isPlaced || (!showHints && !$.isEmptyObject(this.board))) { // currently have a move selected or hints are hidden
     return;
   }
 
