@@ -47,7 +47,9 @@ var PlacementButtons = function() {
         $("#mainLeft").hide();
         $("#mainRight").hide();
 
-        $("#mainMeeple").show();
+        if (renderer.validMeeples.length > 0) {
+          $("#mainMeeple").show();
+        }
         $("#mainSkip").show();
 
         renderer.render();
