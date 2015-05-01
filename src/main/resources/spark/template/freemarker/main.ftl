@@ -16,6 +16,7 @@
     <script src="js/canvas.js"></script>
     <script src="js/carcassonne.js"></script>
     
+    
     <title>${title}</title>
   </head>
   
@@ -71,10 +72,10 @@
       <button class="backButton" id="lobbyBack"> Back </button>
 
       <form class="players">
-          <textarea id="playerOne" class="playerBox2" rows="1" readonly></textarea></br>
-          <textarea id="playerTwo" class="playerBox2" rows="1" readonly></textarea></br>
-          <textarea id="playerThree" class="playerBox2" rows="1" readonly></textarea></br>
-          <textarea id="playerFour" class="playerBox2" rows="1" readonly></textarea></br>
+          <textarea id="playerOne" class="lobbyBox" rows="1" readonly></textarea></br>
+          <textarea id="playerTwo" class="lobbyBox" rows="1" readonly></textarea></br>
+          <textarea id="playerThree" class="lobbyBox" rows="1" readonly></textarea></br>
+          <textarea id="playerFour" class="lobbyBox" rows="1" readonly></textarea></br>
         </form>
     </div>
 

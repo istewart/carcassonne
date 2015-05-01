@@ -123,7 +123,7 @@ button.placeButton:focus {
   outline: none;
 }
 
-textarea.playerBox {
+textarea.playerBox, textarea.lobbyBox {
   padding: 2px;
   resize: none;
   -moz-user-select: none;
@@ -136,6 +136,10 @@ textarea.playerBox {
   background-color: #e8e8e8;
   font: 12pt 'Merienda One';
   overflow: hidden;
+}
+
+textarea.lobbyBox {
+  width: 40%;
 }
 
 #mainDiv { 
