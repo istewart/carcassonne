@@ -9,4 +9,32 @@ var handler = {
     PlacementButtons();
     Canvas();
   },
+
+  board: function() {
+    renderer.render();
+  },
+
+  players: function(playersList) {
+    console.log("hello00");
+    console.log(playersList);
+
+    if (playersList == null || playersList.length == 0) {
+      $('.lobbyBox').each(function(i, obj) {
+        obj.innerHTML = "";
+      });
+
+      return;
+    } else {
+      $('.lobbyBox').each(function(i, obj) {
+        if (i >= playersList.length) {
+          obj.innerHTML = "";
+          return true; // equivalent to continue;
+        }
+
+        var currPlayer = playersList[i];
+        obj.value = "" + currPlayer.name;
+        obj.style.color = currPlayer.color;
+      });
+    }
+  }
 }
