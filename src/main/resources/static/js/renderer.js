@@ -213,7 +213,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     }
 
     ctx.beginPath();
-    ctx.fillStyle =  colors[meeplePlayerId]; // meeple.player.color;
+    ctx.fillStyle =  colors[meeplePlayerId];
     ctx.strokeStyle = null;
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.closePath();
@@ -368,7 +368,7 @@ Renderer.prototype.shadeMove = function() {
     }
 
     ctx.beginPath();
-    ctx.fillStyle = colors[this.selectedMeeple.player.id];
+    ctx.fillStyle = colors[network.get("currentPlayer").id];
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
