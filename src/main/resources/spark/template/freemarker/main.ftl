@@ -90,7 +90,24 @@
     <div id="instructionsDiv">
       <h1>Instructions</h1>
 
-      <p> Something explaining rules here. </p>
+      <p> Carcassonne is a board game in which you build the board as you play.
+      Each turn consists of three actions: place, meeple score. First, a player must
+      place a tile somewhere on the board which fits. Cities may only touch cities,
+      roads may only touch roads, and fields may only touch fields. After a tile is
+      placed, the player has the opportunity to place a meeple. Meepling a tile is how
+      scoring is achieved in carcassonne. If a monastery is played and meepled, and then
+      each adjacent space on the board is filled with a tile, 9 points are awarded to the player
+      who placed the meeple...one for the monestary tile, and one for each touching tile. If a road
+      is played and meepled, and then completed, one point is awarded for each tile in the road. If
+      a city is played and meepled, and the city is completed, two points are awarded for each tile in the city. If there is
+      a shield on a tile, that tile's cities are worth twice as much. You cannot place a meeple on a
+      feature which is touching an already placed meeple, but you can connect two previously placed
+      meeples through a new tile. Scoring happens after meeples are placed, so if a feature is
+      completed by placing a tile, one could place a meeple there, and it would be scored on the same
+      turn. Games end once all tiles are placed, and the remaining meeples on the board are scored. Monasteries and roads
+      are scored the same way as during the game, except they do not have to be completed.
+      Cities are scored too, but each tile is now worth one point, rather than the two awarded for in game completion.
+      The player with the most points at the end of the game wins!</p>
 
       <button class="backButton" id="instructionsBack"> Back </button>
     </div>
