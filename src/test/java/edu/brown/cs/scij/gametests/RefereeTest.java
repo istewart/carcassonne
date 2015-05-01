@@ -1182,6 +1182,45 @@ public class RefereeTest {
     int score = p.getScore();
     r.score(topLeft);
     assertTrue(score + 8 == p.getScore());
+  }
+  
+  @Test
+  public void circularRoaNoMeepledTest() throws InvalidEdgeException,
+      PosnTakenException, NullTileException, OutOfMeeplesException,
+      UnMeeplableException {
 
+    Center c = new Center(Feature.ROAD);
+    Center c1 = new Center(Feature.ROAD);
+    Center c2 = new Center(Feature.ROAD);
+    Center c3 = new Center(Feature.ROAD);
+    Edge road = new Edge(Feature.ROAD);
+    Edge road1 = new Edge(Feature.ROAD);
+    Edge road2 = new Edge(Feature.ROAD);
+    Edge road3 = new Edge(Feature.ROAD);
+    Edge road4 = new Edge(Feature.ROAD);
+    Edge road5 = new Edge(Feature.ROAD);
+    Edge road6 = new Edge(Feature.ROAD);
+    Edge road7 = new Edge(Feature.ROAD);
+    Edge field = new Edge(Feature.FIELD);
+    Tile topRight = new Tile(c, road, road1, field, field, 0);
+    Tile bottomRight = new Tile(c1, field, road2, road3, field, 0);
+    Tile bottomLeft = new Tile(c2, field, field, road4, road5, 0);
+    Tile topLeft = new Tile(c3, road6, field, field, road7, 0);
+    Posn topRightP = new Posn(-1, -1);
+    Posn bottomRightP = new Posn(-1, 0);
+    Posn bottomLeftP = new Posn(0, 0);
+    Posn topLeftP = new Posn(0, -1);
+    Referee r = new Referee();
+    Player p = new Player(1, "p");
+    List<Player> pList = new ArrayList<>();
+    pList.add(p);
+    r.setPlayers(pList);
+    r.place(topRightP, topRight);
+    r.place(bottomRightP, bottomRight);
+    r.place(bottomLeftP, bottomLeft);
+    int score = p.getScore();
+    r.place(topLeftP, topLeft);
+    r.scoreRoad(topLeftP);
+    assertTrue(score == p.getScore());
   }
 }
