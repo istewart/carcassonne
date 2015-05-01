@@ -147,7 +147,7 @@ var handler = {
 
   gameOver: function(val) {
     if (val == true) {
-      alert("gameOver!");
+      alert("Game Over!");
     }
   },
 
