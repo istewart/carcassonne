@@ -60,7 +60,7 @@ var PlacementButtons = function() {
 
   mainMeeple.addEventListener("click", function(event) {
       if (!renderer.selectedMeeple) {
-        alert("You have no meeple place!");
+        alert("You don't have a meeple selected!");
         return;
       }
 
