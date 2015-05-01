@@ -82,7 +82,6 @@ Renderer.prototype.renderPlayers = function() {
     var currPlayer = playersList[i];
     obj.value = "" + currPlayer.name + ": " + currPlayer.score + " Meeples: " + currPlayer.numMeeples;
 
-    console.log(network.get("currentPlayer"));
     if (network.get("currentPlayer") != null && (currPlayer.id === network.get("currentPlayer").id)) {
       obj.style.backgroundColor = "#222";
       obj.style.color = "#e8e8e8";

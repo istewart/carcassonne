@@ -12,9 +12,8 @@ var startYT;
 var Canvas = function() {
 	var canvasOffsetX;
 	var canvasOffsetY;
-	
-	// Scrolls in or out (with caps on the available level of zoom) based on the mouse wheel.
-	$("#mainCanvas").bind('mousewheel', function(e) {
+
+	var zoom = function(e) {
 		if (e.originalEvent.wheelDelta > 0) { // scroll out
 			if (renderer.scale < MIN_SCALE) {
 				return; // do nothing
@@ -29,8 +28,19 @@ var Canvas = function() {
 			renderer.scale = 10.0 * renderer.scale / 9.0;
 		}
 
+		$("#mainCanvas").unbind('mousewheel');
+		setTimeout(function() {
+			$("#mainCanvas").bind('mousewheel', zoom);
+		}, 50);
+
+
 		renderer.render();
-	});
+	};
+	
+	// Scrolls in or out (with caps on the available level of zoom) based on the mouse wheel.
+	$("#mainCanvas").bind('mousewheel', zoom);
+
+	
 
 	// Selects a valid move on click, or allows board movement on click and drag.
 	$("#mainCanvas").bind('mousedown', function(e) {
