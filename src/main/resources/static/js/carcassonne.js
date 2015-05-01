@@ -1,6 +1,7 @@
 var renderer; // global rendering object
 var isPlaced = false; // if a tile has been placed but not meepled
 var showHints = true; // if meeple and tile hints should be displayed
+var myTurn = false;
 
 // main function to configure the web page
 var handler = {
@@ -54,6 +55,14 @@ var handler = {
       $("#lobbyDiv").hide();
       $("#mainDiv").show();
 
+      if (network.get("currentPlayer").id != network.id) {
+        $("#mainLeft").hide();
+        $("#mainRight").hide();
+        $("#mainPlace").hide();
+        $("#mainMeeple").hide();
+        $("#mainSkip").hide();
+      }
+
       var currTile = n.get("currTile");
       var board = n.get("board");
       var validMoves = n.get("validMoves");
@@ -65,8 +74,13 @@ var handler = {
     }
   },
 
-  currPlayer: function(player) {
-    console.log(player);
+  currentPlayer: function(player) {
+    if (player.id == network.id) {
+      myTurn = true;
+    } else {
+      myTurn = false;
+    }
+    console.log("MyTurn? " + myTurn);
   },
 
   currTile: function(tile) {
@@ -85,6 +99,7 @@ var handler = {
   },
 
   validMeeples: function(validMeeples) {
+    console.log("meeple");
     renderer.validMeeples = validMeeples;
     renderer.render();
   },

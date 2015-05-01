@@ -47,10 +47,12 @@ var PlacementButtons = function() {
         $("#mainLeft").hide();
         $("#mainRight").hide();
 
-        if (renderer.validMeeples.length > 0) {
-          $("#mainMeeple").show();
+        if (myTurn) {
+          if (renderer.validMeeples.length > 0) {
+            $("#mainMeeple").show();
+          }
+          $("#mainSkip").show();
         }
-        $("#mainSkip").show();
 
         renderer.render();
       });
@@ -78,11 +80,14 @@ var PlacementButtons = function() {
         $("#mainMeeple").hide();
         $("#mainSkip").hide();
 
-        $("#mainPlace").show();
-        $("#mainLeft").show();
-        $("#mainRight").show();
+        if (myTurn) {
+          $("#mainPlace").show();
+          $("#mainLeft").show();
+          $("#mainRight").show();
+        }
 
         renderer.render();
+        myTurn = false;
       });
   });
 
@@ -108,9 +113,11 @@ var PlacementButtons = function() {
         $("#mainMeeple").hide();
         $("#mainSkip").hide();
 
-        $("#mainPlace").show();
-        $("#mainLeft").show();
-        $("#mainRight").show();
+        if (myTurn) {
+          $("#mainPlace").show();
+          $("#mainLeft").show();
+          $("#mainRight").show();
+        }
 
         renderer.render();
       });
