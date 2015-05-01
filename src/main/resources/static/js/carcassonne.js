@@ -43,7 +43,13 @@ var handler = {
     console.log("gameStart = ")
     console.log(state);
     if (state == true) {
-      renderer.hideAll();
+      
+      $("#menuDiv").hide();
+      $("#joinDiv").hide();
+      $("#mainDiv").hide();
+      $("#settingsDiv").hide();
+      $("#instructionsDiv").hide();
+      $("#lobbyDiv").hide();
       $("#mainDiv").show();
     }
   },

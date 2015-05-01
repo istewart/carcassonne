@@ -59,15 +59,6 @@ Renderer.prototype.render = function() {
   this.shadeMove();
 };
 
-Renderer.prototype.hideAll = function() {
-  $("#menuDiv").hide();
-  $("#joinDiv").hide();
-  $("#mainDiv").hide();
-  $("#settingsDiv").hide();
-  $("#instructionsDiv").hide();
-  $("#lobbyDiv").hide();
-}
-
 // Renders the player list.
 Renderer.prototype.renderPlayers = function() {
   var playersList = this.players;
