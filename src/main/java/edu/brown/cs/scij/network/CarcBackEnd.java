@@ -212,6 +212,8 @@ public class CarcBackEnd implements BackEnd {
           toReturn.put("validMoves", validMoves);
           s.putField("gameover", r.isGameOver());
           toReturn.put("gameover", r.isGameOver());
+          s.putField("validMeeples", new ArrayList<>());
+          toReturn.put("validMeeples", new ArrayList<>());
           return toReturn;
         }
       default:
