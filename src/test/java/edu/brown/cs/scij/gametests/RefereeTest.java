@@ -521,7 +521,7 @@ public class RefereeTest {
     List<Player> pList = new ArrayList<>();
     pList.add(p);
     r.setPlayers(pList);
-    r.placeMeeple(new Posn(1, 0), p, Direction.CENTER);
+    r.placeMeeple(new Posn(1, 0), p, Direction.RIGHT);
     int score = p.getScore();
     r.scoreCityEndgame();
     assertTrue(score + 7 == p.getScore());
@@ -787,7 +787,7 @@ public class RefereeTest {
     r.place(leftP, left);
     r.placeMeeple(leftP, p1, Direction.RIGHT);
     r.place(centerP, horiz2);
-    r.placeMeeple(centerP, p2, Direction.CENTER);
+    r.placeMeeple(centerP, p2, Direction.RIGHT);
     r.place(rightP, right);
     r.placeMeeple(rightP, p1, Direction.LEFT);
     int score1 = p1.getScore();
@@ -848,9 +848,9 @@ public class RefereeTest {
     r.place(leftLeftP, left);
     r.placeMeeple(leftLeftP, p1, Direction.RIGHT);
     r.place(leftCenterP, horiz2);
-    r.placeMeeple(leftCenterP, p2, Direction.CENTER);
+    r.placeMeeple(leftCenterP, p2, Direction.LEFT);
     r.place(rightCenterP, horiz4);
-    r.placeMeeple(rightCenterP, p1, Direction.CENTER);
+    r.placeMeeple(rightCenterP, p1, Direction.RIGHT);
     r.place(rightRightP, right);
     r.placeMeeple(rightRightP, p1, Direction.LEFT);
     int score1 = p1.getScore();
@@ -912,9 +912,9 @@ public class RefereeTest {
     r.place(leftLeftP, left);
     r.placeMeeple(leftLeftP, p1, Direction.RIGHT);
     r.place(leftCenterP, horiz2);
-    r.placeMeeple(leftCenterP, p2, Direction.CENTER);
+    r.placeMeeple(leftCenterP, p2, Direction.RIGHT);
     r.place(rightCenterP, horiz4);
-    r.placeMeeple(rightCenterP, p1, Direction.CENTER);
+    r.placeMeeple(rightCenterP, p1, Direction.LEFT);
     r.place(rightRightP, right);
     r.placeMeeple(rightRightP, p2, Direction.LEFT);
     int score1 = p1.getScore();

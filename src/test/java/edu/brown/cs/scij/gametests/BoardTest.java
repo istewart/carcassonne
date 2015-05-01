@@ -342,8 +342,7 @@ public class BoardTest {
     r.setPlayers(players);
     r.place(p, t);
     List<Direction> directions = r.getBoard().validMeeples(p);
-    assertTrue(directions.size() == 5);
-    assertTrue(directions.contains(Direction.CENTER));
+    assertTrue(directions.size() == 4);
     assertTrue(directions.contains(Direction.UP));
     assertTrue(directions.contains(Direction.DOWN));
     assertTrue(directions.contains(Direction.LEFT));
@@ -391,7 +390,7 @@ public class BoardTest {
     Referee r = new Referee();
     r.setPlayers(players);
     r.place(p, t);
-    r.placeMeeple(p, p1, Direction.CENTER);
+    r.placeMeeple(p, p1, Direction.RIGHT);
     List<Direction> directions = r.getBoard().validMeeples(p);
     assertTrue(directions.size() == 0);
   }
@@ -413,8 +412,7 @@ public class BoardTest {
     r.setPlayers(players);
     r.place(p, t);
     List<Direction> directions = r.getBoard().validMeeples(p);
-    assertTrue(directions.size() == 3);
-    assertTrue(directions.contains(Direction.CENTER));
+    assertTrue(directions.size() == 2);
     assertTrue(directions.contains(Direction.DOWN));
     assertTrue(directions.contains(Direction.LEFT));
   }
@@ -467,5 +465,107 @@ public class BoardTest {
     r.place(centerP, center);
     List<Direction> directions = r.getBoard().validMeeples(centerP);
     assertTrue(directions.size() == 0);
+  }
+  
+  @Test
+  public void doubleCenterMeepleRoadTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException{
+	  Center c1 = new Center(Feature.ROAD);
+	  Center c2 = new Center(Feature.CITY);
+	  Edge city1 = new Edge(Feature.CITY);
+	  Edge city2 = new Edge(Feature.CITY);
+	  Edge road1 = new Edge(Feature.ROAD);
+	  Edge road2 = new Edge(Feature.ROAD);
+	  Tile stupidTile = new Tile(c1, c2, city1, city2, road1, road2, 0);
+	  Player p = new Player(1, "p");
+	  Posn center = new Posn(0,0);
+	  List<Player> plist = new ArrayList<>();
+	  plist.add(p);
+	  Referee r = new Referee();
+	  r.setPlayers(plist);
+	  r.place(center, stupidTile);
+	  r.placeMeeple(center, p, Direction.LEFT);
+	  List<Direction> directions = r.getBoard().validMeeples(center);
+	  assertTrue(directions.size() == 2);
+	  assertTrue(directions.contains(Direction.UP));
+	  assertTrue(directions.contains(Direction.RIGHT));
+  }
+  
+  @Test
+  public void doubleCenterMeepleCityTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException{
+	  Center c1 = new Center(Feature.ROAD);
+	  Center c2 = new Center(Feature.CITY);
+	  Edge city1 = new Edge(Feature.CITY);
+	  Edge city2 = new Edge(Feature.CITY);
+	  Edge road1 = new Edge(Feature.ROAD);
+	  Edge road2 = new Edge(Feature.ROAD);
+	  Tile stupidTile = new Tile(c1, c2, city1, city2, road1, road2, 0);
+	  Player p = new Player(1, "p");
+	  Posn center = new Posn(0,0);
+	  List<Player> plist = new ArrayList<>();
+	  plist.add(p);
+	  Referee r = new Referee();
+	  r.setPlayers(plist);
+	  r.place(center, stupidTile);
+	  r.placeMeeple(center, p, Direction.RIGHT);
+	  List<Direction> directions = r.getBoard().validMeeples(center);
+	  assertTrue(directions.size() == 2);
+	  assertTrue(directions.contains(Direction.DOWN));
+	  assertTrue(directions.contains(Direction.LEFT));
+  }
+  
+  @Test
+  public void doubleCenterMeepleOtherRoadTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException{
+	  Center c1 = new Center(Feature.ROAD);
+	  Center c2 = new Center(Feature.CITY);
+	  Edge city1 = new Edge(Feature.CITY);
+	  Edge city2 = new Edge(Feature.CITY);
+	  Edge road1 = new Edge(Feature.ROAD);
+	  Edge road2 = new Edge(Feature.ROAD);
+	  Tile stupidTile = new Tile(c1, c2, city1, city2, road1, road2, 0);
+	  Player p = new Player(1, "p");
+	  Posn center = new Posn(0,0);
+	  List<Player> plist = new ArrayList<>();
+	  plist.add(p);
+	  Referee r = new Referee();
+	  r.setPlayers(plist);
+	  r.place(center, stupidTile);
+	  r.placeMeeple(center, p, Direction.LEFT);
+	  Center c = new Center(Feature.ROAD);
+	  Edge field = new Edge(Feature.FIELD);
+	  road1 = new Edge(Feature.ROAD);
+	  road2 = new Edge(Feature.ROAD);
+	  Tile otherTile = new Tile(c, road1, field, field, road2, 0);
+	  Posn bottom = new Posn(0, -1);
+	  r.place(bottom, otherTile);
+	  List<Direction> directions = r.getBoard().validMeeples(bottom);
+	  assertTrue(directions.size() == 0);
+  }
+  
+  @Test
+  public void doubleCenterMeepleOtherCityTest() throws InvalidEdgeException, PosnTakenException, NullTileException, OutOfMeeplesException, UnMeeplableException{
+	  Center c1 = new Center(Feature.ROAD);
+	  Center c2 = new Center(Feature.CITY);
+	  Edge city1 = new Edge(Feature.CITY);
+	  Edge city2 = new Edge(Feature.CITY);
+	  Edge road1 = new Edge(Feature.ROAD);
+	  Edge road2 = new Edge(Feature.ROAD);
+	  Tile stupidTile = new Tile(c1, c2, city1, city2, road1, road2, 0);
+	  Player p = new Player(1, "p");
+	  Posn center = new Posn(0,0);
+	  List<Player> plist = new ArrayList<>();
+	  plist.add(p);
+	  Referee r = new Referee();
+	  r.setPlayers(plist);
+	  r.place(center, stupidTile);
+	  r.placeMeeple(center, p, Direction.UP);
+	  Center c = new Center(Feature.CITY);
+	  Edge field = new Edge(Feature.FIELD);
+	  city1 = new Edge(Feature.CITY);
+	  city2 = new Edge(Feature.CITY);
+	  Tile otherTile = new Tile(c, city1, field, field, city2, 0);
+	  Posn right = new Posn(1, 0);
+	  r.place(right, otherTile);
+	  List<Direction> directions = r.getBoard().validMeeples(right);
+	  assertTrue(directions.size() == 0);
   }
 }
