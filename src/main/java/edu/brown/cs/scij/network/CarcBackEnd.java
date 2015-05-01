@@ -182,40 +182,32 @@ public class CarcBackEnd implements BackEnd {
         System.out.println("current posn: " + r.getCurPosn());
         r.score(r.getCurPosn());
 
-        if (r.isGameOver()) {
-          s.putField("gameover", r.isGameOver());
-          toReturn.put("gameover", r.isGameOver());
-          s.putField("players", r.getPlayers());
-          toReturn.put("players", r.getPlayers());
-          return toReturn;
-          // TODO send only a gameover message with the list of players
-        } else {
-          s.putField("board", r.getBoard());
-          toReturn.put("board", r.getBoard());
-          Player nextPlayer = r.nextPlayer();
-          s.putField("currentPlayer", nextPlayer);
-          toReturn.put("currentPlayer", nextPlayer);
-          s.putField("players", r.getPlayers());
-          toReturn.put("players", r.getPlayers());
+        s.putField("board", r.getBoard());
+        toReturn.put("board", r.getBoard());
+        Player nextPlayer = r.nextPlayer();
+        s.putField("currentPlayer", nextPlayer);
+        toReturn.put("currentPlayer", nextPlayer);
+        s.putField("players", r.getPlayers());
+        toReturn.put("players", r.getPlayers());
 
-          curTile = r.drawTile();
-          validMoves = r.getBoard().validMoves(curTile);
-          while (validMoves.isEmpty()) {
-            validMoves = checkValidMoves(r.getBoard(), curTile);
-          }
-
-          // check current orientation
-
-          s.putField("currTile", r.getCurTile());
-          toReturn.put("currTile", r.getCurTile());
-          s.putField("validMoves", validMoves);
-          toReturn.put("validMoves", validMoves);
-          s.putField("gameover", r.isGameOver());
-          toReturn.put("gameover", r.isGameOver());
-          s.putField("validMeeples", new ArrayList<>());
-          toReturn.put("validMeeples", new ArrayList<>());
-          return toReturn;
+        curTile = r.drawTile();
+        validMoves = r.getBoard().validMoves(curTile);
+        while (validMoves.isEmpty()) {
+          validMoves = checkValidMoves(r.getBoard(), curTile);
         }
+
+        // check current orientation
+
+        s.putField("currTile", r.getCurTile());
+        toReturn.put("currTile", r.getCurTile());
+        s.putField("validMoves", validMoves);
+        toReturn.put("validMoves", validMoves);
+        s.putField("gameover", r.isGameOver());
+        toReturn.put("gameover", r.isGameOver());
+        s.putField("validMeeples", new ArrayList<>());
+        toReturn.put("validMeeples", new ArrayList<>());
+        return toReturn;
+
       default:
         System.out.println("GOT TO DEWFAULT BIZNATCHES");
         // TODO not sure what to do when it's none of these
