@@ -4,6 +4,7 @@
 hs_err_pid*
 .metadata
 +*.nfs*
+C:*
 
 *.pydevproject
 .metadata
