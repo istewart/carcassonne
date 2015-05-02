@@ -107,6 +107,7 @@ Renderer.prototype.renderTile = function() {
   if (!this.currTile) { // tile is undefined or null
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, w, h);
+    return;
   }
 
   var currImage = document.getElementById(this.currTile.pngID);
