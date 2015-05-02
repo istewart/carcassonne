@@ -113,6 +113,9 @@ Renderer.prototype.renderTile = function() {
     ctx.drawImage(currImage, 0, 0, w, h);
   }
 
+  var tilesRemaining = network.get("tilesLeft");
+  $("#turnCount")[0].value = "Tiles Remaining: " + tilesRemaining;
+
   var spots = this.validMeeples;
   var radius = w / 10;
 
