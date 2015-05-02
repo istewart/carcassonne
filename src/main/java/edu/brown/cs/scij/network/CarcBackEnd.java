@@ -50,7 +50,7 @@ public class CarcBackEnd implements BackEnd {
     List<Posn> validMoves;
 
     assert (player == r.getCurPlayer().getId());
-    System.out.println("Player ID: " + player);
+    //System.out.println("Player ID: " + player);
 
     switch (field) {
       case "rotate":
@@ -143,7 +143,6 @@ public class CarcBackEnd implements BackEnd {
         // TODO receiving: direction
         // returning: currtile, board, validmoves, players, currplayer
         String dir = val.get("meeple");
-        System.out.println(String.valueOf(dir));
         Direction d = null;
         Tile curTile = r.getCurTile();
         if (dir != null) {
@@ -179,8 +178,6 @@ public class CarcBackEnd implements BackEnd {
             e.printStackTrace();
           }
         }
-
-        System.out.println("current posn: " + r.getCurPosn());
         r.score(r.getCurPosn());
 
         s.putField("board", r.getBoard());
@@ -190,6 +187,9 @@ public class CarcBackEnd implements BackEnd {
         toReturn.put("currentPlayer", nextPlayer);
         s.putField("players", r.getPlayers());
         toReturn.put("players", r.getPlayers());
+
+        s.putField("gameOver", r.isGameOver());
+        toReturn.put("gameOver", r.isGameOver());
 
         curTile = r.drawTile();
         if (curTile == null) {
@@ -209,8 +209,6 @@ public class CarcBackEnd implements BackEnd {
         toReturn.put("currTile", r.getCurTile());
         s.putField("validMoves", validMoves);
         toReturn.put("validMoves", validMoves);
-        s.putField("gameOver", r.isGameOver());
-        toReturn.put("gameOver", r.isGameOver());
         s.putField("validMeeples", new ArrayList<>());
         toReturn.put("validMeeples", new ArrayList<>());
         s.putField("tilesLeft", r.getDeck().getTiles().size());

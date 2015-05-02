@@ -5,6 +5,10 @@ import edu.brown.cs.scij.network.CarcBackEnd;
 import edu.brown.cs.scij.network.MainServer;
 import edu.brown.cs.scij.network.Network;
 
+import joptsimple.OptionException;
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
+
 public class Main {
 
   public static final int PORT = 4567;
@@ -18,126 +22,23 @@ public class Main {
    *        no args
    */
   public static void main(String[] args) {
+    OptionParser parser = new OptionParser();
+    parser.accepts("debug");
+    OptionSet options = null;
+    try {
+      options = parser.parse(args);
+    } catch (OptionException e3) {
+      System.out.println("Invalid arguments.");
+      return;
+    }
+   
     r = new Referee();
     BackEnd cbe = new CarcBackEnd(r);
-    Network.getNetwork(args).setBackEnd(cbe).setServer(new MainServer().talk()).go();
-    // runSparkServer();
+    if (options.has("debug")) {
+      Network.getNetwork(args).setBackEnd(cbe).setServer(new MainServer().talk()).go();
+    } else {
+      Network.getNetwork(args).setBackEnd(cbe).setServer(new MainServer()).go();
+    }
+    
   }
-
-  /**
-   * Handles all get and post communications between our backend and frontend.
-   *
-   * @param main
-   * 
-   */
-  /*
-   * private static void runSparkServer() {
-   * // We need to serve some simple static files containing CSS and JavaScript.
-   * // This tells Spark where to look for urls of the form "/static/*".
-   * Spark.setPort(PORT);
-   * 
-   * Spark.externalStaticFileLocation("src/main/resources/static");
-   * Spark.post("/right", new RightHandler());
-   * Spark.post("/left", new LeftHandler());
-   * Spark.post("/place", new PlaceHandler());
-   * Spark.post("/meeple", new MeepleHandler());
-   * }
-   *//**
-   * Spark handling right requests. handler rotates tile right.
-   */
-  /*
-   * private static class RightHandler implements Route {
-   *//**
-   * Constructor for Right handler.
-   */
-  /*
-   * public RightHandler() {
-   * 
-   * }
-   * 
-   * 
-   * // based on referees current state, updates everything and responds
-   * 
-   * @Override
-   * public String handle(Request req, Response res) {
-   * Gson gson = new Gson();
-   * QueryParamsMap qm = req.queryMap();
-   * 
-   * Map<String, Object> variables = null;
-   * return gson.toJson(variables);
-   * }
-   * }
-   *//**
-   * Spark handling left requests. handler rotates tile left.
-   */
-  /*
-   * private static class LeftHandler implements Route {
-   *//**
-   * Constructor for Right handler.
-   */
-  /*
-   * public LeftHandler() {
-   * 
-   * }
-   * 
-   * // based on referees current state, updates everything and responds
-   * 
-   * @Override
-   * public String handle(Request req, Response res) {
-   * Gson gson = new Gson();
-   * QueryParamsMap qm = req.queryMap();
-   * 
-   * Map<String, Object> variables = null;
-   * return gson.toJson(variables);
-   * }
-   * }
-   *//**
-   * Spark handling place requests. handler places tile.
-   */
-  /*
-   * private static class PlaceHandler implements Route {
-   *//**
-   * Constructor for Place handler.
-   */
-  /*
-   * public PlaceHandler() {
-   * 
-   * }
-   * 
-   * //takes in where tile was placed, updates everything and responds
-   * 
-   * @Override
-   * public String handle(Request req, Response res) {
-   * Gson gson = new Gson();
-   * QueryParamsMap qm = req.queryMap();
-   * 
-   * Map<String, Object> variables = null;
-   * return gson.toJson(variables);
-   * }
-   * }
-   *//**
-   * Spark handling meeple requests. handler places meeple.
-   */
-  /*
-   * private static class MeepleHandler implements Route {
-   *//**
-   * Constructor for Meeple handler.
-   */
-  /*
-   * public MeepleHandler() {
-   * 
-   * }
-   * 
-   * //takes in where the meeple was placed, updates everything and responds
-   * 
-   * @Override
-   * public String handle(Request req, Response res) {
-   * Gson gson = new Gson();
-   * QueryParamsMap qm = req.queryMap();
-   * 
-   * Map<String, Object> variables = null;
-   * return gson.toJson(variables);
-   * }
-   * }
-   */
 }

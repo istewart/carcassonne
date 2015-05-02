@@ -36,8 +36,6 @@ public class Referee {
   private boolean isGameOver;
 
   public Referee() {
-    // TODO should be done but there might be something else but I can't think
-    // of more setup (and it should go in setupGame()
     setupGame();
   }
 
@@ -98,8 +96,6 @@ public class Referee {
    * @throws PosnTakenException if the posn is taken
    */
   public void place(Posn p, Tile t) throws PosnTakenException {
-    // TODO pretty sure throw, right, because if the Posn is taken the
-    // handler/main gameplay function should handle that.
     board.place(p, t);
   }
 
@@ -310,7 +306,6 @@ public class Referee {
             c.removeMeeple();
             board.getMeeplePosns().remove(p);
           } catch (NullMeepleException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           }
         }
@@ -868,14 +863,14 @@ public class Referee {
     }
   }
 
-  private Player getPlayer(int id) {
+  /*private Player getPlayer(int id) {
     for (Player p : players) {
       if (p.getId() == id) {
         return p;
       }
     }
     return null;
-  }
+  }*/
 
   public void placeMeeple(Posn posn, Player player,
       Direction d) throws NullTileException, OutOfMeeplesException,
@@ -946,7 +941,7 @@ public class Referee {
 
     List<Tile> tiles = new ArrayList<>();
     // 1x 4-road piece w/endpoint
-    tiles.add(new Tile(2, new Center(endpoint), new Edge(road), new Edge(road),
+    /*tiles.add(new Tile(2, new Center(endpoint), new Edge(road), new Edge(road),
         new Edge(road), new Edge(road), 0));
 
     // 4x 3-road 1-field w/endpoint
@@ -1072,7 +1067,7 @@ public class Referee {
       tiles.add(new Tile(16, new Center(field), new Edge(city), new Edge(city),
           new Edge(field), new Edge(field), 0));
     }
-
+*/
     // 3x 3-city 1-field
     for (i = 0; i < 3; i++) {
       tiles.add(new Tile(3, new Center(city), new Edge(city), new Edge(city),
