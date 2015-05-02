@@ -25,6 +25,7 @@
     <div id="mainDiv">
 
       <div id="sidebar">
+        <p id = "tileTitle"> Current Tile </p>
         <canvas id="tileCanvas" height="1000" width="1000"></canvas>
         
         <div>
@@ -41,6 +42,8 @@
           <textarea id="playerThree" class="playerBox" rows="1" readonly></textarea></br>
           <textarea id="playerFour" class="playerBox" rows="1" readonly></textarea></br>
         </form>
+
+        <textarea id="turnCount" rows="1" readonly></textarea>
 
       </div>
 

@@ -1,7 +1,6 @@
 body {
   color: #222;
   background-color: white;
-  /*padding: 35pt;*/
   font: 12pt 'Merienda One';
   line-height: 120%;
   text-align: center;
@@ -95,6 +94,14 @@ button.menubutton {
     box-shadow: 1px 2px 3px rgba(0,0,0,.5);
 }
 
+#tileTitle {
+  font: 20pt 'Merienda One';
+  color: #222;
+  margin: 0px;
+  padding: 0px;
+  background-color: #e8e8e8;
+}
+
 button.placeButton {
   width: 4em;  
   height: 2em;
@@ -124,7 +131,7 @@ button.placeButton:focus {
   outline: none;
 }
 
-textarea.playerBox, textarea.lobbyBox {
+textarea.playerBox, textarea.lobbyBox, #turnCount {
   padding: 2px;
   resize: none;
   -moz-user-select: none;
@@ -141,6 +148,12 @@ textarea.playerBox, textarea.lobbyBox {
 
 textarea.lobbyBox {
   width: 40%;
+}
+
+#turnCount {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 #mainDiv { 
