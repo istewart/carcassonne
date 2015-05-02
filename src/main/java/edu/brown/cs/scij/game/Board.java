@@ -49,6 +49,66 @@ public class Board {
   public Map<Posn, Tile> getBoard() {
     return ImmutableMap.copyOf(board);
   }
+  
+  public Board forcePlace(Posn p, Tile t) throws PosnTakenException, IllegalArgumentException {
+    Tile there = board.get(p);
+    if (there == null) {
+      board.put(p, t);
+
+      TileFeature top = t.getTop();
+      TileFeature bottom = t.getBottom();
+      TileFeature left = t.getLeft();
+      TileFeature right = t.getRight();
+
+      adjacentPosns.remove(p);
+      Posn up = p.withY(p.getY() + 1);
+      Posn rightP = p.withX(p.getX() + 1);
+      Posn down = p.withY(p.getY() - 1);
+      Posn leftP = p.withX(p.getX() - 1);
+
+      if (board.containsKey(up)) {
+        if (board.get(up).getBottom().touchesMeeple()) {
+          top.setTouchesMeeple(true);
+          setTouchesMeeple(p, Direction.UP);
+        }
+      }
+      if (board.containsKey(down)) {
+        if (board.get(down).getTop().touchesMeeple()) {
+          bottom.setTouchesMeeple(true);
+          setTouchesMeeple(p, Direction.DOWN);
+        }
+      }
+      if (board.containsKey(leftP)) {
+        if (board.get(leftP).getRight().touchesMeeple()) {
+          left.setTouchesMeeple(true);
+          setTouchesMeeple(p, Direction.LEFT);
+        }
+      }
+      if (board.containsKey(rightP)) {
+        if (board.get(rightP).getLeft().touchesMeeple()) {
+          right.setTouchesMeeple(true);
+          setTouchesMeeple(p, Direction.RIGHT);
+        }
+      }
+
+      if (!adjacentPosns.contains(up) && !board.containsKey(up)) {
+        adjacentPosns.add(up);
+      }
+      if (!adjacentPosns.contains(rightP) && !board.containsKey(rightP)) {
+        adjacentPosns.add(rightP);
+      }
+      if (!adjacentPosns.contains(down) && !board.containsKey(down)) {
+        adjacentPosns.add(down);
+      }
+      if (!adjacentPosns.contains(leftP) && !board.containsKey(leftP)) {
+        adjacentPosns.add(leftP);
+      }
+    } else {
+      throw new PosnTakenException("There is already a tile here");
+    }
+    // TODO should this be void or do we want to return the board?
+    return this;
+  }
 
   /**
    * Places Tile t at Posn p on the Board. If the Posn is already taken,
@@ -60,11 +120,12 @@ public class Board {
    * @throws PosnTakenException if the Posn is already on the board.
    */
   public Board place(Posn p, Tile t) throws PosnTakenException, IllegalArgumentException {
-    if (!validMoves(t).contains(p)) {
-      throw new IllegalArgumentException("That is not a valid place to put that tile!");
-    }
+   
     Tile there = board.get(p);
     if (there == null) {
+      if (!validMoves(t).contains(p)) {
+        throw new IllegalArgumentException("That is not a valid place to put that tile!");
+      }
       board.put(p, t);
 
       TileFeature top = t.getTop();

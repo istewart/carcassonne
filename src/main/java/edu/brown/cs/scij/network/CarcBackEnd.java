@@ -106,32 +106,11 @@ public class CarcBackEnd implements BackEnd {
         String posn = val.get("move");
         String[] xy = posn.split(",");
         Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
+        //try {
         try {
           r.getBoard().place(p, r.getCurTile());
           r.setCurPosn(p);
-        } catch (PosnTakenException e) {
-          s.putField("board", r.getBoard());
-          toReturn.put("board", r.getBoard());
-          s.putField("currentPlayer", r.getCurPlayer());
-          toReturn.put("currentPlayer", r.getCurPlayer());
-          s.putField("players", r.getPlayers());
-          toReturn.put("players", r.getPlayers());
-
-          s.putField("gameOver", r.isGameOver());
-          toReturn.put("gameOver", r.isGameOver());
-          s.putField("currTile", r.getCurTile());
-          toReturn.put("currTile", r.getCurTile());
-          validMoves = r.getBoard().validMoves(r.getCurTile());
-          s.putField("validMoves", validMoves);
-          toReturn.put("validMoves", validMoves);
-          s.putField("validMeeples", new ArrayList<>());
-          toReturn.put("validMeeples", new ArrayList<>());
-          s.putField("tilesLeft", r.getDeck().getTiles().size());
-          toReturn.put("tilesLeft", r.getDeck().getTiles().size());
-          s.putField("error", "That wasn't a valid move! Please try again");
-          toReturn.put("error", "That wasn't a valid move! Please try again");
-          return toReturn;
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | PosnTakenException e1) {
           s.putField("board", r.getBoard());
           toReturn.put("board", r.getBoard());
           s.putField("currentPlayer", r.getCurPlayer());

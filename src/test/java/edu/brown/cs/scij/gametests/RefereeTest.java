@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.brown.cs.scij.game.Board;
 import edu.brown.cs.scij.game.NullTileException;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.game.Posn;
@@ -324,10 +325,10 @@ public class RefereeTest {
     Referee r = new Referee();
     Posn to = new Posn(0, 1);
     Posn bo = new Posn(0, 0);
-    r.place(to, botRoad);
+    r.forcePlace(to, botRoad);
     Edge roadOnTop = new Edge(Feature.ROAD);
     Tile topRoad = new Tile(c, roadOnTop, field, field, field, 0);
-    r.place(bo, topRoad);
+    r.forcePlace(bo, topRoad);
     Player p = new Player(1, "Colby");
     List<Player> pList = new ArrayList<>();
     pList.add(p);
@@ -351,9 +352,9 @@ public class RefereeTest {
         new Tile(c, roadCenterTop, field, roadCenterBottom, field, 0);
     Posn ct = new Posn(0, 0);
     bo = new Posn(0, -1);
-    r.place(to, botRoad);
-    r.place(ct, roadThrough);
-    r.place(bo, topRoad);
+    r.forcePlace(to, botRoad);
+    r.forcePlace(ct, roadThrough);
+    r.forcePlace(bo, topRoad);
     r.placeMeeple(to, p, Direction.DOWN);
     score = p.getScore();
     r.scoreRoad(to);
@@ -384,15 +385,15 @@ public class RefereeTest {
     Tile topRight = new Tile(c, road6, road5, field, field, 0);
     c = new Center(Feature.ROAD);
     Tile botLeft = new Tile(c, field, field, road4, road3, 0);
-    r.place(to, botRoad);
-    r.place(ct, roadThrough);
-    r.place(bo, topRight);
+    r.forcePlace(to, botRoad);
+    r.forcePlace(ct, roadThrough);
+    r.forcePlace(bo, topRight);
     Posn horizPosn = new Posn(1, -1);
-    r.place(horizPosn, horizRoad);
+    r.forcePlace(horizPosn, horizRoad);
     Posn botLeftPosn = new Posn(2, -1);
-    r.place(botLeftPosn, botLeft);
+    r.forcePlace(botLeftPosn, botLeft);
     Posn topRoadPosn = new Posn(2, -2);
-    r.place(topRoadPosn, topRoad);
+    r.forcePlace(topRoadPosn, topRoad);
     r.placeMeeple(botLeftPosn, p, Direction.LEFT);
     score = p.getScore();
     r.scoreRoad(botLeftPosn);
@@ -588,8 +589,8 @@ public class RefereeTest {
     Posn left = new Posn(-1, 0);
     Posn right = new Posn(1, 0);
     Posn center = new Posn(0, 0);
-    r.place(left, rightRoad);
-    r.place(right, leftRoad);
+    r.forcePlace(left, rightRoad);
+    r.forcePlace(right, leftRoad);
     r.placeMeeple(left, p1, Direction.RIGHT);
     r.placeMeeple(right, p2, Direction.LEFT);
     int score1 = p1.getScore();
@@ -599,7 +600,7 @@ public class RefereeTest {
     Edge centerRoadLeft = new Edge(Feature.ROAD);
     Tile centerR =
         new Tile(c, field, centerRoadRight, field, centerRoadLeft, 0);
-    r.place(center, centerR);
+    r.forcePlace(center, centerR);
     r.scoreRoad(center);
     assertTrue(score1 + 3 == p1.getScore());
     assertTrue(score2 + 3 == p2.getScore());
@@ -1092,9 +1093,9 @@ public class RefereeTest {
     Tile leftCity = new Tile(c, field, field, field, city1, 0);
     c = new Center(Feature.CITY);
     Tile topRightCity = new Tile(c, city2, city3, field, field, 0);
-    Posn up = new Posn(0, 1);
-    Posn mid = new Posn(0, 0);
-    Posn right = new Posn(1, 0);
+    Posn up = new Posn(0, 0);
+    Posn mid = new Posn(0, -1);
+    Posn right = new Posn(1, -1);
     Referee r = new Referee();
     Player p = new Player(1, "p");
     List<Player> pList = new ArrayList<>();
@@ -1102,10 +1103,10 @@ public class RefereeTest {
     r.setPlayers(pList);
     int score = p.getScore();
     r.place(up, bottomCity);
-    r.place(right, leftCity);
+    r.forcePlace(right, leftCity);
     r.placeMeeple(up, p, Direction.DOWN);
     r.placeMeeple(right, p, Direction.LEFT);
-    r.place(mid, topRightCity);
+    r.forcePlace(mid, topRightCity);
     r.scoreCity(mid);
     assertTrue(score + 6 == p.getScore());
   }
