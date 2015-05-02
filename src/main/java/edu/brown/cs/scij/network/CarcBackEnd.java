@@ -237,9 +237,11 @@ public class CarcBackEnd implements BackEnd {
         // check rotation 90
         validMoves = r.getBoard().validMoves(curTile);
         if (validMoves.isEmpty()) {
-          r.getDeck().getTiles().add(curTile);
-          Collections.shuffle(r.getDeck().getTiles());
+          //r.getDeck().getTiles().add(curTile);
+          //Collections.shuffle(r.getDeck().getTiles());
           curTile = r.drawTile();
+          validMoves = checkValidMoves(b, curTile);
+          
         }
       }
     }
