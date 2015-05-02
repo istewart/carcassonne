@@ -108,7 +108,7 @@
       river tiles. River placement operates the same way, except for the rule that you can never place two bends in
       the same direction one after the other</p>
       
-      tile placement images here
+      <!--tile placement images here-->
 
 	  <h2><u>Meeple Placement</u></h2>
       <p>After placing a tile, a player has the opportunity to place a meeple. Meeples are Carcassonne's scoring
@@ -116,7 +116,7 @@
       to a previously placed meeple. However, you can connect to distinct features and have multiple meeples there.
       The details of these more complicated scenarios are found below.</p> 
 
-	  meeple placement images here
+	  <!--meeple placement images here-->
 	  
 	  <h2><u>Scoring</u></h2>
       <p> </p> 
