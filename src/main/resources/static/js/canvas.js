@@ -76,7 +76,7 @@ var Canvas = function() {
 			renderer.yt = startYT + posDiff.y;
 
 			renderer.render();
-		} else if (!dragging && !renderer.selectedTile) { // mousing over a spot with no tile selected
+		} else if (!dragging && !renderer.selectedTile && myTurn) { // mousing over a spot with no tile selected
 			var end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
 			var pixPos = end;
 			var canvasPos = renderer.pixelsToCanvas(pixPos);
