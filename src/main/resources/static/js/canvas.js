@@ -76,11 +76,30 @@ var Canvas = function() {
 			renderer.yt = startYT + posDiff.y;
 
 			renderer.render();
+		} else if (!dragging && !renderer.selectedTile) { // mousing over a spot with no tile selected
+			var end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
+			var pixPos = end;
+			var canvasPos = renderer.pixelsToCanvas(pixPos);
+			var cordPos = renderer.canvasToPos(canvasPos);
+
+			var roundedPos = {x: Math.round(cordPos.x), y: Math.round(cordPos.y)};
+
+			if (!renderer.containsMove(roundedPos)) { // not a valid move
+				renderer.selectedTile = null;
+				renderer.mouseOver = false;
+			} else {
+				renderer.selectedTile = roundedPos;
+				renderer.mouseOver = true;
+			}
+
+			renderer.render();
+			renderer.selectedTile = null;
+			renderer.mouseOver = false;
 		}
 	}).on('mouseup', function(e) {
 		var start = mouseStart;
 		dragging = false;
-		end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY},
+		var end = {x: e.pageX - canvasOffsetX, y: e.pageY - canvasOffsetY};
 		d = Math.sqrt(Math.pow((start.x - end.x), 2) + Math.pow((start.y - end.y), 2)); // distance in pixels
 		
 		if (d <= MIN_DRAG_DISTANCE && !isPlaced && myTurn) { // treat like a regular click
@@ -94,6 +113,7 @@ var Canvas = function() {
 				renderer.selectedTile = null;
 			} else {
 				renderer.selectedTile = roundedPos;
+				renderer.mouseOver = false;
 			}
 
 

@@ -30,6 +30,8 @@ function Renderer(board, currTile, players, validMoves, validMeeples, scale, xt,
   this.xt = xt;
   this.yt = yt;
 
+  this.mouseOver = false;
+
   console.log(this);
 }
 
@@ -340,6 +342,10 @@ Renderer.prototype.shadeMove = function() {
   var targetImg = document.getElementById(tileObj.pngID);
   var targetRadians = tileObj.rotation * Math.PI / 180;
 
+  if (this.mouseOver) { // currently mousing over a slot
+    ctx.globalAlpha = .5;
+  }
+
   if (targetRadians) { // fancy way of drawing an image rotated about it's center
     ctx.translate(targetPlacement.x + (targetPlacement.s / 2), targetPlacement.y + (targetPlacement.s / 2));
     ctx.rotate(targetRadians);
@@ -349,6 +355,8 @@ Renderer.prototype.shadeMove = function() {
   } else { // tile not rotated
     ctx.drawImage(targetImg, targetPlacement.x, targetPlacement.y, targetPlacement.s, targetPlacement.s);
   }
+
+  ctx.globalAlpha = 1;
 
   ctx.beginPath();
   ctx.lineWidth = LINE_WIDTH;
