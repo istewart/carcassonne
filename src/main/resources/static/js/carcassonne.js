@@ -1,7 +1,7 @@
 var renderer; // global rendering object
 var isPlaced = false; // if a tile has been placed but not meepled
 var showHints = true; // if meeple and tile hints should be displayed
-var myTurn = false;
+var myTurn = false; // if its my turn
 
 function hideAll() {
   $("#menuDiv").hide();
@@ -148,6 +148,14 @@ var handler = {
   gameOver: function(val) {
     if (val == true) {
       alert("Game Over!");
+      renderer.players = network.get("players");
+      renderer.board = network.get("board");
+      renderer.validMoves = network.get("validMoves");
+      renderer.validMeeples = network.get("validMeeples");
+      renderer.currTile = null;
+      renderer.selectedMeeple = null;
+      renderer.selectedTile = null;
+      renderer.render();
     }
   },
 

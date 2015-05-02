@@ -1,7 +1,6 @@
 package edu.brown.cs.scij.network;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map; 
@@ -111,9 +110,49 @@ public class CarcBackEnd implements BackEnd {
           r.getBoard().place(p, r.getCurTile());
           r.setCurPosn(p);
         } catch (PosnTakenException e) {
-          // TODO Send back a message saying it's the same player's turn with
-          // the
-          // same tile and such
+          s.putField("board", r.getBoard());
+          toReturn.put("board", r.getBoard());
+          s.putField("currentPlayer", r.getCurPlayer());
+          toReturn.put("currentPlayer", r.getCurPlayer());
+          s.putField("players", r.getPlayers());
+          toReturn.put("players", r.getPlayers());
+
+          s.putField("gameOver", r.isGameOver());
+          toReturn.put("gameOver", r.isGameOver());
+          s.putField("currTile", r.getCurTile());
+          toReturn.put("currTile", r.getCurTile());
+          validMoves = r.getBoard().validMoves(r.getCurTile());
+          s.putField("validMoves", validMoves);
+          toReturn.put("validMoves", validMoves);
+          s.putField("validMeeples", new ArrayList<>());
+          toReturn.put("validMeeples", new ArrayList<>());
+          s.putField("tilesLeft", r.getDeck().getTiles().size());
+          toReturn.put("tilesLeft", r.getDeck().getTiles().size());
+          s.putField("error", "That wasn't a valid move! Please try again");
+          toReturn.put("error", "That wasn't a valid move! Please try again");
+          return toReturn;
+        } catch (IllegalArgumentException e) {
+          s.putField("board", r.getBoard());
+          toReturn.put("board", r.getBoard());
+          s.putField("currentPlayer", r.getCurPlayer());
+          toReturn.put("currentPlayer", r.getCurPlayer());
+          s.putField("players", r.getPlayers());
+          toReturn.put("players", r.getPlayers());
+
+          s.putField("gameOver", r.isGameOver());
+          toReturn.put("gameOver", r.isGameOver());
+          s.putField("currTile", r.getCurTile());
+          toReturn.put("currTile", r.getCurTile());
+          validMoves = r.getBoard().validMoves(r.getCurTile());
+          s.putField("validMoves", validMoves);
+          toReturn.put("validMoves", validMoves);
+          s.putField("validMeeples", new ArrayList<>());
+          toReturn.put("validMeeples", new ArrayList<>());
+          s.putField("tilesLeft", r.getDeck().getTiles().size());
+          toReturn.put("tilesLeft", r.getDeck().getTiles().size());
+          s.putField("error", "That wasn't a valid move! Please try again");
+          toReturn.put("error", "That wasn't a valid move! Please try again");
+          return toReturn;
         }
 
         // putField: board, current player, list of all players, valid meeples,

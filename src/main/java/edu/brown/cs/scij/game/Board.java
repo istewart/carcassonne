@@ -59,7 +59,10 @@ public class Board {
    * @return The Board object, for redrawing
    * @throws PosnTakenException if the Posn is already on the board.
    */
-  public Board place(Posn p, Tile t) throws PosnTakenException {
+  public Board place(Posn p, Tile t) throws PosnTakenException, IllegalArgumentException {
+    if (!validMoves(t).contains(p)) {
+      throw new IllegalArgumentException("That is not a valid place to put that tile!");
+    }
     Tile there = board.get(p);
     if (there == null) {
       board.put(p, t);

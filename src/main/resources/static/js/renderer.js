@@ -107,6 +107,7 @@ Renderer.prototype.renderTile = function() {
   if (!this.currTile) { // tile is undefined or null
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, w, h);
+    return;
   }
 
   var currImage = document.getElementById(this.currTile.pngID);
@@ -237,7 +238,7 @@ Renderer.prototype.renderMoves = function() {
   var mainCanvas = document.getElementById("mainCanvas");
   var ctx = mainCanvas.getContext("2d");
 
-  if (isPlaced || (!showHints && !$.isEmptyObject(this.board))) { // currently have a move selected or hints are hidden
+  if (isPlaced || (!showHints && !$.isEmptyObject(this.board)) || !myTurn) { // have a move selected or hints are hidden
     return;
   }
 
