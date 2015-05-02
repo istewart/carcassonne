@@ -91,23 +91,32 @@
 
     <div id="instructionsDiv">
       <h1>Instructions</h1>
+	  <h2><u>Game Overview</u></h2>
+      <p>Carcassonne is a board game in which you build the board as you play. Every turn, players place a tile,
+      creating cities and roads as the game progresses. To score points, one must place a meeple on tile. Scoring
+      happens after this placement happens each turn, throughout the game. As such, each turn consists of three 
+      actions: place, meeple, and score. </p> 
+      
+      <h2><u>Tile Placement</u></h2>
+      <p>At the start of their turn, a player first draws a tile, which is displayed in the top right of the screen.
+      This tile is the next tile that they must play somewhere on the board. Tiles may only be placed so that they
+      are adjacent to some tile already on the board. This placement must "fit" with the pieces previously placed
+      on the board. The images below show good and bad tile placement. The first tiles in the deck are always the 
+      river tiles. River placement operates the same way, except for the rule that you can never place two bends in
+      the same direction one after the other</p>
+      
+      tile placement images here
 
-      <p> Carcassonne is a board game in which you build the board as you play.
-      Each turn consists of three actions: place, meeple, and score. </p> 
+	  <h2><u>Meeple Placement</u></h2>
+      <p>After placing a tile, a player has the opportunity to place a meeple. Meeples are Carcassonne's scoring
+      mechanism - to get points, you have to place meeples. You cannot place a meeple on a feature which connects
+      to a previously placed meeple. However, you can connect to distinct features and have multiple meeples there.
+      The details of these more complicated scenarios are found below.</p> 
 
-      <p> First, a player must place a tile somewhere on the board where the edges of the tile to be placed match
-      those of the tiles already on the board. Any tile may touch empty tiles. Cities may only touch cities,
-      roads may only touch roads, and fields may only touch fields. </p> 
-
-      <p> After a tile is placed, the player has the opportunity to place a meeple. Meepling a tile allows that tile to
-      be scored. If a monastery is played and meepled, and then
-      each adjacent space on the board is filled with a tile, nine points are awarded to the player
-      who placed the meeple...one for the monestary tile, and one for each touching tile. If a road
-      is played and meepled, and then completed, one point is awarded for each tile in the road. If
-      a city is played and meepled, and the city is completed, two points are awarded for each tile in the city. If there is
-      a shield on a tile, that tile's cities are worth twice as much. You cannot place a meeple on a
-      feature which is touching an already placed meeple, but you can connect two previously placed
-      meeples through a new tile. </p> 
+	  meeple placement images here
+	  
+	  <h2><u>Scoring</u></h2>
+      <p> </p> 
 
       <p> Scoring happens after meeples are placed, so if a feature is
       completed by placing a tile, one could place a meeple there, and it would be scored on the same
