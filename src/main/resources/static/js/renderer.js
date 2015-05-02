@@ -2,7 +2,6 @@ TILE_SIZE = 60;
 CANVAS_SIZE = 1000;
 
 MOVES_COLOR = "red";
-MEEPLES_COLOR = "red";
 LINE_WIDTH = 3;
 
 var colors = ["red", "blue", "purple", "orange"]; // player colors by id
@@ -80,11 +79,9 @@ Renderer.prototype.renderPlayers = function() {
     }
 
     var currPlayer = playersList[i];
-    network.get("connected")[playersList[i].id];
-    console.log(network.get("connected"));
-    console.log(network.get("connected")[playersList[i].id]);
-    var isDisconnected = (network.get("connected")[playersList[i].id] ? "" : " (disconnected)");
-    obj.value = "" + currPlayer.name + ": " + currPlayer.score + ", Meeples: " + currPlayer.numMeeples + isDisconnected;
+    var isDisconnected = (network.get("connected")[playersList[i].id] ? "" : " | (disconnected)");
+
+    obj.value = "" + currPlayer.name + ": " + currPlayer.score + " | Meeples: " + currPlayer.numMeeples + isDisconnected;
 
     if (network.get("currentPlayer") != null && (currPlayer.id === network.get("currentPlayer").id)) {
       obj.style.backgroundColor = "#222";
@@ -194,7 +191,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     if (tileObj.top.meeple) {
       x += w / 2;
       y += h / 4; 
-      meeplePlayerId = tileObj.top.meeple.id;
+      meeplePlayerId = tileObj.top.meeple.player.id;
     } else if (tileObj.bottom.meeple) {
       x += w / 2;
       y += 3 * h / 4;

@@ -50,7 +50,7 @@ button.menubutton {
     position: relative;
     border:2px solid #000000;
     border-left: none;
-    overflow: scroll;
+    overflow: none;
 
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -100,7 +100,7 @@ button.placeButton {
   height: 2em;
   padding: 5px;
   margin: 5px;
-  margin-top: .5em;
+  margin-top: 0em;
   margin-bottom: .5em;
   border:1px solid #222;
   font: 12pt 'Merienda One';
