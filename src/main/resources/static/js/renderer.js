@@ -95,12 +95,21 @@ Renderer.prototype.renderPlayers = function() {
 
 // Renders the current tile, meeple slots, and selected meeple in the tile canvas.
 Renderer.prototype.renderTile = function() {
-  var currImage = document.getElementById(this.currTile.pngID);
+  var tilesRemaining = network.get("tilesLeft");
+  $("#turnCount")[0].value = "Tiles Remaining: " + tilesRemaining;
+
   var tileCanvas = document.getElementById("tileCanvas");
   var ctx = tileCanvas.getContext("2d");
 
   var w = tileCanvas.width;
   var h = tileCanvas.height;
+
+  if (!this.currTile) { // tile is undefined or null
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, w, h);
+  }
+
+  var currImage = document.getElementById(this.currTile.pngID);
   var r = this.currTile.rotation * Math.PI / 180;
 
   if (r) { // fancy way of drawing an image rotated about it's center
