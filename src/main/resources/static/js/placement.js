@@ -38,10 +38,10 @@ var PlacementButtons = function() {
       var postParameters = {"move": move};
 
       network.ask("placeTile", postParameters, function(responseObject) {
-        /*var error = responseObject.error;
+        var error = responseObject.error;
         if (error != null) {
           return;
-        }*/
+        }
         var validMeeples = responseObject.validMeeples;
         renderer.validMeeples = validMeeples;
 
