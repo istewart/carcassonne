@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map; 
 
 import com.google.common.collect.ImmutableMap;
-
-import com.google.gson.Gson;
 
 import edu.brown.cs.scij.game.Board;
 import edu.brown.cs.scij.game.NullTileException;
@@ -24,7 +22,6 @@ import edu.brown.cs.scij.tile.UnMeeplableException;
 public class CarcBackEnd implements BackEnd {
   private Referee r;
   private Server s;
-  private static final Gson GSON = new Gson();
 
   public CarcBackEnd(Referee r) {
     this.r = r;
@@ -46,10 +43,14 @@ public class CarcBackEnd implements BackEnd {
       Player curPlayer = r.getCurPlayer();
       s.putField("currentPlayer", curPlayer);
       toReturn.put("currentPlayer", curPlayer);
+      s.putField("tilesLeft", r.getDeck().getTiles().size());
+      toReturn.put("tilesLeft", r.getDeck().getTiles().size());
+      return toReturn;
     }
     List<Posn> validMoves;
 
     assert (player == r.getCurPlayer().getId());
+    System.out.println("Player ID: " + player);
 
     switch (field) {
       case "rotate":
@@ -83,8 +84,6 @@ public class CarcBackEnd implements BackEnd {
         List<Player> players = r.getPlayers();
         validMoves = b.validMoves(t);
 
-        // List<Direction> validMeeples = /*t.validMeeples()*/
-        // r.validMeeples(p);
         s.putField("currTile", t);
         toReturn.put("currTile", t);
         s.putField("board", b);
@@ -96,6 +95,8 @@ public class CarcBackEnd implements BackEnd {
         Player curPlayer = r.nextPlayer();
         s.putField("currentPlayer", curPlayer);
         toReturn.put("currentPlayer", curPlayer);
+        s.putField("tilesLeft", r.getDeck().getTiles().size());
+        toReturn.put("tilesLeft", r.getDeck().getTiles().size());
         s.putField("gameStart", true);
         toReturn.put("gameStart", true);
         // putField() current board, current tile, list of players,
@@ -212,6 +213,8 @@ public class CarcBackEnd implements BackEnd {
         toReturn.put("gameOver", r.isGameOver());
         s.putField("validMeeples", new ArrayList<>());
         toReturn.put("validMeeples", new ArrayList<>());
+        s.putField("tilesLeft", r.getDeck().getTiles().size());
+        toReturn.put("tilesLeft", r.getDeck().getTiles().size());
         return toReturn;
 
       default:
