@@ -98,6 +98,10 @@ public class Referee {
   public void place(Posn p, Tile t) throws PosnTakenException {
     board.place(p, t);
   }
+  
+  public void forcePlace(Posn p, Tile t) throws PosnTakenException {
+    board.forcePlace(p, t);
+  }
 
   // Should the referee handle all interaction with the deck? Yes, right?
   public Tile drawTile() /* throws EmptyDeckException */{

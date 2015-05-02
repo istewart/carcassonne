@@ -108,7 +108,7 @@ var handler = {
       $("#mainMeeple").hide();
       $("#mainSkip").hide();
     }
-    console.log("MyTurn? " + myTurn);
+    console.log("MyTurn? Player id from ian:" + player.id + " Player id from network: " + network.id);
   },
 
   currTile: function(tile) {

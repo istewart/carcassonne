@@ -456,13 +456,14 @@ public class BoardTest {
     players.add(p1);
     Referee r = new Referee();
     r.setPlayers(players);
+
+    r.place(centerP, center);
+    r.place(left1P, left1);
+    r.place(left2P, left2);
+    r.place(left3P, left3);
+    r.place(left4P, left4);
     r.place(farleftP, farleft);
     r.placeMeeple(farleftP, p1, Direction.RIGHT);
-    r.place(left4P, left4);
-    r.place(left3P, left3);
-    r.place(left2P, left2);
-    r.place(left1P, left1);
-    r.place(centerP, center);
     List<Direction> directions = r.getBoard().validMeeples(centerP);
     assertTrue(directions.size() == 0);
   }
