@@ -39,7 +39,7 @@ button.menubutton {
     border: 1px solid #444;
     font: 24pt 'Merienda One';
     color: #e8e8e8;
-    background-color: #222222;
+    background-color: #222;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
@@ -48,7 +48,7 @@ button.menubutton {
 }
 
 #sidebar {
-    background:#222222;
+    background:#222;
     float: right;
     width: 300px;
     height: 100%;
@@ -154,6 +154,7 @@ textarea.playerBox, textarea.lobbyBox, #turnCount {
 
 textarea.lobbyBox {
   width: 40%;
+  color: #222;
 }
 
 #turnCount {
@@ -172,7 +173,7 @@ textarea.hostField {
   padding: .5em;
   margin: 1em;
   width: 30%;
-  color: #222222;
+  color: #222;
   background-color: #e8e8e8;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
@@ -184,7 +185,7 @@ textarea.hostField {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  border: 1px solid #222222;
+  border: 1px solid #222;
   font: 12pt 'Merienda One';
 }
 
@@ -195,7 +196,7 @@ button.submitButton, button.backButton {
   border: 1px solid #444;
   font: 18pt 'Merienda One';
   color: #e8e8e8;
-  background-color: #222222;
+  background-color: #222;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;

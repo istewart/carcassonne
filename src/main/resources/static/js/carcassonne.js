@@ -95,9 +95,10 @@ var handler = {
   currentPlayer: function(player) {
     if (player.id == network.id) {
       myTurn = true;
+
+      renderer.render();
       $("yourTurnDiv").show();
       $("yourTurnDiv").hide(300);
-      renderer.render();
       $("#mainLeft").show();
       $("#mainRight").show();
       $("#mainPlace").show();
