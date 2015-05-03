@@ -104,7 +104,7 @@ var handler = {
       $("#mainRight").show();
       $("#mainPlace").show();
       $("#turnDiv").show();
-      setInterval(function() {$("#turnDiv").hide();}, 500);
+      setInterval(function() {$("#turnDiv").hide();}, 1000);
     } else {
       myTurn = false;
       renderer.render();
