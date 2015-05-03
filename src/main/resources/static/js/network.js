@@ -267,7 +267,7 @@ var network = {
    */
   getIp: function() {
     $.getJSON("http://jsonip.com?callback=?", function(data) {
-      network.ip = data.ip;
+      network.ip =  data.ip;
       network.connectedInterval = setInterval(network.server.connect, 100);
     }).fail(function() {
       network.consecutivePingFailures++;
