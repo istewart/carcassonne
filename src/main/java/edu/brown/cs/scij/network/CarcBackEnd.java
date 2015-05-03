@@ -3,7 +3,7 @@ package edu.brown.cs.scij.network;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map; 
+import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -30,6 +30,7 @@ public class CarcBackEnd implements BackEnd {
   public synchronized Object answer(int player, String field,
       Map<String, String> val) {
     Tile t;
+    List<Player> players;
     Map<String, Object> toReturn = new HashMap<>();
     if (r.getCurPlayer() != null && player != r.getCurPlayer().getId()) {
       t = r.getCurTile();
@@ -49,7 +50,7 @@ public class CarcBackEnd implements BackEnd {
     List<Posn> validMoves;
 
     assert (player == r.getCurPlayer().getId());
-    //System.out.println("Player ID: " + player);
+    // System.out.println("Player ID: " + player);
 
     switch (field) {
       case "rotate":
@@ -72,15 +73,15 @@ public class CarcBackEnd implements BackEnd {
       case "newPlayer":
         String name = val.get("name");
         r.newPlayer(new Player(player, name));
-        List<Player> players2 = r.getPlayers();
-        s.putField("players", players2);
-        return ImmutableMap.of("success", "success", "players", players2);
+        players = r.getPlayers();
+        s.putField("players", players);
+        return ImmutableMap.of("success", "success", "players", players);
       case "gameStart":
         s.seal();
 
         t = r.drawTile();
         Board b = r.getBoard();
-        List<Player> players = r.getPlayers();
+        players = r.getPlayers();
         validMoves = b.validMoves(t);
 
         s.putField("currTile", t);
@@ -106,7 +107,7 @@ public class CarcBackEnd implements BackEnd {
         String posn = val.get("move");
         String[] xy = posn.split(",");
         Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
-        //try {
+        // try {
         try {
           r.getBoard().place(p, r.getCurTile());
           r.setCurPosn(p);
@@ -151,11 +152,6 @@ public class CarcBackEnd implements BackEnd {
           toReturn.put("validMeeples", new ArrayList<>());
         }
 
-        // TODO shouldn't send this here, erase
-        /*
-         * s.putField("gameover", r.isGameOver());
-         * toReturn.put("gameover", r.isGameOver());
-         */
         return toReturn;
       case "placeMeeple":
         // TODO receiving: direction
@@ -203,11 +199,34 @@ public class CarcBackEnd implements BackEnd {
         Player nextPlayer = r.nextPlayer();
         s.putField("currentPlayer", nextPlayer);
         toReturn.put("currentPlayer", nextPlayer);
-        s.putField("players", r.getPlayers());
-        toReturn.put("players", r.getPlayers());
 
         s.putField("gameOver", r.isGameOver());
         toReturn.put("gameOver", r.isGameOver());
+        players = r.getPlayers();
+        if (r.isGameOver()) {
+          int max = 0;
+          List<Player> winners = new ArrayList<>();
+          for (Player playah : players) {
+            if (playah.getScore() > max) {
+              max = playah.getScore();
+            }
+          }
+
+          for (Player playah : players) {
+            if (playah.getScore() == max) {
+              winners.add(playah);
+            }
+          }
+          s.putField("winners", winners);
+          toReturn.put("winners", winners);
+          players.sort(null);
+          s.putField("players", players);
+          toReturn.put("players", players);
+
+        } else {
+          s.putField("players", players);
+          toReturn.put("players", players);
+        }
 
         curTile = r.drawTile();
         if (curTile == null) {
@@ -218,8 +237,6 @@ public class CarcBackEnd implements BackEnd {
             validMoves = checkValidMoves(r.getBoard(), curTile);
           }
         }
-        
-        
 
         // check current orientation
 
@@ -255,11 +272,11 @@ public class CarcBackEnd implements BackEnd {
         // check rotation 90
         validMoves = r.getBoard().validMoves(curTile);
         if (validMoves.isEmpty()) {
-          //r.getDeck().getTiles().add(curTile);
-          //Collections.shuffle(r.getDeck().getTiles());
+          // r.getDeck().getTiles().add(curTile);
+          // Collections.shuffle(r.getDeck().getTiles());
           curTile = r.drawTile();
           validMoves = checkValidMoves(b, curTile);
-          
+
         }
       }
     }
