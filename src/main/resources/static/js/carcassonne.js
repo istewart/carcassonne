@@ -89,15 +89,17 @@ var handler = {
 
       renderer = new Renderer(board.board, currTile, players, validMoves, validMeeples, 1, 0, 0);
       renderer.render();
+      $("mainCanvas").focus();
     }
   },
 
   currentPlayer: function(player) {
     if (player.id == network.id) {
       myTurn = true;
+
+      renderer.render();
       $("yourTurnDiv").show();
       $("yourTurnDiv").hide(300);
-      renderer.render();
       $("#mainLeft").show();
       $("#mainRight").show();
       $("#mainPlace").show();

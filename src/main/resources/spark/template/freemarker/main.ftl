@@ -69,7 +69,7 @@
     <div id="joinDiv">
       <h1>Join</h1>
 
-      <textarea id="joinName" class="hostField" rows="1" placeholder="Your Name"></textarea></br>
+      <input type="text" id="joinName" class="hostField" rows="1" placeholder="Your Name"></niput></br>
       <button class="submitButton" id="joinJoin"> Enter Lobby </button><br>
       <button class="backButton" id="joinBack"> Back </button>
     </div>
@@ -102,7 +102,7 @@
 	  <h2>Game Overview</h2>
 
       <p>Carcassonne is a board game in which you build up the board as you play. Each turn, the current player places a tile,
-      creating huge cities and winding roads as the game progresses. To score points, players must place a meeple on a tile and complete the feature (road, city, or monastary) that the meeple corresponds to. Scoring
+      creating huge cities and winding roads as the game progresses. To score points, players must place a meeple on a tile and complete the feature (road, city, or monastery) that the meeple corresponds to. Scoring
       happens after placement each turn. As such, each turn consists of three 
       phases: place, meeple, and score. The player with the most points at the end of the game wins!</p>
 

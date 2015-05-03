@@ -101,7 +101,7 @@ public final class Network {
     try {
       ip = InetAddress.getLocalHost().getHostAddress().toString();
       url = "http://" + ip + ":" + Integer.toString(port) + "/home";
-      System.out.println("The network is loading...")
+      System.out.println("The network is loading...");
       System.out.println("If a window does not open automatically, please visit " + url);
       server.putField("url", url);
     } catch (Exception ex) {
@@ -275,11 +275,9 @@ public final class Network {
     @Override
     public Object handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
-      System.out.println(qm.toMap());
       Key key = Key.fromJSONString(qm.get("key").value());
       String field = qm.get("field").value();
       String val = qm.get("val").value();
-      System.out.println(val);
       return GSON.toJson(server.ask(key, field, (Map<String, String>)
           GSON.fromJson(val, HashMap.class)));
     }
