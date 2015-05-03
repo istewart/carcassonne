@@ -101,7 +101,7 @@ public final class Network {
     try {
       ip = InetAddress.getLocalHost().getHostAddress().toString();
       url = "http://" + ip + ":" + Integer.toString(port) + "/home";
-      System.out.println("The network is loading...")
+      System.out.println("The network is loading...");
       System.out.println("If a window does not open automatically, please visit " + url);
       server.putField("url", url);
     } catch (Exception ex) {
