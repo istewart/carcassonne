@@ -31,6 +31,7 @@ function Renderer(board, currTile, players, validMoves, validMeeples, scale, xt,
   this.yt = yt;
 
   this.mouseOver = false;
+  this.tileMouseOver = false;
 
   console.log(this);
 }
