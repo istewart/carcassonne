@@ -85,11 +85,16 @@ button.menubutton {
 }
 
 #turnDiv {
-	background: black;
-	width: 100px;
-	height 100px;
+	position: absolute;
+	line-height: 100%;
+	left: 12%;
+	bottom: 45%;
+	font-size: 72pt;
+	color: white;
+	width: 50%;
+	height: 10%;
 	align: center;
-	zIndex: 9999;
+	z-index: 1;
 }
 
 #mainCanvas {
