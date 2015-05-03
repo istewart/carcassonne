@@ -129,7 +129,7 @@ Renderer.prototype.renderTile = function() {
   var spots = this.validMeeples;
   var radius = w / 10;
 
-  if (!spots || !showHints || !myTurn) {
+  if (!spots || !myTurn) {
     return;
   }
 
@@ -146,18 +146,21 @@ Renderer.prototype.renderTile = function() {
       default: alert("Meeple switch failed!")
     }
 
-    ctx.beginPath();
-    ctx.lineWidth = 5 * LINE_WIDTH;
-    ctx.arc(x, y, radius, 0, 2 * Math.PI);
-    ctx.closePath();
-
     if (this.selectedMeeple && spots[i] === this.selectedMeeple) {
-      console.log(this.selectedMeeple);
-      console.log(network.get("currentPlayer"));
+      ctx.beginPath();
+      ctx.lineWidth = 5 * LINE_WIDTH;
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.closePath();
+
       ctx.fillStyle = colors[network.get("currentPlayer").id - 1];
       ctx.strokeStyle = null;
       ctx.fill();
-    } else {
+    } else if (showHints) {
+      ctx.beginPath();
+      ctx.lineWidth = 5 * LINE_WIDTH;
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.closePath();
+
       ctx.fillStyle = null;
       ctx.strokeStyle = colors[network.get("currentPlayer").id - 1];
       ctx.stroke();
