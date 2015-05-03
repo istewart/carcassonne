@@ -89,7 +89,6 @@ var handler = {
 
       renderer = new Renderer(board.board, currTile, players, validMoves, validMeeples, 1, 0, 0);
       renderer.render();
-      $("mainCanvas").focus();
     }
   },
 
