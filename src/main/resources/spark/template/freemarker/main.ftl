@@ -27,6 +27,7 @@
       <div id="sidebar">
         <p id = "tileTitle"> Current Tile </p>
         <canvas id="tileCanvas" height="1000" width="1000"></canvas>
+        	
         
         <div>
             <button id="mainLeft" class="placeButton"> &#x27f2 </button>
