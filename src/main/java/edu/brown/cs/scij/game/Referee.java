@@ -934,6 +934,10 @@ public class Referee {
     spectators.add(s);
   }
 
+  public List<Spectator> getSpectators() {
+    return spectators;
+  }
+
   /**
    * Shuffles the order of the players (used usually only at the start of the
    * game)
