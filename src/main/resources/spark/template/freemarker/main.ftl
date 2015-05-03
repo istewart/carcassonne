@@ -94,13 +94,13 @@
 
     <div id="instructionsDiv">
       <h1>Instructions</h1>
-	  <h2><u>Game Overview</u></h2>
+	  <h2>Game Overview</h2>
       <p>Carcassonne is a board game in which you build the board as you play. Every turn, players place a tile,
       creating cities and roads as the game progresses. To score points, one must place a meeple on tile. Scoring
       happens after this placement happens each turn, throughout the game. As such, each turn consists of three 
       actions: place, meeple, and score. The player with the most points at the end of the game wins!</p> 
       
-      <h2><u>Tile Placement</u></h2>
+      <h2>Tile Placement</h2>
       <p>At the start of their turn, a player first draws a tile, which is displayed in the top right corner of 
       the screen. Then, they must play this tile somewhere on the board. Tiles may only be placed so that they
       are adjacent to some tile already on the board. This placement must "fit" with the previously placed pieces.</p>
@@ -111,7 +111,7 @@
       <br>
       Valid placement of a tile with a road, a tile with a city, and a tile with both a city and a road.
       
-	  <h2><u>Meeple Placement</u></h2>
+	  <h2>Meeple Placement</h2>
       <p>After placing a tile, a player has the opportunity to place a meeple. Meeples are Carcassonne's scoring
       mechanism - to get points, you have to place meeples. Meeples can become one of three professions: thief (on
       a road), knight (in a city), and monk (in a monastery). Scoring is different for each of these cases. You 
@@ -125,7 +125,7 @@
       <br>
       Valid placement of a meeple on a road, a city, and a monastery.
 	  
-	  <h2><u>Scoring Roads</u></h2>
+	  <h2>Scoring Roads</h2>
       <p>If a meepled road is completed, either by forming a circle or touching an endpoint, the player who meepled
       the road gains one point for each tile touched by that completed road.</p> 
       
@@ -135,7 +135,7 @@
       <br>
       One circular finished road and one finished road with endpoints.
 
-	  <h2><u>Scoring Cities</u></h2>
+	  <h2>Scoring Cities</h2>
       <p>If a meepled city is completed, the player who meepled the city gains two point for each tile touched by 
       that completed city. Additionally, if any tile contains a shield image, that tile is worth twice as much.</p> 
       
@@ -144,7 +144,7 @@
       <br>
       Two finished cities, one with shields.
       
-      <h2><u>Scoring Monasteries</u></h2>
+      <h2>Scoring Monasteries</h2>
       <p>If a meepled monastery is surrounded by played tiles, 9 points are awarded to the player who meepled that
       monastery (one for each tile, including the tile with the monastery).</p>
       
@@ -152,7 +152,7 @@
       <br>
       A finished monastery.
       
-      <h2><u>Multiple Meeples</u></h2>
+      <h2>Multiple Meeples</h2>
       <p>Even though you cant place a meeple on a feature that already has a touching meeple, it is possible to
       connect features which have distinct meeples. If two players have a meeple on a feature, and that feature is
       completed, both players receive the points. In the scenario where there are three meeples on a feature, and one
@@ -166,7 +166,7 @@
       Scenario where both players get the points, the player with more meeples gets the points, and the player
       gets the points only once.
       
-      <h2><u>Endgame Scoring</u></h2>
+      <h2>Endgame Scoring</h2>
       <p>At the end of the game, once all tiles have been played, the meeples which remain on the board are scored.
       For monasteries and roads, scoring is done the same way as in game, except here features need not be completed
       to be scored. For cities however, everything which is not completed is worth half as much (shields included).
