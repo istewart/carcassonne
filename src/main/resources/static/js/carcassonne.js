@@ -153,12 +153,14 @@ var handler = {
 
   gameOver: function(val) {
     if (val == true) {
+      console.log("hello");
       var winners = network.get("winners");
       var message = "Game Over!\n";
-      for (key in winners) {
+      /*for (key in winners) {
         message.append(winners[key].name + " with " + winners[key].score + " points!");
-      }
-      alert("Game Over!\n" + network.get("winners"));
+      }*/
+      console.log(message);
+      alert("Game Over!");
       renderer.players = network.get("players");
       renderer.board = network.get("board");
       renderer.validMoves = network.get("validMoves");
