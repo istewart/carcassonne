@@ -150,7 +150,12 @@ var handler = {
 
   gameOver: function(val) {
     if (val == true) {
-      alert("Game Over!");
+      var winners = network.get("winners");
+      var message = "Game Over!\n";
+      for (key in winners) {
+        message.append(winners[key].name + " with " + winners[key].score + " points!");
+      }
+      alert("Game Over!\n" + network.get("winners"));
       renderer.players = network.get("players");
       renderer.board = network.get("board");
       renderer.validMoves = network.get("validMoves");
@@ -159,6 +164,7 @@ var handler = {
       renderer.selectedMeeple = null;
       renderer.selectedTile = null;
       renderer.render();
+      
     }
   },
 

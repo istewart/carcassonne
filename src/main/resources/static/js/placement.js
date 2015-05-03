@@ -76,10 +76,6 @@ var PlacementButtons = function() {
         var validMoves = responseObject.validMoves;
         var players = responseObject.players;
 
-        if (responseObject.gameOver) {
-          alert("Game is over! TODO: MORE THINGS!");
-        }
-
         renderer.currTile = currTile;
         renderer.validMoves = validMoves;
         renderer.board = board.board;
