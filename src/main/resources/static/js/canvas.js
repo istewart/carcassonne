@@ -163,6 +163,47 @@ var Canvas = function() {
 		}
 
 		renderer.render();
+	}).on('mousemove', function(e) {	
+		if (!renderer.selectedMeeple && myTurn) { // mousing over a spot with no tile selected
+			var tileCanvas = document.getElementById("tileCanvas");
+  			var ctx = tileCanvas.getContext("2d");
+
+  			var w = tileCanvas.width;
+  			var h = tileCanvas.height;	
+
+			var positionOffset = $("#tileCanvas").offset();
+			var pixelClick = {x : e.pageX - positionOffset.left, y: e.pageY - positionOffset.top};
+			var canvasClick = renderer.pixelsToTile(pixelClick);
+
+			if (canvasClick.y > .1 * h && canvasClick.y < .3 * h && canvasClick.x > .4 * w && canvasClick.x < .6 * w) {
+			renderer.selectedMeeple = "UP";
+		} else if (canvasClick.y > .4 * h && canvasClick.y < .6 * h) {
+			if (canvasClick.x > .1 * h && canvasClick.x < .3 * h) {
+				renderer.selectedMeeple = "LEFT";
+			} else if (canvasClick.x > .4 * h && canvasClick.x < .6 * h) {
+				renderer.selectedMeeple = "CENTER";
+			} else if (canvasClick.x > .7 * h && canvasClick.x < .9 * h) {
+				renderer.selectedMeeple = "RIGHT";
+			}
+		} else if (canvasClick.y > .7 * h && canvasClick.y < .9 * h && canvasClick.x > .4 * w && canvasClick.x < .6 * w) {
+			renderer.selectedMeeple = "DOWN";
+		} else {
+			renderer.selectedMeeple = null;
+		}
+
+		if (renderer.selectedMeeple != null && 
+			$.inArray(renderer.selectedMeeple, renderer.validMeeples) == -1) { // selected meeple is invalid
+
+			renderer.selectedMeeple = null;
+			renderer.tileMouseOver = false;
+		} else {
+			renderer.tileMouseOver = false;
+		}
+
+			renderer.render();
+			renderer.selectedMeeple = null;
+			renderer.tileMouseOver = false;
+		}
 	});
 }
 
