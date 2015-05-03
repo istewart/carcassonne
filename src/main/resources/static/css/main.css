@@ -22,6 +22,12 @@ h1 {
   padding: 10px;
 }
 
+h1 {
+  color: #222;
+  text-align: center;
+  font: 200 60px 'Merienda One';
+}
+
 textarea:focus {
 	outline: none;
 }
@@ -208,4 +214,8 @@ button.submitButton, button.backButton {
 #instructionsDiv {
   margin: 10%;
   text-align: justify;
+}
+
+p.imageBlock {
+  text-align: center;
 }
