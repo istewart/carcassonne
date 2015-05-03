@@ -166,11 +166,19 @@ var Canvas = function() {
 	});
 }
 
-$(window).resize(resize);
+$(window).resize(setResizeTimer);
+
+var resizeTimer;
+
+function setResizeTimer() {
+	clearTimeout(resizeTimer);
+	resizeTimer = setTimeout(resize, 100);
+}
 
 function resize() {
 	var height = $(window).height();
 	var width = $(window).width() - 300;
+	console.log(height, width);
 	$("#contentDiv").css("width", width + "px");
 	$("#contentDiv").css("height", height);
 	$("#sidebarDiv").css("height", height);
