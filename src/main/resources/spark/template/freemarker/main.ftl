@@ -27,6 +27,7 @@
       <div id="sidebar">
         <p id = "tileTitle"> Current Tile </p>
         <canvas id="tileCanvas" height="1000" width="1000"></canvas>
+        	
         
         <div>
             <button id="mainLeft" class="placeButton"> &#x27f2 </button>
@@ -77,10 +78,10 @@
       <h1>Lobby</h1>
       <h2>Current Players</h2>
       <form class="players">
-        <textarea id="playerOne" class="lobbyBox" rows="1" readonly></textarea></br>
-        <textarea id="playerTwo" class="lobbyBox" rows="1" readonly></textarea></br>
-        <textarea id="playerThree" class="lobbyBox" rows="1" readonly></textarea></br>
-        <textarea id="playerFour" class="lobbyBox" rows="1" readonly></textarea></br>
+        <textarea id="playerOne" class="lobbyBox" rows="1" disabled></textarea></br>
+        <textarea id="playerTwo" class="lobbyBox" rows="1" disabled></textarea></br>
+        <textarea id="playerThree" class="lobbyBox" rows="1" disabled></textarea></br>
+        <textarea id="playerFour" class="lobbyBox" rows="1" disabled></textarea></br>
       </form><br>
       <button class="submitButton" id="startGame"> Start </button><br>
       <button class="backButton" id="lobbyBack"> Back </button>
@@ -97,24 +98,28 @@
 
     <div id="instructionsDiv">
       <h1>Instructions</h1>
+
 	  <h2>Game Overview</h2>
-      <p>Carcassonne is a board game in which you build the board as you play. Every turn, players place a tile,
-      creating cities and roads as the game progresses. To score points, one must place a meeple on tile. Scoring
-      happens after this placement happens each turn, throughout the game. As such, each turn consists of three 
-      actions: place, meeple, and score. The player with the most points at the end of the game wins!</p> 
+
+      <p>Carcassonne is a board game in which you build up the board as you play. Each turn, the current player places a tile,
+      creating huge cities and winding roads as the game progresses. To score points, players must place a meeple on a tile and complete the feature (road, city, or monastary) that the meeple corresponds to. Scoring
+      happens after placement each turn. As such, each turn consists of three 
+      phases: place, meeple, and score. The player with the most points at the end of the game wins!</p>
       
-      <h2>Tile Placement</h2>
-      <p>At the start of their turn, a player first draws a tile, which is displayed in the top right corner of 
-      the screen. Then, they must play this tile somewhere on the board. Tiles may only be placed so that they
-      are adjacent to some tile already on the board. This placement must "fit" with the previously placed pieces.</p>
+    <h2>Tile Placement</h2>
+
+      <p>At the start of their turn, a player draws a tile, which is displayed in the top right corner of 
+      the screen. They must then place this tile somewhere on the board. Tiles may only be placed such that they
+      are adjacent to some tile already on the board. Any feature of the new tile must match up with those of the surrounding tiles, much like in a puzzle. </p>
       
-      <img src="images/instructions/roadroad.png" id="rr">
+      <p class="imageBlock"><img src="images/instructions/roadroad.png" id="rr">
       <img src="images/instructions/citycity.png" id="cc">
-      <img src="images/instructions/cityroad.png" id="cr">
-      <br>
-      Valid placement of a tile with a road, a tile with a city, and a tile with both a city and a road.
+      <img src="images/instructions/cityroad.png" id="cr"></p>
+
+      <p class="imageBlock">Valid placement of a tile with a road, a tile with a city, and a tile with both a city and a road.</p>
       
 	  <h2>Meeple Placement</h2>
+
       <p>After placing a tile, a player has the opportunity to place a meeple. Meeples are Carcassonne's scoring
       mechanism - to get points, you have to place meeples. Meeples can become one of three professions: thief (on
       a road), knight (in a city), and monk (in a monastery). Scoring is different for each of these cases. You 
@@ -122,71 +127,73 @@
       two distinct features and subsequently have multiple meeples there. The details of these more complicated
       scenarios are explained further below. A player may have a maximum of 7 meeples on the board at any time.</p> 
 
-      <img src="images/instructions/meepleroad.png" id="mr">
+      <p class="imageBlock"><img src="images/instructions/meepleroad.png" id="mr">
       <img src="images/instructions/meeplecity.png" id="mc">
-      <img src="images/instructions/meeplemonastery.png" id="mm">
-      <br>
-      Valid placement of a meeple on a road, a city, and a monastery.
+      <img src="images/instructions/meeplemonastery.png" id="mm"></p>
+
+      <p class="imageBlock">Valid placement of a meeple on a road, a city, and a monastery.</p>
 	  
 	  <h2>Scoring Roads</h2>
+
       <p>If a meepled road is completed, either by forming a circle or touching an endpoint, the player who meepled
       the road gains one point for each tile touched by that completed road.</p> 
       
-      
-      <img src="images/instructions/roadCircle.png" id="rc">
-      <img src="images/instructions/roadEndpoint.png" id="re">
-      <br>
-      One circular finished road and one finished road with endpoints.
+      <p class="imageBlock"><img src="images/instructions/roadCircle.png" id="rc">
+      <img src="images/instructions/roadEndpoint.png" id="re"></p>
+
+      <p class="imageBlock">One circular finished road and one finished road with endpoints.</p>
 
 	  <h2>Scoring Cities</h2>
+
       <p>If a meepled city is completed, the player who meepled the city gains two point for each tile touched by 
       that completed city. Additionally, if any tile contains a shield image, that tile is worth twice as much.</p> 
       
-      <img src="images/instructions/city.png" id="c">
-      <img src="images/instructions/cityshield.png" id="cs">
-      <br>
-      Two finished cities, one with shields.
+      <p class="imageBlock"><img src="images/instructions/city.png" id="c">
+      <img src="images/instructions/cityshield.png" id="cs"></p>
+
+      <p class="imageBlock">Two finished cities, one with shields.</p>
       
-      <h2>Scoring Monasteries</h2>
+    <h2>Scoring Monasteries</h2>
+
       <p>If a meepled monastery is surrounded by played tiles, 9 points are awarded to the player who meepled that
       monastery (one for each tile, including the tile with the monastery).</p>
       
-      <img src="images/instructions/monastery.png" id="m">
-      <br>
-      A finished monastery.
+      <p class="imageBlock"><img src="images/instructions/monastery.png" id="m"></p>
+
+      <p class="imageBlock">A finished monastery.</p>
       
-      <h2>Multiple Meeples</h2>
+    <h2>Multiple Meeples</h2>
+
       <p>Even though you cant place a meeple on a feature that already has a touching meeple, it is possible to
       connect features which have distinct meeples. If two players have a meeple on a feature, and that feature is
       completed, both players receive the points. In the scenario where there are three meeples on a feature, and one
       player's outnumber anothers, the player with more meeples receives all the points. If a player has two meeples
       on a feature which is completed, they do not receive double points for the completion of that feature. </p>
       
-      <img src="images/instructions/citytwoplayers.png" id="c2p">
+      <p class="imageBlock"><img src="images/instructions/citytwoplayers.png" id="c2p">
       <img src="images/instructions/citytwoplayersthreemeeples.png" id="c2p3">
-      <img src="images/instructions/cityoneplayertwomeeples.png" id="c1p">
-      <br>
-      Scenario where both players get the points, the player with more meeples gets the points, and the player
-      gets the points only once.
+      <img src="images/instructions/cityoneplayertwomeeples.png" id="c1p"></p>
+
+      <p class="imageBlock">Scenario where both players get the points, the player with more meeples gets the points, and the player
+      gets the points only once.</p>
       
-      <h2>Endgame Scoring</h2>
+    <h2>Endgame Scoring</h2>
+
       <p>At the end of the game, once all tiles have been played, the meeples which remain on the board are scored.
       For monasteries and roads, scoring is done the same way as in game, except here features need not be completed
       to be scored. For cities however, everything which is not completed is worth half as much (shields included).
       Finish your cities! </p>
       
-      <img src="images/instructions/roadUnfinished.png" id="ru">
+      <p class="imageBlock"><img src="images/instructions/roadUnfinished.png" id="ru">
       <img src="images/instructions/monasteryUnfinished.png" id="mu">
-      <img src="images/instructions/cityUnfinished.png" id="cu">
-	  <br>
-	  An unfinished road, monastery, and city, to be scored at the end of a game.
-	  <br>
-      <button class="backButton" id="instructionsBack"> Back </button>
+      <img src="images/instructions/cityUnfinished.png" id="cu"></p>
+
+	    <p class="imageBlock">An unfinished road, monastery, and city, to be scored at the end of a game.</p>
+
+      <p class="imageBlock"><button class="backButton" id="instructionsBack"> Back </button></p>
     </div>
 
     <div id="tileDiv">
-      <img src="images/tiles/test.png" id="test">
-
       <img src="images/tiles/1.png" id="1">
       <img src="images/tiles/2.png" id="2">
       <img src="images/tiles/3.png" id="3">

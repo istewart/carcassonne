@@ -4,7 +4,7 @@ CANVAS_SIZE = 1000;
 MOVES_COLOR = "red";
 LINE_WIDTH = 3;
 
-var colors = ["red", "blue", "purple", "orange"]; // player colors by id
+var colors = ["maroon", "blue", "purple", "#003300"]; // player colors by id
 
 // TODO
 
@@ -90,7 +90,7 @@ Renderer.prototype.renderPlayers = function() {
       obj.style.color = "#e8e8e8";
     } else {
       obj.style.backgroundColor = "#e8e8e8";
-      obj.style.color = colors[currPlayer.id];
+      obj.style.color = colors[currPlayer.id - 1];
     }
   });
 };
@@ -153,12 +153,12 @@ Renderer.prototype.renderTile = function() {
     if (this.selectedMeeple && spots[i] === this.selectedMeeple) {
       console.log(this.selectedMeeple);
       console.log(network.get("currentPlayer"));
-      ctx.fillStyle = colors[network.get("currentPlayer").id];
+      ctx.fillStyle = colors[network.get("currentPlayer").id - 1];
       ctx.strokeStyle = null;
       ctx.fill();
     } else {
       ctx.fillStyle = null;
-      ctx.strokeStyle = colors[network.get("currentPlayer").id];
+      ctx.strokeStyle = colors[network.get("currentPlayer").id - 1];
       ctx.stroke();
     }
   }
@@ -225,7 +225,7 @@ Renderer.prototype.renderBoard = function() { // still very much a work in progr
     }
 
     ctx.beginPath();
-    ctx.fillStyle =  colors[meeplePlayerId];
+    ctx.fillStyle =  colors[meeplePlayerId - 1];
     ctx.strokeStyle = null;
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.closePath();
@@ -386,7 +386,7 @@ Renderer.prototype.shadeMove = function() {
     }
 
     ctx.beginPath();
-    ctx.fillStyle = colors[network.get("currentPlayer").id];
+    ctx.fillStyle = colors[network.get("currentPlayer").id - 1];
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
