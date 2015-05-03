@@ -37,16 +37,16 @@
         </div>
 
         <form class="players">
-          <textarea id="playerOne" class="playerBox" rows="1" readonly></textarea></br>
-          <textarea id="playerTwo" class="playerBox" rows="1" readonly></textarea></br>
-          <textarea id="playerThree" class="playerBox" rows="1" readonly></textarea></br>
-          <textarea id="playerFour" class="playerBox" rows="1" readonly></textarea></br>
+          <textarea id="playerOne" class="playerBox" rows="1" disabled></textarea></br>
+          <textarea id="playerTwo" class="playerBox" rows="1" disabled></textarea></br>
+          <textarea id="playerThree" class="playerBox" rows="1" disabled></textarea></br>
+          <textarea id="playerFour" class="playerBox" rows="1" disabled></textarea></br>
         </form>
 
-        <textarea id="turnCount" rows="1" readonly></textarea>
+        <textarea id="turnCount" rows="1" disabled></textarea>
 
       </div>
-
+      
       <div id="contentDiv">
         <canvas id="mainCanvas" height="1000" width ="1000"></canvas>
       </div>
