@@ -101,10 +101,9 @@
       actions: place, meeple, and score. The player with the most points at the end of the game wins!</p> 
       
       <h2><u>Tile Placement</u></h2>
-      <p>At the start of their turn, a player first draws a tile, which is displayed in the top right of the screen.
-      This tile is the next tile that they must play somewhere on the board. Tiles may only be placed so that they
-      are adjacent to some tile already on the board. This placement must "fit" with the pieces previously placed
-      on the board. The images below show good and bad tile placement.</p>
+      <p>At the start of their turn, a player first draws a tile, which is displayed in the top right corner of 
+      the screen. Then, they must play this tile somewhere on the board. Tiles may only be placed so that they
+      are adjacent to some tile already on the board. This placement must "fit" with the previously placed pieces.</p>
       
       <img src="images/instructions/roadroad.png" id="rr">
       <img src="images/instructions/citycity.png" id="cc">
@@ -115,19 +114,19 @@
 	  <h2><u>Meeple Placement</u></h2>
       <p>After placing a tile, a player has the opportunity to place a meeple. Meeples are Carcassonne's scoring
       mechanism - to get points, you have to place meeples. Meeples can become one of three professions: thief (on
-      a road), knight (in a city), and mnok (in a monastery). Scoring is different for each of these cases. You 
+      a road), knight (in a city), and monk (in a monastery). Scoring is different for each of these cases. You 
       cannot place a meeple on a feature which connects to a previously placed meeple. However, you can connect 
-      to distinct features and have multiple meeples there. The details of these more complicated scenarios are
-      found below. A player may have a maximum of 7 meeples on the board at any time.</p> 
+      two distinct features and subsequently have multiple meeples there. The details of these more complicated
+      scenarios are explained further below. A player may have a maximum of 7 meeples on the board at any time.</p> 
 
       <img src="images/instructions/meepleroad.png" id="mr">
       <img src="images/instructions/meeplecity.png" id="mc">
       <img src="images/instructions/meeplemonastery.png" id="mm">
       <br>
-      Placement of a meeple on a road, a city, and a monastery.
+      Valid placement of a meeple on a road, a city, and a monastery.
 	  
 	  <h2><u>Scoring Roads</u></h2>
-      <p>If a meepled road is completed, either by forming a chain or touching an endpoint, the player who meepled
+      <p>If a meepled road is completed, either by forming a circle or touching an endpoint, the player who meepled
       the road gains one point for each tile touched by that completed road.</p> 
       
       
@@ -158,7 +157,7 @@
       connect features which have distinct meeples. If two players have a meeple on a feature, and that feature is
       completed, both players receive the points. In the scenario where there are three meeples on a feature, and one
       player's outnumber anothers, the player with more meeples receives all the points. If a player has two meeples
-      on a feature which is completed he does not receive double points for the completion of that feature. </p>
+      on a feature which is completed, they do not receive double points for the completion of that feature. </p>
       
       <img src="images/instructions/citytwoplayers.png" id="c2p">
       <img src="images/instructions/citytwoplayersthreemeeples.png" id="c2p3">
