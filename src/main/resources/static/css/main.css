@@ -204,3 +204,8 @@ button.submitButton, button.backButton {
 #hostDiv, #joinDiv, #settingsDiv, #instructionsDiv, #tileDiv, #lobbyDiv {
   overflow: scroll;
 }
+
+#instructionsDiv {
+  margin: 10%;
+  text-align: justify;
+}
