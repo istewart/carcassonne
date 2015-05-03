@@ -71,11 +71,16 @@ public class CarcBackEnd implements BackEnd {
         }
         break;
       case "newPlayer":
-        String name = val.get("name");
-        r.newPlayer(new Player(player, name));
-        players = r.getPlayers();
-        s.putField("players", players);
-        return ImmutableMap.of("success", "success", "players", players);
+        if (r.getPlayers().size() < 4) {
+          String name = val.get("name");
+          r.newPlayer(new Player(player, name));
+          players = r.getPlayers();
+          s.putField("players", players);
+          return ImmutableMap.of("success", "success", "players", players);
+        } else {
+          return ImmutableMap.of("success", "failure", "spectators", r
+              .getSpectators());
+        }
       case "gameStart":
         s.seal();
 
