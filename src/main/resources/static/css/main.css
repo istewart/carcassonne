@@ -169,7 +169,7 @@ textarea.lobbyBox {
   overflow: hidden;
 }
 
-textarea.hostField {
+input.hostField {
   padding: .5em;
   margin: 1em;
   width: 30%;
