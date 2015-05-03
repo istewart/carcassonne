@@ -10,6 +10,7 @@ function hideAll() {
   $("#settingsDiv").hide();
   $("#instructionsDiv").hide();
   $("#lobbyDiv").hide();
+  $("#turnDiv").hide();
   resize();
 }
 
@@ -89,7 +90,6 @@ var handler = {
 
       renderer = new Renderer(board.board, currTile, players, validMoves, validMeeples, 1, 0, 0);
       renderer.render();
-      $("mainCanvas").focus();
     }
   },
 
@@ -103,6 +103,8 @@ var handler = {
       $("#mainLeft").show();
       $("#mainRight").show();
       $("#mainPlace").show();
+      $("#turnDiv").show();
+      setInterval(function() {$("#turnDiv").hide();}, 500);
     } else {
       myTurn = false;
       renderer.render();
