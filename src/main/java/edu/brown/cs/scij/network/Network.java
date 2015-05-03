@@ -100,7 +100,7 @@ public final class Network {
   public void go() {
     try {
       ip = InetAddress.getLocalHost().getHostAddress().toString();
-      url = "http://" + ip + ":" + Integer.toString(port) + "/home";
+      url = "http://" + ip + ":" + Integer.toString(port) + "/carcassonne";
       System.out.println("The network is loading...");
       System.out.println("If a window does not open automatically, please visit " + url);
       server.putField("url", url);
@@ -137,7 +137,7 @@ public final class Network {
     FreeMarkerEngine freeMarker = createEngine();
 
     Spark.externalStaticFileLocation("src/main/resources/static");
-    Spark.get("/home", new HomeHandler(), freeMarker);
+    Spark.get("/carcassonne", new HomeHandler(), freeMarker);
     Spark.post("/ping", new PingHandler(server));
     Spark.post("/connect", new ConnectHandler(server));
     Spark.post("/disconnect", new DisconnectHandler(server));

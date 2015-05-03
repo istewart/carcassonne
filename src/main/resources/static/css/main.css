@@ -84,6 +84,19 @@ button.menubutton {
     background-size: cover;
 }
 
+#turnDiv {
+	position: absolute;
+	line-height: 100%;
+	left: 12%;
+	bottom: 45%;
+	font-size: 72pt;
+	color: white;
+	width: 50%;
+	height: 10%;
+	align: center;
+	z-index: 1;
+}
+
 #mainCanvas {
     width: 100%;
     height: 100%;
