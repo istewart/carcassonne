@@ -22,6 +22,10 @@
   
   <body onload="network.onLoad()">
     
+    <div id="turnDiv">
+    	Your turn!
+    </div>
+    
     <div id="mainDiv">
 
       <div id="sidebar">

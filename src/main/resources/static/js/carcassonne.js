@@ -10,6 +10,7 @@ function hideAll() {
   $("#settingsDiv").hide();
   $("#instructionsDiv").hide();
   $("#lobbyDiv").hide();
+  $("#turnDiv").hide();
   resize();
 }
 
@@ -101,6 +102,8 @@ var handler = {
       $("#mainLeft").show();
       $("#mainRight").show();
       $("#mainPlace").show();
+      $("#turnDiv").show();
+      setInterval(function() {$("#turnDiv").hide();}, 5000);
     } else {
       myTurn = false;
       renderer.render();
