@@ -101,7 +101,7 @@
       creating huge cities and winding roads as the game progresses. To score points, players must place a meeple on a tile and complete the feature (road, city, or monastary) that the meeple corresponds to. Scoring
       happens after placement each turn. As such, each turn consists of three 
       phases: place, meeple, and score. The player with the most points at the end of the game wins!</p>
-      
+
     <h2>Tile Placement</h2>
 
       <p>At the start of their turn, a player draws a tile, which is displayed in the top right corner of 
@@ -116,9 +116,9 @@
       
 	  <h2>Meeple Placement</h2>
 
-      <p>After placing a tile, a player has the opportunity to place a meeple. Meeples are Carcassonne's scoring
-      mechanism - to get points, you have to place meeples. Meeples can become one of three professions: thief (on
-      a road), knight (in a city), and monk (in a monastery). Scoring is different for each of these cases. You 
+      <p>After placing a tile, a player may place a meeple. Meeples are Carcassonne's scoring
+      mechanism -- to get points, you have to place meeples. Meeples can become one of three professions based on the tile on which they are placed: thief (on a road), knight (in a city), and monk (in a monastery). 
+      Scoring is different for each of these cases. You 
       cannot place a meeple on a feature which connects to a previously placed meeple. However, you can connect 
       two distinct features and subsequently have multiple meeples there. The details of these more complicated
       scenarios are explained further below. A player may have a maximum of 7 meeples on the board at any time.</p> 

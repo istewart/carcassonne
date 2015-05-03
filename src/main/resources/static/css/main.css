@@ -22,10 +22,10 @@ h1 {
   padding: 10px;
 }
 
-h1 {
+h2 {
   color: #222;
   text-align: center;
-  font: 200 60px 'Merienda One';
+  font: 100 30px 'Merienda One';
 }
 
 textarea:focus {
@@ -208,7 +208,8 @@ button.submitButton, button.backButton {
 }
 
 #instructionsDiv {
-  margin: 10%;
+  margin-right:  10%;
+  margin-left:  10%;
   text-align: justify;
 }
 
