@@ -98,7 +98,7 @@ public class Referee {
   public void place(Posn p, Tile t) throws PosnTakenException {
     board.place(p, t);
   }
-  
+
   public void forcePlace(Posn p, Tile t) throws PosnTakenException {
     board.forcePlace(p, t);
   }
@@ -516,43 +516,48 @@ public class Referee {
       Pair<Posn, Direction> pair = queue.poll();
       p = pair.getP1();
       dir = pair.getP2();
-      visited.add(p);
       Tile curTile = board.getBoard().get(p);
       if (curTile == null) {
         // the city is not finished
         f.setFinished(false);
       } else {
-        score = score + 1 + curTile.getShield();
         grabMeepleAtEdge(p, curTile, dir, meepledCities);
-        if (curTile.getCenter1().getFeature() == Feature.CITY
-            || curTile.getCenter2().getFeature() == Feature.CITY) {
-          // The center is a city, so check all sides
-          grabMeepleAtCenter(p, curTile, meepledCities);
-          if (curTile.getBottom().getFeature() == Feature.CITY
-              && dir != Direction.UP) {
-            grabMeepleAtEdge(p, curTile, Direction.UP, meepledCities);
-            toAdd = p.withY(p.getY() - 1);
-            addToQueue(toAdd, Direction.DOWN, queue, visited);
-          }
-          if (curTile.getTop().getFeature() == Feature.CITY
-              && dir != Direction.DOWN) {
-            grabMeepleAtEdge(p, curTile, Direction.DOWN, meepledCities);
-            toAdd = p.withY(p.getY() + 1);
-            addToQueue(toAdd, Direction.UP, queue, visited);
-          }
-          if (curTile.getRight().getFeature() == Feature.CITY
-              && dir != Direction.LEFT) {
-            grabMeepleAtEdge(p, curTile, Direction.LEFT, meepledCities);
-            toAdd = p.withX(p.getX() + 1);
-            addToQueue(toAdd, Direction.RIGHT, queue, visited);
-          }
-          if (curTile.getLeft().getFeature() == Feature.CITY
-              && dir != Direction.RIGHT) {
-            grabMeepleAtEdge(p, curTile, Direction.RIGHT, meepledCities);
-            toAdd = p.withX(p.getX() - 1);
-            addToQueue(toAdd, Direction.LEFT, queue, visited);
+        if (!visited.contains(p)) {
+          visited.add(p);
+
+          score = score + 1 + curTile.getShield();
+
+          if (curTile.getCenter1().getFeature() == Feature.CITY
+              || curTile.getCenter2().getFeature() == Feature.CITY) {
+            // The center is a city, so check all sides
+            grabMeepleAtCenter(p, curTile, meepledCities);
+            if (curTile.getBottom().getFeature() == Feature.CITY
+                && dir != Direction.UP) {
+              grabMeepleAtEdge(p, curTile, Direction.UP, meepledCities);
+              toAdd = p.withY(p.getY() - 1);
+              addToQueue(toAdd, Direction.DOWN, queue, visited);
+            }
+            if (curTile.getTop().getFeature() == Feature.CITY
+                && dir != Direction.DOWN) {
+              grabMeepleAtEdge(p, curTile, Direction.DOWN, meepledCities);
+              toAdd = p.withY(p.getY() + 1);
+              addToQueue(toAdd, Direction.UP, queue, visited);
+            }
+            if (curTile.getRight().getFeature() == Feature.CITY
+                && dir != Direction.LEFT) {
+              grabMeepleAtEdge(p, curTile, Direction.LEFT, meepledCities);
+              toAdd = p.withX(p.getX() + 1);
+              addToQueue(toAdd, Direction.RIGHT, queue, visited);
+            }
+            if (curTile.getLeft().getFeature() == Feature.CITY
+                && dir != Direction.RIGHT) {
+              grabMeepleAtEdge(p, curTile, Direction.RIGHT, meepledCities);
+              toAdd = p.withX(p.getX() - 1);
+              addToQueue(toAdd, Direction.LEFT, queue, visited);
+            }
           }
         }
+
       }
     }
     return score;
@@ -560,9 +565,10 @@ public class Referee {
 
   private void addToQueue(Posn p, Direction d,
       Queue<Pair<Posn, Direction>> queue, Set<Posn> visited) {
-    if (!visited.contains(p)) {
-      queue.add(new Pair<Posn, Direction>(p, d));
-    }
+
+    // if (!visited.contains(p)) {
+    queue.add(new Pair<Posn, Direction>(p, d));
+    // }
   }
 
   private int scoreRoadHelper(Posn curPosn, Posn origPosn, Set<Posn> visited,
@@ -867,14 +873,16 @@ public class Referee {
     }
   }
 
-  /*private Player getPlayer(int id) {
-    for (Player p : players) {
-      if (p.getId() == id) {
-        return p;
-      }
-    }
-    return null;
-  }*/
+  /*
+   * private Player getPlayer(int id) {
+   * for (Player p : players) {
+   * if (p.getId() == id) {
+   * return p;
+   * }
+   * }
+   * return null;
+   * }
+   */
 
   public void placeMeeple(Posn posn, Player player,
       Direction d) throws NullTileException, OutOfMeeplesException,
@@ -944,8 +952,10 @@ public class Referee {
     int i = 0;
 
     List<Tile> tiles = new ArrayList<>();
+
     // 1x 4-road piece w/endpoint
-    tiles.add(new Tile(2, new Center(endpoint), new Edge(road), new Edge(road),
+    tiles.add(new Tile(2, new Center(endpoint), new Edge(road), new
+        Edge(road),
         new Edge(road), new Edge(road), 0));
 
     // 4x 3-road 1-field w/endpoint
@@ -976,7 +986,7 @@ public class Referee {
     }
 
     // 4x 1-city w/straight road
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 3; i++) {
       tiles.add(new Tile(24, new Center(road), new Edge(city), new Edge(road),
           new Edge(field), new Edge(road), 0));
     }
@@ -1087,6 +1097,9 @@ public class Referee {
         new Edge(city), new Edge(city), 1));
 
     Collections.shuffle(tiles);
+
+    tiles.add(0, new Tile(24, new Center(road), new Edge(city), new Edge(road),
+        new Edge(field), new Edge(road), 0));
 
     // add river tiles to the deck
 
