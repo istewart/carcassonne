@@ -27,6 +27,7 @@ import edu.brown.cs.scij.tile.UnMeeplableException;
 
 public class Referee {
   private List<Player> players;
+  private List<Spectator> spectators;
   private Deck deck;
   private int turnNumber;
   private Board board;
@@ -924,7 +925,13 @@ public class Referee {
    * @param player the player to add to the game
    */
   public void newPlayer(Player player) {
-    players.add(player);
+    if (players.size() < 4) {
+      players.add(player);
+    }
+  }
+
+  public void newSpectator(Spectator s) {
+    spectators.add(s);
   }
 
   /**
