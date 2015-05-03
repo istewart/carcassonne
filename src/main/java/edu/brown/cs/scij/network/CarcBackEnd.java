@@ -79,7 +79,7 @@ public class CarcBackEnd implements BackEnd {
           return ImmutableMap.of("success", "success", "players", players);
         } else {
           return ImmutableMap.of("success", "failure", "spectators", r
-              .getSpectators());
+              .getSpectators().size());
         }
       case "gameStart":
         s.seal();
@@ -95,6 +95,8 @@ public class CarcBackEnd implements BackEnd {
         toReturn.put("board", b);
         s.putField("players", players);
         toReturn.put("players", players);
+        s.putField("spectators", r.getSpectators().size());
+        toReturn.put("spectators", r.getSpectators().size());
         s.putField("validMoves", validMoves);
         toReturn.put("validMoves", validMoves);
         Player curPlayer = r.nextPlayer();
@@ -123,7 +125,8 @@ public class CarcBackEnd implements BackEnd {
           toReturn.put("currentPlayer", r.getCurPlayer());
           s.putField("players", r.getPlayers());
           toReturn.put("players", r.getPlayers());
-
+          s.putField("spectators", r.getSpectators().size());
+          toReturn.put("spectators", r.getSpectators().size());
           s.putField("gameOver", r.isGameOver());
           toReturn.put("gameOver", r.isGameOver());
           s.putField("currTile", r.getCurTile());
@@ -242,9 +245,8 @@ public class CarcBackEnd implements BackEnd {
             validMoves = checkValidMoves(r.getBoard(), curTile);
           }
         }
-
-        // check current orientation
-
+        s.putField("spectators", r.getSpectators().size());
+        toReturn.put("spectators", r.getSpectators().size());
         s.putField("currTile", r.getCurTile());
         toReturn.put("currTile", r.getCurTile());
         s.putField("validMoves", validMoves);
