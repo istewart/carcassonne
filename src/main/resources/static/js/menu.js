@@ -53,14 +53,19 @@ var Menu = function() {
   })
 
   joinJoin.addEventListener("click", function(event) {
-    hideAll();
-    $("#lobbyDiv").show();
-    $("#joinButton").html(" Back to Lobby ");
-
-    Menu.joined = true;
-    network.ask("newPlayer", {"name": $("#joinName").val()}, function(responseObject) {
-      console.log(responseObject);
-    });
+    var name = $("#joinName").val();
+    if (name.length > 12) {
+      alert("Plaese limit your name to 12 characters");
+    } else {
+      hideAll();
+      $("#lobbyDiv").show();
+      $("#joinButton").html(" Back to Lobby ");
+      Menu.joined = true;
+      network.ask("newPlayer", {"name": $("#joinName").val()}, function(responseObject) {
+        console.log(responseObject);
+      });
+    }
+    
   });
 
   lobbyBack.addEventListener("click", function(event) {

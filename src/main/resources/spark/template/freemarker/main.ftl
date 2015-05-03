@@ -49,6 +49,9 @@
       
       <div id="contentDiv">
         <canvas id="mainCanvas" height="1000" width ="1000"></canvas>
+        <div id="yourTurnDiv!">
+          "It is now your turn!"
+        </div>
       </div>
     </div>
 
