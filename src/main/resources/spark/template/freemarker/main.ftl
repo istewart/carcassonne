@@ -4,10 +4,11 @@
    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
-    <!-- <link rel="stylesheet" href="css/menu.css"> -->
     <link href="http://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" type="text/css">
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/network.js"></script>
     <script src="js/renderer.js"></script>
@@ -15,7 +16,6 @@
     <script src="js/placement.js"></script>
     <script src="js/canvas.js"></script>
     <script src="js/carcassonne.js"></script>
-    
     
     <title> Carcassonne </title>
   </head>
@@ -95,7 +95,7 @@
     <div id="settingsDiv">
       <h1>Settings</h1>
 
-      <input type="checkbox" name="hints" value="True" id="settingsHints" checked> Show Hints<br>
+      <input type="checkbox" name="hints" value="True" id="settingsHints" checked> Show Hints <br>
       <button class="submitButton" id="settingsSave"> Save </button><br>
       <button class="backButton" id="settingsBack"> Back </button>
     </div>

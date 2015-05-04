@@ -4,18 +4,13 @@ CANVAS_SIZE = 1000;
 MOVES_COLOR = "red";
 LINE_WIDTH = 3;
 
-var colors = ["maroon", "blue", "purple", "#003300"]; // player colors by id
+var colors = ["maroon", "blue", "purple", "#003300" /* forest green */]; // player colors by id
 
 // TODO
 
-// can clean things up with global context and canvas
 // get better tiles and graphics
-// integrate with back end
-// fix instructions
 // README
 // DEBUG
-// use network get and stuff
-// game over
 
 // Core rendering object which takes a variety of components of the game, an offset, and a scale
 // and renders the game board onto the canvas.

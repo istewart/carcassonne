@@ -129,7 +129,7 @@ button.placeButton {
   padding: 5px;
   margin: 5px;
   margin-top: 0em;
-  margin-bottom: .5em;
+  margin-bottom: .75em;
   border:1px solid #222;
   font: 12pt 'Merienda One';
   background-color: #e8e8e8
@@ -176,6 +176,7 @@ textarea.lobbyBox {
   position: absolute;
   bottom: 0;
   right: 0;
+  color: #222;
 }
 
 #mainDiv { 
