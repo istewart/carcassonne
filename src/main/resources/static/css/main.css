@@ -28,7 +28,7 @@ h2 {
   font: 100 30px 'Merienda One';
 }
 
-textarea:focus {
+input:focus {
 	outline: none;
 }
 

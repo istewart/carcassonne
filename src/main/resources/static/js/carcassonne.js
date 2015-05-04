@@ -62,7 +62,7 @@ var handler = {
       });
     }
 
-    renderer.players = playersList;
+    renderer.players = playersList.slice(0, 5);
 
   },
 

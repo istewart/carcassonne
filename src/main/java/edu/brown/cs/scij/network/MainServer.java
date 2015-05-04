@@ -46,6 +46,7 @@ public class MainServer implements Server {
 
   /**
    * Constructs a MainServer with the given {@link BackEnd}.
+   * 
    * @param back The BackEnd to use
    */
   public MainServer(BackEnd back) {
@@ -62,6 +63,7 @@ public class MainServer implements Server {
   /**
    * Makes this server talkative. It will print various status updates to
    * System.out.
+   * 
    * @return <code>this</code>
    */
   public MainServer talk() {
@@ -88,9 +90,8 @@ public class MainServer implements Server {
     NetworkPlayer p = players.get(key);
     if (p == null) {
       if (talkative) {
-        System.out.println(
-            "Unknown player attempted to ping with broken key "
-                + key.toJSONString() + ".");
+        System.out.println("Unknown player attempted to ping with broken key "
+            + key.toJSONString() + ".");
       }
       throw new NoSuchPlayerException();
     }
@@ -144,22 +145,22 @@ public class MainServer implements Server {
       }
     } else {
       if (isSealed) {
-        return ImmutableMap.of("key", "undefined",
-            "player", "undefined",
+        return ImmutableMap.of("key", "undefined", "player", "undefined",
             "alert", "The server has closed and the game has begun. It is too"
                 + " late to connect to this server.");
       }
       Key key = Key.generate();
       playerCount += 1;
-      NetworkPlayer player =
-          new NetworkPlayer(key, playerCount, ip).setOpenWindow(true);
+
+      NetworkPlayer player = new NetworkPlayer(key, playerCount, ip)
+          .setOpenWindow(true);
+
       playerIps.put(ip, key);
       players.put(key, player);
       try {
         ping(key);
       } catch (NoSuchPlayerException ex) {
-        return ImmutableMap.of("key", "undefined",
-            "player", "undefined",
+        return ImmutableMap.of("key", "undefined", "player", "undefined",
             "alert", "Error: The server could not be reached.");
       }
       synchronized (player) {
@@ -171,6 +172,7 @@ public class MainServer implements Server {
 
   /**
    * Notifies all players that a field has changed.
+   * 
    * @param field The field that has changed
    */
   private void notify(String field) {
@@ -245,15 +247,15 @@ public class MainServer implements Server {
   }
 
   /**
-   * Marks a player as connected and notifies clients who do not already
-   * know.
+   * Marks a player as connected and notifies clients who do not already know.
+   * 
    * @param p The player to mark as connected.
    */
   private void connect(NetworkPlayer p) {
     synchronized (p) {
       p.connect();
-      Map<Integer, Boolean> connected =
-          (Map<Integer, Boolean>) fields.get("connected");
+      Map<Integer, Boolean> connected = (Map<Integer, Boolean>) fields
+          .get("connected");
       Boolean status = connected.get(p.getId());
       if (status == null || !status) {
         if (talkative) {
@@ -309,14 +311,15 @@ public class MainServer implements Server {
   /**
    * Marks a player as disconnected and notifies clients who do not already
    * know.
+   * 
    * @param p The player to mark as disconnected.
    */
   private void disconnect(NetworkPlayer p) {
     synchronized (p) {
       p.disconnect();
       p.setOpenWindow(false);
-      Map<Integer, Boolean> connected =
-          (Map<Integer, Boolean>) fields.get("connected");
+      Map<Integer, Boolean> connected = (Map<Integer, Boolean>) fields
+          .get("connected");
       assert connected != null;
       if (connected.get(p.getId())) {
         connected.put(p.getId(), false);
@@ -331,8 +334,8 @@ public class MainServer implements Server {
 
   /**
    * Checks once per second to see if all players are still connected to the
-   * server. If a client has not pinged the server in TIMEOUT_TIME seconds,
-   * they are marked as disconnected until they reconnect.
+   * server. If a client has not pinged the server in TIMEOUT_TIME seconds, they
+   * are marked as disconnected until they reconnect.
    */
   private class ConnectionThread implements Runnable {
     private static final int TIMEOUT_TIME = 8;

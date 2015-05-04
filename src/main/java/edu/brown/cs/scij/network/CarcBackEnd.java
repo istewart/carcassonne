@@ -13,6 +13,7 @@ import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.game.Posn;
 import edu.brown.cs.scij.game.PosnTakenException;
 import edu.brown.cs.scij.game.Referee;
+import edu.brown.cs.scij.game.Spectator;
 import edu.brown.cs.scij.tile.Direction;
 import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
@@ -71,15 +72,19 @@ public class CarcBackEnd implements BackEnd {
         }
         break;
       case "newPlayer":
-        if (r.getPlayers().size() < 4) {
+        players = r.getPlayers();
+        if (players.size() < 4) {
           String name = val.get("name");
           r.newPlayer(new Player(player, name));
-          players = r.getPlayers();
           s.putField("players", players);
           return ImmutableMap.of("success", "success", "players", players);
         } else {
-          return ImmutableMap.of("success", "failure", "spectators", r
-              .getSpectators().size());
+          String specName = val.get("name");
+          r.newSpectator(new Spectator(player, specName));
+          s.putField("players", players);
+          return ImmutableMap.of("success", "failure", "players", players);
+          // return ImmutableMap.of("success", "failure", "spectators", r
+          // .getSpectators().size());
         }
       case "gameStart":
         s.seal();
