@@ -140,12 +140,11 @@ public class Referee {
   // main/handlers handles this
   public void run() {
     Player curPlayer;
-    try (BufferedReader r =
-        new BufferedReader(new InputStreamReader(System.in));) {
+    try (BufferedReader r = new BufferedReader(new InputStreamReader(System.in));) {
       while (!isGameOver()) {
         curPlayer = nextPlayer();
-        System.out.println(String
-            .format("It is %s's turn", curPlayer.getName()));
+        System.out
+            .println(String.format("It is %s's turn", curPlayer.getName()));
         takeTurn(curPlayer, r);
         turnNumber++;
         System.out.println(players.toString());
@@ -182,8 +181,8 @@ public class Referee {
             t.rotateLeft();
           }
         } else {
-          chosenPosn =
-              new Posn(Integer.parseInt(coord[0]), Integer.parseInt(coord[1]));
+          chosenPosn = new Posn(Integer.parseInt(coord[0]),
+              Integer.parseInt(coord[1]));
         }
 
       }
@@ -338,6 +337,11 @@ public class Referee {
 
       if (c.getFeature() == Feature.MONASTERY && c.hasMeeple()) {
         c.getMeeple().getPlayer().addScore(numSurroundingTiles(currPosn));
+        try {
+          c.removeMeeple();
+        } catch (NullMeepleException nme) {
+          nme.printStackTrace();
+        }
       }
     }
   }
@@ -381,39 +385,34 @@ public class Referee {
         if (right.hasMeeple()) {
           meepledCities.put(p, right);
         }
-        rightScore =
-            scoreCityHelper(p.withX(p.getX() + 1), visited,
-                meepledCities, Direction.RIGHT, f);
+        rightScore = scoreCityHelper(p.withX(p.getX() + 1), visited,
+            meepledCities, Direction.RIGHT, f);
       }
       if (left.getFeature() == Feature.CITY) {
         if (left.hasMeeple()) {
           meepledCities.put(p, left);
         }
-        leftScore =
-            scoreCityHelper(p.withX(p.getX() - 1), visited,
-                meepledCities, Direction.LEFT, f);
+        leftScore = scoreCityHelper(p.withX(p.getX() - 1), visited,
+            meepledCities, Direction.LEFT, f);
 
       }
       if (bottom.getFeature() == Feature.CITY) {
         if (bottom.hasMeeple()) {
           meepledCities.put(p, bottom);
         }
-        downScore =
-            scoreCityHelper(p.withY(p.getY() - 1), visited,
-                meepledCities, Direction.DOWN, f);
+        downScore = scoreCityHelper(p.withY(p.getY() - 1), visited,
+            meepledCities, Direction.DOWN, f);
       }
       if (top.getFeature() == Feature.CITY) {
         if (top.hasMeeple()) {
           meepledCities.put(p, top);
         }
-        upScore =
-            scoreCityHelper(p.withY(p.getY() + 1), visited,
-                meepledCities, Direction.UP, f);
+        upScore = scoreCityHelper(p.withY(p.getY() + 1), visited,
+            meepledCities, Direction.UP, f);
 
       }
-      int score =
-          1 + curTile.getShield() + upScore + downScore + leftScore
-              + rightScore;
+      int score = 1 + curTile.getShield() + upScore + downScore + leftScore
+          + rightScore;
       if (isGameOver()) {
         scoreMeeples(meepledCities, score);
       } else if (f.isFinished()) {
@@ -430,10 +429,10 @@ public class Referee {
         if (right.hasMeeple()) {
           rightCityMeeples.put(p, right);
         }
-        rightScore =
-            scoreCityHelper(p.withX(p.getX() + 1), visitedRight,
-                rightCityMeeples, Direction.RIGHT, rightF) + 1
-                + curTile.getShield();
+        rightScore = scoreCityHelper(p.withX(p.getX() + 1), visitedRight,
+            rightCityMeeples, Direction.RIGHT, rightF)
+            + 1
+            + curTile.getShield();
 
         if (isGameOver()) {
           scoreMeeples(rightCityMeeples, rightScore);
@@ -832,8 +831,7 @@ public class Referee {
     }
   }
 
-  private void
-      grabMeepleAtCenter(Posn p, Tile t, Map<Posn, TileFeature> meepled) {
+  private void grabMeepleAtCenter(Posn p, Tile t, Map<Posn, TileFeature> meepled) {
     if (t.getCenter1().hasMeeple()) {
       meepled.put(p, t.getCenter1());
     }
@@ -886,9 +884,8 @@ public class Referee {
    * }
    */
 
-  public void placeMeeple(Posn posn, Player player,
-      Direction d) throws NullTileException, OutOfMeeplesException,
-      UnMeeplableException {
+  public void placeMeeple(Posn posn, Player player, Direction d)
+      throws NullTileException, OutOfMeeplesException, UnMeeplableException {
     Tile t = board.getBoard().get(posn);
     if (!board.validMeeples(posn).contains(d)) {
       throw new UnMeeplableException();
@@ -966,22 +963,19 @@ public class Referee {
     List<Tile> tiles = new ArrayList<>();
 
     // 1x 4-road piece w/endpoint
-    tiles.add(new Tile(2, new Center(endpoint), new Edge(road), new
-        Edge(road),
+    tiles.add(new Tile(2, new Center(endpoint), new Edge(road), new Edge(road),
         new Edge(road), new Edge(road), 0));
 
     // 4x 3-road 1-field w/endpoint
     for (i = 0; i < 4; i++) {
       tiles.add(new Tile(7, new Center(endpoint), new Edge(field), new Edge(
-          road),
-          new Edge(road), new Edge(road), 0));
+          road), new Edge(road), new Edge(road), 0));
     }
 
     // 3x 3-road 1-city w/endpoint
     for (i = 0; i < 3; i++) {
       tiles.add(new Tile(23, new Center(endpoint), new Edge(city), new Edge(
-          road),
-          new Edge(road), new Edge(road), 0));
+          road), new Edge(road), new Edge(road), 0));
     }
 
     // 8x straight road
@@ -993,8 +987,7 @@ public class Referee {
     // 9x curved road
     for (i = 0; i < 9; i++) {
       tiles.add(new Tile(15, new Center(road), new Edge(field),
-          new Edge(field),
-          new Edge(road), new Edge(road), 0));
+          new Edge(field), new Edge(road), new Edge(road), 0));
     }
 
     // 4x 1-city w/straight road (one gets added to the front of the list so
@@ -1006,8 +999,7 @@ public class Referee {
 
     // 3x 1-city w/curved road from left
     for (i = 0; i < 3; i++) {
-      tiles.add(new Tile(22, new Center(road), new Edge(city),
-          new Edge(field),
+      tiles.add(new Tile(22, new Center(road), new Edge(city), new Edge(field),
           new Edge(road), new Edge(road), 0));
     }
 
@@ -1020,21 +1012,19 @@ public class Referee {
     // 3x 2-sided city w/curved road
     for (i = 0; i < 3; i++) {
       tiles.add(new Tile(13, new Center(city), new Center(road),
-          new Edge(city), new Edge(city),
-          new Edge(road), new Edge(road), 0));
+          new Edge(city), new Edge(city), new Edge(road), new Edge(road), 0));
     }
 
     // 2x 2-sided city w/curved road and shield
     for (i = 0; i < 2; i++) {
       tiles.add(new Tile(14, new Center(city), new Center(road),
-          new Edge(city), new Edge(city),
-          new Edge(road), new Edge(road), 1));
+          new Edge(city), new Edge(city), new Edge(road), new Edge(road), 1));
     }
 
     // 2x one-roaded monastery
     for (i = 0; i < 2; i++) {
-      tiles.add(new Tile(18, new Center(monastery), new Edge(field),
-          new Edge(field), new Edge(road), new Edge(field), 0));
+      tiles.add(new Tile(18, new Center(monastery), new Edge(field), new Edge(
+          field), new Edge(road), new Edge(field), 0));
     }
 
     // 1x 1-road 3-city
@@ -1049,15 +1039,14 @@ public class Referee {
 
     // 4x 4-field w/monastery
     for (i = 0; i < 4; i++) {
-      tiles.add(new Tile(19, new Center(monastery), new Edge(field),
-          new Edge(field), new Edge(field), new Edge(field), 0));
+      tiles.add(new Tile(19, new Center(monastery), new Edge(field), new Edge(
+          field), new Edge(field), new Edge(field), 0));
     }
 
     // 5x 3-field 1-city
     for (i = 0; i < 5; i++) {
       tiles.add(new Tile(20, new Center(field), new Edge(city),
-          new Edge(field),
-          new Edge(field), new Edge(field), 0));
+          new Edge(field), new Edge(field), new Edge(field), 0));
     }
 
     // 1x 2-city (bridge) 2-field
@@ -1085,8 +1074,7 @@ public class Referee {
     // 3x 2-city (not-connected, opposite sides) 2-field
     for (i = 0; i < 3; i++) {
       tiles.add(new Tile(17, new Center(field), new Edge(city),
-          new Edge(field),
-          new Edge(city), new Edge(field), 0));
+          new Edge(field), new Edge(city), new Edge(field), 0));
     }
 
     // 2x 2-city (not-connected, adjacent sides) 2-field
@@ -1123,15 +1111,13 @@ public class Referee {
     // 2x straight river 2 field
     for (i = 0; i < 2; i++) {
       riverTiles.add(new Tile(new Center(river), new Edge(field), new Edge(
-          river),
-          new Edge(field), new Edge(river), 0));
+          river), new Edge(field), new Edge(river), 0));
     }
 
     // 2x curved river 2 field
     for (i = 0; i < 2; i++) {
       riverTiles.add(new Tile(new Center(river), new Edge(field), new Edge(
-          field),
-          new Edge(river), new Edge(river), 0));
+          field), new Edge(river), new Edge(river), 0));
     }
 
     // 1x curved river city on other sides
@@ -1151,12 +1137,12 @@ public class Referee {
         river), new Edge(road), new Edge(river), 0));
 
     // 1x straight road, straight river
-    riverTiles.add(new Tile(new Center(road), new Edge(road), new Edge(
-        river), new Edge(road), new Edge(river), 0));
+    riverTiles.add(new Tile(new Center(road), new Edge(road), new Edge(river),
+        new Edge(road), new Edge(river), 0));
 
     // 1x curved road, curved river
-    riverTiles.add(new Tile(new Center(field), new Edge(road), new Edge(
-        road), new Edge(river), new Edge(river), 0));
+    riverTiles.add(new Tile(new Center(field), new Edge(road), new Edge(road),
+        new Edge(river), new Edge(river), 0));
 
     Collections.shuffle(riverTiles);
 
@@ -1165,8 +1151,8 @@ public class Referee {
         field), new Edge(field), new Edge(river), new Edge(field), 0));
 
     // 1x river start
-    riverTiles.add(0, new Tile(new Center(river), new Edge(
-        field), new Edge(field), new Edge(river), new Edge(field), 0));
+    riverTiles.add(0, new Tile(new Center(river), new Edge(field), new Edge(
+        field), new Edge(river), new Edge(field), 0));
 
     // tiles.addAll(0, riverTiles);
 
