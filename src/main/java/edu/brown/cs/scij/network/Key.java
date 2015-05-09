@@ -10,9 +10,11 @@ import java.util.Set;
  * Each <code>Key</code> has a unique id that is different from all other
  * <code>Key</code>s in its generation. When created through the
  * <code>static</code> {@link #generate() generate} method all <code>Key
- * </code>s will have a positive id. This allows a user to reserve
- * the id 0 and any negative number for notable keys or primary keys whose
- * ids need to be consistent.
+ * </code>s will have a positive id. This allows a user to reserve the id 0 and
+ * any negative number for notable keys or primary keys whose ids need to be
+ * consistent.
+ *
+ * @author Joseph Bellavia
  */
 public final class Key {
   private static Set<Integer> existing = new HashSet<>();
@@ -20,6 +22,7 @@ public final class Key {
 
   private final int id;
   private final int generation;
+
   /**
    * Creates a new Key with the given id. This does not check if the key
    * already exists.
@@ -97,9 +100,8 @@ public final class Key {
   /**
    * Generates a new, unique Key with an id that is 1 or greater.
    * <p>
-   * These ids
-   * are generated randomly, but guaranteed not to collide with other Keys
-   * in memory.
+   * These ids are generated randomly, but guaranteed not to collide with other
+   * Keys in memory.
    * @return The new Key
    */
   public static Key generate() {
@@ -132,7 +134,7 @@ public final class Key {
   /**
    * Tells whether this Key is active or not.
    * @return <code>true</code> if this Key is active, and <code>false</code> if
-   * it is not.
+   *         it is not.
    */
   public boolean isActive() {
     return generation == activeGeneration;

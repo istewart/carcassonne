@@ -1,7 +1,5 @@
 package edu.brown.cs.scij.tile;
 
-import java.util.List;
-
 /**
  * main class for a tile in carcassonne.
  * @author scij
@@ -16,7 +14,7 @@ public class Tile {
   private Edge right;
   private int id;
   private final int shield;
-  private int rotation = 0; // TODO change in rotateLeft
+  private int rotation = 0;
   private int numRoads;
   private int pngID = 0;
 
@@ -48,7 +46,7 @@ public class Tile {
     numTiles++;
     setNumRoads();
   }
-  
+
   /**
    * overloaded constructor for 2 centered Tile.
    * @param center1 the first Center of the tile
@@ -59,9 +57,11 @@ public class Tile {
    * @param left the left edge of the tile
    * @param shield how many shields are on the tile
    */
-  public Tile(Center center1, Center center2, Edge top, Edge right, Edge bottom, Edge left,
+  public Tile(Center center1, Center center2, Edge top, Edge right,
+      Edge bottom, Edge left,
       int shield) {
-    if (center1 == null || center2 == null || top == null || right == null || bottom == null
+    if (center1 == null || center2 == null || top == null || right == null
+        || bottom == null
         || left == null) {
       throw new UnsupportedOperationException(
           "All centers and edges of a tile must be non-null");
@@ -110,7 +110,7 @@ public class Tile {
     numTiles++;
     setNumRoads();
   }
-  
+
   /**
    * overloaded constructor for 2 centered Tile with image id.
    * @param pngID the id of the image
@@ -122,9 +122,11 @@ public class Tile {
    * @param left the left edge of the tile
    * @param shield how many shields are on the tile
    */
-  public Tile(int pngID, Center center1, Center center2, Edge top, Edge right, Edge bottom, Edge left,
+  public Tile(int pngID, Center center1, Center center2, Edge top, Edge right,
+      Edge bottom, Edge left,
       int shield) {
-    if (center1 == null || center2 == null || top == null || right == null || bottom == null
+    if (center1 == null || center2 == null || top == null || right == null
+        || bottom == null
         || left == null) {
       throw new UnsupportedOperationException(
           "All centers and edges of a tile must be non-null");
@@ -183,17 +185,18 @@ public class Tile {
    * tells whether the tile has one center.
    * @return whether the tile has one center
    */
-  public boolean hasOneCenter(){
-	  return centers[1] == null;
+  public boolean hasOneCenter() {
+    return centers[1] == null;
   }
-  
+
   /**
    * getter for second center
    * @return centers[1]
    */
   public Center getCenter2() {
-	  return centers[1];
+    return centers[1];
   }
+
   /**
    * getter for bottom.
    * @return bottom

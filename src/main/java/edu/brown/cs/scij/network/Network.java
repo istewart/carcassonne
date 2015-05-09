@@ -12,9 +12,11 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import com.google.common.collect.ImmutableMap;
+
 import com.google.gson.Gson;
 
 import freemarker.template.Configuration;
+
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
@@ -28,6 +30,8 @@ import spark.template.freemarker.FreeMarkerEngine;
  * Opens a new server and runs it, then sets up a Spark Server and attempts to
  * open a browser window for the host player. If it cannot open this window, it
  * directs the player to the correct address.
+ *
+ * @author  Joseph Bellavia
  */
 public final class Network {
   private String ip;
@@ -61,13 +65,13 @@ public final class Network {
    * @param args The command-line arguments
    */
   private Network(String[] args) {
-    if (args.length == 1) {
+    if (args.length >= 1) {
       try {
         port = Integer.parseInt(args[0]);
       } catch (NumberFormatException ex) {
         // If it cannot be parsed, it is simply ignored and the default
         // port is used.
-        ;
+        port = DEFAULT_PORT;
       }
     }
   }
@@ -75,22 +79,22 @@ public final class Network {
   /**
    * Sets the <code>BackEnd</code> for this Server. If used, this must be called
    * before {@link #go()}.
-   * @param back The BackEnd
+   * @param setBack The BackEnd
    * @return <code>this</code>
    */
-  public Network setBackEnd(BackEnd back) {
-    this.back = back;
+  public Network setBackEnd(BackEnd setBack) {
+    this.back = setBack;
     return this;
   }
 
   /**
    * Sets the <code>Server</code> for this Network. If used, this must be called
    * before {@link #go()}.
-   * @param server The Server
+   * @param setServer The Server
    * @return <code>this</code>
    */
-  public Network setServer(Server server) {
-    this.server = server;
+  public Network setServer(Server setServer) {
+    this.server = setServer;
     return this;
   }
 
@@ -102,7 +106,8 @@ public final class Network {
       ip = InetAddress.getLocalHost().getHostAddress().toString();
       url = "http://" + ip + ":" + Integer.toString(port) + "/carcassonne";
       System.out.println("The network is loading...");
-      System.out.println("If a window does not open automatically, please visit " + url);
+      System.out.println(
+          "If a window does not open automatically, please visit " + url);
       server.putField("url", url);
     } catch (Exception ex) {
       System.out.println("Failed to launch server.");
@@ -110,16 +115,8 @@ public final class Network {
     }
 
     if (back != null) {
-      try {
-        server.setBackEnd(back);
-      } catch (UnsupportedOperationException ex) {
-        // ignore.
-      }
-      try {
-        back.setServer(server);
-      } catch (UnsupportedOperationException ex) {
-        // ignore.
-      }
+      server.setBackEnd(back);
+      back.setServer(server);
     }
 
     runSparkServer();

@@ -25,6 +25,13 @@ import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.TileFeature;
 import edu.brown.cs.scij.tile.UnMeeplableException;
 
+/**
+ * The Referee keeps track of one game of Carcassonne. There is a function to
+ * run a command line version of the game if so wished and also commands that
+ * can run through the game if wished.
+ * @author szellers
+ *
+ */
 public class Referee {
   private List<Player> players;
   private List<Spectator> spectators;
@@ -36,54 +43,105 @@ public class Referee {
   private Player curPlayer;
   private boolean isGameOver;
 
+  /**
+   * Creates a new Referee.
+   */
   public Referee() {
     setupGame();
   }
 
+  /**
+   * Gets the player whose turn it currently is.
+   * @return the player whose turn it currently is
+   */
   public Player getCurPlayer() {
     return curPlayer;
   }
 
+  /**
+   * Gets the current tile.
+   * @return the current tile
+   */
   public Tile getCurTile() {
     return curTile;
   }
 
+  /**
+   * Sets the current position to p.
+   * @param p the current position
+   */
   public void setCurPosn(Posn p) {
     curPosn = p;
   }
 
+  /**
+   * Gets the last position played by a player.
+   * @return the last position played by a player
+   */
   public Posn getCurPosn() {
     return curPosn;
   }
 
+  /**
+   * Gets the current game board.
+   * @return the current game board.
+   */
   public Board getBoard() {
     return board;
   }
 
+  /**
+   * Gets the players as a list of Players.
+   * @return the players of this game as a list of Players
+   */
   public List<Player> getPlayers() {
     return players;
   }
 
+  /**
+   * Sets the game's players to players
+   * @param players the players of this game of carcassonne
+   */
   public void setPlayers(List<Player> players) {
     this.players = players;
   }
 
+  /**
+   * Gets the deck of tiles for this game of carcassonne.
+   * @return the deck of tiles for this game of carcassonne
+   */
   public Deck getDeck() {
     return deck;
   }
 
+  /**
+   * Sets the tile deck to deck.
+   * @param deck the deck to to play this game of carcassonne with
+   */
   public void setDeck(Deck deck) {
     this.deck = deck;
   }
 
+  /**
+   * Gets the turn number of this game.
+   * @return the turn number of this game
+   */
   public int getTurnNumber() {
     return turnNumber;
   }
 
+  /**
+   * Sets the turn number to turnNumber.
+   * @param turnNumber the number of turns to set this game to.
+   */
   public void setTurnNumber(int turnNumber) {
     this.turnNumber = turnNumber;
   }
 
+  /**
+   * Sets the board to board.
+   * @param board the board with which to set this game to use.
+   */
   public void setBoard(Board board) {
     this.board = board;
   }
@@ -95,26 +153,48 @@ public class Referee {
    * @param p Where the player wants to place their tile
    * @param t The tile to place
    * @throws PosnTakenException if the posn is taken
+   * @throws IllegalArgumentException if the posn is not a valid move
    */
-  public void place(Posn p, Tile t) throws PosnTakenException {
+  public void place(Posn p, Tile t) throws PosnTakenException,
+      IllegalArgumentException {
     board.place(p, t);
   }
 
+  /**
+   * Places a tile on the board, without regards to valid moves. Returns a
+   * boolean letting the user know if the game is over. (Game is over when there
+   * are no tiles left).
+   * 
+   * @param p Where the player wants to place their tile
+   * @param t The tile to place
+   * @throws PosnTakenException if the posn is taken
+   */
   public void forcePlace(Posn p, Tile t) throws PosnTakenException {
     board.forcePlace(p, t);
   }
 
-  // Should the referee handle all interaction with the deck? Yes, right?
-  public Tile drawTile() /* throws EmptyDeckException */{
+  /**
+   * Gets the next tile in the deck, if there is one.
+   * @return the next tile in the deck, if there is one.
+   */
+  public Tile drawTile() {
     Tile t = deck.drawTile();
     curTile = t;
     return t;
   }
 
+  /**
+   * Sets gameOver to b.
+   * @param b the boolean with which to set gameOver
+   */
   public void setGameOver(boolean b) {
     isGameOver = b;
   }
 
+  /**
+   * Gets whether or not the game is over.
+   * @return true if the game is over, false otherwise
+   */
   public boolean isGameOver() {
     if (deck.isEmpty()) {
       isGameOver = true;
@@ -122,25 +202,31 @@ public class Referee {
     return isGameOver;
   }
 
+  /**
+   * Sets up the referee with a new game of Carcassonne. A new deck with the
+   * basic Carcassonne tile set is created.
+   */
   public void setupGame() {
     this.turnNumber = 0;
     players = new ArrayList<Player>();
     spectators = new ArrayList<>();
-    // this.isGameOver = false;
     List<Tile> tiles = null;
     try {
       tiles = buildDeck();
     } catch (InvalidEdgeException ite) {
-      System.out.println("wont be reached, tiles currently hardcoded");
+      ite.printStackTrace();
     }
     deck = new Deck(tiles);
     board = new Board();
   }
 
-  // main/handlers handles this
+  /**
+   * Runs a text based version of Carcassonne.
+   */
   public void run() {
     Player curPlayer;
-    try (BufferedReader r = new BufferedReader(new InputStreamReader(System.in));) {
+    try (BufferedReader r =
+        new BufferedReader(new InputStreamReader(System.in));) {
       while (!isGameOver()) {
         curPlayer = nextPlayer();
         System.out
@@ -155,7 +241,12 @@ public class Referee {
 
   }
 
-  // Don't need this, handled by the handlers/main
+  /**
+   * Used by the text based version of the game.
+   * @param p the player
+   * @param r the reader to get input from the user
+   * @throws IOException if there is IOException
+   */
   public void takeTurn(Player p, BufferedReader r) throws IOException {
     Tile t = drawTile();
     System.out.println(t);
@@ -200,7 +291,6 @@ public class Referee {
       System.out.println("Would you like to meeple anywhere on the tile?");
       System.out
           .println("Options: n (no), t (top), b (bottom), l (left), r (right), c (center)");
-      // System.out.println(t.validMeeples().toString());
       String input = r.readLine();
       try {
         switch (input) {
@@ -249,9 +339,7 @@ public class Referee {
         System.out
             .println("That feature is unmeeplable, please try again or input n to move on");
       }
-
     }
-
     score(chosenPosn);
   }
 
@@ -269,18 +357,30 @@ public class Referee {
     }
   }
 
+  /**
+   * Scores the board after the game is over.
+   */
   public void gameOverScoring() {
     scoreMonasteryEndgame();
     scoreRoadEndgame();
     scoreCityEndgame();
   }
 
+  /**
+   * Scores the board after the previous tile was placed and a meeple has been
+   * placed or skipped on that tile.
+   * @param p the position where the previous tile was placed on the board
+   */
   public void normalScoring(Posn p) {
     scoreMonastery(p);
     scoreRoad(p);
     scoreCity(p);
   }
 
+  /**
+   * Scores monastery during normal gameplay.
+   * @param p the previous tile's position
+   */
   public void scoreMonastery(Posn p) {
     // if the tile is a monastery:
     scoreMonasteryHelper(p);
@@ -294,6 +394,11 @@ public class Referee {
 
   }
 
+  /**
+   * Checks the surrounding tiles to score monasteries that may have been
+   * finished by the placement of the previous tile.
+   * @param p th eprevious position
+   */
   public void scoreMonasteryHelper(Posn p) {
     Tile t = board.getBoard().get(p);
     if (t == null) {
@@ -318,14 +423,25 @@ public class Referee {
     }
   }
 
+  /**
+   * Scores roads based on the placement of the tile at position p.
+   * @param p the previous position
+   */
   public void scoreRoad(Posn p) {
     scoreRoadAt(p);
   }
 
+  /**
+   * Scores cities based on the placement of the tile at position p.
+   * @param p the previous position
+   */
   public void scoreCity(Posn p) {
     scoreCityAt(p);
   }
 
+  /**
+   * Scores monasteries at endgame.
+   */
   public void scoreMonasteryEndgame() {
     Tile currTile;
     Posn currPosn;
@@ -346,6 +462,9 @@ public class Referee {
     }
   }
 
+  /**
+   * Scores roads at endgame.
+   */
   public void scoreRoadEndgame() {
     Set<Posn> meepledPosns = new HashSet<>(board.getMeeplePosns());
 
@@ -354,6 +473,9 @@ public class Referee {
     }
   }
 
+  /**
+   * Scores cities at endgame.
+   */
   public void scoreCityEndgame() {
     Set<Posn> meepledPosns = new HashSet<>(board.getMeeplePosns());
 
@@ -362,6 +484,10 @@ public class Referee {
     }
   }
 
+  /**
+   * Scores cities at position p.
+   * @param p the previous position
+   */
   private void scoreCityAt(Posn p) {
     Tile curTile = board.getBoard().get(p);
     Edge top = curTile.getTop();
@@ -498,6 +624,17 @@ public class Referee {
     }
   }
 
+  /**
+   * Iteratively goes through the tiles that contain cities connected to the
+   * original city.
+   * @param curPosn the Posn of the tile being checked for scoring
+   * @param visited the set of positions that have already been checked
+   * @param meepledCities the cities that have a meeple on them
+   * @param d the Direction from which the last tile came from
+   * @param f the Finished object keeping track of whether or not the city is
+   *        finished
+   * @return the number of tiles connected to the current city being scored.
+   */
   private int scoreCityHelper(Posn curPosn, Set<Posn> visited,
       Map<Posn, TileFeature> meepledCities, Direction d, Finished f) {
     // recursively check each direction until there is no more center that
@@ -536,25 +673,25 @@ public class Referee {
                 && dir != Direction.UP) {
               grabMeepleAtEdge(p, curTile, Direction.UP, meepledCities);
               toAdd = p.withY(p.getY() - 1);
-              addToQueue(toAdd, Direction.DOWN, queue, visited);
+              addToQueue(toAdd, Direction.DOWN, queue);
             }
             if (curTile.getTop().getFeature() == Feature.CITY
                 && dir != Direction.DOWN) {
               grabMeepleAtEdge(p, curTile, Direction.DOWN, meepledCities);
               toAdd = p.withY(p.getY() + 1);
-              addToQueue(toAdd, Direction.UP, queue, visited);
+              addToQueue(toAdd, Direction.UP, queue);
             }
             if (curTile.getRight().getFeature() == Feature.CITY
                 && dir != Direction.LEFT) {
               grabMeepleAtEdge(p, curTile, Direction.LEFT, meepledCities);
               toAdd = p.withX(p.getX() + 1);
-              addToQueue(toAdd, Direction.RIGHT, queue, visited);
+              addToQueue(toAdd, Direction.RIGHT, queue);
             }
             if (curTile.getLeft().getFeature() == Feature.CITY
                 && dir != Direction.RIGHT) {
               grabMeepleAtEdge(p, curTile, Direction.RIGHT, meepledCities);
               toAdd = p.withX(p.getX() - 1);
-              addToQueue(toAdd, Direction.LEFT, queue, visited);
+              addToQueue(toAdd, Direction.LEFT, queue);
             }
           }
         }
@@ -564,14 +701,28 @@ public class Referee {
     return score;
   }
 
+  /**
+   * Adds the position-direction pair to the queue.
+   * @param p the position
+   * @param d the direction
+   * @param queue the queue to add the pair to
+   */
   private void addToQueue(Posn p, Direction d,
-      Queue<Pair<Posn, Direction>> queue, Set<Posn> visited) {
-
-    // if (!visited.contains(p)) {
+      Queue<Pair<Posn, Direction>> queue) {
     queue.add(new Pair<Posn, Direction>(p, d));
-    // }
   }
 
+  /**
+   * Iteratively goes through the tiles that contain roads connected to the
+   * original road.
+   * @param curPosn the Posn of the tile being checked for scoring
+   * @param visited the set of positions that have already been checked
+   * @param meepledRoads the roads that have a meeple on them
+   * @param d the Direction from which the last tile came from
+   * @param f the Finished object keeping track of whether or not the road is
+   *        finished
+   * @return the number of tiles connected to the current road being scored.
+   */
   private int scoreRoadHelper(Posn curPosn, Posn origPosn, Set<Posn> visited,
       Map<Posn, TileFeature> meepledRoads, Direction d, Finished f) {
 
@@ -623,6 +774,10 @@ public class Referee {
     return score;
   }
 
+  /**
+   * Scores the road at position p.
+   * @param p the position where the previous tile was placed
+   */
   private void scoreRoadAt(Posn p) {
     Tile curTile = board.getBoard().get(p);
     Edge top = curTile.getTop();
@@ -748,6 +903,11 @@ public class Referee {
     }
   }
 
+  /**
+   * Gets the positions of the surrounding tiles as a list based on the Posn p.
+   * @param p the position of the tile with which to check its surroundings
+   * @return the list of surrounding Posns
+   */
   private List<Posn> getSurroundingTiles(Posn p) {
     List<Posn> surrounding = new ArrayList<>();
     int x = p.getX();
@@ -783,6 +943,11 @@ public class Referee {
     return surrounding;
   }
 
+  /**
+   * Returns the number of surrounding tiles.
+   * @param p the position with which to check surrounding tiles
+   * @return the nubmer of surrounding tiles
+   */
   private int numSurroundingTiles(Posn p) {
     int count = 0;
     int x = p.getX();
@@ -814,10 +979,18 @@ public class Referee {
     if (board.getBoard().containsKey(new Posn(x - 1, y - 1))) {
       count++;
     }
-
     return count;
   }
 
+  /**
+   * If there is a meeple on tile t at posn p at the opposite direction of d,
+   * then put key p and meeple on t.(opposite direction of d) into meepled.
+   * @param p the Posn of which to check the meeple being there
+   * @param t the tile to check if there's a meeple there
+   * @param d the opposite direction of which to check meeple placement
+   * @param meepled a map of posn to meeple because only one meeple can be on
+   *        any one tile
+   */
   private void grabMeepleAtEdge(Posn p, Tile t, Direction d,
       Map<Posn, TileFeature> meepled) {
     if (d == Direction.LEFT && t.getRight().hasMeeple()) {
@@ -831,12 +1004,28 @@ public class Referee {
     }
   }
 
-  private void grabMeepleAtCenter(Posn p, Tile t, Map<Posn, TileFeature> meepled) {
+  /**
+   * If there is a meeple on tile t at posn p in the center
+   * then put key p and meeple on t.getCenter1 into meepled.
+   * @param p the Posn of which to check the meeple being there
+   * @param t the tile to check if there's a meeple there
+   * @param meepled a map of posn to tilefeature because only one meeple can be
+   *        on
+   *        any one tile
+   */
+  private void
+      grabMeepleAtCenter(Posn p, Tile t, Map<Posn, TileFeature> meepled) {
     if (t.getCenter1().hasMeeple()) {
       meepled.put(p, t.getCenter1());
     }
   }
 
+  /**
+   * Scores the meeples in the meepledFeatures map.
+   * @param meepledFeatures the map of posn -> tilefeature
+   * @param baseScore the score to give to the player with the most meeples on
+   *        this finished scorable feature
+   */
   private void scoreMeeples(Map<Posn, TileFeature> meepledFeatures,
       int baseScore) {
     Map<Player, Integer> meeples = new HashMap<>();
@@ -873,17 +1062,16 @@ public class Referee {
     }
   }
 
-  /*
-   * private Player getPlayer(int id) {
-   * for (Player p : players) {
-   * if (p.getId() == id) {
-   * return p;
-   * }
-   * }
-   * return null;
-   * }
+  /**
+   * Places a meeple on the tile at posn p in direction d.
+   * @param posn the last posn placed on the board
+   * @param player the current player
+   * @param d the direction the player wants to meeple
+   * @throws NullTileException if the tile based at Posn p is null.
+   * @throws OutOfMeeplesException if the player is out of meeples.
+   * @throws UnMeeplableException if the tilefeature the player wants to meeple
+   *         is not meepleable
    */
-
   public void placeMeeple(Posn posn, Player player, Direction d)
       throws NullTileException, OutOfMeeplesException, UnMeeplableException {
     Tile t = board.getBoard().get(posn);
@@ -909,17 +1097,11 @@ public class Referee {
       }
       board.getMeeplePosns().add(posn);
       board.setTouchesMeeple(posn, d);
-    } else {
-      /*
-       * throw new NullTileException(
-       * "There is no tile at the given posn, how can I put a meeple on it??");
-       */
     }
   }
 
   /**
    * Adds a player to the current game.
-   *
    * @param player the player to add to the game
    */
   public void newPlayer(Player player) {
@@ -928,10 +1110,18 @@ public class Referee {
     }
   }
 
+  /**
+   * Adds a spectator to the current game.
+   * @param s the spectator to add to the game
+   */
   public void newSpectator(Spectator s) {
     spectators.add(s);
   }
 
+  /**
+   * Gets the spectators of this game.
+   * @return the spectators of this game as a list of spectators
+   */
   public List<Spectator> getSpectators() {
     return spectators;
   }
@@ -944,12 +1134,22 @@ public class Referee {
     Collections.shuffle(players);
   }
 
+  /**
+   * Gets the next player of this game.
+   * @return the next player
+   */
   public Player nextPlayer() {
     curPlayer = players.get(turnNumber % players.size());
     turnNumber++;
     return curPlayer;
   }
 
+  /**
+   * Builds a deck with the standard Carcassonne tileset.
+   * @return a List of Tiles
+   * @throws InvalidEdgeException if an Edge is tried to be made with a
+   *         monastery or endpoint
+   */
   private List<Tile> buildDeck() throws InvalidEdgeException {
     Feature road = Feature.ROAD;
     Feature endpoint = Feature.ENDPOINT;
@@ -1155,25 +1355,6 @@ public class Referee {
         field), new Edge(river), new Edge(field), 0));
 
     // tiles.addAll(0, riverTiles);
-
-    /*
-     * TODO add river pieces:
-     * add the ten that aren't the end pieces, shuffle them.
-     * prepend the starting piece and append the end piece.
-     * add the river pieces to the tiles list, without shuffling again.
-     */
     return tiles;
   }
-
-  public static void main(String[] args) {
-
-    Referee r = new Referee();
-    r.setupGame();
-    r.newPlayer(new Player(0, "Scott"));
-    r.newPlayer(new Player(1, "Ian"));
-    r.shuffleOrder();
-    r.run();
-
-  }
-
 }

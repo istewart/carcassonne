@@ -9,6 +9,11 @@ import joptsimple.OptionException;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
+/**
+ * the main class for carcassonne.
+ * @author szellers
+ *
+ */
 public class Main {
 
   public static final int PORT = 4567;
@@ -31,14 +36,14 @@ public class Main {
       System.out.println("Invalid arguments.");
       return;
     }
-   
+
     r = new Referee();
     BackEnd cbe = new CarcBackEnd(r);
     if (options.has("debug")) {
-      Network.getNetwork(args).setBackEnd(cbe).setServer(new MainServer().talk()).go();
+      Network.getNetwork(args).setBackEnd(cbe).setServer(
+          new MainServer().talk()).go();
     } else {
       Network.getNetwork(args).setBackEnd(cbe).setServer(new MainServer()).go();
     }
-    
   }
 }

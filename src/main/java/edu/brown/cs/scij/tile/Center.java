@@ -10,10 +10,10 @@ package edu.brown.cs.scij.tile;
  */
 public class Center extends TileFeature {
 
-	/**
-	 * constructor for Center.
-	 * @param feature the feature center should contain
-	 */
+  /**
+   * constructor for Center.
+   * @param feature the feature center should contain
+   */
   public Center(Feature feature) {
     super(feature);
   }

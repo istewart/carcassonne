@@ -10,11 +10,11 @@ package edu.brown.cs.scij.tile;
  */
 public class Edge extends TileFeature {
 
-	/**
-	 * constructor for Edge.
-	 * @param feature the feature contained by edge.
-	 * @throws InvalidEdgeException if this is not an acceptable feature
-	 */
+  /**
+   * constructor for Edge.
+   * @param feature the feature contained by edge.
+   * @throws InvalidEdgeException if this is not an acceptable feature
+   */
   public Edge(Feature feature)
     throws InvalidEdgeException {
     super(feature);
