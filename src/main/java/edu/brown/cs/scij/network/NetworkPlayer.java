@@ -95,7 +95,7 @@ class NetworkPlayer {
   /**
    * Tells whether this player has the most up-to-date information or not.
    * @return <code>true</code> if the player has up-to-date information about
-   * ever notable field, <code>false</code> if the player does not.
+   *         ever notable field, <code>false</code> if the player does not.
    */
   public boolean isUpToDate() {
     return outOfDate.isEmpty();
@@ -105,7 +105,7 @@ class NetworkPlayer {
    * Gets a <code>Set</code> of the fields this player needs to update. Clears
    * the set of fields that need updating.
    * @return A <code>Set&lt;String&gt;</code> containing the names of the
-   * fields that this player needs to update.
+   *         fields that this player needs to update.
    */
   public Set<String> update() {
     Set<String> ret = outOfDate;
@@ -124,7 +124,7 @@ class NetworkPlayer {
   /**
    * Tells this player that all of the given fields need updating.
    * @param fields A <code>Collection&lt;String&gt;</code> containing a list of
-   * fields that this player needs to update.
+   *        fields that this player needs to update.
    */
   public void notify(Collection<String> fields) {
     for (String field : fields) {

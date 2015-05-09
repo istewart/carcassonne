@@ -19,15 +19,23 @@ import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.UnMeeplableException;
 
+/**
+ * Implements the BackEnd to talk to the front end about the game.
+ * @author szellers
+ *
+ */
 public class CarcBackEnd implements BackEnd {
   private Referee r;
   private Server s;
+  public static final int MAX_PLAYERS = 4;
 
+  /**
+   * Creates a new referee with the given referee.
+   * @param r the given referee
+   */
   public CarcBackEnd(Referee r) {
     this.r = r;
   }
-
-  public static final int MAX_PLAYERS = 4;
 
   @Override
   public synchronized Object answer(int player, String field,
@@ -53,12 +61,9 @@ public class CarcBackEnd implements BackEnd {
     List<Posn> validMoves;
 
     assert (player == r.getCurPlayer().getId());
-    // System.out.println("Player ID: " + player);
 
     switch (field) {
       case "rotate":
-        // receive left or right
-        // return tile, valid moves, valid meeples
         t = r.getCurTile();
         if (t != null) {
           if (val.get("rotate").equals("left")) {
@@ -85,8 +90,6 @@ public class CarcBackEnd implements BackEnd {
           r.newSpectator(new Spectator(player, specName));
           s.putField("players", players);
           return ImmutableMap.of("success", "failure", "players", players);
-          // return ImmutableMap.of("success", "failure", "spectators", r
-          // .getSpectators().size());
         }
       case "gameStart":
         s.seal();
@@ -113,15 +116,11 @@ public class CarcBackEnd implements BackEnd {
         toReturn.put("tilesLeft", r.getDeck().getTiles().size());
         s.putField("gameStart", true);
         toReturn.put("gameStart", true);
-        // putField() current board, current tile, list of players,
-        // current player, valid moves
         return toReturn;
       case "placeTile":
-        // receiving: posn
         String posn = val.get("move");
         String[] xy = posn.split(",");
         Posn p = new Posn(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
-        // try {
         try {
           r.getBoard().place(p, r.getCurTile());
           r.setCurPosn(p);
@@ -149,10 +148,6 @@ public class CarcBackEnd implements BackEnd {
           toReturn.put("error", "That wasn't a valid move! Please try again");
           return toReturn;
         }
-
-        // putField: board, current player, list of all players, valid meeples,
-        // current tile
-
         if (r.getCurPlayer().getNumMeeples() > 0) {
           try {
             List<Direction> validMeeples = r.getBoard().validMeeples(p);
@@ -169,8 +164,6 @@ public class CarcBackEnd implements BackEnd {
 
         return toReturn;
       case "placeMeeple":
-        // TODO receiving: direction
-        // returning: currtile, board, validmoves, players, currplayer
         String dir = val.get("meeple");
         Direction d = null;
         Tile curTile = r.getCurTile();
@@ -200,10 +193,8 @@ public class CarcBackEnd implements BackEnd {
           } catch (UnMeeplableException e) {
             e.printStackTrace();
           } catch (NullTileException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           } catch (OutOfMeeplesException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           }
         }
@@ -265,13 +256,18 @@ public class CarcBackEnd implements BackEnd {
         return toReturn;
 
       default:
-        System.out.println("GOT TO DEWFAULT BIZNATCHES");
-        // TODO not sure what to do when it's none of these
+        break;
     }
-    // return only what the person requesting should know
     return toReturn;
   }
 
+  /**
+   * Gets the list of valid moves. If there are none for a tile, then get the
+   * next tile from the deck.
+   * @param b the board
+   * @param curTile the current Tile
+   * @return the list of valid moves
+   */
   private List<Posn> checkValidMoves(Board b, Tile curTile) {
     List<Posn> validMoves;
     curTile.rotateLeft();
@@ -286,11 +282,8 @@ public class CarcBackEnd implements BackEnd {
         // check rotation 90
         validMoves = r.getBoard().validMoves(curTile);
         if (validMoves.isEmpty()) {
-          // r.getDeck().getTiles().add(curTile);
-          // Collections.shuffle(r.getDeck().getTiles());
           curTile = r.drawTile();
           validMoves = checkValidMoves(b, curTile);
-
         }
       }
     }

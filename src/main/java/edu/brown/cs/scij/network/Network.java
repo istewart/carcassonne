@@ -12,9 +12,11 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import com.google.common.collect.ImmutableMap;
+
 import com.google.gson.Gson;
 
 import freemarker.template.Configuration;
+
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
@@ -103,7 +105,7 @@ public final class Network {
       url = "http://" + ip + ":" + Integer.toString(port) + "/carcassonne";
       System.out.println("The network is loading...");
       System.out.println(
-        "If a window does not open automatically, please visit " + url);
+          "If a window does not open automatically, please visit " + url);
       server.putField("url", url);
     } catch (Exception ex) {
       System.out.println("Failed to launch server.");

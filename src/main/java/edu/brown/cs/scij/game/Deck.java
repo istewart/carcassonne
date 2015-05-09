@@ -24,13 +24,11 @@ public class Deck {
   /**
    * Draws the top card of the deck. If there are no more tiles in the deck,
    * throws EmptyDeckException.
-   * @return the top tile of the deck. If the deck is empty, throws
-   *         EmptyDeckException
-   * // @throws EmptyDeckException if called on an empty deck
+   * @return the top tile of the deck. If the deck is empty, return null
    */
-  public Tile drawTile() /* throws EmptyDeckException */{
+  public Tile drawTile() {
     if (isEmpty()) {
-      return null/* throw new EmptyDeckException() */;
+      return null;
     }
     return tiles.remove(0);
   }

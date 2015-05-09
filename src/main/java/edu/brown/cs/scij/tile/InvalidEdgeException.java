@@ -6,25 +6,25 @@ package edu.brown.cs.scij.tile;
  * @author scij
  *
  */
-public class InvalidEdgeException extends Exception{
+public class InvalidEdgeException extends Exception {
 
   /**
    * Generated serialVersionUID
    */
-	private static final long serialVersionUID = 4080762199317524528L;
+  private static final long serialVersionUID = 4080762199317524528L;
 
-	/**
-	 * constructor for InvalidEdgeException.
-	 * @param message what caused the exception.
-	 */
-	public InvalidEdgeException(String message) {
-	   super(message);
-	}
+  /**
+   * constructor for InvalidEdgeException.
+   * @param message what caused the exception.
+   */
+  public InvalidEdgeException(String message) {
+    super(message);
+  }
 
-	/**
-	 * overloaded default constructor.
-	 */
-	public InvalidEdgeException() {
+  /**
+   * overloaded default constructor.
+   */
+  public InvalidEdgeException() {
 
-	}
+  }
 }

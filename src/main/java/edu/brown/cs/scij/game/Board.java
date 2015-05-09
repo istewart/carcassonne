@@ -49,8 +49,16 @@ public class Board {
   public Map<Posn, Tile> getBoard() {
     return ImmutableMap.copyOf(board);
   }
-  
-  public Board forcePlace(Posn p, Tile t) throws PosnTakenException, IllegalArgumentException {
+
+  /**
+   * Places Tile t at Posn p on the Board without regards to valid moves. If the
+   * Posn is already taken, PosnTakenExcetption is thrown.
+   * @param p The Posn to place the tile
+   * @param t The Tile to place at the position
+   * @return The Board object, for redrawing
+   * @throws PosnTakenException if the Posn is already on the board.
+   */
+  public Board forcePlace(Posn p, Tile t) throws PosnTakenException {
     Tile there = board.get(p);
     if (there == null) {
       board.put(p, t);
@@ -118,13 +126,17 @@ public class Board {
    * @param t The Tile to place at the position
    * @return The Board object, for redrawing
    * @throws PosnTakenException if the Posn is already on the board.
+   * @throws IllegalArgumentException if the posn isn't in the list of valid
+   *         moves
    */
-  public Board place(Posn p, Tile t) throws PosnTakenException, IllegalArgumentException {
-   
+  public Board place(Posn p, Tile t) throws PosnTakenException,
+      IllegalArgumentException {
+
     Tile there = board.get(p);
     if (there == null) {
       if (!validMoves(t).contains(p)) {
-        throw new IllegalArgumentException("That is not a valid place to put that tile!");
+        throw new IllegalArgumentException(
+            "That is not a valid place to put that tile!");
       }
       board.put(p, t);
 
@@ -179,10 +191,14 @@ public class Board {
     } else {
       throw new PosnTakenException("There is already a tile here");
     }
-    // TODO should this be void or do we want to return the board?
     return this;
   }
 
+  /**
+   * Sets whether the tile at position p touches a meeple.
+   * @param p the position
+   * @param d the direction
+   */
   public void setTouchesMeeple(Posn p, Direction d) {
     Tile t = board.get(p);
     Feature feature = null;
@@ -194,18 +210,19 @@ public class Board {
           setTouchesMeeple(right, Direction.LEFT);
         }
       }
-      if (t.getCenter1().getFeature() == feature || t.getCenter2().getFeature() == feature) {
-        if (t.getCenter1().getFeature() == feature){
-        	if (t.getCenter1().touchesMeeple()) {
-        		return;
-        	}
-        	t.getCenter1().setTouchesMeeple(true);
+      if (t.getCenter1().getFeature() == feature
+          || t.getCenter2().getFeature() == feature) {
+        if (t.getCenter1().getFeature() == feature) {
+          if (t.getCenter1().touchesMeeple()) {
+            return;
+          }
+          t.getCenter1().setTouchesMeeple(true);
         }
-        if (t.getCenter2().getFeature() == feature){
-        	if (t.getCenter2().touchesMeeple()) {
-        		return;
-        	}
-        	t.getCenter2().setTouchesMeeple(true);
+        if (t.getCenter2().getFeature() == feature) {
+          if (t.getCenter2().touchesMeeple()) {
+            return;
+          }
+          t.getCenter2().setTouchesMeeple(true);
         }
         if (t.getLeft().getFeature() == feature) {
           if (t.getLeft().touchesMeeple()) {
@@ -249,19 +266,20 @@ public class Board {
           setTouchesMeeple(left, Direction.RIGHT);
         }
       }
-      if (t.getCenter1().getFeature() == feature || t.getCenter2().getFeature() == feature) {
-          if (t.getCenter1().getFeature() == feature){
-          	if (t.getCenter1().touchesMeeple()) {
-          		return;
-          	}
-          	t.getCenter1().setTouchesMeeple(true);
+      if (t.getCenter1().getFeature() == feature
+          || t.getCenter2().getFeature() == feature) {
+        if (t.getCenter1().getFeature() == feature) {
+          if (t.getCenter1().touchesMeeple()) {
+            return;
           }
-          if (t.getCenter2().getFeature() == feature){
-          	if (t.getCenter2().touchesMeeple()) {
-          		return;
-          	}
-          	t.getCenter2().setTouchesMeeple(true);
+          t.getCenter1().setTouchesMeeple(true);
+        }
+        if (t.getCenter2().getFeature() == feature) {
+          if (t.getCenter2().touchesMeeple()) {
+            return;
           }
+          t.getCenter2().setTouchesMeeple(true);
+        }
         if (t.getRight().getFeature() == feature) {
           if (t.getRight().touchesMeeple()) {
             return;
@@ -304,19 +322,20 @@ public class Board {
           setTouchesMeeple(up, Direction.DOWN);
         }
       }
-      if (t.getCenter1().getFeature() == feature || t.getCenter2().getFeature() == feature) {
-          if (t.getCenter1().getFeature() == feature){
-          	if (t.getCenter1().touchesMeeple()) {
-          		return;
-          	}
-          	t.getCenter1().setTouchesMeeple(true);
+      if (t.getCenter1().getFeature() == feature
+          || t.getCenter2().getFeature() == feature) {
+        if (t.getCenter1().getFeature() == feature) {
+          if (t.getCenter1().touchesMeeple()) {
+            return;
           }
-          if (t.getCenter2().getFeature() == feature){
-          	if (t.getCenter2().touchesMeeple()) {
-          		return;
-          	}
-          	t.getCenter2().setTouchesMeeple(true);
+          t.getCenter1().setTouchesMeeple(true);
+        }
+        if (t.getCenter2().getFeature() == feature) {
+          if (t.getCenter2().touchesMeeple()) {
+            return;
           }
+          t.getCenter2().setTouchesMeeple(true);
+        }
         if (t.getRight().getFeature() == feature) {
           if (t.getRight().touchesMeeple()) {
             return;
@@ -360,19 +379,20 @@ public class Board {
           setTouchesMeeple(down, Direction.UP);
         }
       }
-      if (t.getCenter1().getFeature() == feature || t.getCenter2().getFeature() == feature) {
-          if (t.getCenter1().getFeature() == feature){
-          	if (t.getCenter1().touchesMeeple()) {
-          		return;
-          	}
-          	t.getCenter1().setTouchesMeeple(true);
+      if (t.getCenter1().getFeature() == feature
+          || t.getCenter2().getFeature() == feature) {
+        if (t.getCenter1().getFeature() == feature) {
+          if (t.getCenter1().touchesMeeple()) {
+            return;
           }
-          if (t.getCenter2().getFeature() == feature){
-          	if (t.getCenter2().touchesMeeple()) {
-          		return;
-          	}
-          	t.getCenter2().setTouchesMeeple(true);
+          t.getCenter1().setTouchesMeeple(true);
+        }
+        if (t.getCenter2().getFeature() == feature) {
+          if (t.getCenter2().touchesMeeple()) {
+            return;
           }
+          t.getCenter2().setTouchesMeeple(true);
+        }
         if (t.getRight().getFeature() == feature) {
           if (t.getRight().touchesMeeple()) {
             return;
@@ -458,7 +478,8 @@ public class Board {
   }
 
   /**
-   * Returns a list of the possible directions on the tile a meeple could be placed on.
+   * Returns a list of the possible directions on the tile a meeple could be
+   * placed on.
    * @param p the posn the tile is on
    * @return a list of meeple placement directions
    * @throws NullTileException if the the tile isnt there
