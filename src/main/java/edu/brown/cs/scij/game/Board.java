@@ -126,8 +126,6 @@ public class Board {
    * @param t The Tile to place at the position
    * @return The Board object, for redrawing
    * @throws PosnTakenException if the Posn is already on the board.
-   * @throws IllegalArgumentException if the posn isn't in the list of valid
-   *         moves
    */
   public Board place(Posn p, Tile t) throws PosnTakenException {
 

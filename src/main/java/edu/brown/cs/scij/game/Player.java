@@ -12,7 +12,7 @@ public class Player {
   private final String name;
   private int score;
   private int numMeeples;
-  private final int MAX_MEEPLES = 7;
+  private final static int MAXMEEPLES = 7;
 
   /**
    * Constructor for player.
@@ -23,7 +23,7 @@ public class Player {
     this.id = id;
     this.name = name;
     this.score = 0;
-    this.numMeeples = MAX_MEEPLES;
+    this.numMeeples = MAXMEEPLES;
   }
 
   /**
@@ -63,7 +63,7 @@ public class Player {
 
   /**
    * adds input score to previous score.
-   * @param score what to add to score.
+   * @param toAdd what to add to score.
    */
   public void addScore(int toAdd) {
     if (toAdd < 0) {
@@ -103,7 +103,7 @@ public class Player {
    * returns a meeple, adding to available.
    */
   public void returnMeeple() {
-    if (numMeeples != MAX_MEEPLES) {
+    if (numMeeples != MAXMEEPLES) {
       numMeeples++;
     }
   }

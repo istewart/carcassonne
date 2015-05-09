@@ -14,7 +14,7 @@ import joptsimple.OptionSet;
  * @author szellers
  *
  */
-public class Main {
+final class Main {
 
   private static Referee r = null;
 
