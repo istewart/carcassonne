@@ -13,6 +13,8 @@ import java.util.Set;
  * </code>s will have a positive id. This allows a user to reserve
  * the id 0 and any negative number for notable keys or primary keys whose
  * ids need to be consistent.
+ *
+ * @author  Joseph Bellavia
  */
 public final class Key {
   private static Set<Integer> existing = new HashSet<>();

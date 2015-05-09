@@ -28,6 +28,8 @@ import spark.template.freemarker.FreeMarkerEngine;
  * Opens a new server and runs it, then sets up a Spark Server and attempts to
  * open a browser window for the host player. If it cannot open this window, it
  * directs the player to the correct address.
+ *
+ * @author  Joseph Bellavia
  */
 public final class Network {
   private String ip;

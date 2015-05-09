@@ -19,6 +19,10 @@ import edu.brown.cs.scij.tile.OutOfMeeplesException;
 import edu.brown.cs.scij.tile.Tile;
 import edu.brown.cs.scij.tile.UnMeeplableException;
 
+/**
+ * Back End specific to the Carcassonne game.
+ * @author  Scott Zellers
+ */
 public class CarcBackEnd implements BackEnd {
   private Referee r;
   private Server s;
