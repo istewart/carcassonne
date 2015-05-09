@@ -12,7 +12,7 @@ public class Player {
   private final String name;
   private int score;
   private int numMeeples;
-  private final static int MAXMEEPLES = 7;
+  private static final int MAXMEEPLES = 7;
 
   /**
    * Constructor for player.
