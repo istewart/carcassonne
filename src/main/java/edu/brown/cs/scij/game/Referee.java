@@ -266,7 +266,7 @@ public class Referee {
             .println("to rotate left, input left, to rotate right input right");
         String input = r.readLine();
         if (input == null) {
-          System.exit(1);
+          return;
         }
         String[] coord = input.split(" ");
         if (coord.length == 1) {
@@ -296,6 +296,9 @@ public class Referee {
       System.out.println("Options: n (no), t (top), b (bottom), "
           + "l (left), r (right), c (center)");
       String input = r.readLine();
+      if (input == null) {
+        return;
+      }
       try {
         switch (input) {
           case "n":
@@ -1080,7 +1083,7 @@ public class Referee {
    *         is not meepleable
    */
   public void placeMeeple(Posn posn, Player player, Direction d)
-      throws NullTileException, OutOfMeeplesException, UnMeeplableException {
+    throws NullTileException, OutOfMeeplesException, UnMeeplableException {
     Tile t = board.getBoard().get(posn);
     if (!board.validMeeples(posn).contains(d)) {
       throw new UnMeeplableException();
@@ -1135,7 +1138,7 @@ public class Referee {
 
   /**
    * Shuffles the order of the players (used usually only at the start of the
-   * game)
+   * game).
    */
   public void shuffleOrder() {
     Collections.shuffle(players);
