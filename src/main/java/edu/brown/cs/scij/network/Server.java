@@ -5,6 +5,8 @@ import java.util.Map;
 /**
  * Controls front-end access to the back end/game engine. Also contains some
  * mediation methods that allow for updating and connecting to the game.
+ *
+ * @author  Joseph Bellavia
  */
 public interface Server {
   /**

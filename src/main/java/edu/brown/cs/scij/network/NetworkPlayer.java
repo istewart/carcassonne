@@ -8,6 +8,8 @@ import java.util.Set;
  * Represents a single player/client. Keeps track of their id, ip, ping count,
  * most recent ping, connected state, and what information they have that is
  * out of date. Used by the {@link MainServer} class.
+ *
+ * @author  Joseph Bellavia
  */
 class NetworkPlayer {
   private String ip;

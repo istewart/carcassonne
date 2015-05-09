@@ -13,7 +13,7 @@ import java.util.Map;
  * this BackEnd simultaneously, it is best to synchronize the answer method
  * to the object itself to limit access to one thread at a time.
  *
- * @author jbellavi
+ * @author Joseph Bellavia
  */
 public interface BackEnd {
   /**

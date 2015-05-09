@@ -195,6 +195,13 @@
 	    <p class="imageBlock">An unfinished road, monastery, and city, to be scored at the end of a game.</p>
 
       <p class="imageBlock"><button class="backButton" id="instructionsBack"> Back </button></p>
+
+    <h1>Controls</h1>
+      <p>To pan the board, click and drag.</p>
+      <p>To zoom the board, scroll up or down.</p>
+      <p>To place a tile, click on a location on the map, then press the Place Tile button to finalize your choice.</p>
+      <p>To place a meeple, click on a circle on the tile, then press the Place Meeple button to finalize your choice.</p>
+      <p>Have fun!</p>
     </div>
 
     <div id="tileDiv">
