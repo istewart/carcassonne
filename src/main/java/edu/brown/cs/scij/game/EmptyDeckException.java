@@ -9,7 +9,7 @@ package edu.brown.cs.scij.game;
 public class EmptyDeckException extends Exception {
 
   /**
-   * Generated Serial Version UID
+   * Generated Serial Version UID.
    */
   private static final long serialVersionUID = 8421876375898402656L;
 
@@ -22,7 +22,7 @@ public class EmptyDeckException extends Exception {
   }
 
   /**
-   * Creates a new EmptyDeckException
+   * Creates a new EmptyDeckException.
    */
   public EmptyDeckException() {
 

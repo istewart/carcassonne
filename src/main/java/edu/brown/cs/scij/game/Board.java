@@ -129,8 +129,7 @@ public class Board {
    * @throws IllegalArgumentException if the posn isn't in the list of valid
    *         moves
    */
-  public Board place(Posn p, Tile t) throws PosnTakenException,
-      IllegalArgumentException {
+  public Board place(Posn p, Tile t) throws PosnTakenException {
 
     Tile there = board.get(p);
     if (there == null) {

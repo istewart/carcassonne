@@ -16,8 +16,15 @@ import joptsimple.OptionSet;
  */
 public class Main {
 
-  public static final int PORT = 4567;
-  public static Referee r = null;
+  private static Referee r = null;
+
+  /**
+   * Not allowed to create a new Main object.
+   */
+  private Main() {
+    throw new UnsupportedOperationException(
+        "Can't construct Main object from Carcassonne");
+  }
 
   /**
    * This main method simply begins our program and makes the necessary objects

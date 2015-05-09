@@ -99,7 +99,7 @@ public class Referee {
   }
 
   /**
-   * Sets the game's players to players
+   * Sets the game's players to players.
    * @param players the players of this game of carcassonne
    */
   public void setPlayers(List<Player> players) {
@@ -153,10 +153,8 @@ public class Referee {
    * @param p Where the player wants to place their tile
    * @param t The tile to place
    * @throws PosnTakenException if the posn is taken
-   * @throws IllegalArgumentException if the posn is not a valid move
    */
-  public void place(Posn p, Tile t) throws PosnTakenException,
-      IllegalArgumentException {
+  public void place(Posn p, Tile t) throws PosnTakenException {
     board.place(p, t);
   }
 
@@ -164,7 +162,7 @@ public class Referee {
    * Places a tile on the board, without regards to valid moves. Returns a
    * boolean letting the user know if the game is over. (Game is over when there
    * are no tiles left).
-   * 
+   *
    * @param p Where the player wants to place their tile
    * @param t The tile to place
    * @throws PosnTakenException if the posn is taken
@@ -224,14 +222,14 @@ public class Referee {
    * Runs a text based version of Carcassonne.
    */
   public void run() {
-    Player curPlayer;
+    Player currPlayer;
     try (BufferedReader r =
         new BufferedReader(new InputStreamReader(System.in));) {
       while (!isGameOver()) {
-        curPlayer = nextPlayer();
+        currPlayer = nextPlayer();
         System.out
-            .println(String.format("It is %s's turn", curPlayer.getName()));
-        takeTurn(curPlayer, r);
+            .println(String.format("It is %s's turn", currPlayer.getName()));
+        takeTurn(currPlayer, r);
         turnNumber++;
         System.out.println(players.toString());
       }
@@ -290,7 +288,8 @@ public class Referee {
     while (noGood) {
       System.out.println("Would you like to meeple anywhere on the tile?");
       System.out
-          .println("Options: n (no), t (top), b (bottom), l (left), r (right), c (center)");
+          .println(
+          "Options: n (no), t (top), b (bottom), l (left), r (right), c (center)");
       String input = r.readLine();
       try {
         switch (input) {
