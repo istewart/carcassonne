@@ -15,6 +15,7 @@ var Menu = function() {
   var mainMeeple = document.getElementById("mainMeeple");
   var mainSkip = document.getElementById("mainSkip");
 
+  // hides all of the divs
   var hideAll = function() {
     $("#menuDiv").hide();
     $("#joinDiv").hide();
@@ -54,6 +55,7 @@ var Menu = function() {
 
   joinJoin.addEventListener("click", function(event) {
     var name = $("#joinName").val();
+
     if (name.length > 12) {
       alert("Plaese limit your name to 12 characters");
     } else {
@@ -64,8 +66,7 @@ var Menu = function() {
       network.ask("newPlayer", {"name": $("#joinName").val()}, function(responseObject) {
         console.log(responseObject);
       });
-    }
-    
+    }  
   });
 
   lobbyBack.addEventListener("click", function(event) {
