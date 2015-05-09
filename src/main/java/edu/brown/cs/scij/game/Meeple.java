@@ -28,5 +28,4 @@ public class Meeple {
   public String toString() {
     return player.getName();
   }
-
 }
