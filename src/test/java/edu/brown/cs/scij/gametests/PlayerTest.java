@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import edu.brown.cs.scij.game.Color;
 import edu.brown.cs.scij.game.Player;
 import edu.brown.cs.scij.tile.OutOfMeeplesException;
 
@@ -17,13 +16,6 @@ public class PlayerTest {
     assertTrue(p1.getName().equals("p1"));
     assertTrue(p1.getScore() == 0);
     assertTrue(p1.getNumMeeples() == 7);
-  }
-
-  @Test
-  public void colorTest() {
-    Player p = new Player(1, "p");
-    p.setPlayerColor(Color.BLACK);
-    assertTrue(p.getPlayerColor() == Color.BLACK);
   }
 
   @Test
