@@ -1,18 +1,19 @@
-MIN_DRAG_DISTANCE = 5;
-MIN_SCALE = .6;
-MAX_SCALE = 3;
+MIN_DRAG_DISTANCE = 5; // distance to count as click and drag
+MIN_SCALE = .4;
+MAX_SCALE = 2;
 
-var mouseStart;
-var dragging;
+var mouseStart; // start location of click
+var dragging; // true if clicking and dragging else false
 
-var startXT;
-var startYT;
+var startXT; // start transformation of x
+var startYT; // start transformation of y
 
 // Generates handlers for user interaction with the main canvas and the tile canvas.
 var Canvas = function() {
 	var canvasOffsetX;
 	var canvasOffsetY;
 
+	// Scrolls in or out (with caps on the available level of zoom) based on the mouse wheel.
 	var zoom = function(e) {
 		if (e.originalEvent.wheelDelta > 0) { // scroll out
 			if (renderer.scale < MIN_SCALE) {
@@ -28,7 +29,7 @@ var Canvas = function() {
 			renderer.scale = 10.0 * renderer.scale / 9.0;
 		}
 
-		$("#mainCanvas").unbind('mousewheel');
+		$("#mainCanvas").unbind('mousewheel'); // slow down scrolling by preventing actions in quick succesion
 		setTimeout(function() {
 			$("#mainCanvas").bind('mousewheel', zoom);
 		}, 50);
@@ -37,10 +38,7 @@ var Canvas = function() {
 		renderer.render();
 	};
 	
-	// Scrolls in or out (with caps on the available level of zoom) based on the mouse wheel.
 	$("#mainCanvas").bind('mousewheel', zoom);
-
-	
 
 	// Selects a valid move on click, or allows board movement on click and drag.
 	$("#mainCanvas").bind('mousedown', function(e) {
@@ -115,7 +113,6 @@ var Canvas = function() {
 				renderer.mouseOver = false;
 			}
 
-
 			renderer.render();
 		}
 	}).on('mouseleave', function(e) {
@@ -123,7 +120,7 @@ var Canvas = function() {
 	});
 
 	// Handles meeple selection on the tile canvas by displaying valid and selected meeples.
-	$("#tileCanvas").bind('click', function(e) {
+	$("#tileCanvas").bind('click', function(e) { // select meeple on click
 		if (!myTurn) {
 			return;
 		}
@@ -139,6 +136,7 @@ var Canvas = function() {
 		var pixelClick = {x : e.pageX - positionOffset.left, y: e.pageY - positionOffset.top};
 		var canvasClick = renderer.pixelsToTile(pixelClick);
 
+		// checking where on the tile canvas the user clicked
 		if (canvasClick.y > .1 * h && canvasClick.y < .3 * h && canvasClick.x > .4 * w && canvasClick.x < .6 * w) {
 			renderer.selectedMeeple = "UP";
 		} else if (canvasClick.y > .4 * h && canvasClick.y < .6 * h) {
@@ -162,7 +160,7 @@ var Canvas = function() {
 		}
 
 		renderer.render();
-	}).on('mousemove', function(e) {	
+	}).on('mousemove', function(e) { // display meeples on mouseover
 		if (!renderer.selectedMeeple && myTurn) { // mousing over a spot with no tile selected
 			var tileCanvas = document.getElementById("tileCanvas");
   			var ctx = tileCanvas.getContext("2d");
@@ -174,7 +172,8 @@ var Canvas = function() {
 			var pixelClick = {x : e.pageX - positionOffset.left, y: e.pageY - positionOffset.top};
 			var canvasClick = renderer.pixelsToTile(pixelClick);
 
-			if (canvasClick.y > .1 * h && canvasClick.y < .3 * h && canvasClick.x > .4 * w && canvasClick.x < .6 * w) {
+		// checking where on the page the user is mousing over
+		if (canvasClick.y > .1 * h && canvasClick.y < .3 * h && canvasClick.x > .4 * w && canvasClick.x < .6 * w) {
 			renderer.selectedMeeple = "UP";
 		} else if (canvasClick.y > .4 * h && canvasClick.y < .6 * h) {
 			if (canvasClick.x > .1 * h && canvasClick.x < .3 * h) {
@@ -215,10 +214,11 @@ function setResizeTimer() {
 	resizeTimer = setTimeout(resize, 100);
 }
 
+// maintain div size when user resizes window
 function resize() {
 	var height = $(window).height();
 	var width = $(window).width() - 300;
-	console.log(height, width);
+
 	$("#contentDiv").css("width", width + "px");
 	$("#contentDiv").css("height", height);
 	$("#sidebarDiv").css("height", height);

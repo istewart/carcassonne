@@ -3,6 +3,7 @@ var isPlaced = false; // if a tile has been placed but not meepled
 var showHints = true; // if meeple and tile hints should be displayed
 var myTurn = false; // if its my turn
 
+// hides all divs on the web page
 function hideAll() {
   $("#menuDiv").hide();
   $("#joinDiv").hide();
@@ -13,9 +14,9 @@ function hideAll() {
   resize();
 }
 
-// main function to configure the web page
+// main function to configure the web page and update variables when they change
 var handler = {
-  connect: function() {
+  connect: function() { // displays the lobby or the board depending on if the game has started
     if (network.get("gameStart")) {
       handler.gameStart();
     } else {
@@ -37,11 +38,7 @@ var handler = {
     Canvas();
   },
 
-  board: function() {
-    renderer.render();
-  },
-
-  players: function(playersList) {
+  players: function(playersList) { // updates the lobby and the players list when it changes
 
     if (playersList == null || playersList.length == 0) {
       $('.lobbyBox').each(function(i, obj) {
@@ -66,6 +63,7 @@ var handler = {
 
   },
 
+  // starts and displays the game if it has started
   gameStart: function(state) {
     if (state == true) {
       var n = network;
@@ -92,6 +90,7 @@ var handler = {
     }
   },
 
+  //  updates the current player and ui when turns change
   currentPlayer: function(player) {
     if (player.id == network.id) {
       myTurn = true;
@@ -113,53 +112,54 @@ var handler = {
       $("#mainMeeple").hide();
       $("#mainSkip").hide();
     }
-    console.log("MyTurn? Player id from ian:" + player.id + " Player id from network: " + network.id);
   },
 
+  // updates the current tile when it changes in the back end
   currTile: function(tile) {
     renderer.currTile = tile;
     renderer.render();
   },
 
+  // updates the board when it changes in the back end
   board: function(board) {
     renderer.board = board.board;
     renderer.render();
   },
 
+  // updates the valid moves when they change in the back end
   validMoves: function(validMoves) {
     renderer.validMoves = validMoves;
     renderer.render();
   },
 
+  // updates the valid meeoles when they change in the back end
   validMeeples: function(validMeeples) {
-    console.log("meeple");
     renderer.validMeeples = validMeeples;
     renderer.render();
   },
 
+  // greys out the board and sends an alert when a user disconnects
   disconnect: function() {
     grayOut(true);
     alert("You appear to have disconnected. The game will return when you reconnect.");
   },
 
+  // removes the gray out when a user reconnects
   reconnect: function() {
     grayOut(false);
   },
 
+  // grays out the screen and sends an alert when the network encounters a fatal error
   fatal: function() {
     grayOut(true);
+    alert("The network has encountered a fatal error. Please leave.");
   },
 
+  // sends an alert and displays final scores when the game ends
   gameOver: function(val) {
     if (val == true) {
-      console.log("hello");
-      var winners = network.get("winners");
-      var message = "Game Over!\n";
-      /*for (key in winners) {
-        message.append(winners[key].name + " with " + winners[key].score + " points!");
-      }*/
-      console.log(message);
       alert("Game Over!");
+
       renderer.players = network.get("players");
       renderer.board = network.get("board");
       renderer.validMoves = network.get("validMoves");
@@ -168,15 +168,16 @@ var handler = {
       renderer.selectedMeeple = null;
       renderer.selectedTile = null;
       renderer.render();
-      
     }
   },
 
+  // displays disconnected and reconnected players
   connected: function() {
     renderer.render();
   },
 }
 
+// grays and ungrays the screen on demand
 function grayOut(vis, options) {
   // Pass true to gray out screen, false to ungray
   // options are optional.  This is a JSON object with the following (optional) properties
