@@ -8,7 +8,7 @@ package edu.brown.cs.scij.tile;
 public class NullMeepleException extends Exception {
 
   /**
-   * Generated serialVersionUID
+   * Generated serialVersionUID.
    */
   private static final long serialVersionUID = 7931450358630054421L;
 
