@@ -1,7 +1,5 @@
 /**
- *
- */
-/**
+ * a package which contains code for the game carcassonne.
  * @author scij
  *
  */
