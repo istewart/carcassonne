@@ -1,32 +1,4 @@
-      ...                                                            .x+=:.   
-   xH88"`~ .x8X                                                     z`    ^%  
- :8888   .f"8888Hf                .u    .                              .   <k 
-:8888>  X8L  ^""`        u      .d88B :@8c        .         u        .@8Ned8" 
-X8888  X888h          us888u.  ="8888f8888r  .udR88N     us888u.   .@^%8888"  
-88888  !88888.     .@88 "8888"   4888>'88"  <888'888k .@88 "8888" x88:  `)8b. 
-88888   %88888     9888  9888    4888> '    9888 'Y"  9888  9888  8888N=*8888 
-88888 '> `8888>    9888  9888    4888>      9888      9888  9888   %8"    R88 
-`8888L %  ?888   ! 9888  9888   .d888L .+   9888      9888  9888    @8Wou 9%  
- `8888  `-*""   /  9888  9888   ^"8888*"    ?8888u../ 9888  9888  .888888P`   
-   "888.      :"   "888*""888"     "Y"       "8888P'  "888*""888" `   ^"F     
-     `""***~"`      ^Y"   ^Y'                  "P'     ^Y"   ^Y'              
-                                                                              
-                                                                              
-                                                                              
-   .x+=:.                                                                     
-  z`    ^%                                                                    
-     .   <k           u.         u.    u.         u.    u.                             
-   .@8Ned8"      ...ue888b       x@88k u@88c.      x@88k u@88c.          .u                   
- .@^%8888"       888R Y888r     ^"8888""8888"     ^"8888""8888"       ud8888.                 
-x88:  `)8b.      888R I888>       8888  888R        8888  888R      :888'8888.                
-8888N=*8888      888R I888>       8888  888R        8888  888R      d888 '88%"                
- %8"    R88      888R I888>       8888  888R        8888  888R      8888.+"                   
-  @8Wou 9%      u8888cJ888        8888  888R        8888  888R      8888L                     
-.888888P`        "*888*P"        "*88*" 8888"      "*88*" 8888"     '8888c. .+                
-`   ^"F            'Y"            ""   'Y"          ""   'Y"        "88888%                  
-                                                                       "YP'                   
-
-
+Carcassonne
 
                 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
                 ~   Scott   ~  Joseph  ~   Ian   ~   Colby  ~
@@ -35,17 +7,29 @@ x88:  `)8b.      888R I888>       8888  888R        8888  888R      :888'8888.
                 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 
-
+==============================================================================
+                            HOW CLONE AND BUILD:
+==============================================================================
+To clone into Carcassonne, run:
+      git clone https://github.com/istewart/carcassonne.git
+      
+To build, run:
+      mvn clean package
+      
+Or, to build and run, run:
+      ./bar
 
 ==============================================================================
                                 HOW TO RUN:
 ==============================================================================
-To run the program, type ./run from the main directory for the program.
-
-
+To run the program, type ./run from the main directory of the program.
 
 ==============================================================================
-                                HOW TO RUN:
+                                HOW TO PLAY:
 ==============================================================================
+Running the program should open a your default web browser to IP:3141/carcassonne. Other players can connect by going to the same URL. Chrome is the preferred browser for playing Carcassonne. Other browsers may work, but some features might be disabled.
+
+Once at the main menu, click on instructions to view game instructions or click join and enter your name to join the game. Carcassonne can be played with between one and four players. Additional players who visit the website or join the game will enter in spectator mode. When all players have joined, click start to begin the game. See instructions for more detailed instructions about controls and rules.
+
 
 
