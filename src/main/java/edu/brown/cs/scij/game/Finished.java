@@ -1,6 +1,6 @@
 package edu.brown.cs.scij.game;
 
-public class Finished {
+final class Finished {
   private boolean finished;
 
   public Finished(boolean finished) {

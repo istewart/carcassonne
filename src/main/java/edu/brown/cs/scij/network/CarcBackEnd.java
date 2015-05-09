@@ -93,7 +93,7 @@ public class CarcBackEnd implements BackEnd {
         Board b = r.getBoard();
         players = r.getPlayers();
         validMoves = b.validMoves(t);
-
+        r.shuffleOrder();
         s.putField("currTile", t);
         toReturn.put("currTile", t);
         s.putField("board", b);
