@@ -101,22 +101,20 @@ public interface Server {
   void unseal();
 
   /**
-   * Sets the Server's {@link BackEnd}. Optional operation.
+   * Sets the Server's {@link BackEnd}.
    * @param back The BackEnd to use
    * @return <code>this</code>
-   * @throws UnsupportedOperationException if this operation is not supported
    */
   Server setBackEnd(BackEnd back);
 
   /**
    * Forwards the ask request to the BackEnd and returns the object that
-   * the back end returns. Optional operation.
+   * the back end returns.
    * @param key The key of the player asking the question
    * @param field The field the query should be applied to
    * @param value The value of the field
    * @return A response object or <code>null</code> if the query could
    *         not be processed by the BackEnd or no BackEnd exists.
-   * @throws UnsupportedOperationException if this operation is not supported
    */
   Object ask(Key key, String field, Map<String, String> value);
 }

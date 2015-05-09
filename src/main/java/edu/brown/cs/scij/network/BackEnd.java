@@ -11,7 +11,7 @@ import java.util.Map;
  * the values of objects, etc. Since multiple threads may attempt to access
  * this BackEnd simultaneously, it is best to synchronize the answer method
  * to the object itself to limit access to one thread at a time.
- * 
+ *
  * @author jbellavi
  */
 public interface BackEnd {
@@ -29,10 +29,10 @@ public interface BackEnd {
 
   /**
    * Optional operation that tells the Back end what server it is
-   * associated with.
+   * associated with. If this BackEnd does not require a Server, it should
+   * return quietly
    * @param s The Server
    * @return <code>this</code>
-   * @throws UnsupportedOperationException if this method is not supported
    */
   BackEnd setServer(Server s);
 }

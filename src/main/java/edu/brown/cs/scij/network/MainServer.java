@@ -46,7 +46,7 @@ public class MainServer implements Server {
 
   /**
    * Constructs a MainServer with the given {@link BackEnd}.
-   * 
+   *
    * @param back The BackEnd to use
    */
   public MainServer(BackEnd back) {
@@ -55,15 +55,15 @@ public class MainServer implements Server {
   }
 
   @Override
-  public MainServer setBackEnd(BackEnd back) {
-    this.back = back;
+  public MainServer setBackEnd(BackEnd setBack) {
+    this.back = setBack;
     return this;
   }
 
   /**
    * Makes this server talkative. It will print various status updates to
    * System.out.
-   * 
+   *
    * @return <code>this</code>
    */
   public MainServer talk() {
@@ -98,9 +98,6 @@ public class MainServer implements Server {
     synchronized (p) {
       p.incrementPingCount();
       p.setLastPing(serverTime);
-      if (talkative) {
-        // System.out.println("Player " + p.getId() + " pinged.");
-      }
       connect(p);
       return !p.isUpToDate();
     }
@@ -172,7 +169,7 @@ public class MainServer implements Server {
 
   /**
    * Notifies all players that a field has changed.
-   * 
+   *
    * @param field The field that has changed
    */
   private void notify(String field) {
@@ -248,7 +245,7 @@ public class MainServer implements Server {
 
   /**
    * Marks a player as connected and notifies clients who do not already know.
-   * 
+   *
    * @param p The player to mark as connected.
    */
   private void connect(NetworkPlayer p) {
@@ -311,7 +308,7 @@ public class MainServer implements Server {
   /**
    * Marks a player as disconnected and notifies clients who do not already
    * know.
-   * 
+   *
    * @param p The player to mark as disconnected.
    */
   private void disconnect(NetworkPlayer p) {
@@ -350,9 +347,6 @@ public class MainServer implements Server {
           System.out.println("Clock jumped.");
         }
         serverTime++;
-        if (talkative) {
-          // System.out.println("Clock: " + serverTime + ".");
-        }
         checkConnections();
       }
     }

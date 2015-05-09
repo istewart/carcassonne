@@ -9,6 +9,11 @@ import joptsimple.OptionException;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
+/**
+ * the main class for carcassonne.
+ * @author szellers
+ *
+ */
 public class Main {
 
   public static final int PORT = 4567;

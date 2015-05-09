@@ -408,42 +408,6 @@ public class Board {
         }
       }
     }
-
-//    } else if (d == Direction.CENTER) {
-//      feature = t.getCenter1().getFeature();
-//      if (t.getRight().getFeature() == feature) {
-//        t.getRight().setTouchesMeeple(true);
-//        Posn right = p.withX(p.getX() + 1);
-//        if (board.containsKey(right)) {
-//          board.get(right).getLeft().setTouchesMeeple(true);
-//          setTouchesMeeple(right, Direction.LEFT);
-//        }
-//      }
-//      if (t.getLeft().getFeature() == feature) {
-//        t.getLeft().setTouchesMeeple(true);
-//        Posn left = p.withX(p.getX() - 1);
-//        if (board.containsKey(left)) {
-//          board.get(left).getRight().setTouchesMeeple(true);
-//          setTouchesMeeple(left, Direction.RIGHT);
-//        }
-//      }
-//      if (t.getTop().getFeature() == feature) {
-//        t.getTop().setTouchesMeeple(true);
-//        Posn top = p.withY(p.getY() + 1);
-//        if (board.containsKey(top)) {
-//          board.get(top).getBottom().setTouchesMeeple(true);
-//          setTouchesMeeple(top, Direction.DOWN);
-//        }
-//      }
-//      if (t.getBottom().getFeature() == feature) {
-//        t.getBottom().setTouchesMeeple(true);
-//        Posn bottom = p.withY(p.getY() - 1);
-//        if (board.containsKey(bottom)) {
-//          board.get(bottom).getTop().setTouchesMeeple(true);
-//          setTouchesMeeple(bottom, Direction.UP);
-//        }
-//      }
-//    }
   }
 
   /**
@@ -493,6 +457,12 @@ public class Board {
     return validPosns;
   }
 
+  /**
+   * Returns a list of the possible directions on the tile a meeple could be placed on.
+   * @param p the posn the tile is on
+   * @return a list of meeple placement directions
+   * @throws NullTileException if the the tile isnt there
+   */
   public List<Direction> validMeeples(Posn p) throws NullTileException {
     Tile t = board.get(p);
     if (t == null) {

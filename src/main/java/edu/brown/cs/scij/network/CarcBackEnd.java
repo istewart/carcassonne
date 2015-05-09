@@ -27,6 +27,8 @@ public class CarcBackEnd implements BackEnd {
     this.r = r;
   }
 
+  public static final int MAX_PLAYERS = 4;
+
   @Override
   public synchronized Object answer(int player, String field,
       Map<String, String> val) {
@@ -73,7 +75,7 @@ public class CarcBackEnd implements BackEnd {
         break;
       case "newPlayer":
         players = r.getPlayers();
-        if (players.size() < 4) {
+        if (players.size() < MAX_PLAYERS) {
           String name = val.get("name");
           r.newPlayer(new Player(player, name));
           s.putField("players", players);
@@ -296,8 +298,8 @@ public class CarcBackEnd implements BackEnd {
   }
 
   @Override
-  public BackEnd setServer(Server s) {
-    this.s = s;
+  public BackEnd setServer(Server setS) {
+    this.s = setS;
     return this;
   }
 
