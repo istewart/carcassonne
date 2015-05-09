@@ -4,7 +4,7 @@ package edu.brown.cs.scij.tile;
  * Edge is an object that keeps track of an edge element of a tile. It
  * contains an Enum describing what type of edge is part of the tile, and the
  * meeple that is on it, if there is one.
- * 
+ *
  * @author scij
  *
  */

@@ -9,7 +9,7 @@ package edu.brown.cs.scij.tile;
 public class InvalidEdgeException extends Exception {
 
   /**
-   * Generated serialVersionUID
+   * Generated serialVersionUID.
    */
   private static final long serialVersionUID = 4080762199317524528L;
 
