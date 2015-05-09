@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableMap;
  * Simple example of the {@link Server} class. This one can handle all of the
  * basic requests a <code>Server</code> needs to handle, while simultaneously
  * testing for connectivity of clients.
- * 
+ *
  * @author  Joseph Bellavia
  */
 public class MainServer implements Server {
