@@ -6,7 +6,7 @@ package edu.brown.cs.scij.tile;
  *
  */
 public class Tile {
-  static int numTiles = 0;
+  private static int numTiles = 0;
   private final Center[] centers;
   private Edge top;
   private Edge bottom;
@@ -190,7 +190,7 @@ public class Tile {
   }
 
   /**
-   * getter for second center
+   * getter for second center.
    * @return centers[1]
    */
   public Center getCenter2() {

@@ -68,8 +68,7 @@ public abstract class TileFeature {
   }
 
   /**
-   * .getFeature()
-   * setter for touchesMeeple
+   * setter for touchesMeeple.
    * @param tm what to set touchesMeeple to
    */
   public void setTouchesMeeple(boolean tm) {
@@ -107,9 +106,9 @@ public abstract class TileFeature {
    * setter for isMeeplable.
    * @param feature what feature the meeple would be on.
    */
-  private void setIsMeeplable(Feature feature) {
-    if (feature == Feature.ENDPOINT || feature == Feature.RIVER
-        || feature == Feature.FIELD) {
+  private void setIsMeeplable(Feature f) {
+    if (f == Feature.ENDPOINT || f == Feature.RIVER
+        || f == Feature.FIELD) {
       isMeeplable = false;
     } else {
       isMeeplable = true;
