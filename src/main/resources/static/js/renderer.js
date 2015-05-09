@@ -1,16 +1,9 @@
-TILE_SIZE = 60;
-CANVAS_SIZE = 1000;
+TILE_SIZE = 100; // default tile size in canvas units
 
 MOVES_COLOR = "red";
 LINE_WIDTH = 3;
 
 var colors = ["maroon", "blue", "purple", "#003300" /* forest green */]; // player colors by id
-
-// TODO
-
-// get better tiles and graphics
-// README
-// DEBUG
 
 // Core rendering object which takes a variety of components of the game, an offset, and a scale
 // and renders the game board onto the canvas.
@@ -26,15 +19,10 @@ function Renderer(board, currTile, players, validMoves, validMeeples, scale, xt,
   this.yt = yt;
 
   this.mouseOver = false;
-  this.tileMouseOver = false;
-
-  console.log(this);
 }
 
 // Clears and re-renders the entire page.
 Renderer.prototype.render = function() {
-  console.log(this);
-
   var canvas = document.getElementById("mainCanvas");
   var ctx = canvas.getContext("2d");
 
@@ -328,7 +316,7 @@ Renderer.prototype.canvasToPos = function(canvasPos) {
 
 // Shades the move currently selected by the player.
 Renderer.prototype.shadeMove = function() {
-  if (!this.selectedTile) {
+  if (!this.selectedTile) { // no selected move
     return;
   }
 

@@ -1,4 +1,5 @@
 var PlacementButtons = function() {
+  // rotates the tile left on click
 	mainLeft.addEventListener("click", function(event) {
       network.ask("rotate",  {"rotate": "left"}, function(responseObject) {
         var currTile = responseObject.currTile;
@@ -14,6 +15,7 @@ var PlacementButtons = function() {
       });
     });
 
+  // rotates the tile right on click
   mainRight.addEventListener("click", function(event) {
       network.ask("rotate", {"rotate": "right"}, function(responseObject) {
         var currTile = responseObject.currTile;
@@ -29,8 +31,9 @@ var PlacementButtons = function() {
       });
     });
 
+  // places the tile on click
   mainPlace.addEventListener("click", function(event) {
-      if (!renderer.selectedTile) {
+      if (!renderer.selectedTile) { // no tile selected
         return;
       }
 
@@ -62,6 +65,7 @@ var PlacementButtons = function() {
       });
   });
 
+  // locks in the selected meeple placement
   mainMeeple.addEventListener("click", function(event) {
       if (!renderer.selectedMeeple) {
         alert("You don't have a meeple selected!");
@@ -100,6 +104,7 @@ var PlacementButtons = function() {
       });
   });
 
+  // skips meeple placement by sending a null meeple to the back end
   mainSkip.addEventListener("click", function(event) {
       var postParameters = {"meeple": null};
 
